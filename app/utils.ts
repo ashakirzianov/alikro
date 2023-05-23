@@ -20,7 +20,7 @@ export function assetDescription(asset: Asset) {
     return `${asset.title} (${asset.year}), ${asset.material}`
 }
 export function assetHref(asset: Asset) {
-    return `/work/${nameToUrlSegment(asset.name)}`
+    return `/works/${nameToUrlSegment(asset.name)}`
 }
 
 export function urlSegmentToName(segment: string) {
