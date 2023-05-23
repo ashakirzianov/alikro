@@ -31,7 +31,7 @@ export async function generateMetadata({ params: {name} }: Props) {
       twitter: {
         title, description,
       },
-    };
+    }
 }
 
 export default function Page({ params: { name } }: Props) {
