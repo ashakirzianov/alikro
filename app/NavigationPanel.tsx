@@ -6,52 +6,57 @@ import { useSelectedLayoutSegment } from 'next/navigation'
 export function NavigationPanel() {
     let segment = useSelectedLayoutSegment()
     return (
-        <nav className="flex flex-row flex-wrap text-accent text-4xl">
+        <nav className="flex flex-row flex-wrap text-accent text-4xl whitespace-nowrap">
             <NavigationLink
                 href="/"
                 title="Alikro"
-            />&nbsp;//&nbsp;
+                last
+            />{'//'}&nbsp;
             <NavigationLink title="Drawings"
                 href="/drawings"
                 selected={segment === 'drawings'}
-            />,&nbsp;
+            />
             <NavigationLink title="Illustrations"
                 href="/illustrations"
                 selected={segment === 'illustrations'}
-            />,&nbsp;
+            />
             <NavigationLink title="Paintings"
                 href="/paintings"
                 selected={segment === 'paintings'}
-            />,&nbsp;
+            />
             <NavigationLink title="Posters"
                 href="/posters"
                 selected={segment === 'posters'}
-            />,&nbsp;
+            />
             <NavigationLink title="Collages"
                 href="/collages"
                 selected={segment === 'collages'}
-            />,&nbsp;
+            />
             <NavigationLink title="Tattoos"
                 href="/tattoos"
                 selected={segment === 'tattoos'}
-            />,&nbsp;
+            />
             <NavigationLink title="About"
                 href="/about"
                 selected={segment === 'about'}
+                last
             />
         </nav>
     )
 }
 
 function NavigationLink({
-    href, title, selected, onClick,
+    href, title, selected, onClick, last
 }: {
     href: string,
     title: string,
     selected?: boolean,
     onClick?: () => void,
+    last?: boolean,
 }) {
-    return <Link href={href} className={`cursor-pointer ${selected ? 'underline' : 'hover:underline hover:decoration-dotted'} decoration-wavy`}>
-        {title}
-    </Link>
+    return <span>
+        <Link href={href} className={`cursor-pointer ${selected ? 'underline' : 'hover:underline hover:decoration-dotted'} decoration-wavy`}>
+            {title}
+        </Link>{last ? '' : ','}&nbsp;
+    </span>
 }
