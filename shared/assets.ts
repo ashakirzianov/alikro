@@ -234,7 +234,7 @@ export const assets: Asset[] = [{
 }, {
     kind: 'poster',
     name: 'love.jpeg',
-    title: 'LOVE',
+    title: 'Love (poster)',
     year: 2022,
     material: 'digital',
     size: '853x1280',
@@ -638,13 +638,6 @@ export const assets: Asset[] = [{
     material: 'hand poke',
     size: '3024x4032',
 }, {
-    kind: 'poster',
-    name: 'mano.png',
-    title: 'Estata la mano di Dio',
-    year: 2022,
-    material: 'digital',
-    size: '8268x11811',
-}, {
     kind: 'illustration',
     name: 'mess.png',
     title: 'Mess',
@@ -973,13 +966,6 @@ export const assets: Asset[] = [{
     year: 2015,
     material: 'paper cuttings, ink',
     size: '1400x1925',
-}, {
-    kind: 'collage',
-    name: 'have_a_good_one.jpg',
-    title: 'Have a good one!',
-    year: 2015,
-    material: 'paper cuttings, ink',
-    size: '1400x1018',
 }, {
     kind: 'collage',
     name: 'is_your_red.jpg',

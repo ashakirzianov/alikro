@@ -28,25 +28,13 @@ export function assetDescription(asset: Asset) {
     return `${asset.title} (${asset.year}), ${asset.material}`
 }
 export function assetHref(asset: Asset) {
-    return `/works/${nameToUrlSegment(asset.name)}`
+    return `/works/${assetSegment(asset)}`
 }
 export function assetSegment(asset: Asset) {
-    // Make title url-safe
-    return asset.title.replace(/[^a-zA-Z0-9]/g, '-')
+    return asset.title.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-')
 }
-
-export function urlSegmentToName(segment: string) {
-    // replace last occurance of '-' with '.'
-    const lastDash = segment.lastIndexOf('-')
-    if (lastDash === -1) {
-        return segment
-    } else {
-        return segment.substring(0, lastDash) + '.' + segment.substring(lastDash + 1)
-    }
-}
-
-export function nameToUrlSegment(name: string) {
-    return name.replace('.', '-')
+export function findAssetForSegment(assets: Asset[], segment: string) {
+    return assets.find((asset) => assetSegment(asset) === segment)
 }
 
 export function findDuplicates<T>(arr: T[], comparator: (a: T, b: T) => boolean): T[] {

@@ -1,12 +1,14 @@
 import { assets } from "@/shared/assets"
-import { assetAlt, assetDescription, assetHeight, assetSrc, assetWidth, urlSegmentToName } from "@/shared/utils"
+import {
+    assetAlt, assetDescription, assetHeight, assetSrc, assetWidth, 
+    findAssetForSegment,
+ } from "@/shared/utils"
 import Image from "next/image"
 
 export default function Page({ params: { name } }: {
     params: { name: string },
 }) {
-    let assetName = urlSegmentToName(name)
-    let asset = assets.find((asset) => asset.name === assetName)
+    let asset = findAssetForSegment(assets, name)
     if (asset === undefined) {
         return 'Not found'
     }

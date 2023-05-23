@@ -1,6 +1,6 @@
 'use client'
 import { assets } from "@/shared/assets"
-import { assetAlt, assetHeight, assetSrc, assetWidth, urlSegmentToName } from "@/shared/utils"
+import { assetAlt, assetHeight, assetSrc, assetWidth, findAssetForSegment } from "@/shared/utils"
 import { Modal } from "@/shared/Modal"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
@@ -12,8 +12,7 @@ export default function Page({ params: { name } }: {
 }) {
     let router = useRouter()
     let dismiss = () => router.back()
-    let assetName = urlSegmentToName(name)
-    let asset = assets.find((asset) => asset.name === assetName)
+    let asset = findAssetForSegment(assets, name)
     if (asset === undefined) {
         return 'Not found'
     }
