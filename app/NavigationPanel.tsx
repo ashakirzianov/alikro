@@ -4,13 +4,8 @@ import Link from "next/link"
 import { AssetKind } from "@/app/assets"
 import { useSelectedLayoutSegment } from 'next/navigation'
 
-export function Navigation() {
+export function NavigationPanel() {
     let segment = useSelectedLayoutSegment()
-    let kind: AssetKind | undefined = segment === 'drawings' ? 'drawing'
-        : segment === 'illustrations' ? 'illustration'
-            : segment === 'paintings' ? 'painting'
-                : segment === 'posters' ? 'poster'
-                    : undefined
     return (
         <nav className="flex flex-row flex-wrap text-lime-500 text-4xl">
             <NavigationLink
@@ -19,19 +14,23 @@ export function Navigation() {
             />&nbsp;—&nbsp;
             <NavigationLink title="Drawings"
                 href="/drawings"
-                selected={kind === 'drawing'}
+                selected={segment === 'drawings'}
             />,&nbsp;
             <NavigationLink title="Illustrations"
                 href="/illustrations"
-                selected={kind === 'illustration'}
+                selected={segment === 'illustrations'}
             />,&nbsp;
             <NavigationLink title="Paintings"
                 href="/paintings"
-                selected={kind === 'painting'}
+                selected={segment === 'paintings'}
             />,&nbsp;
             <NavigationLink title="Posters"
                 href="/posters"
-                selected={kind === 'poster'}
+                selected={segment === 'posters'}
+            />,&nbsp;
+            <NavigationLink title="About"
+                href="/about"
+                selected={segment === 'about'}
             />
         </nav>
     )
