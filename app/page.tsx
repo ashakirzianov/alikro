@@ -1,4 +1,4 @@
-import { assets } from "@/app/assets"
+import { assets } from "@/shared/assets"
 import { Gallery } from "@/app/Gallery"
 
 export default function Page() {
