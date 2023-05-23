@@ -2,13 +2,20 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import { NavigationPanel } from './NavigationPanel'
 import Script from 'next/script'
-import { Modal } from '@/shared/Modal'
+import { Metadata } from 'next'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
-  title: 'Alikro',
-  description: 'Personal page of Alikro',
+const title = 'Alikro'
+const description = 'Personal page of Alikro'
+export const metadata: Metadata = {
+  title, description,
+  openGraph: {
+    title, description,
+  },
+  twitter: {
+    title, description,
+  },
 }
 
 export default function RootLayout({
