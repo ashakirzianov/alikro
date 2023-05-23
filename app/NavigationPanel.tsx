@@ -1,7 +1,6 @@
 'use client'
 
 import Link from "next/link"
-import { AssetKind } from "@/app/assets"
 import { useSelectedLayoutSegment } from 'next/navigation'
 
 export function NavigationPanel() {
@@ -27,6 +26,14 @@ export function NavigationPanel() {
             <NavigationLink title="Posters"
                 href="/posters"
                 selected={segment === 'posters'}
+            />,&nbsp;
+            <NavigationLink title="Collages"
+                href="/collages"
+                selected={segment === 'collages'}
+            />,&nbsp;
+            <NavigationLink title="Tattoos"
+                href="/tattoos"
+                selected={segment === 'tattoos'}
             />,&nbsp;
             <NavigationLink title="About"
                 href="/about"

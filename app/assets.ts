@@ -304,7 +304,7 @@ export const assets: Asset[] = [{
     size: '853x1280',
 }, {
     kind: 'poster',
-    name: 'romeo&juliet.jpeg',
+    name: 'romeoandjuliet.jpeg',
     title: 'Romeo&Juliet',
     year: 2022,
     material: 'digital',
@@ -570,7 +570,7 @@ export const assets: Asset[] = [{
     size: '1644x1644',
 }, {
     kind: 'illustration',
-    name: 'feel_good_1_png',
+    name: 'feel_good_1.png',
     title: 'Feel good',
     year: 2023,
     material: 'digital',
@@ -625,7 +625,7 @@ export const assets: Asset[] = [{
     material: 'digital',
     size: '1644x1644',
 }, {
-    kind: 'illustration',
+    kind: 'tattoo',
     name: 'lion.png',
     title: 'Lion',
     year: 2023,
@@ -731,7 +731,7 @@ export const assets: Asset[] = [{
     size: '1644x1644',
 }, {
     kind: 'tattoo',
-    name: 'pigeon.png',
+    name: 'pigeon.JPG',
     title: 'Pigeon',
     year: 2022,
     material: 'hand poke',
@@ -899,7 +899,7 @@ export const assets: Asset[] = [{
     size: '962x729',
 }, {
     kind: 'collage',
-    name: 'ukraine_history_2.png',
+    name: 'ukraine_history_2.jpg',
     title: 'Ukraine history',
     year: 2022,
     material: 'digital',
@@ -920,14 +920,14 @@ export const assets: Asset[] = [{
     size: '542x1230',
 }, {
     kind: 'collage',
-    name: 'ukraine_history_5.png',
+    name: 'ukraine_history_5.jpg',
     title: 'Ukraine history',
     year: 2022,
     material: 'digital',
     size: '542x1230',
 }, {
     kind: 'collage',
-    name: 'ukraine_history_6.png',
+    name: 'ukraine_history_6.jpg',
     title: 'Ukraine history',
     year: 2022,
     material: 'digital',
@@ -997,8 +997,8 @@ export const assets: Asset[] = [{
     size: '1400x1925',
 }, {
     kind: 'collage',
-    name: 'just_dont_do_it',
-    title: 'Just don"t do it',
+    name: 'just_dont_do_it.jpg',
+    title: "Just don't do it",
     year: 2015,
     material: 'paper cuttings, ink',
     size: '1277x1314',
@@ -1032,8 +1032,8 @@ export const assets: Asset[] = [{
     size: '1400x1018',
 }, {
     kind: 'collage',
-    name: 'no_so_premium.jpg',
-    title: 'No so premium!',
+    name: 'not_so_premium.jpg',
+    title: 'Not so premium!',
     year: 2015,
     material: 'paper cuttings, ink',
     size: '1400x1018',
