@@ -1,7 +1,5 @@
-import { assets } from "@/shared/assets"
-import { Gallery } from "@/app/Gallery"
-import { assetsForKind } from "../../shared/utils"
+import { GalleryPage } from "@/app/Gallery"
 
 export default function Page() {
-    return <Gallery assets={assetsForKind(assets, 'drawing')} />
+    return <GalleryPage kind="drawing" />
 }

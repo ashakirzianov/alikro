@@ -1,9 +1,8 @@
 import { assets } from "@/shared/assets"
 import {
-    assetAlt, assetDescription, assetHeight, assetSegment, assetSrc, assetWidth, 
-    findAssetForSegment,
-    findDuplicates,
- } from "@/shared/utils"
+    assetAlt, assetDescription, assetHeight, assetSegment, assetSrc, assetWidth, findAssetForSegment,
+ } from "@/shared/assets"
+import { findDuplicates } from "@/shared/utils"
 import Image from "next/image"
 
 export async function generateStaticParams() {

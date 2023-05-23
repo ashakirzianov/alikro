@@ -1,10 +1,16 @@
 import Image from "next/image"
 import {
-    Asset, assetAlt, assetDescription, assetHeight, assetHref, assetSrc, assetWidth,
-} from "@/shared"
+    Asset, AssetKind, assetAlt, assetDescription, assetHeight, assetHref, assetSrc,assetWidth, assets, assetsForKind,
+} from "@/shared/assets"
 import Link from "next/link"
 
-export function Gallery({ assets }: {
+export function GalleryPage({kind}: {
+    kind: AssetKind,
+}) {
+    return <Gallery assets={assetsForKind(assets, kind)} />
+}
+
+ export function Gallery({ assets }: {
     assets: Asset[],
 }) {
     return (

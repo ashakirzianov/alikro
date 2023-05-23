@@ -1,6 +1,5 @@
 'use client'
-import { assets } from "@/shared/assets"
-import { assetAlt, assetHeight, assetSrc, assetWidth, findAssetForSegment } from "@/shared/utils"
+import { assets, assetAlt, assetHeight, assetSrc, assetWidth, findAssetForSegment } from "@/shared/assets"
 import { Modal } from "@/shared/Modal"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
