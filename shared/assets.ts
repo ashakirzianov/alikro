@@ -1128,4 +1128,25 @@ export const assets: Asset[] = [{
     year: 2021,
     material: 'ink and gouche on paper',
     size: '872x1240',
+}, {
+    kind: 'painting',
+    name: 'tiger_on_peace.jpg',
+    title: 'Tiger On Peace',
+    year: 2021,
+    material: 'ink and gouche on paper',
+    size: '850x1204',
+}, {
+    kind: 'painting',
+    name: 'tiger_on_pink.jpg',
+    title: 'Tiger On Pink',
+    year: 2021,
+    material: 'ink and gouche on paper',
+    size: '930x1330',
+}, {
+    kind: 'painting',
+    name: 'tiger_on_snow.jpg',
+    title: 'Tiger On Snow',
+    year: 2021,
+    material: 'ink and gouche on paper',
+    size: '854x1238',
 }]
