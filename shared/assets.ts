@@ -1121,4 +1121,11 @@ export const assets: Asset[] = [{
     year: 2015,
     material: 'paper cuttings, ink',
     size: '1400x1879',
+}, {
+    kind: 'painting',
+    name: 'tiger_on_green.jpg',
+    title: 'Tiger On Green',
+    year: 2021,
+    material: 'ink and gouche on paper',
+    size: '872x1240',
 }]
