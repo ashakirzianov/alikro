@@ -6,11 +6,11 @@ import { useSelectedLayoutSegment } from 'next/navigation'
 export function NavigationPanel() {
     let segment = useSelectedLayoutSegment()
     return (
-        <nav className="flex flex-row flex-wrap text-lime-500 text-4xl">
+        <nav className="flex flex-row flex-wrap text-accent text-4xl">
             <NavigationLink
                 href="/"
                 title="Alikro"
-            />&nbsp;—&nbsp;
+            />&nbsp;//&nbsp;
             <NavigationLink title="Drawings"
                 href="/drawings"
                 selected={segment === 'drawings'}
@@ -51,7 +51,7 @@ function NavigationLink({
     selected?: boolean,
     onClick?: () => void,
 }) {
-    return <Link href={href} className={`cursor-pointer ${selected ? 'line-through' : ''} hover:italic`}>
+    return <Link href={href} className={`cursor-pointer ${selected ? 'underline' : 'hover:underline hover:decoration-dotted'} decoration-wavy`}>
         {title}
     </Link>
 }

@@ -26,7 +26,7 @@ function Tile({ asset }: {
                 width={assetWidth(asset)}
                 height={assetHeight(asset)}
             />
-            <span className="hidden sm:flex text-xs text-lime-500">
+            <span className="hidden sm:flex text-xs text-accent">
                 {assetDescription(asset)}
             </span>
         </div>
