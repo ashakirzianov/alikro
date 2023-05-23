@@ -8,6 +8,34 @@ export type Asset = {
     material: string,
     size: AssetSize,
 }
+
+export function assetsForKind(assets: Asset[], kind: AssetKind) {
+    return assets.filter((asset) => asset.kind === kind)
+}
+export function assetSrc(asset: Asset) {
+    return `/${asset.name}`
+}
+export function assetAlt(asset: Asset) {
+    return `${asset.title} (${asset.year})`
+}
+export function assetWidth(asset: Asset) {
+    return asset.size ? parseInt(asset.size.split('x')[0]) : 300
+}
+export function assetHeight(asset: Asset) {
+    return asset.size ? parseInt(asset.size.split('x')[1]) : 300
+}
+export function assetDescription(asset: Asset) {
+    return `${asset.title} (${asset.year}), ${asset.material}`
+}
+export function assetHref(asset: Asset) {
+    return `/works/${assetSegment(asset)}`
+}
+export function assetSegment(asset: Asset) {
+    return asset.title.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-')
+}
+export function findAssetForSegment(assets: Asset[], segment: string) {
+    return assets.find((asset) => assetSegment(asset) === segment)
+}
 export const assets: Asset[] = [{
     kind: 'drawing',
     name: 'dog.png',
@@ -242,7 +270,7 @@ export const assets: Asset[] = [{
 }, {
     kind: 'poster',
     name: 'love.jpeg',
-    title: 'LOVE',
+    title: 'Love (poster)',
     year: 2022,
     material: 'digital',
     size: '853x1280',
@@ -452,7 +480,7 @@ export const assets: Asset[] = [{
 }, {
     kind: 'tattoo',
     name: 'bird_2.png',
-    title: 'Bird',
+    title: 'Bird #2',
     year: 2023,
     material: 'hand poke',
     size: '3024x4032',
@@ -494,28 +522,28 @@ export const assets: Asset[] = [{
 }, {
     kind: 'collage',
     name: 'cinema_1.png',
-    title: 'Cinema',
+    title: 'Cinema #1',
     year: 2023,
     material: 'digital',
     size: '3840x2160',
 }, {
     kind: 'collage',
     name: 'cinema_2.png',
-    title: 'Cinema',
+    title: 'Cinema #2',
     year: 2023,
     material: 'digital',
     size: '3840x2160',
 }, {
     kind: 'collage',
     name: 'cinema_3.png',
-    title: 'Cinema',
+    title: 'Cinema #3',
     year: 2023,
     material: 'digital',
     size: '3840x2160',
 }, {
     kind: 'collage',
     name: 'cinema_4.png',
-    title: 'Cinema',
+    title: 'Cinema #4',
     year: 2023,
     material: 'digital',
     size: '3840x2160',
@@ -646,13 +674,6 @@ export const assets: Asset[] = [{
     material: 'hand poke',
     size: '3024x4032',
 }, {
-    kind: 'poster',
-    name: 'mano.png',
-    title: 'Estata la mano di Dio',
-    year: 2022,
-    material: 'digital',
-    size: '8268x11811',
-}, {
     kind: 'illustration',
     name: 'mess.png',
     title: 'Mess',
@@ -690,28 +711,28 @@ export const assets: Asset[] = [{
 }, {
     kind: 'collage',
     name: 'music_2.png',
-    title: 'Music',
+    title: 'Music #1',
     year: 2022,
     material: 'digital',
     size: '3840x2160',
 }, {
     kind: 'collage',
     name: 'music_3_2.png',
-    title: 'Music',
+    title: 'Music #2',
     year: 2022,
     material: 'digital',
     size: '3840x2160',
 }, {
     kind: 'collage',
     name: 'music_4_2.png',
-    title: 'Music',
+    title: 'Music #3',
     year: 2022,
     material: 'digital',
     size: '3840x2160',
 }, {
     kind: 'collage',
     name: 'music_5.png',
-    title: 'Music',
+    title: 'Music #4',
     year: 2022,
     material: 'digital',
     size: '3840x2160',
@@ -809,7 +830,7 @@ export const assets: Asset[] = [{
 }, {
     kind: 'illustration',
     name: 'star_brain.png',
-    title: 'Brain',
+    title: 'Star Brain',
     year: 2023,
     material: 'digital',
     size: '1644x1644',
@@ -823,14 +844,14 @@ export const assets: Asset[] = [{
 }, {
     kind: 'illustration',
     name: 'stress_1.png',
-    title: 'Stress',
+    title: 'Stress #1',
     year: 2023,
     material: 'digital',
     size: '1644x1644',
 }, {
     kind: 'illustration',
-    name: 'stress.png',
-    title: 'Stress',
+    name: 'stress_2.png',
+    title: 'Stress #2',
     year: 2023,
     material: 'digital',
     size: '1644x1644',
@@ -893,63 +914,63 @@ export const assets: Asset[] = [{
 }, {
     kind: 'collage',
     name: 'ukraine_history_1.png',
-    title: 'Ukraine history',
+    title: 'Ukrainian History #1',
     year: 2022,
     material: 'digital',
     size: '962x729',
 }, {
     kind: 'collage',
     name: 'ukraine_history_2.jpg',
-    title: 'Ukraine history',
+    title: 'Ukrainian History #2',
     year: 2022,
     material: 'digital',
     size: '962x729',
 }, {
     kind: 'collage',
     name: 'ukraine_history_3.png',
-    title: 'Ukraine history',
+    title: 'Ukrainian History #3',
     year: 2022,
     material: 'digital',
     size: '460x535',
 }, {
     kind: 'collage',
     name: 'ukraine_history_4.png',
-    title: 'Ukraine history',
+    title: 'Ukrainian History #4',
     year: 2022,
     material: 'digital',
     size: '542x1230',
 }, {
     kind: 'collage',
     name: 'ukraine_history_5.jpg',
-    title: 'Ukraine history',
+    title: 'Ukrainian History #5',
     year: 2022,
     material: 'digital',
     size: '542x1230',
 }, {
     kind: 'collage',
     name: 'ukraine_history_6.jpg',
-    title: 'Ukraine history',
+    title: 'Ukrainian History #6',
     year: 2022,
     material: 'digital',
     size: '460x535',
 }, {
     kind: 'illustration',
     name: 'Walking_Meditation.PNG',
-    title: 'Walking meditation',
+    title: 'Walking Meditation',
     year: 2023,
     material: 'digital',
     size: '1656x1318',
 }, {
     kind: 'collage',
-    name: '10_grn.jpg',
-    title: '10 hryvnias',
+    name: '10_hrn.jpg',
+    title: '10 Hryvnias',
     year: 2015,
     material: 'paper cuttings, ink',
     size: '1400x1018',
 }, {
     kind: 'collage',
     name: 'all_cats.jpg',
-    title: 'All cats',
+    title: 'All Cats',
     year: 2015,
     material: 'paper cuttings, ink',
     size: '1400x1018',
@@ -981,13 +1002,6 @@ export const assets: Asset[] = [{
     year: 2015,
     material: 'paper cuttings, ink',
     size: '1400x1925',
-}, {
-    kind: 'collage',
-    name: 'have_a_good_one.jpg',
-    title: 'Have a good one!',
-    year: 2015,
-    material: 'paper cuttings, ink',
-    size: '1400x1018',
 }, {
     kind: 'collage',
     name: 'is_your_red.jpg',

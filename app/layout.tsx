@@ -2,18 +2,27 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import { NavigationPanel } from './NavigationPanel'
 import Script from 'next/script'
+import { Metadata } from 'next'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
-  title: 'Alikro',
-  description: 'Personal page of Alikro',
+const title = 'Alikro'
+const description = 'Personal page of Alikro'
+export const metadata: Metadata = {
+  title, description,
+  openGraph: {
+    title, description,
+  },
+  twitter: {
+    title, description,
+  },
 }
 
 export default function RootLayout({
-  children,
+  children, modal,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
+  modal?: React.ReactNode,
 }) {
   return (
     <html lang="en">
@@ -33,6 +42,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <main>
           <NavigationPanel />
+          {modal}
           {children}
         </main>
       </body>
