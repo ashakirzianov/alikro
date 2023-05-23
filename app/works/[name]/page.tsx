@@ -1,5 +1,5 @@
 import { assets } from "@/shared/assets"
-import { assetAlt, assetHeight, assetSrc, assetWidth, urlSegmentToName } from "@/shared/utils"
+import { assetAlt, assetDescription, assetHeight, assetSrc, assetWidth, urlSegmentToName } from "@/shared/utils"
 import Image from "next/image"
 
 export default function Page({ params: { name } }: {
@@ -10,7 +10,7 @@ export default function Page({ params: { name } }: {
     if (asset === undefined) {
         return 'Not found'
     }
-    return <div>
+    return <div className="flex flex-col justify-center">
         <Image
             style={{
                 maxHeight: '100vh',
@@ -20,5 +20,8 @@ export default function Page({ params: { name } }: {
             width={assetWidth(asset)}
             height={assetHeight(asset)}
         />
+        <div className="flex text-m text-accent self-center p-2">
+                {assetDescription(asset)}
+        </div>
     </div>
 }
