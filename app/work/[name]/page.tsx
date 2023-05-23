@@ -15,6 +15,9 @@ export default function Page({ params: { name } }: {
     }
     return <div>
         <Image
+            style={{
+                maxHeight: '100vh',
+            }}
             src={assetSrc(asset)}
             alt={assetAlt(asset)}
             width={assetWidth(asset)}
