@@ -1,5 +1,5 @@
-import { assets } from "@/app/assets"
-import { assetAlt, assetHeight, assetSrc, assetWidth, urlSegmentToName } from "@/app/utils"
+import { assets } from "@/shared/assets"
+import { assetAlt, assetHeight, assetSrc, assetWidth, urlSegmentToName } from "@/shared/utils"
 import Image from "next/image"
 
 export default function Page({ params: { name } }: {

@@ -1,6 +1,6 @@
 import Image from "next/image"
-import { Asset } from "./assets"
-import { assetAlt, assetDescription, assetHeight, assetHref, assetSrc, assetWidth } from "./utils"
+import { Asset } from "@/shared/assets"
+import { assetAlt, assetDescription, assetHeight, assetHref, assetSrc, assetWidth } from "../shared/utils"
 import Link from "next/link"
 
 export function Gallery({ assets }: {
