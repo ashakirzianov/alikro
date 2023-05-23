@@ -1,9 +1,21 @@
 import { assets } from "@/shared/assets"
 import {
-    assetAlt, assetDescription, assetHeight, assetSrc, assetWidth, 
+    assetAlt, assetDescription, assetHeight, assetSegment, assetSrc, assetWidth, 
     findAssetForSegment,
+    findDuplicates,
  } from "@/shared/utils"
 import Image from "next/image"
+
+export async function generateStaticParams() {
+    let segments = assets.map((asset) => assetSegment(asset))
+    let dups = findDuplicates(segments, (a, b) => a === b)
+    if (dups.length > 0) {
+        console.error(`Duplicate asset segments: ${dups.join(', ')}`)
+    }
+    return segments.map((segment) => ({
+        name: segment,
+    }))
+}
 
 export default function Page({ params: { name } }: {
     params: { name: string },
