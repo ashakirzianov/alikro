@@ -8,7 +8,7 @@ export type Asset = {
     material: string,
     size: AssetSize,
 }
-export const assets: Asset[] = [{
+const allAssets: Asset[] = [{
     kind: 'drawing',
     name: 'dog.png',
     title: 'Dog',
@@ -331,3 +331,5 @@ export const assets: Asset[] = [{
     material: 'digital',
     size: '1000x1000',
 }]
+
+export const assets = allAssets.filter(asset => !asset.name.endsWith('.HEIC'))
