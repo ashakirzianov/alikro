@@ -1,24 +1,29 @@
+'use client'
 import { assets } from "@/app/assets"
 import { assetAlt, assetHeight, assetSrc, assetWidth, urlSegmentToName } from "@/app/utils"
+import { Modal } from "@/shared/Modal"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
+import React from "react"
+
 
 export default function Page({ params: { name } }: {
     params: { name: string },
 }) {
+    let router = useRouter()
+    let dismiss = () => router.back()
     let assetName = urlSegmentToName(name)
     let asset = assets.find((asset) => asset.name === assetName)
     if (asset === undefined) {
         return 'Not found'
     }
-    return <div>
+    return <Modal onDismiss={dismiss}>
         <Image
-            style={{
-                maxHeight: '100vh',
-            }}
             src={assetSrc(asset)}
             alt={assetAlt(asset)}
             width={assetWidth(asset)}
             height={assetHeight(asset)}
+            onClick={dismiss}
         />
-    </div>
+    </Modal>
 }

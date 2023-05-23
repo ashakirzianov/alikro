@@ -2,6 +2,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import { NavigationPanel } from './NavigationPanel'
 import Script from 'next/script'
+import { Modal } from '@/shared/Modal'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,9 +12,10 @@ export const metadata = {
 }
 
 export default function RootLayout({
-  children,
+  children, modal,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
+  modal?: React.ReactNode,
 }) {
   return (
     <html lang="en">
@@ -33,6 +35,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <main>
           <NavigationPanel />
+          {modal}
           {children}
         </main>
       </body>
