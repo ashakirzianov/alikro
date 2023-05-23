@@ -7,7 +7,7 @@ export function Gallery({ assets }: {
     assets: Asset[],
 }) {
     return (
-        <div className="columns-4">
+        <div className="columns-3 sm:columns-4">
             {assets.map((asset) => (
                 <Tile key={asset.name} asset={asset} />
             ))}
@@ -26,7 +26,7 @@ function Tile({ asset }: {
                 width={assetWidth(asset)}
                 height={assetHeight(asset)}
             />
-            <span className="text-xs text-lime-500">
+            <span className="hidden sm:flex text-xs text-lime-500">
                 {assetDescription(asset)}
             </span>
         </div>
