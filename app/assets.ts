@@ -210,7 +210,7 @@ export const assets: Asset[] = [{
     title: 'Kyiv',
     year: 2022,
     material: 'mixed technique',
-    size: '8269x11811',
+    size: '8268x11811',
 }, {
     kind: 'poster',
     name: 'LA.jpeg',
@@ -224,7 +224,7 @@ export const assets: Asset[] = [{
     title: 'LACMA',
     year: 2022,
     material: 'digital',
-    size: '8269x11811',
+    size: '8268x11811',
 }, {
     kind: 'poster',
     name: 'les_miserables.jpeg',
