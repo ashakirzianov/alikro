@@ -1,5 +1,4 @@
 'use client'
-
 import Link from "next/link"
 import { useSelectedLayoutSegment } from 'next/navigation'
 
@@ -46,12 +45,11 @@ export function NavigationPanel() {
 }
 
 function NavigationLink({
-    href, title, selected, onClick, last
+    href, title, selected, last
 }: {
     href: string,
     title: string,
     selected?: boolean,
-    onClick?: () => void,
     last?: boolean,
 }) {
     return <span>
