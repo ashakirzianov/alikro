@@ -21,6 +21,11 @@ export function WorkModal({ asset }: {
                 objectFit: 'contain',
                 maxWidth: '100vw',
                 maxHeight: '100vh',
+                cursor: 'default',
+                userSelect: 'none',
+                WebkitUserSelect: 'none',
+                MozUserSelect: 'none',
+                msUserSelect: 'none',
             }}
         />
     </Modal>

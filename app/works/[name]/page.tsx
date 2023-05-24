@@ -49,6 +49,11 @@ export default function Page({ params: { name } }: Props) {
                 objectFit: 'contain',
                 maxWidth: '100vw',
                 maxHeight: '100vh',
+                cursor: 'default',
+                userSelect: 'none',
+                WebkitUserSelect: 'none',
+                MozUserSelect: 'none',
+                msUserSelect: 'none',
             }}
         />
         <div className="flex text-m text-accent p-2">
