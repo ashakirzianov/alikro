@@ -5,7 +5,7 @@ import { useSelectedLayoutSegment } from 'next/navigation'
 export function NavigationPanel() {
     let segment = useSelectedLayoutSegment()
     return (
-        <nav className="flex flex-row flex-wrap text-accent text-4xl whitespace-nowrap pb-2">
+        <nav className="flex flex-row flex-wrap text-accent text-5xl whitespace-nowrap pb-2">
             <NavigationLink
                 href="/"
                 title="Alikro"
