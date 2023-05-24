@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 import React from "react"
 
 export function WorkModal({ asset }: {
-  asset: Asset,
+    asset: Asset,
 }) {
     let router = useRouter()
     let dismiss = () => router.back()
@@ -17,6 +17,11 @@ export function WorkModal({ asset }: {
             width={assetWidth(asset)}
             height={assetHeight(asset)}
             onClick={dismiss}
+            style={{
+                objectFit: 'contain',
+                maxWidth: '100vw',
+                maxHeight: '100vh',
+            }}
         />
     </Modal>
 }
