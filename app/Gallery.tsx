@@ -33,7 +33,6 @@ function Tile({ asset }: {
                 width={assetWidth(asset)}
                 height={assetHeight(asset)}
                 style={{
-                    cursor: 'default',
                     userSelect: 'none',
                     WebkitUserSelect: 'none',
                     MozUserSelect: 'none',
