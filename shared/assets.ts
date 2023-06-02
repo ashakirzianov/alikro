@@ -49,14 +49,14 @@ export const assets: Asset[] = [{
     title: 'In Bruges',
     year: 2022,
     material: 'gouache on paper, digital',
-    size: '8268x118111',
+    size: '8268x11811',
 }, {
     kind: 'poster',
     name: 'contra_spem_spero!.png',
     title: 'Contra spem spero!',
     year: 2022,
     material: 'digital',
-    size: '8268x118111',
+    size: '8268x11811',
 }, {
     kind: 'illustration',
     name: 'officer.png',
