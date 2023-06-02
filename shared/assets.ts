@@ -1489,7 +1489,7 @@ export const assets: Asset[] = [{
 }, {
     kind: 'painting',
     name: 'tiger_on_peace.jpg',
-    title: 'Tiger on Pease',
+    title: 'Tiger on Peas',
     year: 2021,
     material: 'ink on paper',
     size: '850x1204',
