@@ -1165,7 +1165,7 @@ export const assets: Asset[] = [{
     size: '3024x4032',
 }, {
     kind: 'drawing',
-    name: 'beach.jpg",
+    name: 'beach.jpg',
     title: 'Beach',
     year: 2022,
     material: 'marker on paper',
@@ -1317,7 +1317,7 @@ export const assets: Asset[] = [{
     year: 2023,
     material: 'acrylic on canvas',
     size: '2640x3464',
-}{
+}, {
     kind: 'illustration',
     name: 'my_city.PNG',
     title: 'My City',
@@ -1349,7 +1349,7 @@ export const assets: Asset[] = [{
     kind: 'tattoo',
     name: 'pin_pong.JPG',
     title: 'Pin-Pong',
-    year: '2023',
+    year: 2023,
     material: 'hand poke',
     size: '1440x1800',
 }, {
@@ -1412,7 +1412,7 @@ export const assets: Asset[] = [{
     kind: 'painting',
     name: 'self_portrait_color.jpg',
     title: 'Self Portrait in Color',
-    year: '2023',
+    year: 2023,
     material: 'acrylic on paper',
     size: '1984x3115',
 }, {
