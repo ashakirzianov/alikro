@@ -2141,7 +2141,7 @@ export const assets: Asset[] = [{
 }, {
     kind: 'poster',
     name: 'Green_Theatre_opening.png',
-    title: 'Green Theatre Opening'
+    title: 'Green Theatre Opening',
     year: 2019,
     material: 'digtal',
     size: '2480x3508',
