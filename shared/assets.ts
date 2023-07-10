@@ -1134,7 +1134,7 @@ export const assets: Asset[] = [{
     title: 'After Illness Selfportrait Color.png',
     year: 2023,
     material: 'gouache on paper',
-    size: '2386x339',
+    size: '2386x3339',
 }, {
     kind: 'painting',
     name: 'after_illness_selfportrait_dark.png',
