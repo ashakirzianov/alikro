@@ -119,7 +119,7 @@ export const assets: Asset[] = [{
     title: 'Flower 1',
     year: 2023,
     material: 'gouache on paper',
-    size: '2433x2367',
+    size: '2433x2258',
 }, {
     kind: 'painting',
     name: 'Flower_2.png',
@@ -1656,7 +1656,7 @@ export const assets: Asset[] = [{
     size: '1920x2400',
 }, {
     kind: 'poster',
-    name: 'alfabet.jbg',
+    name: 'alphabet.jpg',
     title: 'Alphabet',
     year: 2015,
     material: 'digital',
@@ -1749,7 +1749,7 @@ export const assets: Asset[] = [{
 }, {
     kind: 'poster',
     name: 'big_childrens_day.png',
-    title: 'Big Childtrens Day',
+    title: 'Big Childrens Day',
     year: 2018,
     material: 'digital',
     size: '2480x3508',
@@ -2777,14 +2777,14 @@ export const assets: Asset[] = [{
     size: '2000x1414',
 }, {
     kind: 'illustration',
-    name: 'vsi_svoi_2.png',
+    name: 'Vsi_svoi_2.png',
     title: 'Vsi Svoi 2',
     year: 2018,
     material: 'digital',
     size: '2000x1414',
 }, {
     kind: 'illustration',
-    name: 'vsi_svoi_3.png',
+    name: 'Vsi_svoi_3.png',
     title: 'Vsi Svoi 3',
     year: 2018,
     material: 'digital',
