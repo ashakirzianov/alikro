@@ -10,9 +10,9 @@ export default function About() {
             If you resonate with a particular piece or would like to add my artwork to your collection, please don&apos;t hesitate to reach out. I offer a selection of original artworks and limited-edition prints for art enthusiasts and collectors. Owning a piece of art is not only a visual delight but also a way to support and encourage artists on their creative journey.
             <br /><br />
             Feel free to contact me if you have any questions, feedback, or if you&apos;d like to discuss collaborations.
-        </div>
-        <div className="flex grow self-center">
-            <SocialLinks />
+            <div className="py-4 flex flex-col items-start grow">
+                <SocialLinks />
+            </div>
         </div>
     </div>
 }
@@ -31,6 +31,6 @@ function IconLink({ href, src, alt }: {
     alt: string,
 }) {
     return <Link href={href}>
-        <Image src={src} width={64} height={64} alt={alt} />
+        <Image src={src} width={32} height={32} alt={alt} />
     </Link>
 }
