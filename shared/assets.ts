@@ -1127,7 +1127,7 @@ export const assets: Asset[] = [{
     title: 'Tiger On Green',
     year: 2021,
     material: 'ink and gouche on paper',
-    size: '872x1240',
+    size: '843x1203',
 }, {
     kind: 'painting',
     name: 'after_illness_selfportrait_color.png',
