@@ -1,16 +1,62 @@
-import { Asset, assetAlt, assetHeight, assetSrc, assetWidth, assets } from "@/shared/assets"
+import { Asset, assetAlt, assetHeight, assetSrc, assetWidth, assets, assetsForKind } from "@/shared/assets"
 import { unique } from "@/shared/utils"
 import Image from "next/image"
-import { CSSProperties } from "react"
+import React, { CSSProperties } from "react"
 
 export default function Page() {
-    return <ColorSlide
-        assets={assets}
-        color="white"
-        background="hsl(300 100% 50% / 1)"
-        title="I am Alikro, an artist."
-        text="I do digital illustrations, paintings, drawings, tattoos, you name it."
-    />
+    return <Slider>
+        <ColorSlide
+            assets={assets}
+            color="white"
+            background="hsl(300 100% 50% / 0.8)"
+            title="I am Alikro, an artist."
+            text="I do digital illustrations, paintings, drawings, tattoos, you name it."
+        />
+        <ColorSlide
+            assets={assetsForKind(assets, 'illustration')}
+            color="white"
+            background="hsl(120 100% 50% / 0.8)"
+            title="Illustrations."
+            text="I've been doing professional illustration for about 10 years now."
+        />
+        <ColorSlide
+            assets={assetsForKind(assets, 'tattoo')}
+            color="white"
+            background="hsl(40 100% 50% / 0.8)"
+            title="Tattoos."
+            text="I started tattoo fairly recently, just over a year ago, and it's a lot of fun! I am thrilled to put my art on people's skin."
+        />
+        <ColorSlide
+            assets={assetsForKind(assets, 'collage')}
+            color="white"
+            background="hsl(210 100% 50% / 0.8)"
+            title="Collages."
+            text="Ever since I was in a kindergarden and glued some pieces together I enjoyed making collages."
+        />
+    </Slider>
+}
+
+function Slider({ children }: {
+    children: React.ReactNode[],
+}) {
+    return <div style={{
+        scrollSnapType: 'y mandatory',
+        height: '100vh',
+        maxHeight: '100vh',
+        overflowX: 'hidden',
+        overflowY: 'auto',
+        scrollPaddingTop: '0vh',
+    }}>
+        {React.Children.map(children, (child, idx) =>
+            <section key={idx} style={{
+                scrollSnapAlign: 'start',
+                scrollSnapStop: 'always',
+                width: '100vw',
+                height: '100vh',
+            }}>
+                {child}
+            </section>)}
+    </div>
 }
 
 function ColorSlide({
@@ -31,6 +77,8 @@ function ColorSlide({
             display: 'flex',
             justifyContent: 'flex-end',
             width: '100%',
+            height: '100%',
+            // border: `5px solid ${background}`,
         }}>
             <div className="pr-[0vw] py-[30vh]">
                 <span style={{
@@ -39,7 +87,10 @@ function ColorSlide({
                     fontSize: '10vw',
                 }}>{title}</span>
                 <br />
-                <span style={textStyle}>{text}</span>
+                <span style={{
+                    ...textStyle,
+                    fontSize: '3vw',
+                }}>{text}</span>
             </div>
         </div>
     </Slide>
@@ -50,9 +101,14 @@ function Slide({ assets, Layout, children }: {
     children?: React.ReactNode,
     Layout: React.ComponentType<{ children: React.ReactNode[] }>,
 }) {
-    return <div>
+    return <div style={{
+        display: 'grid',
+        width: '100vw',
+        height: '100vh',
+        overflow: 'hidden',
+    }}>
         <div style={{
-            position: 'absolute',
+            gridArea: '1 / 1 / 2 / 2',
             width: '100vw',
             height: '100vh',
         }}>
@@ -74,11 +130,9 @@ function Slide({ assets, Layout, children }: {
             </Layout>
         </div>
         <div style={{
-            position: 'absolute',
-            display: 'flex',
+            gridArea: '1 / 1 / 2 / 2',
             width: '100vw',
             height: '100vh',
-            zIndex: 2,
         }}>
             {children}
         </div>
@@ -119,7 +173,8 @@ function GridLayout({ template, children }: {
         gridTemplateColumns: `repeat(${cols}, 1fr)`,
         gridTemplateRows: `repeat(${rows}, 1fr)`,
         gridTemplateAreas,
-        height: '100vh',
+        height: '100%',
+        width: '100%',
         overflow: 'hidden',
     }}>
         {
