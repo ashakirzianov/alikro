@@ -928,6 +928,7 @@ export const assets: Asset[] = [{
     year: 2023,
     material: 'gouache on paper',
     size: '2386x3339',
+    tags: ['selfportrait'],
 }, {
     kind: 'painting',
     name: 'after_illness_selfportrait_dark.png',
@@ -935,6 +936,7 @@ export const assets: Asset[] = [{
     year: 2023,
     material: 'gouache on paper',
     size: '2228x3078',
+    tags: ['selfportrait'],
 }, {
     kind: 'illustration',
     name: 'antiseptic.JPG',
@@ -1236,6 +1238,7 @@ export const assets: Asset[] = [{
     year: 2022,
     material: 'acrylic on paper',
     size: '1212x1176',
+    tags: ['selfportrait'],
 }, {
     kind: 'drawing',
     name: 'Gogen_girl.jpg',
@@ -1334,6 +1337,7 @@ export const assets: Asset[] = [{
     year: 2023,
     material: 'charcoal on paper',
     size: '1829x2569',
+    tags: ['selfportrait'],
 }, {
     kind: 'drawing',
     name: 'parrot.png',
@@ -1404,6 +1408,7 @@ export const assets: Asset[] = [{
     year: 2022,
     material: 'charcoal on paper',
     size: '2890x2268',
+    tags: ['selfportrait'],
 }, {
     kind: 'painting',
     name: 'self_portrait_color.jpg',
@@ -1411,6 +1416,7 @@ export const assets: Asset[] = [{
     year: 2023,
     material: 'acrylic on paper',
     size: '1984x3115',
+    tags: ['selfportrait'],
 }, {
     kind: 'illustration',
     name: 'self_portrait_on_a_chair.JPG',
@@ -1418,6 +1424,7 @@ export const assets: Asset[] = [{
     year: 2020,
     material: 'digital',
     size: '2048x2048',
+    tags: ['selfportrait'],
 }, {
 
     kind: 'drawing',
@@ -1461,6 +1468,7 @@ export const assets: Asset[] = [{
     year: 2022,
     material: 'acrylic on paper',
     size: '2262x2321',
+    tags: ['selfportrait'],
 }, {
     kind: 'painting',
     name: 'The_Color_of_Pomegranates.png',
@@ -1959,6 +1967,7 @@ export const assets: Asset[] = [{
     year: 2020,
     material: 'digital',
     size: '1400x1400',
+    tags: ['selfportrait'],
 }, {
     kind: 'poster',
     name: 'dakh_dauters.png',
@@ -2267,6 +2276,7 @@ export const assets: Asset[] = [{
     year: 2020,
     material: 'digital',
     size: '2800x359',
+    tags: ['selfportrait'],
 }, {
     kind: 'illustration',
     name: 'looking_for_IT.png',
@@ -2578,7 +2588,7 @@ export const assets: Asset[] = [{
 }, {
     kind: 'illustration',
     name: 'self_employed.png',
-    title: 'Self Employed',
+    title: 'Self-Employed',
     year: 2020,
     material: 'digital',
     size: '1920x1176',

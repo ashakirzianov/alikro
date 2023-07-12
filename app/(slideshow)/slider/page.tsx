@@ -1,4 +1,4 @@
-import { Asset, assetAlt, assetHeight, assetSrc, assetWidth, assets, assetsForKind } from "@/shared/assets"
+import { Asset, assetAlt, assetHeight, assetSrc, assetWidth, assets, assetsForKind, assetsForTags } from "@/shared/assets"
 import { unique } from "@/shared/utils"
 import Image from "next/image"
 import React, { CSSProperties } from "react"
@@ -17,7 +17,7 @@ export default function Page() {
 
 function MainSlide() {
     return <ColorSlide
-        assets={assets}
+        assets={assetsForTags(assets, 'selfportrait')}
         color="white"
         background="hsl(300 100% 50% / 0.8)"
         title="I am Alikro, an artist."
