@@ -1,4 +1,5 @@
 export type AssetKind = 'drawing' | 'illustration' | 'painting' | 'poster' | 'hidden' | 'collage' | 'tattoo'
+export type AssetTag = 'selfportrait' | 'favorite'
 export type AssetSize = `${number}x${number}`
 export type Asset = {
     kind: AssetKind,
@@ -7,6 +8,15 @@ export type Asset = {
     year: number,
     material: string,
     size: AssetSize,
+    tags?: AssetTag[],
+}
+
+export function assetsForTags(assets: Asset[], ...tags: (AssetTag | AssetKind)[]) {
+    return assets.filter((asset) =>
+        tags.some(
+            (tag) => asset.tags?.includes(tag as AssetTag) || asset.kind === tag
+        )
+    )
 }
 
 export function assetsForKind(assets: Asset[], kind: AssetKind) {
