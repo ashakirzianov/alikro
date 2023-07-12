@@ -1,31 +1,88 @@
 import { Asset, assetAlt, assetHeight, assetSrc, assetWidth, assets } from "@/shared/assets"
 import { unique } from "@/shared/utils"
 import Image from "next/image"
+import { CSSProperties } from "react"
 
 export default function Page() {
-    return <Slide assets={assets} Layout={PrettyLayout} />
+    return <ColorSlide
+        assets={assets}
+        color="white"
+        background="hsl(300 100% 50% / 1)"
+        title="I am Alikro, an artist."
+        text="I do digital illustrations, paintings, drawings, tattoos, you name it."
+    />
 }
 
-function Slide({ Layout }: {
+function ColorSlide({
+    assets, color, background, title, text,
+}: {
     assets: Asset[],
+    color: string,
+    background: string,
+    title: string,
+    text: string,
+}) {
+    const textStyle: CSSProperties = {
+        background,
+        color,
+    }
+    return <Slide assets={assets} Layout={PrettyLayout}>
+        <div style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            width: '100%',
+        }}>
+            <div className="pr-[0vw] py-[30vh]">
+                <span style={{
+                    ...textStyle,
+                    fontStyle: 'italic',
+                    fontSize: '10vw',
+                }}>{title}</span>
+                <br />
+                <span style={textStyle}>{text}</span>
+            </div>
+        </div>
+    </Slide>
+}
+
+function Slide({ assets, Layout, children }: {
+    assets: Asset[],
+    children?: React.ReactNode,
     Layout: React.ComponentType<{ children: React.ReactNode[] }>,
 }) {
-    return <Layout>
-        {assets.map((asset) =>
-            <Image
-                key={asset.name}
-                src={assetSrc(asset)}
-                alt={assetAlt(asset)}
-                width={assetWidth(asset)}
-                height={assetHeight(asset)}
-                style={{
-                    objectFit: 'cover',
-                    minWidth: '100%',
-                    minHeight: '100%',
-                }}
-            />
-        )}
-    </Layout>
+    return <div>
+        <div style={{
+            position: 'absolute',
+            width: '100vw',
+            height: '100vh',
+        }}>
+            <Layout>
+                {assets.map((asset) =>
+                    <Image
+                        key={asset.name}
+                        src={assetSrc(asset)}
+                        alt={assetAlt(asset)}
+                        width={assetWidth(asset)}
+                        height={assetHeight(asset)}
+                        style={{
+                            objectFit: 'cover',
+                            minWidth: '100%',
+                            minHeight: '100%',
+                        }}
+                    />
+                )}
+            </Layout>
+        </div>
+        <div style={{
+            position: 'absolute',
+            display: 'flex',
+            width: '100vw',
+            height: '100vh',
+            zIndex: 2,
+        }}>
+            {children}
+        </div>
+    </div>
 }
 
 function PrettyLayout({ children }: {
