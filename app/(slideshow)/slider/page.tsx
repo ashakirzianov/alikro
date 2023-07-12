@@ -5,35 +5,84 @@ import React, { CSSProperties } from "react"
 
 export default function Page() {
     return <Slider>
-        <ColorSlide
-            assets={assets}
-            color="white"
-            background="hsl(300 100% 50% / 0.8)"
-            title="I am Alikro, an artist."
-            text="I do digital illustrations, paintings, drawings, tattoos, you name it."
-        />
-        <ColorSlide
-            assets={assetsForKind(assets, 'illustration')}
-            color="white"
-            background="hsl(120 100% 50% / 0.8)"
-            title="Illustrations."
-            text="I've been doing professional illustration for about 10 years now."
-        />
-        <ColorSlide
-            assets={assetsForKind(assets, 'tattoo')}
-            color="white"
-            background="hsl(40 100% 50% / 0.8)"
-            title="Tattoos."
-            text="I started tattoo fairly recently, just over a year ago, and it's a lot of fun! I am thrilled to put my art on people's skin."
-        />
-        <ColorSlide
-            assets={assetsForKind(assets, 'collage')}
-            color="white"
-            background="hsl(210 100% 50% / 0.8)"
-            title="Collages."
-            text="Ever since I was in a kindergarden and glued some pieces together I enjoyed making collages."
-        />
+        <MainSlide />
+        <DrawingsSlide />
+        <IllustrationsSlide />
+        <PaintingsSlide />
+        <PostersSlide />
+        <CollagesSlide />
+        <TattoosSlide />
     </Slider>
+}
+
+function MainSlide() {
+    return <ColorSlide
+        assets={assets}
+        color="white"
+        background="hsl(300 100% 50% / 0.8)"
+        title="I am Alikro, an artist."
+        text="I do digital illustrations, paintings, drawings, tattoos, you name it."
+    />
+}
+
+function DrawingsSlide() {
+    return <ColorSlide
+        assets={assetsForKind(assets, 'drawing')}
+        color="white"
+        background="hsl(60 100% 50% / 0.8)"
+        title="Drawings."
+        text="I've been drawing for about 20 years now, and I love it."
+    />
+}
+
+function IllustrationsSlide() {
+    return <ColorSlide
+        assets={assetsForKind(assets, 'illustration')}
+        color="white"
+        background="hsl(120 100% 50% / 0.8)"
+        title="Illustrations."
+        text="I've been doing professional illustration for about 10 years now."
+    />
+}
+
+function PaintingsSlide() {
+    return <ColorSlide
+        assets={assetsForKind(assets, 'painting')}
+        color="white"
+        background="hsl(0 100% 50% / 0.8)"
+        title="Paintings."
+        text="I've been painting for about 15 years now, and I love it."
+    />
+}
+
+function PostersSlide() {
+    return <ColorSlide
+        assets={assetsForKind(assets, 'poster')}
+        color="white"
+        background="hsl(90 100% 50% / 0.8)"
+        title="Posters."
+        text="I've been doing posters for about 10 years now."
+    />
+}
+
+function CollagesSlide() {
+    return <ColorSlide
+        assets={assetsForKind(assets, 'collage')}
+        color="white"
+        background="hsl(210 100% 50% / 0.8)"
+        title="Collages."
+        text="Ever since I was in a kindergarden and glued some pieces together I enjoyed making collages."
+    />
+}
+
+function TattoosSlide() {
+    return <ColorSlide
+        assets={assetsForKind(assets, 'tattoo')}
+        color="white"
+        background="hsl(40 100% 50% / 0.8)"
+        title="Tattoos."
+        text="I started tattoo fairly recently, just over a year ago, and it's a lot of fun! I am thrilled to put my art on people's skin."
+    />
 }
 
 function Slider({ children }: {
