@@ -89,14 +89,16 @@ function computeLine({ slides, aspect }: {
     let line: Asset[] = []
     let remaining: Asset[][] = []
     let width = 0
-    for (let slide of slides) {
-        let reversed = [...slide].reverse()
+    for (let idx = 0; idx < slides.length; idx++) {
+        let reversed = [...slides[idx]].reverse()
         width += aspect
         while (width > 0) {
             let asset = reversed.pop()
             if (asset === undefined)
                 break
             let assetAspect = assetWidth(asset) / assetHeight(asset)
+            // if (assetAspect > 2 * width && idx < slides.length - 1) // If less than a half of last asset fits in, stop. Unless it's the last slide.
+            //     break
             line.push(asset)
             width -= assetAspect
         }
