@@ -97,8 +97,8 @@ function computeLine({ slides, aspect }: {
             if (asset === undefined)
                 break
             let assetAspect = assetWidth(asset) / assetHeight(asset)
-            // if (assetAspect > 2 * width && idx < slides.length - 1) // If less than a half of last asset fits in, stop. Unless it's the last slide.
-            //     break
+            if (assetAspect > 2 * width && idx < slides.length - 1) // If less than a half of last asset fits in, stop. Unless it's the last slide.
+                break
             line.push(asset)
             width -= assetAspect
         }
