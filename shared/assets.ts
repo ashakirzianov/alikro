@@ -1203,6 +1203,7 @@ export const assets: Asset[] = [{
     year: 2019,
     material: 'digital',
     size: '1679x1667',
+    tags: ['selfportrait'],
 }, {
     kind: 'drawing',
     name: 'daisies.png',
@@ -1260,6 +1261,7 @@ export const assets: Asset[] = [{
     year: 2022,
     material: 'digital',
     size: '2048x2048',
+    tags: ['selfportrait'],
 }, {
     kind: 'illustration',
     name: 'insomnia.JPG',
@@ -1267,6 +1269,7 @@ export const assets: Asset[] = [{
     year: 2020,
     material: 'digital',
     size: '2048x2048',
+    tags: ['selfportrait'],
 }, {
     kind: 'painting',
     name: 'lemon_tree.png',
@@ -1939,6 +1942,7 @@ export const assets: Asset[] = [{
     year: 2019,
     material: 'digital',
     size: '1000x1000',
+    tags: ['selfportrait'],
 }, {
     kind: 'poster',
     name: 'cook_your_song.jpg',
@@ -2073,6 +2077,7 @@ export const assets: Asset[] = [{
     year: 2019,
     material: 'digital',
     size: '1000x1000',
+    tags: ['selfportrait'],
 }, {
     kind: 'illustration',
     name: 'filmsection_of_the_green_theater.png',
@@ -2192,6 +2197,7 @@ export const assets: Asset[] = [{
     year: 2019,
     material: 'digital',
     size: '1000x1000',
+    tags: ['selfportrait'],
 }, {
     kind: 'illustration',
     name: 'how_to_choose_a_therapist_1.png',
@@ -2361,6 +2367,7 @@ export const assets: Asset[] = [{
     year: 2019,
     material: 'digital',
     size: '2480x3508',
+    tags: ['selfportrait'],
 }, {
     kind: 'poster',
     name: 'movie_classics_on_Mondays_1.png',
@@ -2718,6 +2725,7 @@ export const assets: Asset[] = [{
     year: 2019,
     material: 'digital',
     size: '1000x1000',
+    tags: ['selfportrait'],
 }, {
     kind: 'illustration',
     name: 'terrible_headache.png',
