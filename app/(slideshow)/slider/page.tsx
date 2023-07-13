@@ -1,10 +1,15 @@
 'use client'
 import { useEffect, useState } from "react"
+import dynamic from 'next/dynamic'
 import { assets, assetsForTags } from "@/shared/assets"
 import { Slider } from "./Slider"
 import { DynamicLayout } from "./DynamicLayout"
 
-export default function Page() {
+export default dynamic(() => Promise.resolve(DynamicPage), {
+    ssr: false,
+})
+
+function DynamicPage() {
     let [scroll, setScroll] = useState(0)
     let aspect = useAspectRatio()
     return <div>
