@@ -1,3 +1,4 @@
+import { SocialLinks } from "@/shared/SocialLinks"
 import { Asset, assetAlt, assetHeight, assetSrc, assetWidth, assets, assetsForKind, assetsForTags } from "@/shared/assets"
 import { unique } from "@/shared/utils"
 import Image from "next/image"
@@ -16,13 +17,43 @@ export default function Page() {
 }
 
 function MainSlide() {
-    return <ColorSlide
-        assets={assetsForTags(assets, 'selfportrait')}
-        color="white"
-        background="hsl(300 100% 50% / 0.8)"
-        title="I am Alikro, an artist."
-        text="I do digital illustrations, paintings, drawings, tattoos, you name it."
-    />
+    let background = 'hsl(331 82% 58% / 0.8)'
+    return <Slide assets={assetsForTags(assets, 'selfportrait')} Layout={PrettyLayout}>
+        <div style={{
+            display: 'flex',
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
+            width: '100%',
+            height: '100%',
+        }}>
+            <div className="ml-[0vw] my-[50vh] p-4" style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                // backgroundColor: 'white',
+                color: 'white',
+                height: 'auto',
+            }}>
+                <span style={{
+                    fontStyle: 'italic',
+                    fontSize: '6vw',
+                    background,
+                }}>I am Alikro, an artist.</span>
+                <br />
+                <span style={{
+                    fontSize: '3vw',
+                    background,
+                    // WebkitTextStroke: `1px white`,
+                }}>Here you can find my works across many mediums that I created throughout the years. Contact me if you&apos;re interested in any of the works or if you would like to work with me.</span>
+                <div className="flex flex-row space-x-4 my-4" style={{
+                    // background: 'hsl(0 100% 100% / 0.8)',
+                    background: 'white',
+                }}>
+                    <SocialLinks />
+                </div>
+            </div>
+        </div>
+    </Slide>
 }
 
 function DrawingsSlide() {

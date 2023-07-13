@@ -1,5 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
+import { SocialLinks } from "@/shared/SocialLinks"
 
 export default function About() {
     return <div className="flex flex-col items-start">
@@ -11,26 +12,12 @@ export default function About() {
             <br /><br />
             Feel free to contact me if you have any questions, feedback, or if you&apos;d like to discuss collaborations.
             <div className="py-4 flex flex-col items-start grow">
-                <SocialLinks />
+                <div className="flex flex-row space-x-4">
+                    <SocialLinks />
+                </div>
             </div>
         </div>
     </div>
 }
 
-function SocialLinks() {
-    return <div className="flex flex-row space-x-4">
-        <IconLink href="https://www.instagram.com/alikro/" src="/icons/instagram.png" alt="Instagram" />
-        <IconLink href="https://www.behance.net/AlinaKro" src="/icons/behance.png" alt="Behance" />
-        <IconLink href="mailto:alinkakro@gmail.com" src="/icons/mail.png" alt="Mail" />
-    </div>
-}
 
-function IconLink({ href, src, alt }: {
-    href: string,
-    src: string,
-    alt: string,
-}) {
-    return <Link href={href}>
-        <Image src={src} width={32} height={32} alt={alt} />
-    </Link>
-}
