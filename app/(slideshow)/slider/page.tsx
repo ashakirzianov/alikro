@@ -16,6 +16,7 @@ export default function Page() {
         }}>
             <DynamicLayout
                 slides={[
+                    assetsForTags(assets, 'selfportrait'),
                     assetsForTags(assets, 'drawing'),
                     assetsForTags(assets, 'illustration'),
                     assetsForTags(assets, 'painting'),
@@ -29,6 +30,7 @@ export default function Page() {
             />
         </div>
         <Slider onScroll={setScroll}>
+            <TextSlide text="Alikro, an artist." hue={0} />
             <TextSlide text="Drawings." hue={0} />
             <TextSlide text="Illustrations." hue={60} />
             <TextSlide text="Paintings." hue={120} />
@@ -45,15 +47,18 @@ function TextSlide({
     text: string,
     hue: number,
 }) {
-    return <div style={{
-        display: 'inline',
-        fontSize: '10vw',
-        // background: `hsl(${hue}, 100%, 50%, 1)`,
-        background: `hsl(0, 100%, 50%, 1)`,
-        color: 'white',
-        alignSelf: 'flex-start',
-        width: 'auto',
-    }}>{text}</div>
+    return <div className="py-[10vh]">
+        <div className="inline text-9xl"
+            style={{
+                display: 'inline',
+                fontSize: '10dvh',
+                background: `hsl(0, 100%, 50%, 1)`,
+                color: 'white',
+                alignSelf: 'flex-start',
+                width: 'auto',
+                marginTop: '30dvh',
+            }}>{text}</div>
+    </div>
 }
 
 function useAspectRatio() {
