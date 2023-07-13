@@ -1,8 +1,9 @@
 import Image from "next/image"
 import { Asset, assetAlt, assetHeight, assetSrc, assetWidth } from "./assets"
 
-export function AssetImage({ asset }: {
+export function AssetImage({ asset, style }: {
     asset: Asset,
+    style?: React.CSSProperties,
 }) {
     return <Image
         src={assetSrc(asset)}
@@ -14,6 +15,7 @@ export function AssetImage({ asset }: {
             WebkitUserSelect: 'none',
             MozUserSelect: 'none',
             msUserSelect: 'none',
+            ...style,
         }}
     />
 }

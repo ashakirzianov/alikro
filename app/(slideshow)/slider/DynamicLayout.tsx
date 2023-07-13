@@ -1,7 +1,7 @@
+import { AssetImage } from "@/shared/AssetImage"
 import {
-    Asset, assetAlt, assetHeight, assetSrc, assetWidth,
+    Asset, assetHeight, assetWidth,
 } from "@/shared/assets"
-import Image from "next/image"
 
 export function DynamicLayout({
     slides, aspect, fractions, scroll,
@@ -53,16 +53,12 @@ function AssetLine({ assets, scroll, height, direction }: {
             position: 'relative',
             left: direction === 'right' ? scroll : -scroll,
         }}>
-            {assets.map((asset, i) =>
-                <Image
-                    key={i}
-                    src={assetSrc(asset)}
-                    alt={assetAlt(asset)}
-                    width={assetWidth(asset)}
-                    height={assetHeight(asset)}
+            {assets.map((asset) =>
+                <AssetImage
+                    key={asset.name}
+                    asset={asset}
                     style={{
                         maxHeight: '100%',
-                        width: 'auto',
                     }}
                 />
             )}
