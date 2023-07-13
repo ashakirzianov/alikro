@@ -141,7 +141,6 @@ function computeLine({ slides, aspect }: {
     let remaining: Asset[][] = []
     let width = 0
     for (let slide of slides) {
-        console.log(`slide: ${slide[0].kind}, count: ${slide.length}`)
         let reversed = [...slide].reverse()
         width += aspect
         while (width > 0) {
@@ -158,20 +157,22 @@ function computeLine({ slides, aspect }: {
 }
 
 function useAspectRatio() {
-    const [aspectRatio, setAspectRatio] = useState(window.innerWidth / window.innerHeight)
+    function windowAspect() {
+        return global.window ? window.innerWidth / window.innerHeight : 1
+    }
+    const [aspectRatio, setAspectRatio] = useState(windowAspect())
 
     useEffect(() => {
         function handleResize() {
-            setAspectRatio(window.innerWidth / window.innerHeight)
+            setAspectRatio(windowAspect())
         };
 
-        window.addEventListener('resize', handleResize)
+        window?.addEventListener('resize', handleResize)
 
-        // Clean up the event listener when the component unmounts
         return () => {
-            window.removeEventListener('resize', handleResize)
+            window?.removeEventListener('resize', handleResize)
         }
-    }, []) // Empty dependency array means this effect runs once on mount and clean up on unmount
+    }, [])
 
     return aspectRatio
 };
