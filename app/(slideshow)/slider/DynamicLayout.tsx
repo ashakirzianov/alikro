@@ -2,8 +2,12 @@ import { AssetImage } from "@/shared/AssetImage"
 import {
     Asset, assetHeight, assetHref, assetWidth,
 } from "@/shared/assets"
-import Image from "next/image"
 import Link from "next/link"
+import dynamic from 'next/dynamic'
+
+export const ClientsideDynamicLayout = dynamic(() => Promise.resolve(DynamicLayout), {
+    ssr: false,
+})
 
 export function DynamicLayout({
     slides, aspect, fractions, scroll,

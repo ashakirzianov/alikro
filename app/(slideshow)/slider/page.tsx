@@ -1,15 +1,10 @@
 'use client'
 import { useEffect, useState } from "react"
-import dynamic from 'next/dynamic'
 import { assets, assetsForTags } from "@/shared/assets"
 import { Slider } from "./Slider"
-import { DynamicLayout } from "./DynamicLayout"
+import { ClientsideDynamicLayout } from "./DynamicLayout"
 
-export default dynamic(() => Promise.resolve(DynamicPage), {
-    ssr: false,
-})
-
-function DynamicPage() {
+export default function DynamicPage() {
     let [scroll, setScroll] = useState(0)
     let aspect = useAspectRatio()
     return <div>
@@ -19,7 +14,7 @@ function DynamicPage() {
             height: '100vh',
             zIndex: -1,
         }}>
-            <DynamicLayout
+            <ClientsideDynamicLayout
                 slides={[
                     assetsForTags(assets, 'selfportrait'),
                     assetsForTags(assets, 'drawing'),
