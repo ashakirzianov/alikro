@@ -200,14 +200,16 @@ export const assets: Asset[] = [{
     year: 2022,
     material: 'digital',
     size: '896x1280',
-}, {
-    kind: 'illustration',
-    name: 'greek_man.png',
-    title: 'Greek man',
-    year: 2019,
-    material: 'digital',
-    size: '896x1280',
-}, {
+},
+// {
+//     kind: 'illustration',
+//     name: 'greek_man.png',
+//     title: 'Greek man',
+//     year: 2019,
+//     material: 'digital',
+//     size: '896x1280',
+// },
+{
     kind: 'poster',
     name: 'estata_la_mano_di_dio.JPG',
     title: 'Estata la mano di dio',
