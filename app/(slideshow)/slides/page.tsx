@@ -26,12 +26,14 @@ export default function DynamicPage() {
                     assetsForTags(assets, 'tattoo'),
                 ]}
                 aspect={aspect}
+                // fractions={[30, 40, 30]}
+                // fractions={[25, 50, 25]}
                 fractions={[30, 50, 20]}
                 scroll={scroll * aspect}
             />
         </div>
         <Slider onScroll={setScroll}>
-            <TextSlide text="Alikro, an artist." href='/' />
+            <TextSlide text="Alikro, an artist." href='/about' />
             <TextSlide text="Drawings." href='/drawings' />
             <TextSlide text="Illustrations." href='/illustrations' />
             <TextSlide text="Paintings." href='/paintings' />
