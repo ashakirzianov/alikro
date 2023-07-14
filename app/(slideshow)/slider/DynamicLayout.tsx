@@ -1,7 +1,9 @@
 import { AssetImage } from "@/shared/AssetImage"
 import {
-    Asset, assetHeight, assetWidth,
+    Asset, assetHeight, assetHref, assetWidth,
 } from "@/shared/assets"
+import Image from "next/image"
+import Link from "next/link"
 
 export function DynamicLayout({
     slides, aspect, fractions, scroll,
@@ -45,7 +47,7 @@ function AssetLine({ assets, scroll, height, direction }: {
 }) {
     return <div style={{
         overflow: 'hidden',
-        width: '100vw',
+        width: '100%',
     }}>
         <div className="flex flex-row flex-nowrap" style={{
             justifyContent: direction === 'right' ? 'flex-end' : 'flex-start',
@@ -53,14 +55,13 @@ function AssetLine({ assets, scroll, height, direction }: {
             position: 'relative',
             left: direction === 'right' ? scroll : -scroll,
         }}>
-            {assets.map((asset) =>
-                <AssetImage
-                    key={asset.name}
-                    asset={asset}
-                    style={{
-                        maxHeight: '100%',
-                    }}
-                />
+            {assets.map((asset, idx) =>
+                <Link key={idx} href={assetHref(asset)} style={{
+                    aspectRatio: `${assetWidth(asset)} / ${assetHeight(asset)}`,
+                    height: '100%',
+                }}>
+                    <AssetImage asset={asset} />
+                </Link>
             )}
         </div>
     </div>
