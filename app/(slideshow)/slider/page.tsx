@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { assets, assetsForTags } from "@/shared/assets"
 import { Slider } from "./Slider"
 import { ClientsideDynamicLayout } from "./DynamicLayout"
+import Link from "next/link"
 
 export default function DynamicPage() {
     let [scroll, setScroll] = useState(0)
@@ -30,25 +31,25 @@ export default function DynamicPage() {
             />
         </div>
         <Slider onScroll={setScroll}>
-            <TextSlide text="Alikro, an artist." hue={0} />
-            <TextSlide text="Drawings." hue={0} />
-            <TextSlide text="Illustrations." hue={60} />
-            <TextSlide text="Paintings." hue={120} />
-            <TextSlide text="Posters." hue={240} />
-            <TextSlide text="Collages." hue={180} />
-            <TextSlide text="Tattoos." hue={300} />
+            <TextSlide text="Alikro, an artist." href='/' />
+            <TextSlide text="Drawings." href='/drawings' />
+            <TextSlide text="Illustrations." href='/illustrations' />
+            <TextSlide text="Paintings." href='/paintings' />
+            <TextSlide text="Posters." href='/posters' />
+            <TextSlide text="Collages." href='/collages' />
+            <TextSlide text="Tattoos." href='/tattoos' />
         </Slider>
     </div>
 }
 
 function TextSlide({
-    text, hue,
+    text, href,
 }: {
     text: string,
-    hue: number,
+    href: string,
 }) {
     return <div className="py-[10vh]">
-        <div className="inline text-9xl"
+        <Link href={href} className="inline text-9xl"
             style={{
                 display: 'inline',
                 fontSize: '10dvh',
@@ -57,7 +58,7 @@ function TextSlide({
                 alignSelf: 'flex-start',
                 width: 'auto',
                 marginTop: '30dvh',
-            }}>{text}</div>
+            }}>{text}</Link>
     </div>
 }
 
