@@ -1,8 +1,8 @@
-import Image from "next/image"
 import {
-    Asset, AssetKind, assetAlt, assetDescription, assetHeight, assetHref, assetSrc, assetWidth, assets, assetsForKind,
+    Asset, AssetKind, assetDescription, assetHref, assets, assetsForKind,
 } from "@/shared/assets"
 import Link from "next/link"
+import { AssetImage } from "@/shared/AssetImage"
 
 export function GalleryPage({ kind }: {
     kind: AssetKind,
@@ -27,18 +27,7 @@ function Tile({ asset }: {
 }) {
     return <Link href={assetHref(asset)}>
         <div className="flex flex-col break-inside-avoid-column">
-            <Image
-                src={assetSrc(asset)}
-                alt={assetAlt(asset)}
-                width={assetWidth(asset)}
-                height={assetHeight(asset)}
-                style={{
-                    userSelect: 'none',
-                    WebkitUserSelect: 'none',
-                    MozUserSelect: 'none',
-                    msUserSelect: 'none',
-                }}
-            />
+            <AssetImage asset={asset} />
             <span className="hidden sm:flex text-xs text-accent">
                 {assetDescription(asset)}
             </span>

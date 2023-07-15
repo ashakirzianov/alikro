@@ -1,6 +1,6 @@
-import './globals.css'
+import '@/app/globals.css'
 import { Inter } from 'next/font/google'
-import { NavigationPanel } from './NavigationPanel'
+import { NavigationPanel } from '@/app/NavigationPanel'
 import Script from 'next/script'
 import { Metadata } from 'next'
 
