@@ -2,6 +2,13 @@ import { allAssets } from "./allAssets"
 
 export type AssetKind = 'drawing' | 'illustration' | 'painting' | 'poster' | 'hidden' | 'collage' | 'tattoo'
 export type AssetTag = 'selfportrait' | 'favorite'
+export type AssetQuery = AssetTag | AssetKind | {
+    kind: 'and' | 'or',
+    queries: AssetQuery[],
+} | {
+    kind: 'not',
+    query: AssetQuery,
+}
 export type AssetSize = `${number}x${number}`
 export type Asset = {
     kind: AssetKind,
@@ -47,6 +54,22 @@ export function forSegment(segment: string) {
     return findAssetForSegment(allAssets, segment)
 }
 
+export function forQueries(...queries: AssetQuery[]) {
+    return assetsForQuery(allAssets, and(...queries))
+}
+
+export function and(...queries: AssetQuery[]): AssetQuery {
+    return { kind: 'and', queries }
+}
+
+export function or(...queries: AssetQuery[]): AssetQuery {
+    return { kind: 'or', queries }
+}
+
+export function not(query: AssetQuery): AssetQuery {
+    return { kind: 'not', query }
+}
+
 function assetsForTags(assets: Asset[], ...tags: (AssetTag | AssetKind)[]) {
     return assets.filter((asset) =>
         tags.some(
@@ -61,4 +84,22 @@ function assetsForKind(assets: Asset[], kind: AssetKind) {
 
 function findAssetForSegment(assets: Asset[], segment: string) {
     return assets.find((asset) => assetSegment(asset) === segment)
+}
+
+function assetsForQuery(assets: Asset[], query: AssetQuery) {
+    return assets.filter((asset) => matchQuery(asset, query))
+}
+
+function matchQuery(asset: Asset, query: AssetQuery): boolean {
+    if (typeof query === 'string') {
+        return asset.tags?.includes(query as AssetTag) || asset.kind === query
+    } else if (query.kind === 'and') {
+        return query.queries.every((q) => matchQuery(asset, q))
+    } else if (query.kind === 'or') {
+        return query.queries.some((q) => matchQuery(asset, q))
+    } else if (query.kind === 'not') {
+        return !matchQuery(asset, query.query)
+    } else {
+        return false
+    }
 }

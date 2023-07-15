@@ -1,6 +1,6 @@
 'use client'
 import { ReactNode, useEffect, useState } from "react"
-import { forTags } from "@/shared/assets"
+import { forQueries, not } from "@/shared/assets"
 import { Slider } from "./Slider"
 import { ClientsideDynamicLayout } from "./DynamicLayout"
 import Link from "next/link"
@@ -25,13 +25,13 @@ export default function DynamicPage() {
         }}>
             <ClientsideDynamicLayout
                 slides={[
-                    forTags('selfportrait'),
-                    forTags('drawing'),
-                    forTags('illustration'),
-                    forTags('painting'),
-                    forTags('poster'),
-                    forTags('collage'),
-                    forTags('tattoo'),
+                    forQueries('selfportrait'),
+                    forQueries('drawing', not('selfportrait')),
+                    forQueries('illustration', not('selfportrait')),
+                    forQueries('painting', not('selfportrait')),
+                    forQueries('poster'),
+                    forQueries('collage'),
+                    forQueries('tattoo'),
                 ]}
                 aspect={aspect}
                 // fractions={[30, 40, 30]}
