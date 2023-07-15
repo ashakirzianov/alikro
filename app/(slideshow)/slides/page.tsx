@@ -1,13 +1,21 @@
 'use client'
-import { useEffect, useState } from "react"
+import { ReactNode, useEffect, useState } from "react"
 import { assets, assetsForTags } from "@/shared/assets"
 import { Slider } from "./Slider"
 import { ClientsideDynamicLayout } from "./DynamicLayout"
 import Link from "next/link"
+import { SocialLinks } from "@/shared/SocialLinks"
 
 export default function DynamicPage() {
     let [scroll, setScroll] = useState(0)
     let aspect = useAspectRatio()
+    let corner = <div className="bg-[red] p-4">
+        <div className="flex flex-row gap-4" style={{
+            filter: 'brightness(0) invert(1)',
+        }}>
+            <SocialLinks size={48} />
+        </div>
+    </div>
     return <div>
         <div className="flex flex-col" style={{
             position: 'fixed',
@@ -33,7 +41,7 @@ export default function DynamicPage() {
             />
         </div>
         <Slider onScroll={setScroll}>
-            <TextSlide text="Alikro, an artist." href='/about' />
+            <TextSlide text="Alikro, an artist." href='/about' corner={corner} />
             <TextSlide text="Drawings." href='/drawings' />
             <TextSlide text="Illustrations." href='/illustrations' />
             <TextSlide text="Paintings." href='/paintings' />
@@ -45,22 +53,26 @@ export default function DynamicPage() {
 }
 
 function TextSlide({
-    text, href,
+    text, href, corner
 }: {
     text: string,
     href: string,
+    corner?: ReactNode,
 }) {
-    return <div className="py-[10svh]">
-        <Link href={href} className="inline text-9xl"
-            style={{
-                display: 'inline',
-                fontSize: '10svh',
-                background: `hsl(0, 100%, 50%, 1)`,
-                color: 'white',
-                alignSelf: 'flex-start',
-                width: 'auto',
-                marginTop: '30svh',
-            }}>{text}</Link>
+    return <div className="flex flex-col py-[10svh] justify-between h-full">
+        <div>
+            <Link href={href} className="inline text-9xl"
+                style={{
+                    display: 'inline',
+                    fontSize: '10svh',
+                    background: `hsl(0, 100%, 50%, 1)`,
+                    color: 'white',
+                    alignSelf: 'flex-start',
+                    width: 'auto',
+                    marginTop: '30svh',
+                }}>{text}</Link>
+        </div>
+        {corner ? <div className="self-end">{corner}</div> : null}
     </div>
 }
 
