@@ -1,6 +1,6 @@
 'use client'
 import { ReactNode, useEffect, useState } from "react"
-import { assets, assetsForTags } from "@/shared/assets"
+import { forTags } from "@/shared/assets"
 import { Slider } from "./Slider"
 import { ClientsideDynamicLayout } from "./DynamicLayout"
 import Link from "next/link"
@@ -25,13 +25,13 @@ export default function DynamicPage() {
         }}>
             <ClientsideDynamicLayout
                 slides={[
-                    assetsForTags(assets, 'selfportrait'),
-                    assetsForTags(assets, 'drawing'),
-                    assetsForTags(assets, 'illustration'),
-                    assetsForTags(assets, 'painting'),
-                    assetsForTags(assets, 'poster'),
-                    assetsForTags(assets, 'collage'),
-                    assetsForTags(assets, 'tattoo'),
+                    forTags('selfportrait'),
+                    forTags('drawing'),
+                    forTags('illustration'),
+                    forTags('painting'),
+                    forTags('poster'),
+                    forTags('collage'),
+                    forTags('tattoo'),
                 ]}
                 aspect={aspect}
                 // fractions={[30, 40, 30]}
@@ -76,30 +76,9 @@ function TextSlide({
     </div>
 }
 
-// function useAspectRatio() {
-//     function windowAspect() {
-//         return global.window ? window.innerWidth / window.innerHeight : 1
-//     }
-//     const [aspectRatio, setAspectRatio] = useState(windowAspect())
-
-//     useEffect(() => {
-//         function handleResize() {
-//             setAspectRatio(windowAspect())
-//         };
-
-//         window?.addEventListener('resize', handleResize)
-
-//         return () => {
-//             window?.removeEventListener('resize', handleResize)
-//         }
-//     }, [])
-
-//     return aspectRatio
-// }
-
 function useAspectRatio() {
     function windowAspect() {
-        if (!document?.documentElement)
+        if (!global?.document?.documentElement)
             return 1
         let { scrollWidth, scrollHeight } = document.documentElement
         return (scrollWidth) / (scrollHeight)
