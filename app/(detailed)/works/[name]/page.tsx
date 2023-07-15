@@ -47,8 +47,8 @@ export default function Page({ params: { name } }: Props) {
             height={assetHeight(asset)}
             style={{
                 objectFit: 'contain',
-                maxWidth: '100vw',
-                maxHeight: '100vh',
+                maxWidth: '100svw',
+                maxHeight: '100svh',
                 cursor: 'default',
                 userSelect: 'none',
                 WebkitUserSelect: 'none',

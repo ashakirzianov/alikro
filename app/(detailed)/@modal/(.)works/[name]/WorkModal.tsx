@@ -19,8 +19,8 @@ export function WorkModal({ asset }: {
             onClick={dismiss}
             style={{
                 objectFit: 'contain',
-                maxWidth: '100vw',
-                maxHeight: '100vh',
+                maxWidth: '100svw',
+                maxHeight: '100svh',
                 cursor: 'default',
                 userSelect: 'none',
                 WebkitUserSelect: 'none',

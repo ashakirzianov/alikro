@@ -11,8 +11,8 @@ export default function DynamicPage() {
     return <div>
         <div className="flex flex-col" style={{
             position: 'fixed',
-            width: '100vw',
-            height: '100vh',
+            width: '100svw',
+            height: '100svh',
             zIndex: -1,
         }}>
             <ClientsideDynamicLayout
@@ -50,23 +50,47 @@ function TextSlide({
     text: string,
     href: string,
 }) {
-    return <div className="py-[10vh]">
+    return <div className="py-[10svh]">
         <Link href={href} className="inline text-9xl"
             style={{
                 display: 'inline',
-                fontSize: '10dvh',
+                fontSize: '10svh',
                 background: `hsl(0, 100%, 50%, 1)`,
                 color: 'white',
                 alignSelf: 'flex-start',
                 width: 'auto',
-                marginTop: '30dvh',
+                marginTop: '30svh',
             }}>{text}</Link>
     </div>
 }
 
+// function useAspectRatio() {
+//     function windowAspect() {
+//         return global.window ? window.innerWidth / window.innerHeight : 1
+//     }
+//     const [aspectRatio, setAspectRatio] = useState(windowAspect())
+
+//     useEffect(() => {
+//         function handleResize() {
+//             setAspectRatio(windowAspect())
+//         };
+
+//         window?.addEventListener('resize', handleResize)
+
+//         return () => {
+//             window?.removeEventListener('resize', handleResize)
+//         }
+//     }, [])
+
+//     return aspectRatio
+// }
+
 function useAspectRatio() {
     function windowAspect() {
-        return global.window ? window.innerWidth / window.innerHeight : 1
+        if (!document?.documentElement)
+            return 1
+        let { scrollWidth, scrollHeight } = document.documentElement
+        return (scrollWidth) / (scrollHeight)
     }
     const [aspectRatio, setAspectRatio] = useState(windowAspect())
 
