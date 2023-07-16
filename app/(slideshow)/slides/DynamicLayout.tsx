@@ -26,18 +26,18 @@ export function DynamicLayout({
     return <>
         <AssetLine
             assets={lines[1]}
-            scroll={scroll}
+            scroll={scroll * aspect}
             height={`${two}svh`}
         />
         <AssetLine
-            assets={lines[0].reverse()}
-            scroll={scroll}
+            assets={lines[0]}
+            scroll={scroll * aspect}
             height={`${one}svh`}
             direction="right"
         />
         <AssetLine
             assets={lines[2]}
-            scroll={scroll}
+            scroll={scroll * aspect}
             height={`${three}svh`}
         />
     </>
@@ -49,6 +49,9 @@ function AssetLine({ assets, scroll, height, direction }: {
     height: string,
     direction?: 'left' | 'right',
 }) {
+    if (direction === 'right') {
+        assets = [...assets].reverse()
+    }
     return <div style={{
         overflow: 'hidden',
         width: '100%',

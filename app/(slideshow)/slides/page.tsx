@@ -45,7 +45,7 @@ export default function DynamicPage() {
                 // fractions={[30, 40, 30]}
                 // fractions={[25, 50, 25]}
                 fractions={[50, 30, 20]}
-                scroll={scroll * aspect}
+                scroll={scroll}
             />
         </div>
         <Slider onScroll={setScroll}>
