@@ -6,11 +6,11 @@ export function Slider({ children, onScroll }: {
 }) {
     return <div style={{
         scrollSnapType: 'y mandatory',
-        height: '100vh',
-        maxHeight: '100vh',
+        height: '100svh',
+        maxHeight: '100svh',
         overflowX: 'hidden',
         overflowY: 'auto',
-        scrollPaddingTop: '0vh',
+        scrollPaddingTop: '0svh',
     }}
         onScroll={e => {
             if (onScroll) {
@@ -22,8 +22,8 @@ export function Slider({ children, onScroll }: {
             <section key={idx} style={{
                 scrollSnapAlign: 'start',
                 scrollSnapStop: 'always',
-                width: '100vw',
-                height: '100vh',
+                width: '100svw',
+                height: '100svh',
             }}>
                 {child}
             </section>)}

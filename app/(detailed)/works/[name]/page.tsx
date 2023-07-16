@@ -1,12 +1,12 @@
-import { assets } from "@/shared/assets"
+import { all } from "@/shared/assets"
 import {
-    assetAlt, assetDescription, assetHeight, assetSegment, assetSrc, assetWidth, findAssetForSegment,
+    assetAlt, assetDescription, assetHeight, assetSegment, assetSrc, assetWidth, forSegment,
 } from "@/shared/assets"
 import { findDuplicates } from "@/shared/utils"
 import Image from "next/image"
 
 export async function generateStaticParams() {
-    let segments = assets.map((asset) => assetSegment(asset))
+    let segments = all().map((asset) => assetSegment(asset))
     let dups = findDuplicates(segments, (a, b) => a === b)
     if (dups.length > 0) {
         console.error(`Duplicate asset segments: ${dups.join(', ')}`)
@@ -20,7 +20,7 @@ type Props = {
     params: { name: string },
 }
 export async function generateMetadata({ params: { name } }: Props) {
-    let asset = findAssetForSegment(assets, name)
+    let asset = forSegment(name)
     const title = asset?.title ?? 'Picture'
     const description = asset ? assetDescription(asset) : 'My work'
     return {
@@ -35,7 +35,7 @@ export async function generateMetadata({ params: { name } }: Props) {
 }
 
 export default function Page({ params: { name } }: Props) {
-    let asset = findAssetForSegment(assets, name)
+    let asset = forSegment(name)
     if (asset === undefined) {
         return 'Not found'
     }
@@ -47,8 +47,8 @@ export default function Page({ params: { name } }: Props) {
             height={assetHeight(asset)}
             style={{
                 objectFit: 'contain',
-                maxWidth: '100vw',
-                maxHeight: '100vh',
+                maxWidth: '100svw',
+                maxHeight: '100svh',
                 cursor: 'default',
                 userSelect: 'none',
                 WebkitUserSelect: 'none',
