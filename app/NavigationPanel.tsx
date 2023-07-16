@@ -11,31 +11,31 @@ export function NavigationPanel() {
                 title="Alikro"
                 last
             />{'//'}&nbsp;
-            <NavigationLink title="Drawings"
+            <NavigationLink title="drawings"
                 href="/drawings"
                 selected={segment === 'drawings'}
             />
-            <NavigationLink title="Illustrations"
+            <NavigationLink title="illustrations"
                 href="/illustrations"
                 selected={segment === 'illustrations'}
             />
-            <NavigationLink title="Paintings"
+            <NavigationLink title="paintings"
                 href="/paintings"
                 selected={segment === 'paintings'}
             />
-            <NavigationLink title="Posters"
+            <NavigationLink title="posters"
                 href="/posters"
                 selected={segment === 'posters'}
             />
-            <NavigationLink title="Collages"
+            <NavigationLink title="collages"
                 href="/collages"
                 selected={segment === 'collages'}
             />
-            <NavigationLink title="Tattoos"
+            <NavigationLink title="tattoos"
                 href="/tattoos"
                 selected={segment === 'tattoos'}
             />
-            <NavigationLink title="About"
+            <NavigationLink title="about"
                 href="/about"
                 selected={segment === 'about'}
                 last
@@ -52,8 +52,11 @@ function NavigationLink({
     selected?: boolean,
     last?: boolean,
 }) {
+    let selectedClass = selected
+        ? 'bg-accent text-secondary'
+        : 'text-accent hover:bg-accent hover:text-secondary'
     return <span>
-        <Link href={href} className={`cursor-pointer ${selected ? 'underline' : 'hover:underline hover:decoration-dotted'} decoration-wavy`}>
+        <Link href={href} className={`cursor-pointer ${selectedClass}`}>
             {title}
         </Link>{last ? '' : ','}&nbsp;
     </span>

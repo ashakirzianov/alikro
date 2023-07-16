@@ -17,7 +17,7 @@ const tattoos = forQueries('tattoo')
 export default function DynamicPage() {
     let [scroll, setScroll] = useState(0)
     let aspect = useAspectRatio()
-    let corner = <div className="bg-[red] p-4">
+    let corner = <div className="bg-accent p-4">
         <div className="flex flex-row gap-4" style={{
             filter: 'brightness(0) invert(1)',
         }}>
@@ -69,11 +69,10 @@ function TextSlide({
 }) {
     return <div className="flex flex-col py-[8svh] justify-between h-full">
         <div>
-            <Link href={href} className="inline text-9xl"
+            <Link href={href} className="inline text-9xl bg-accent"
                 style={{
                     display: 'inline',
                     fontSize: 'min(12svw, 10svh)',
-                    background: `hsl(0, 100%, 50%, 1)`,
                     color: 'white',
                     alignSelf: 'flex-start',
                     width: 'auto',
