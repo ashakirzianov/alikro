@@ -21,7 +21,7 @@ export default function DynamicPage() {
         <div className="flex flex-row gap-4" style={{
             filter: 'brightness(0) invert(1)',
         }}>
-            <SocialLinks size={48} />
+            <SocialLinks size={32} />
         </div>
     </div>
     return <div>
@@ -67,12 +67,12 @@ function TextSlide({
     href: string,
     corner?: ReactNode,
 }) {
-    return <div className="flex flex-col py-[10svh] justify-between h-full">
+    return <div className="flex flex-col py-[8svh] justify-between h-full">
         <div>
             <Link href={href} className="inline text-9xl"
                 style={{
                     display: 'inline',
-                    fontSize: '8svh',
+                    fontSize: 'min(12svw, 10svh)',
                     background: `hsl(0, 100%, 50%, 1)`,
                     color: 'white',
                     alignSelf: 'flex-start',
