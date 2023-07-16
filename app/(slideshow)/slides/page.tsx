@@ -39,7 +39,7 @@ export default function DynamicPage() {
                     paintings,
                     posters,
                     collages,
-                    tattoos,
+                    // tattoos,
                 ]}
                 aspect={aspect}
                 // fractions={[30, 40, 30]}
@@ -55,7 +55,7 @@ export default function DynamicPage() {
             <TextSlide text="Paintings." href='/paintings' />
             <TextSlide text="Posters." href='/posters' />
             <TextSlide text="Collages." href='/collages' />
-            <TextSlide text="Tattoos." href='/tattoos' />
+            {/* <TextSlide text="Tattoos." href='/tattoos' /> */}
         </Slider>
     </div>
 }
