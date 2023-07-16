@@ -1,7 +1,7 @@
 import { allAssets } from "./allAssets"
 
 export type AssetKind = 'drawing' | 'illustration' | 'painting' | 'poster' | 'hidden' | 'collage' | 'tattoo'
-export type AssetTag = 'selfportrait' | 'favorite'
+export type AssetTag = 'selfportrait' | 'favorite' | 'secondary'
 export type AssetQuery = AssetTag | AssetKind | {
     kind: 'and' | 'or',
     queries: AssetQuery[],

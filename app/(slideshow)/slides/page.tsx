@@ -6,6 +6,14 @@ import { ClientsideDynamicLayout } from "./DynamicLayout"
 import Link from "next/link"
 import { SocialLinks } from "@/shared/SocialLinks"
 
+const selfportraits = forQueries('selfportrait')
+const drawings = [...forQueries('drawing', 'favorite', not('selfportrait')), ...forQueries('drawing', not('favorite'), not('selfportrait'))]
+const illustrations = [...forQueries('illustration', 'favorite', not('selfportrait')), ...forQueries('illustration', not('favorite'), not('selfportrait'))]
+const paintings = [...forQueries('painting', 'favorite', not('selfportrait')), ...forQueries('painting', not('favorite'), not('selfportrait'))]
+const posters = [...forQueries('poster', not('secondary')), ...forQueries('painting', 'secondary')]
+const collages = [...forQueries('collage', 'favorite'), ...forQueries('collage', not('favorite'))]
+const tattoos = forQueries('tattoo')
+
 export default function DynamicPage() {
     let [scroll, setScroll] = useState(0)
     let aspect = useAspectRatio()
@@ -25,18 +33,18 @@ export default function DynamicPage() {
         }}>
             <ClientsideDynamicLayout
                 slides={[
-                    forQueries('selfportrait'),
-                    forQueries('drawing', not('selfportrait')),
-                    forQueries('illustration', not('selfportrait')),
-                    forQueries('painting', not('selfportrait')),
-                    forQueries('poster'),
-                    forQueries('collage'),
-                    forQueries('tattoo'),
+                    selfportraits,
+                    drawings,
+                    illustrations,
+                    paintings,
+                    posters,
+                    collages,
+                    tattoos,
                 ]}
                 aspect={aspect}
                 // fractions={[30, 40, 30]}
                 // fractions={[25, 50, 25]}
-                fractions={[30, 50, 20]}
+                fractions={[50, 30, 20]}
                 scroll={scroll * aspect}
             />
         </div>
@@ -64,7 +72,7 @@ function TextSlide({
             <Link href={href} className="inline text-9xl"
                 style={{
                     display: 'inline',
-                    fontSize: '10svh',
+                    fontSize: '8svh',
                     background: `hsl(0, 100%, 50%, 1)`,
                     color: 'white',
                     alignSelf: 'flex-start',

@@ -25,14 +25,14 @@ export function DynamicLayout({
     })
     return <>
         <AssetLine
-            assets={lines[0]}
-            scroll={scroll}
-            height={`${one}svh`}
-        />
-        <AssetLine
-            assets={lines[1].reverse()}
+            assets={lines[1]}
             scroll={scroll}
             height={`${two}svh`}
+        />
+        <AssetLine
+            assets={lines[0].reverse()}
+            scroll={scroll}
+            height={`${one}svh`}
             direction="right"
         />
         <AssetLine
