@@ -31,7 +31,7 @@ export default function DynamicPage() {
             height: '100svh',
             zIndex: -1,
         }}>
-            {/* <ClientsideDynamicLayout
+            <ClientsideDynamicLayout
                 slides={[
                     selfportraits,
                     drawings,
@@ -46,8 +46,7 @@ export default function DynamicPage() {
                 // fractions={[25, 50, 25]}
                 fractions={[50, 30, 20]}
                 scroll={scroll}
-            /> */}
-            <div>HELLO</div>
+            />
         </div>
         <Slider onScroll={setScroll}>
             <TextSlide text="Alikro, an artist." href='/about' corner={corner} />
@@ -70,15 +69,8 @@ function TextSlide({
 }) {
     return <div className="flex flex-col py-[8svh] justify-between h-full">
         <div>
-            <Link href={href} className="inline text-9xl bg-accent"
-                style={{
-                    display: 'inline',
-                    fontSize: 'min(12svw, 10svh)',
-                    color: 'white',
-                    alignSelf: 'flex-start',
-                    width: 'auto',
-                    marginTop: '30svh',
-                }}>{text}</Link>
+            {/* TODO: make this a Link (once I figure out how to make it work with the slider) */}
+            <a href={href} className="inline text-9xl bg-accent text-white mt-[30svh] self-start text-[min(12svw,10svh)]">{text}</a>
         </div>
         {corner ? <div className="self-end">{corner}</div> : null}
     </div>
