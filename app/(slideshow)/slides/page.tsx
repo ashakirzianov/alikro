@@ -3,7 +3,6 @@ import { ReactNode, useEffect, useState } from "react"
 import { forQueries, not } from "@/shared/assets"
 import { Slider } from "./Slider"
 import { ClientsideDynamicLayout } from "./DynamicLayout"
-import Link from "next/link"
 import { SocialLinks } from "@/shared/SocialLinks"
 
 const selfportraits = forQueries('selfportrait')
@@ -24,12 +23,15 @@ export default function DynamicPage() {
             <SocialLinks size={32} />
         </div>
     </div>
-    return <div>
+    return <div style={{
+        display: 'grid',
+        gridTemplateAreas: 'center',
+    }}>
         <div className="flex flex-col" style={{
-            position: 'fixed',
             width: '100svw',
             height: '100svh',
-            zIndex: -1,
+            gridArea: 'center',
+            zIndex: 1,
         }}>
             <ClientsideDynamicLayout
                 slides={[
@@ -48,15 +50,20 @@ export default function DynamicPage() {
                 scroll={scroll}
             />
         </div>
-        <Slider onScroll={setScroll}>
-            <TextSlide text="Alikro, an artist." href='/about' corner={corner} />
-            <TextSlide text="Drawings." href='/drawings' />
-            <TextSlide text="Illustrations." href='/illustrations' />
-            <TextSlide text="Paintings." href='/paintings' />
-            <TextSlide text="Posters." href='/posters' />
-            <TextSlide text="Collages." href='/collages' />
-            {/* <TextSlide text="Tattoos." href='/tattoos' /> */}
-        </Slider>
+        <div style={{
+            gridArea: 'center',
+            zIndex: 2,
+        }}>
+            <Slider onScroll={setScroll}>
+                <TextSlide text="Alikro, an artist." href='/about' corner={corner} />
+                <TextSlide text="Drawings." href='/drawings' />
+                <TextSlide text="Illustrations." href='/illustrations' />
+                <TextSlide text="Paintings." href='/paintings' />
+                <TextSlide text="Posters." href='/posters' />
+                <TextSlide text="Collages." href='/collages' />
+                {/* <TextSlide text="Tattoos." href='/tattoos' /> */}
+            </Slider>
+        </div>
     </div>
 }
 
@@ -69,15 +76,8 @@ function TextSlide({
 }) {
     return <div className="flex flex-col py-[8svh] justify-between h-full">
         <div>
-            <Link href={href} className="inline text-9xl bg-accent"
-                style={{
-                    display: 'inline',
-                    fontSize: 'min(12svw, 10svh)',
-                    color: 'white',
-                    alignSelf: 'flex-start',
-                    width: 'auto',
-                    marginTop: '30svh',
-                }}>{text}</Link>
+            {/* TODO: make this a Link (once I figure out how to make it work with the slider) */}
+            <a href={href} className="inline text-9xl bg-accent text-white mt-[30svh] self-start text-[min(12svw,10svh)]">{text}</a>
         </div>
         {corner ? <div className="self-end">{corner}</div> : null}
     </div>
