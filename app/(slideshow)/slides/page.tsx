@@ -31,7 +31,7 @@ export default function DynamicPage() {
             height: '100svh',
             zIndex: -1,
         }}>
-            <ClientsideDynamicLayout
+            {/* <ClientsideDynamicLayout
                 slides={[
                     selfportraits,
                     drawings,
@@ -46,7 +46,8 @@ export default function DynamicPage() {
                 // fractions={[25, 50, 25]}
                 fractions={[50, 30, 20]}
                 scroll={scroll}
-            />
+            /> */}
+            <div>HELLO</div>
         </div>
         <Slider onScroll={setScroll}>
             <TextSlide text="Alikro, an artist." href='/about' corner={corner} />
