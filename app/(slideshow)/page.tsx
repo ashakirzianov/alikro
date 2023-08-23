@@ -3,7 +3,7 @@ import { ReactNode, useEffect, useState } from "react"
 import { forQueries, not } from "@/shared/assets"
 import { Slider } from "./Slider"
 import { ClientsideDynamicLayout } from "./DynamicLayout"
-import { BehanceLink, InstagramLink, MailLink, SocialLinks } from "@/shared/SocialLinks"
+import { BehanceLink, InstagramLink, MailLink } from "@/shared/SocialLinks"
 
 const selfportraits = forQueries('selfportrait')
 const drawings = [...forQueries('drawing', 'favorite', not('selfportrait')), ...forQueries('drawing', not('favorite'), not('selfportrait'))]
@@ -84,7 +84,9 @@ function TextSlide({
     href: string,
     corner?: ReactNode,
 }) {
-    return <div className="flex flex-col py-[8svh] justify-between h-full">
+    return <div className="flex flex-col py-[8svh] justify-between h-full cursor-pointer" onClick={() => {
+        window.location.href = href
+    }}>
         <div>
             {/* TODO: make this a Link (once I figure out how to make it work with the slider) */}
             <a href={href} className="inline text-9xl bg-accent text-white mt-[30svh] self-start text-[min(12svw,10svh)] hover:bg-white hover:text-black">{text}</a>
