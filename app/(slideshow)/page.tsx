@@ -3,7 +3,7 @@ import { ReactNode, useEffect, useState } from "react"
 import { forQueries, not } from "@/shared/assets"
 import { Slider } from "./Slider"
 import { ClientsideDynamicLayout } from "./DynamicLayout"
-import { SocialLinks } from "@/shared/SocialLinks"
+import { BehanceLink, InstagramLink, MailLink, SocialLinks } from "@/shared/SocialLinks"
 
 const selfportraits = forQueries('selfportrait')
 const drawings = [...forQueries('drawing', 'favorite', not('selfportrait')), ...forQueries('drawing', not('favorite'), not('selfportrait'))]
@@ -16,11 +16,21 @@ const tattoos = forQueries('tattoo')
 export default function DynamicPage() {
     let [scroll, setScroll] = useState(0)
     let aspect = useAspectRatio()
-    let corner = <div className="bg-accent p-4">
-        <div className="flex flex-row gap-4" style={{
-            filter: 'brightness(0) invert(1)',
-        }}>
-            <SocialLinks size={32} />
+    let corner = <div className="flex flex-row">
+        <div className="bg-accent hover:bg-white">
+            <div className="p-4 invert brightness-0 hover:invert-0 hover:brightness-0">
+                <InstagramLink />
+            </div>
+        </div>
+        <div className="bg-accent hover:bg-white">
+            <div className="p-4 invert brightness-0 hover:invert-0 hover:brightness-0">
+                <BehanceLink />
+            </div>
+        </div>
+        <div className="bg-accent hover:bg-white">
+            <div className="p-4 invert brightness-0 hover:invert-0 hover:brightness-0">
+                <MailLink />
+            </div>
         </div>
     </div>
     return <div style={{
@@ -77,7 +87,7 @@ function TextSlide({
     return <div className="flex flex-col py-[8svh] justify-between h-full">
         <div>
             {/* TODO: make this a Link (once I figure out how to make it work with the slider) */}
-            <a href={href} className="inline text-9xl bg-accent text-white mt-[30svh] self-start text-[min(12svw,10svh)]">{text}</a>
+            <a href={href} className="inline text-9xl bg-accent text-white mt-[30svh] self-start text-[min(12svw,10svh)] hover:bg-white hover:text-black">{text}</a>
         </div>
         {corner ? <div className="self-end">{corner}</div> : null}
     </div>
