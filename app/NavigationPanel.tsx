@@ -11,6 +11,10 @@ export function NavigationPanel() {
                 title="Alikro"
                 last
             />{'//'}&nbsp;
+            <NavigationLink title="all"
+                href="/all"
+                selected={segment === 'all'}
+            />
             <NavigationLink title="drawings"
                 href="/drawings"
                 selected={segment === 'drawings'}

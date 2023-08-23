@@ -1,5 +1,5 @@
 import {
-    Asset, AssetKind, assetDescription, assetHref, forTags,
+    Asset, AssetKind, all, assetDescription, assetHref, forTags,
 } from "@/shared/assets"
 import Link from "next/link"
 import { AssetImage } from "@/shared/AssetImage"
@@ -8,6 +8,10 @@ export function GalleryPage({ kind }: {
     kind: AssetKind,
 }) {
     return <Gallery assets={forTags(kind)} />
+}
+
+export function AllWorksPage() {
+    return <Gallery assets={all()} />
 }
 
 export function Gallery({ assets }: {

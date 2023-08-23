@@ -7,7 +7,7 @@ import { Metadata } from 'next'
 const inter = Inter({ subsets: ['latin'] })
 
 const title = 'Alikro'
-const description = 'Personal page of Alikro'
+const description = `Alikro, an artist.`
 export const metadata: Metadata = {
   title, description,
   openGraph: {

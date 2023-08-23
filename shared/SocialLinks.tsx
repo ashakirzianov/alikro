@@ -5,10 +5,28 @@ export function SocialLinks({ size = 32 }: {
     size?: number,
 }) {
     return <>
-        <IconLink href="https://www.instagram.com/alikro/" src="/icons/instagram.png" alt="Instagram" size={size} />
-        <IconLink href="https://www.behance.net/AlinaKro" src="/icons/behance.png" alt="Behance" size={size} />
-        <IconLink href="mailto:alinkakro@gmail.com" src="/icons/mail.png" alt="Mail" size={size} />
+        <InstagramLink size={size} />
+        <BehanceLink size={size} />
+        <MailLink size={size} />
     </>
+}
+
+export function InstagramLink({ size = 32 }: {
+    size?: number,
+}) {
+    return <IconLink href="https://www.instagram.com/alikro/" src="/icons/instagram.png" alt="Instagram" size={size} />
+}
+
+export function BehanceLink({ size = 32 }: {
+    size?: number,
+}) {
+    return <IconLink href="https://www.behance.net/AlinaKro" src="/icons/behance.png" alt="Behance" size={size} />
+}
+
+export function MailLink({ size = 32 }: {
+    size?: number,
+}) {
+    return <IconLink href="mailto:alinkakro@gmail.com" src="/icons/mail.png" alt="Mail" size={size} />
 }
 
 function IconLink({ href, src, alt, size }: {
