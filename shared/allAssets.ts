@@ -23,7 +23,7 @@ export const allAssets: Asset[] = [{
     size: '8268x11811',
 }, {
     kind: 'poster',
-    name: 'contra_spem_spero!.png',
+    name: 'contra_spem_spero.png',
     title: 'Contra spem spero!',
     year: 2022,
     material: 'digital',
