@@ -6,6 +6,7 @@ import clsx from "clsx"
 import AssetEditor from "./AssetEditor"
 import FileUploader from "./FileUploader"
 import { JsonEditor } from "./JsonEditor"
+import Link from "next/link"
 
 // Main ConsoleGrid component
 type AsideState = 'hidden' | 'upload' | 'asset' | 'json'
@@ -205,29 +206,38 @@ function FilterHeader({
     return (
         <>
             <nav className="flex flex-row flex-wrap text-accent text-2xl sm:text-5xl whitespace-nowrap pb-2">
-                <span className="mr-2">Console</span><HeaderSeparator />
+                <Link href={'/'}>
+                    <span className="mr-2">Home</span>
+                </Link>
+                <HeaderSeparator />
 
                 {/* Kind filters styled like navigation links */}
                 {kinds.map((kind, index) => (
-                    <FilterButton
-                        key={kind}
-                        onClick={() => toggleKind(kind)}
-                        selected={selectedKinds.includes(kind)}
-                        text={`${kind}${index < kinds.length - 1 ? ',' : ''}`}
-                    />
+                    <>
+                        <FilterButton
+                            key={kind}
+                            onClick={() => toggleKind(kind)}
+                            selected={selectedKinds.includes(kind)}
+                            text={kind}
+                        />
+                        {index < kinds.length - 1 ? <span>,&nbsp;</span> : undefined}
+                    </>
                 ))}
                 {/* Tags section with label */}
                 {tags.length > 0 && (
                     <>
                         <HeaderSeparator />
-                        <span>Tags:</span>
+                        <span>Tags:&nbsp;</span>
                         {tags.map((tag, index) => (
-                            <FilterButton
-                                key={tag}
-                                onClick={() => toggleTag(tag)}
-                                selected={selectedTags.includes(tag)}
-                                text={`${tag}${index < tags.length - 1 ? ',' : ''}`}
-                            />
+                            <>
+                                <FilterButton
+                                    key={tag}
+                                    onClick={() => toggleTag(tag)}
+                                    selected={selectedTags.includes(tag)}
+                                    text={tag}
+                                />
+                                {index < kinds.length - 1 ? <span>,&nbsp;</span> : undefined}
+                            </>
                         ))}
                     </>)}
                 <HeaderSeparator />
@@ -258,11 +268,11 @@ function FilterHeader({
 function FilterButton({
     onClick,
     selected,
-    text
+    text,
 }: {
     onClick: () => void,
     selected: boolean,
-    text: string
+    text: string,
 }) {
     return (
         <button
@@ -272,7 +282,7 @@ function FilterButton({
                 "text-accent hover:bg-accent hover:text-secondary": !selected
             })}
         >
-            <span>{text}&nbsp;</span>
+            <span>{text}</span>
         </button>
     )
 }
@@ -359,5 +369,5 @@ function AssetCard({
 }
 
 function HeaderSeparator() {
-    return <span className="mr-2">{'//'}&nbsp;</span>
+    return <span className="mr-2">&nbsp;//&nbsp;</span>
 }
