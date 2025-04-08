@@ -205,7 +205,7 @@ function FilterHeader({
     return (
         <>
             <nav className="flex flex-row flex-wrap text-accent text-2xl sm:text-5xl whitespace-nowrap pb-2">
-                <span className="mr-2">Console</span>{'//'}&nbsp;
+                <span className="mr-2">Console</span><HeaderSeparator />
 
                 {/* Kind filters styled like navigation links */}
                 {kinds.map((kind, index) => (
@@ -219,7 +219,8 @@ function FilterHeader({
                 {/* Tags section with label */}
                 {tags.length > 0 && (
                     <>
-                        <span className="mr-2">{'//'}&nbsp;Tags:</span>
+                        <HeaderSeparator />
+                        <span>Tags:</span>
                         {tags.map((tag, index) => (
                             <FilterButton
                                 key={tag}
@@ -229,13 +230,13 @@ function FilterHeader({
                             />
                         ))}
                     </>)}
-                <span className="mr-2">{'//'}&nbsp;</span>
+                <HeaderSeparator />
                 <FilterButton
                     onClick={() => setAsideState('upload')}
                     selected={asideState === 'upload'}
                     text="Upload"
                 />
-                <span className="mr-2">{'//'}&nbsp;</span>
+                <HeaderSeparator />
                 <FilterButton
                     onClick={() => setAsideState('json')}
                     selected={asideState === 'json'}
@@ -355,4 +356,8 @@ function AssetCard({
             </div>
         </div>
     )
+}
+
+function HeaderSeparator() {
+    return <span className="mr-2">{'//'}&nbsp;</span>
 }
