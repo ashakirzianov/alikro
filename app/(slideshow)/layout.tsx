@@ -1,8 +1,21 @@
 import '@/app/globals.css'
+import { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
+
+const title = 'Alikro'
+const description = `Alikro, an artist.`
+export const metadata: Metadata = {
+    title, description,
+    openGraph: {
+        title, description,
+    },
+    twitter: {
+        title, description,
+    },
+}
 
 export default function RootLayout({
     children,
