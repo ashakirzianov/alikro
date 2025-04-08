@@ -87,6 +87,8 @@ export default function ConsoleGrid({
                 return selectedAsset && <AssetEditor
                     asset={selectedAsset}
                     orderRange={orderRange}
+                    kinds={kinds}
+                    tags={tags}
                     onDelete={() => {
                         setSelectedAsset(null)
                         setAsideState('hidden')

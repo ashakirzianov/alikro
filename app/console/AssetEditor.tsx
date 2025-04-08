@@ -7,24 +7,20 @@ import { useState, useTransition } from "react"
 import { deleteAsset, updateAsset } from "./actions"
 import { hrefForAsset } from "@/shared/href"
 
-const ASSET_KINDS: AssetKind[] = [
-  'painting', 'drawing', 'illustration', 'poster', 'collage', 'tattoo', 'hidden'
-]
-
-const ASSET_TAGS: AssetTag[] = [
-  'favorite', 'selfportrait', 'secondary'
-]
-
 export default function AssetEditor({
   asset,
   orderRange,
+  kinds,
+  tags,
   onUpdate,
   onDelete
 }: {
-  asset: AssetMetadata
-  orderRange: [number, number]
-  onUpdate?: (asset: AssetMetadata) => void
-  onDelete?: () => void
+  asset: AssetMetadata,
+  orderRange: [number, number],
+  kinds: AssetKind[],
+  tags: AssetTag[],
+  onUpdate?: (asset: AssetMetadata) => void,
+  onDelete?: () => void,
 }) {
   const [editMode, setEditMode] = useState(false)
   const [isPending, startTransition] = useTransition()
@@ -186,7 +182,7 @@ export default function AssetEditor({
                 }}
               >
                 <option value="">Select a kind</option>
-                {ASSET_KINDS.map(kind => (
+                {kinds.map(kind => (
                   <option key={kind} value={kind}>{kind}</option>
                 ))}
                 <option value="__custom__">Add custom kind...</option>
@@ -224,7 +220,7 @@ export default function AssetEditor({
               className="w-full p-2 border rounded"
             />
             <div className="mt-1 text-xs text-gray-500">
-              Available tags: {ASSET_TAGS.join(', ')}
+              Available tags: {tags.join(', ')}
             </div>
           </div>
 
