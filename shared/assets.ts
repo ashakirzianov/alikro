@@ -21,8 +21,8 @@ export type AssetMetadataUpdate = Omit<
 
 export type AssetKind = 'drawing' | 'illustration' | 'painting' | 'poster' | 'hidden' | 'collage' | 'tattoo'
 export type AssetTag = 'selfportrait' | 'favorite' | 'secondary'
-export type AssetQuery = null | AssetTag | AssetKind | {
-    kind: 'and' | 'or',
+export type AssetQuery = null | AssetTag | AssetKind | AssetQuery[] | {
+    kind: 'or',
     queries: AssetQuery[],
 } | {
     kind: 'not',
@@ -62,7 +62,7 @@ export function generateAssetId(fileName: string) {
 }
 
 export function and(...queries: AssetQuery[]): AssetQuery {
-    return { kind: 'and', queries }
+    return queries
 }
 
 export function or(...queries: AssetQuery[]): AssetQuery {
@@ -106,10 +106,10 @@ function matchQuery(asset: AssetMetadata, query: AssetQuery): boolean {
         return true
     } else if (typeof query === 'string') {
         return asset.tags?.includes(query as AssetTag) || asset.kind === query
+    } else if (Array.isArray(query)) {
+        return query.every((q) => matchQuery(asset, q))
     }
     switch (query.kind) {
-        case 'and':
-            return query.queries.every((q) => matchQuery(asset, q))
         case 'or':
             return query.queries.every((q) => matchQuery(asset, q))
         case 'not':

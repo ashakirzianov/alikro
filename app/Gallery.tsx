@@ -1,24 +1,9 @@
 import {
-    AssetMetadata, AssetKind,
-    assetDescription, assetsForTags,
-    AssetTag,
+    AssetMetadata, assetDescription,
 } from "@/shared/assets"
 import Link from "next/link"
 import { AssetImage } from "@/shared/AssetImage"
 import { hrefForAsset } from "@/shared/href"
-
-export function GalleryPage({ assets, kind }: {
-    assets: AssetMetadata[],
-    kind: AssetKind | AssetTag,
-}) {
-    return <Gallery assets={assetsForTags(assets, kind)} />
-}
-
-export function AllWorksPage({ assets }: {
-    assets: AssetMetadata[],
-}) {
-    return <Gallery assets={assets} />
-}
 
 export function Gallery({ assets }: {
     assets: AssetMetadata[],
