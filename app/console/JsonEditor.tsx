@@ -21,7 +21,10 @@ export function JsonEditor({ initialJson }: {
                 <button type="submit" name="intent" value="save" disabled={isPending} className="btn btn-primary">Save</button>
                 <CopyButton text={text} />
             </nav>
-            {state.error && <p className="text-red-500">{state.error}</p>}
+            {!state.success
+                ? <p className="text-red-500">{state.message}</p>
+                : null
+            }
             {state.success && state.saved && <p className="text-green-500">Successfully saveded assets</p>}
         </header>
         <main>

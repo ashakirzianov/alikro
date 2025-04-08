@@ -6,6 +6,7 @@ import { uploadAssetFile } from "@/shared/fileStore"
 import { applyMetadataUpdates, deleteAssetMetadata, getAssetMetadata } from "@/shared/metadataStore"
 import { parseAssetUpdates } from "./common"
 import { affectedPathsForAsset } from "@/shared/href"
+import { isAuthenticated } from "@/shared/auth"
 
 // Server action for uploading files
 export async function uploadFile(formData: FormData): Promise<{
@@ -16,6 +17,9 @@ export async function uploadFile(formData: FormData): Promise<{
   assetId?: string;
 }> {
   try {
+    if (!isAuthenticated()) {
+      return { success: false, message: 'Unauthorized' }
+    }
     // Get the file from the form data
     const file = formData.get('file') as File
 
@@ -53,6 +57,9 @@ export async function updateAsset(
   formData: FormData
 ): Promise<{ success: boolean, message: string, asset?: AssetMetadata }> {
   try {
+    if (!isAuthenticated()) {
+      return { success: false, message: 'Unauthorized' }
+    }
     // Get current asset data
     const asset = await getAssetMetadata(id)
     if (!asset) {
@@ -112,6 +119,9 @@ export async function deleteAsset(
   id: string
 ): Promise<{ success: boolean, message: string }> {
   try {
+    if (!isAuthenticated()) {
+      return { success: false, message: 'Unauthorized' }
+    }
     // Get current asset data to verify it exists
     const asset = await getAssetMetadata(id)
     if (!asset) {
@@ -141,10 +151,13 @@ export async function deleteAsset(
 
 export type HandleJsonEditState = {
   success: boolean,
-  error?: string,
+  message?: string,
   saved?: boolean,
 }
 export async function handleJsonEdit(prevState: HandleJsonEditState, formData: FormData): Promise<HandleJsonEditState> {
+  if (!isAuthenticated()) {
+    return { success: false, message: 'Unauthorized' }
+  }
   const json = formData.get('json')
   const parsed = parseAssetUpdates(json)
   if (parsed.success) {
@@ -161,7 +174,7 @@ export async function handleJsonEdit(prevState: HandleJsonEditState, formData: F
   } else {
     return {
       success: false,
-      error: parsed.error.toString(),
+      message: parsed.error.toString(),
     }
   }
 }
