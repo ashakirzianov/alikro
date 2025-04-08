@@ -8,11 +8,7 @@ const redis = Redis.fromEnv()
 const ASSETS = 'assets'
 let allAssets: AssetMetadata[] | null = null
 export async function getAllAssetMetadata() {
-    if (allAssets) {
-        return allAssets
-    }
-    allAssets = await loadAllAssetMetadata()
-    return allAssets
+    return loadAllAssetMetadata()
 }
 
 export async function getAssetMetadata(id: string) {
