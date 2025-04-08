@@ -117,6 +117,7 @@ async function processImage(file: File): Promise<{
 
         // Use sharp to process the image
         const image = sharp(buffer)
+            .rotate() // Auto-rotate based on EXIF data
 
         // Get image metadata
         const metadata = await image.metadata()
