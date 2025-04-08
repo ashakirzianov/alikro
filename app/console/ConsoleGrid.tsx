@@ -102,7 +102,7 @@ export default function ConsoleGrid({
             default:
                 return null
         }
-    }, [asideState, selectedAsset, json, assets])
+    }, [asideState, selectedAsset, json, assets, kinds, tags])
 
 
     return <ConsoleLayout
