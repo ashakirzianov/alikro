@@ -3,7 +3,7 @@ import sharp from 'sharp'
 import { generateAssetId, splitFileNameAndExtension, AssetMetadata } from './assets'
 import { getAssetNames, storeAsset } from './metadataStore'
 
-const MAX_WIDTH = 1000
+const MAX_AREA = 1500 * 1500
 const UNPUBLISHED_KIND = 'unpublished'
 
 const S3_CONFIG = {
@@ -133,11 +133,11 @@ async function processImage(file: File): Promise<{
         let finalHeight = metadata.height
 
         // Resize image if width exceeds maximum
-        if (metadata.width > MAX_WIDTH) {
+        if (metadata.width * metadata.height > MAX_AREA) {
             // Calculate new height to maintain aspect ratio
-            const aspectRatio = metadata.height / metadata.width
-            finalWidth = MAX_WIDTH
-            finalHeight = Math.round(MAX_WIDTH * aspectRatio)
+            const factor = Math.sqrt(MAX_AREA / (metadata.width * metadata.height))
+            finalWidth = Math.round(metadata.width * factor)
+            finalHeight = Math.round(metadata.height * factor)
 
             // Resize the image
             const resizedBuffer = await image

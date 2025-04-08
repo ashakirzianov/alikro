@@ -7,6 +7,7 @@ const AssetUpdateSchema = z.object({
     year: z.number().optional(),
     material: z.string().optional(),
     tags: z.string().array().optional(),
+    order: z.number().optional(),
 })
 const AssetUpdatesSchema = z.array(AssetUpdateSchema)
 export function parseAssetUpdates(data: unknown) {
