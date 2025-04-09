@@ -13,7 +13,7 @@ export async function updateAsset(
     formData: FormData
 ): Promise<{ success: boolean, message: string, asset?: AssetMetadata }> {
     try {
-        if (!isAuthenticated()) {
+        if (!await isAuthenticated()) {
             return { success: false, message: 'Unauthorized' }
         }
         // Get current asset data
@@ -75,7 +75,7 @@ export async function deleteAsset(
     id: string
 ): Promise<{ success: boolean, message: string }> {
     try {
-        if (!isAuthenticated()) {
+        if (!await isAuthenticated()) {
             return { success: false, message: 'Unauthorized' }
         }
         // Get current asset data to verify it exists
@@ -114,7 +114,7 @@ export async function uploadFile(formData: FormData): Promise<{
     assetId?: string;
 }> {
     try {
-        if (!isAuthenticated()) {
+        if (!await isAuthenticated()) {
             return { success: false, message: 'Unauthorized' }
         }
         // Get the file from the form data
@@ -157,7 +157,7 @@ export type HandleJsonEditState = {
     saved?: boolean,
 }
 export async function handleJsonEdit(prevState: HandleJsonEditState, formData: FormData): Promise<HandleJsonEditState> {
-    if (!isAuthenticated()) {
+    if (await isAuthenticated()) {
         return { success: false, message: 'Unauthorized' }
     }
     const json = formData.get('json')

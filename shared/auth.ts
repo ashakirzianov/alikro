@@ -44,7 +44,7 @@ export async function generateNewPassword() {
 }
 
 function validatePassword(password: string, server_secret: string) {
-    return validateToken(password, 'password', server_secret)
+    return validateToken(password, 'password', 16, server_secret)
 }
 
 function generatePassword(server_secret: string) {
@@ -52,7 +52,7 @@ function generatePassword(server_secret: string) {
 }
 
 function validateAuthToken(token: string, server_secret: string) {
-    return validateToken(token, 'alikro', server_secret)
+    return validateToken(token, 'alikro', 32, server_secret)
 }
 
 function generateAuthToken(server_secret: string) {
@@ -65,7 +65,7 @@ function generateToken(message: string, length: number, server_secret: string): 
     const fullHash = hmac.digest('hex') // 64 chars (hex of 32-byte hash)
 
     // Include message hash + actual message, truncate if needed
-    const base = Buffer.from(`${message}:${fullHash}`).toString('base64url')
+    const base = Buffer.from(fullHash).toString('base64url')
 
     if (base.length > length) {
         return base.slice(0, length)
@@ -80,7 +80,10 @@ function generateToken(message: string, length: number, server_secret: string): 
 /**
  * Validates that a token was created using the secret and contains the given message.
  */
-function validateToken(token: string, message: string, server_secret: string): boolean {
-    const expected = generateToken(message, token.length, server_secret)
+function validateToken(token: string, message: string, length: number, server_secret: string): boolean {
+    if (token.length !== length) {
+        return false
+    }
+    const expected = generateToken(message, length, server_secret)
     return crypto.timingSafeEqual(Buffer.from(token), Buffer.from(expected))
 }

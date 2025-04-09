@@ -1,8 +1,6 @@
 import { Button } from "@/shared/Atoms"
-import { authenticate, isAuthenticated } from "@/shared/auth"
+import { authenticate } from "@/shared/auth"
 import { redirect } from "next/navigation"
-
-export { isAuthenticated }
 
 export async function Authenticator() {
     const handleSubmit = async (formData: FormData) => {
