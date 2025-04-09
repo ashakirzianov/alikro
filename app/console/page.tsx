@@ -15,5 +15,6 @@ export default async function Page({ searchParams }: {
     return <ConsolePage
         assets={assets}
         searchParams={resolved}
+        shallow
     />
 }
