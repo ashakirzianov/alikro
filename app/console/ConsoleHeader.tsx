@@ -52,6 +52,17 @@ export default function ConsoleHeader({
                 shallow={shallow}
                 last
             />
+            &nbsp;//&nbsp;
+            <NavigationLink
+                href={hrefForConsole({
+                    section: selectedSection,
+                    action: 'workers',
+                })}
+                title="Workers"
+                selected={selectedAction === 'workers'}
+                shallow={shallow}
+                last
+            />
         </nav>
     )
 }

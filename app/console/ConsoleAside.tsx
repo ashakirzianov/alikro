@@ -2,6 +2,7 @@ import { AssetMetadata, AssetQuery, assetsForQuery, extractUniqueKinds, extractU
 import FileUploader from "./FileUploader"
 import { JsonEditor } from "./JsonEditor"
 import AssetEditor from "./AssetEditor"
+import WorkersPane from "./WorkersPane"
 
 export default function ConsoleAside({
     assets, query, action, assetId,
@@ -32,6 +33,8 @@ export default function ConsoleAside({
                 kinds={kinds}
                 tags={tags}
             />
+        case 'workers':
+            return <WorkersPane />
         default:
             return null
     }

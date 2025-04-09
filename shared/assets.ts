@@ -85,7 +85,7 @@ export function not(query: AssetQuery): AssetQuery {
 export function sortAssets(assets: AssetMetadata[]) {
     return [...assets].sort((a, b) => {
         if (a.order !== b.order) {
-            return (b.order ?? 0) - (a.order ?? 0)
+            return (a.order ?? 0) - (b.order ?? 0)
         } else if (a.uploaded !== b.uploaded) {
             return b.uploaded - a.uploaded
         } else {

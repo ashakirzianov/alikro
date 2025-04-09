@@ -10,8 +10,8 @@ let allAssets: AssetMetadata[] | null = null
 function invalidateCache() {
     allAssets = null
 }
-export async function getAllAssetMetadata() {
-    if (null === allAssets) {
+export async function getAllAssetMetadata(force?: boolean) {
+    if (force || null === allAssets) {
         allAssets = await loadAllAssetMetadata()
         setTimeout(invalidateCache, 1000 * 60 * 1) // Invalidate cache after 1 minute
     }
@@ -74,7 +74,7 @@ export async function applyMetadataUpdates(
     updates: AssetMetadataUpdate[]) {
     const data = await redis.hgetall<AssetsRecord>(ASSETS)
     if (!data) {
-        return
+        return false
     }
     const assetStore: AssetsRecord = {}
     for (const update of updates) {
@@ -86,12 +86,14 @@ export async function applyMetadataUpdates(
             }
         }
     }
-    let result = 0
+
     if (Object.keys(assetStore).length > 0) {
-        result = await redis.hset(ASSETS, assetStore)
+        await redis.hset(ASSETS, assetStore)
         invalidateCache()
+        return true
+    } else {
+        return false
     }
-    return result
 }
 
 export async function seed(assets: AssetMetadata[], force: boolean) {
