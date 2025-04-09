@@ -7,8 +7,15 @@ type AssetMetadataValue = Omit<AssetMetadata, 'id'>
 const redis = Redis.fromEnv()
 const ASSETS = 'assets'
 let allAssets: AssetMetadata[] | null = null
+function invalidateCache() {
+    allAssets = null
+}
 export async function getAllAssetMetadata() {
-    return loadAllAssetMetadata()
+    if (null === allAssets) {
+        allAssets = await loadAllAssetMetadata()
+        setTimeout(invalidateCache, 1000 * 60 * 1) // Invalidate cache after 1 minute
+    }
+    return allAssets
 }
 
 export async function getAssetMetadata(id: string) {
@@ -33,6 +40,7 @@ export async function storeAsset(asset: AssetMetadata): Promise<boolean> {
     await redis.hset(ASSETS, {
         [id]: JSON.stringify(metadata),
     })
+    invalidateCache()
 
     return true
 }
@@ -50,6 +58,7 @@ export async function storeAssets(assets: AssetMetadata[]): Promise<boolean> {
     }
 
     await redis.hset(ASSETS, entries)
+    invalidateCache()
 
     return true
 }
@@ -57,8 +66,7 @@ export async function storeAssets(assets: AssetMetadata[]): Promise<boolean> {
 // Delete a single asset
 export async function deleteAssetMetadata(id: string): Promise<boolean> {
     const result = await redis.hdel(ASSETS, id)
-    // Clear the cache after deletion
-    allAssets = null
+    invalidateCache()
     return result > 0
 }
 
@@ -81,7 +89,7 @@ export async function applyMetadataUpdates(
     let result = 0
     if (Object.keys(assetStore).length > 0) {
         result = await redis.hset(ASSETS, assetStore)
-        allAssets = null
+        invalidateCache()
     }
     return result
 }
@@ -105,12 +113,14 @@ export async function seed(assets: AssetMetadata[], force: boolean) {
     if (!hasAny) {
         return 0
     } else {
+        invalidateCache()
         return redis.hset(ASSETS, assetStore)
     }
 }
 
 export async function cleanMetadataStore() {
     await redis.del(ASSETS)
+    invalidateCache()
 }
 
 type AssetsRecord = {
