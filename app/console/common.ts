@@ -1,5 +1,3 @@
-import { AssetMetadata } from '@/shared/assets'
-
 import { z } from 'zod'
 
 const AssetUpdateSchema = z.object({
@@ -37,22 +35,4 @@ export function parseConsoleSlug(slug: string[]): {
         const [section, action, id] = slug
         return { section, action, id }
     }
-}
-
-// Extract min and max order values from assets
-export function getAssetsOrderRange(assets: AssetMetadata[]): [number, number] {
-    if (assets.length === 0) {
-        return [0, 0]
-    }
-
-    return assets.reduce(
-        ([min, max], asset) => {
-            const order = asset.order ?? 0
-            return [
-                Math.min(min, order),
-                Math.max(max, order)
-            ]
-        },
-        [Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER]
-    )
 }

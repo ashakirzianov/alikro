@@ -8,12 +8,23 @@ export function hrefForCategory(category: string) {
     return `/works/${category}`
 }
 
-export function hrefForConsole(
-    section: string,
-    action?: 'upload' | 'edit' | 'json',
-    id?: string,
-): string {
-    return id !== undefined ? `/console/${section}/${action}/${id}`
-        : action !== undefined ? `/console/${section}/${action}`
-            : `/console/${section}`
+export function hrefForConsole({
+    section, action, assetId
+}: {
+    section?: string,
+    action?: string,
+    assetId?: string,
+}): string {
+    const searchParams = new URLSearchParams()
+    if (section && section !== 'all') {
+        searchParams.set('filter', section)
+    }
+    if (assetId) {
+        searchParams.set('aside', `edit:${assetId}`)
+    } else if (action) {
+        searchParams.set('aside', action)
+    }
+    return searchParams.size === 0
+        ? '/console'
+        : `/console?${searchParams.toString()}`
 }

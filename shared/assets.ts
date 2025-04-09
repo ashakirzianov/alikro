@@ -32,7 +32,7 @@ export type AssetQuery = null | string | AssetQuery[] | {
 export type AssetSize = `${number}x${number}`
 
 export function assetMetadataUpdate(asset: AssetMetadata): AssetMetadataUpdate {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     const { width, height, uploaded, fileName, ...update } = asset
     return update
 }
@@ -146,6 +146,24 @@ export function extractUniqueTags(assets: AssetMetadata[]): AssetTag[] {
             .flatMap(asset => asset.tags || [])
             .filter((tag): tag is AssetTag => !!tag)
     )).sort()
+}
+
+// Extract min and max order values from assets
+export function getAssetsOrderRange(assets: AssetMetadata[]): [number, number] {
+    if (assets.length === 0) {
+        return [0, 0]
+    }
+
+    return assets.reduce(
+        ([min, max], asset) => {
+            const order = asset.order ?? 0
+            return [
+                Math.min(min, order),
+                Math.max(max, order)
+            ]
+        },
+        [Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER]
+    )
 }
 
 // Parse comma-separated tags string into an array of tags

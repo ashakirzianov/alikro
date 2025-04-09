@@ -6,13 +6,12 @@ import { hrefForConsole } from "@/shared/href"
 
 // Component for the asset grid
 export function ConsoleGrid({
-    section,
-    assets,
-    selectedAssetId,
+    section, assets, selectedAssetId, shallow,
 }: {
     section: string,
     assets: AssetMetadata[],
     selectedAssetId: string | undefined,
+    shallow?: boolean,
 }) {
     return (
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
@@ -22,6 +21,7 @@ export function ConsoleGrid({
                     section={section}
                     asset={asset}
                     isSelected={asset.id === selectedAssetId}
+                    shallow={shallow}
                 />
             ))}
         </section>
@@ -45,16 +45,19 @@ function AssetCardTags({ tags }: { tags?: string[] }) {
 
 // Component for a single asset card
 function AssetCard({
-    section,
-    asset,
-    isSelected,
+    section, asset, isSelected, shallow,
 }: {
     section: string,
     asset: AssetMetadata,
     isSelected: boolean,
+    shallow?: boolean,
 }) {
     return (
-        <Link href={hrefForConsole(section, 'edit', asset.id)}>
+        <Link href={hrefForConsole({
+            section,
+            action: 'edit',
+            assetId: asset.id,
+        })} shallow={shallow}>
             <div
                 className={clsx("border p-2 cursor-pointer hover:bg-gray-100", {
                     "border-accent bg-gray-100": isSelected,

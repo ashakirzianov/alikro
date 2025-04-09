@@ -3,15 +3,16 @@ import Link from "next/link"
 import { MouseEventHandler } from "react"
 
 export function NavigationLink({
-    href, title, selected, last
+    href, title, selected, last, shallow,
 }: {
     href: string,
     title: string,
     selected?: boolean,
     last?: boolean,
+    shallow?: boolean,
 }) {
     return <span>
-        <Link href={href} className={clsx(
+        <Link href={href} shallow={shallow} className={clsx(
             'cursor-pointer', {
             'bg-accent text-secondary': selected,
             'text-accent hover:bg-accent hover:text-secondary': !selected
