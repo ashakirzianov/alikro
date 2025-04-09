@@ -28,7 +28,7 @@ export async function uploadFile(formData: FormData): Promise<{
     }
 
     // Log the file information
-    console.log(`Received file upload: ${file.name}, type: ${file.type}, size: ${file.size} bytes`)
+    console.info(`Received file upload: ${file.name}, type: ${file.type}, size: ${file.size} bytes`)
 
     // Use the enhanced uploadAssetFile function that:
     // 1. Processes the image (validates, resizes if needed)
@@ -161,10 +161,9 @@ export async function handleJsonEdit(prevState: HandleJsonEditState, formData: F
   const json = formData.get('json')
   const parsed = parseAssetUpdates(json)
   if (parsed.success) {
-    console.log('Saving assets: ', parsed.data)
     const updates = parsed.data
     const result = await applyMetadataUpdates(updates)
-    console.log('Saved assets: ', result)
+    console.info('Saved assets: ', result)
     // Revalidate the console path to reflect changes
     revalidatePathsForAssets(updates)
     return {

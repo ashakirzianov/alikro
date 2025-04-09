@@ -15,7 +15,7 @@ export async function generateStaticParams(): Promise<Props[]> {
     }))
 }
 
-export async function generateMetadata(params: Params) {
+export async function generateMetadata({ params }: { params: Params }) {
     const { category } = await params
     let title = 'Not found'
     let description = 'Not found'
@@ -48,5 +48,5 @@ export default async function Page({
     const unsorted = await getAllAssetMetadata()
     const assets = sortAssets(unsorted)
     const filtered = assetsForQuery(assets, section.query)
-    return <Gallery assets={filtered} />
+    return <Gallery assets={filtered} path={section.path} />
 }

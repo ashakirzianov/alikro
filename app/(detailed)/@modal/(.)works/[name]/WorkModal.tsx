@@ -1,35 +1,43 @@
 'use client'
-import { AssetMetadata, sortAssets } from "@/shared/assets"
+import { AssetMetadata, assetsForPath } from "@/shared/assets"
 import { Modal } from "@/shared/Modal"
 import { AssetImage } from "@/shared/AssetImage"
-import { useRouter } from "next/navigation"
-import React, { useEffect } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
 import { hrefForAsset } from "@/shared/href"
+import { allSections } from "@/shared/sections"
 
 export function WorkModal({ asset, allAssets }: {
     asset: AssetMetadata,
     allAssets: AssetMetadata[],
 }) {
+    const searchParams = useSearchParams()
+    const from = searchParams.get('from') ?? 'all'
+    const search = searchParams.toString()
     const router = useRouter()
-    const dismiss = () => router.back()
+    const [dismissed, setDismissed] = useState(false)
+    const dismiss = useCallback(function dismiss() {
+        router.push(`/${from}`)
+        setDismissed(true)
+    }, [router, from])
 
     // Find next and previous assets
-    const sortedAssets = sortAssets(allAssets)
-    const currentIndex = sortedAssets.findIndex(a => a.id === asset.id)
+    const filteredAssets = useFilteredAssets(allAssets)
+    const currentIndex = filteredAssets.findIndex(a => a.id === asset.id)
 
     const navigateToNextAsset = React.useCallback(() => {
-        if (currentIndex === -1 || sortedAssets.length <= 1) return
-        const nextIndex = (currentIndex + 1) % sortedAssets.length
-        const nextAsset = sortedAssets[nextIndex]
-        router.push(hrefForAsset(nextAsset))
-    }, [currentIndex, sortedAssets, router])
+        if (currentIndex === -1 || filteredAssets.length <= 1) return
+        const nextIndex = (currentIndex + 1) % filteredAssets.length
+        const nextAsset = filteredAssets[nextIndex]
+        router.push(`${hrefForAsset(nextAsset)}?${search}`)
+    }, [currentIndex, filteredAssets, router, search])
 
     const navigateToPrevAsset = React.useCallback(() => {
-        if (currentIndex === -1 || sortedAssets.length <= 1) return
-        const prevIndex = (currentIndex - 1 + sortedAssets.length) % sortedAssets.length
-        const prevAsset = sortedAssets[prevIndex]
-        router.push(hrefForAsset(prevAsset))
-    }, [currentIndex, sortedAssets, router])
+        if (currentIndex === -1 || filteredAssets.length <= 1) return
+        const prevIndex = (currentIndex - 1 + filteredAssets.length) % filteredAssets.length
+        const prevAsset = filteredAssets[prevIndex]
+        router.push(`${hrefForAsset(prevAsset)}?${search}`)
+    }, [currentIndex, filteredAssets, router, search])
 
     // Keyboard navigation
     useEffect(() => {
@@ -46,6 +54,10 @@ export function WorkModal({ asset, allAssets }: {
         window.addEventListener('keydown', handleKeyDown)
         return () => window.removeEventListener('keydown', handleKeyDown)
     }, [navigateToNextAsset, navigateToPrevAsset, dismiss])
+
+    if (dismissed) {
+        return null
+    }
 
     return <Modal onDismiss={dismiss}>
         <div className="relative" onClick={e => e.stopPropagation()}>
@@ -97,4 +109,19 @@ export function WorkModal({ asset, allAssets }: {
             </button>
         </div>
     </Modal>
+}
+
+function useFilteredAssets(allAssets: AssetMetadata[]) {
+    const searchParams = useSearchParams()
+    const from = searchParams.get('from') ?? 'all'
+
+    const filteredAssets = useMemo(() => {
+        if (from) {
+            const fromAssets = assetsForPath(allAssets, allSections(), from)
+            return fromAssets
+        } else {
+            return allAssets
+        }
+    }, [from, allAssets])
+    return filteredAssets
 }

@@ -1,4 +1,4 @@
-import { assetDescription } from "@/shared/assets"
+import { assetDescription, sortAssets } from "@/shared/assets"
 import React from "react"
 import { WorkModal } from "./WorkModal"
 import { getAssetMetadata, getAllAssetMetadata } from "@/shared/metadataStore"
@@ -43,6 +43,7 @@ export default async function Page(props: Props) {
   if (asset === undefined) {
     return 'Not found'
   }
+  const sorted = sortAssets(allAssets)
 
-  return <WorkModal asset={asset} allAssets={allAssets} />
+  return <WorkModal asset={asset} allAssets={sorted} />
 }
