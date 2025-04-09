@@ -24,8 +24,8 @@ export default function ConsolePage({
         action={action}
         assetId={assetId}
     />
-    return <div className="flex flex-col h-screen">
-        <section className="flex flex-col min-h-screen">
+    return <section className="flex flex-col h-screen">
+        <div className="flex flex-col min-h-screen">
             {/* Header */}
             <header className="w-full">
                 <ConsoleHeader
@@ -40,14 +40,14 @@ export default function ConsolePage({
             {/* Content Area */}
             <div className="flex flex-1 overflow-hidden">
                 {/* Main content */}
-                <div className={clsx("flex-1 overflow-auto p-4 w-full")}>
+                <main className={clsx("flex-1 overflow-auto p-4 w-full")}>
                     <ConsoleGrid
                         section={section}
                         assets={filteredAssets}
                         selectedAssetId={assetId}
                         shallow={shallow}
                     />
-                </div>
+                </main>
 
                 {/* Sticky Aside */}
                 {aside && (
@@ -58,8 +58,8 @@ export default function ConsolePage({
                     </aside>
                 )}
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 }
 
 
