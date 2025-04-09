@@ -1,3 +1,4 @@
+import { Section } from "./sections"
 import { asserNever } from "./utils"
 
 export type Timestamp = number
@@ -21,8 +22,8 @@ export type AssetMetadataUpdate = Omit<
 
 export type AssetKind = 'drawing' | 'illustration' | 'painting' | 'poster' | 'hidden' | 'collage' | 'tattoo'
 export type AssetTag = 'selfportrait' | 'favorite' | 'secondary'
-export type AssetQuery = null | AssetTag | AssetKind | {
-    kind: 'and' | 'or',
+export type AssetQuery = null | string | AssetQuery[] | {
+    kind: 'or',
     queries: AssetQuery[],
 } | {
     kind: 'not',
@@ -31,9 +32,17 @@ export type AssetQuery = null | AssetTag | AssetKind | {
 export type AssetSize = `${number}x${number}`
 
 export function assetMetadataUpdate(asset: AssetMetadata): AssetMetadataUpdate {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     const { width, height, uploaded, fileName, ...update } = asset
     return update
+}
+
+export function assetsForPath(assets: AssetMetadata[], sections: Section[], path: string) {
+    const section = sections.find((section) => section.path === path)
+    if (!section) {
+        return []
+    }
+    return assetsForQuery(assets, section.query)
 }
 
 export function assetSrc(asset: AssetMetadata) {
@@ -62,7 +71,7 @@ export function generateAssetId(fileName: string) {
 }
 
 export function and(...queries: AssetQuery[]): AssetQuery {
-    return { kind: 'and', queries }
+    return queries
 }
 
 export function or(...queries: AssetQuery[]): AssetQuery {
@@ -76,7 +85,7 @@ export function not(query: AssetQuery): AssetQuery {
 export function sortAssets(assets: AssetMetadata[]) {
     return [...assets].sort((a, b) => {
         if (a.order !== b.order) {
-            return (b.order ?? 0) - (a.order ?? 0)
+            return (a.order ?? 0) - (b.order ?? 0)
         } else if (a.uploaded !== b.uploaded) {
             return b.uploaded - a.uploaded
         } else {
@@ -106,10 +115,10 @@ function matchQuery(asset: AssetMetadata, query: AssetQuery): boolean {
         return true
     } else if (typeof query === 'string') {
         return asset.tags?.includes(query as AssetTag) || asset.kind === query
+    } else if (Array.isArray(query)) {
+        return query.every((q) => matchQuery(asset, q))
     }
     switch (query.kind) {
-        case 'and':
-            return query.queries.every((q) => matchQuery(asset, q))
         case 'or':
             return query.queries.every((q) => matchQuery(asset, q))
         case 'not':
@@ -137,6 +146,24 @@ export function extractUniqueTags(assets: AssetMetadata[]): AssetTag[] {
             .flatMap(asset => asset.tags || [])
             .filter((tag): tag is AssetTag => !!tag)
     )).sort()
+}
+
+// Extract min and max order values from assets
+export function getAssetsOrderRange(assets: AssetMetadata[]): [number, number] {
+    if (assets.length === 0) {
+        return [0, 0]
+    }
+
+    return assets.reduce(
+        ([min, max], asset) => {
+            const order = asset.order ?? 0
+            return [
+                Math.min(min, order),
+                Math.max(max, order)
+            ]
+        },
+        [Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER]
+    )
 }
 
 // Parse comma-separated tags string into an array of tags

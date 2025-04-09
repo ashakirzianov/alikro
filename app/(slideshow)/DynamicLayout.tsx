@@ -12,8 +12,15 @@ export const ClientsideDynamicPage = dynamic(() => Promise.resolve(DynamicPage),
     ssr: false,
 })
 
+export type SlideData = {
+    assets: AssetMetadata[],
+    title: string,
+    href: string,
+    includeLinks?: boolean,
+}
+
 function DynamicPage({ slides }: {
-    slides: AssetMetadata[][],
+    slides: SlideData[],
 }) {
     const [scroll, setScroll] = useState(0)
     const aspect = useAspectRatio()
@@ -45,7 +52,7 @@ function DynamicPage({ slides }: {
             zIndex: 1,
         }}>
             <DynamicLayout
-                slides={slides}
+                slides={slides.map(s => s.assets)}
                 aspect={aspect}
                 // fractions={[30, 40, 30]}
                 // fractions={[25, 50, 25]}
@@ -58,13 +65,12 @@ function DynamicPage({ slides }: {
             zIndex: 2,
         }}>
             <Slider onScroll={setScroll}>
-                <TextSlide text="Alikro, an artist." href='/about' corner={corner} />
-                <TextSlide text="Drawings." href='/drawings' />
-                <TextSlide text="Illustrations." href='/illustrations' />
-                <TextSlide text="Paintings." href='/paintings' />
-                <TextSlide text="Posters." href='/posters' />
-                <TextSlide text="Collages." href='/collages' />
-                <TextSlide text="Tattoos." href='/tattoos' />
+                {
+                    slides.map((slide, idx) => {
+                        const { title, href, includeLinks } = slide
+                        return <TextSlide key={idx} text={title} href={href} corner={includeLinks ? corner : null} />
+                    })
+                }
             </Slider>
         </div>
     </div>

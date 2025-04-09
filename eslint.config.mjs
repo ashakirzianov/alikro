@@ -24,6 +24,10 @@ const eslintConfig = [
         rules: {
             '@stylistic/ts/semi': ['error', 'never'],
             'no-unreachable': 'off',
+            '@typescript-eslint/no-unused-vars': ['error', {
+                ignoreRestSiblings: true,
+                destructuredArrayIgnorePattern: '^_'
+            }],
         }
     },
 ]

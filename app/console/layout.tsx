@@ -1,9 +1,19 @@
 import '@/app/globals.css'
+import { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function RootLayout({
+const title = 'Console'
+const description = 'Admin console for the website'
+export const metadata: Metadata = {
+    title, description,
+    openGraph: {
+        title, description,
+    },
+}
+
+export default async function RootLayout({
     children,
 }: {
     children: React.ReactNode,
@@ -11,9 +21,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={inter.className}>
-                <main>
-                    {children}
-                </main>
+                {children}
             </body>
         </html>
     )

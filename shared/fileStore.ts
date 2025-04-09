@@ -201,16 +201,12 @@ async function uploadImageToS3WithUniqueId(image: ProcessedImage): Promise<{
         let fileName = image.originalName
         let assetId = generateAssetId(baseFileName)
 
-        console.log('Generated asset ID:', assetId)
-        console.log('File name:', fileName)
-
         // Ensure unique asset ID by adding numeric suffix if needed
         let suffix = 1
 
         while (existingAssetIds.has(assetId)) {
             fileName = `${baseFileName}-${suffix}.${fileExtension}`
             assetId = generateAssetId(fileName)
-            console.log('Checking for uniqueness:', assetId)
             suffix++
         }
 

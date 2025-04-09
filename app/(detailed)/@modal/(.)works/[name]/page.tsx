@@ -1,7 +1,7 @@
-import { assetDescription } from "@/shared/assets"
+import { assetDescription, sortAssets } from "@/shared/assets"
 import React from "react"
 import { WorkModal } from "./WorkModal"
-import { getAssetMetadata } from "@/shared/metadataStore"
+import { getAssetMetadata, getAllAssetMetadata } from "@/shared/metadataStore"
 
 type Props = {
   params: Promise<{ name: string }>,
@@ -34,9 +34,16 @@ export default async function Page(props: Props) {
     name
   } = params
 
-  const asset = await getAssetMetadata(name)
+  // Fetch the current asset and all assets for navigation
+  const [asset, allAssets] = await Promise.all([
+    getAssetMetadata(name),
+    getAllAssetMetadata()
+  ])
+
   if (asset === undefined) {
     return 'Not found'
   }
-  return <WorkModal asset={asset} />
+  const sorted = sortAssets(allAssets)
+
+  return <WorkModal asset={asset} allAssets={sorted} />
 }
