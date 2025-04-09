@@ -1,6 +1,6 @@
 'use client'
+import { NavigationLink } from "@/shared/Atoms"
 import { allSections } from "@/shared/sections"
-import Link from "next/link"
 import { useSelectedLayoutSegment } from 'next/navigation'
 
 export function NavigationPanel() {
@@ -31,20 +31,3 @@ export function NavigationPanel() {
     )
 }
 
-function NavigationLink({
-    href, title, selected, last
-}: {
-    href: string,
-    title: string,
-    selected?: boolean,
-    last?: boolean,
-}) {
-    const selectedClass = selected
-        ? 'bg-accent text-secondary'
-        : 'text-accent hover:bg-accent hover:text-secondary'
-    return <span>
-        <Link href={href} className={`cursor-pointer ${selectedClass}`}>
-            {title}
-        </Link>{last ? '' : ','}&nbsp;
-    </span>
-}

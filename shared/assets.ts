@@ -22,7 +22,7 @@ export type AssetMetadataUpdate = Omit<
 
 export type AssetKind = 'drawing' | 'illustration' | 'painting' | 'poster' | 'hidden' | 'collage' | 'tattoo'
 export type AssetTag = 'selfportrait' | 'favorite' | 'secondary'
-export type AssetQuery = null | AssetTag | AssetKind | AssetQuery[] | {
+export type AssetQuery = null | string | AssetQuery[] | {
     kind: 'or',
     queries: AssetQuery[],
 } | {

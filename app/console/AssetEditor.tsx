@@ -4,8 +4,9 @@ import { AssetImage } from "@/shared/AssetImage"
 import { AssetKind, AssetMetadata, AssetTag } from "@/shared/assets"
 import Link from "next/link"
 import { useState, useTransition } from "react"
-import { deleteAsset, updateAsset } from "./actions"
 import { hrefForAsset } from "@/shared/href"
+import { Button } from "@/shared/Atoms"
+import { deleteAsset, updateAsset } from "@/app/console/actions"
 
 export default function AssetEditor({
   asset,
@@ -76,18 +77,14 @@ export default function AssetEditor({
         <h2 className="text-2xl font-bold">{asset.title || 'Untitled'}</h2>
         {!editMode && !isDeleting && (
           <div className="flex space-x-2">
-            <button
+            <Button
               onClick={() => setEditMode(true)}
-              className="px-3 py-1 bg-accent text-white rounded hover:bg-accent/90"
-            >
-              Edit
-            </button>
-            <button
+              text='Edit'
+            />
+            <Button
               onClick={handleDelete}
-              className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
-            >
-              Delete
-            </button>
+              text="Delete"
+            />
           </div>
         )}
       </div>
@@ -116,20 +113,17 @@ export default function AssetEditor({
           <h3 className="text-lg font-bold text-red-700 mb-2">Confirm Delete</h3>
           <p className="mb-4">Are you sure you want to delete &quot;{asset.title || 'Untitled'}&quot;? This action cannot be undone.</p>
           <div className="flex space-x-2">
-            <button
+            <Button
               onClick={confirmDelete}
               disabled={isPending}
-              className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50"
-            >
-              {isPending ? 'Deleting...' : 'Yes, Delete'}
-            </button>
-            <button
+              text={isPending ? 'Deleting...' : 'Yes, Delete'}
+            />
+            <Button
               onClick={cancelDelete}
               disabled={isPending}
-              className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 disabled:opacity-50"
-            >
-              Cancel
-            </button>
+              kind="gray"
+              text="Cancel"
+            />
           </div>
         </div>
       )}
@@ -198,13 +192,12 @@ export default function AssetEditor({
                     autoFocus
                   />
                   <div className="flex justify-end mt-1">
-                    <button
+                    <Button
                       type="button"
-                      className="text-xs text-gray-500 hover:text-gray-700"
+                      kind="gray"
                       onClick={() => setShowCustomKind(false)}
-                    >
-                      Cancel
-                    </button>
+                      text="Cancel"
+                    />
                   </div>
                 </div>
               )}
@@ -235,9 +228,9 @@ export default function AssetEditor({
                 step="1"
               />
               <div className="flex mt-2 space-x-2">
-                <button
+                <Button
                   type="button"
-                  className="px-2 py-1 text-xs bg-gray-200 text-gray-800 rounded hover:bg-gray-300"
+                  kind="gray"
                   onClick={(e) => {
                     const form = e.currentTarget.closest('form')
                     const orderInput = form?.querySelector('input[name="order"]') as HTMLInputElement
@@ -245,12 +238,11 @@ export default function AssetEditor({
                       orderInput.value = (orderRange[1] + 1).toString()
                     }
                   }}
-                >
-                  Move to top
-                </button>
-                <button
+                  text='Move to Top'
+                />
+                <Button
                   type="button"
-                  className="px-2 py-1 text-xs bg-gray-200 text-gray-800 rounded hover:bg-gray-300"
+                  kind="gray"
                   onClick={(e) => {
                     const form = e.currentTarget.closest('form')
                     const orderInput = form?.querySelector('input[name="order"]') as HTMLInputElement
@@ -258,28 +250,24 @@ export default function AssetEditor({
                       orderInput.value = (orderRange[0] - 1).toString()
                     }
                   }}
-                >
-                  Move to bottom
-                </button>
+                  text="Move to Bottom"
+                />
               </div>
             </div>
           </div>
 
           <div className="flex space-x-2 pt-2">
-            <button
+            <Button
               type="submit"
               disabled={isPending}
-              className="px-4 py-2 bg-accent text-white rounded hover:bg-accent/90 disabled:opacity-50"
-            >
-              {isPending ? 'Saving...' : 'Save'}
-            </button>
-            <button
+              text={isPending ? 'Saving...' : 'Save'}
+            />
+            <Button
               type="button"
               onClick={() => setEditMode(false)}
-              className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300"
-            >
-              Cancel
-            </button>
+              kind="gray"
+              text="Cancel"
+            />
           </div>
         </form>
       ) : (
@@ -297,7 +285,7 @@ export default function AssetEditor({
               View in gallery
             </Link>
             <div className="flex space-x-2">
-              <button
+              <Button
                 onClick={() => {
                   const formData = new FormData()
                   formData.append('title', asset.title || '')
@@ -321,11 +309,9 @@ export default function AssetEditor({
                   })
                 }}
                 disabled={isPending}
-                className="text-sm text-accent hover:underline"
-              >
-                Move to top
-              </button>
-              <button
+                text="Move to Top"
+              />
+              <Button
                 onClick={() => {
                   const formData = new FormData()
                   formData.append('title', asset.title || '')
@@ -349,10 +335,8 @@ export default function AssetEditor({
                   })
                 }}
                 disabled={isPending}
-                className="text-sm text-accent hover:underline"
-              >
-                Move to bottom
-              </button>
+                text="Move to Bottom"
+              />
             </div>
           </div>
         </div>

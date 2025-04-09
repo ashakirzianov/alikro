@@ -1,8 +1,8 @@
 'use client'
-
 import { UploadProgress } from "@/shared/fileStore"
-import { uploadFile } from "./actions"
 import { useRef, useState } from "react"
+import { Button } from "@/shared/Atoms"
+import { uploadFile } from "./actions"
 
 export default function FileUploader() {
     const [uploadState, setUploadState] = useState<'idle' | 'uploading' | 'complete'>('idle')
@@ -138,12 +138,10 @@ export default function FileUploader() {
 
             {/* Upload button */}
             {uploadState === 'idle' && (
-                <button
+                <Button
                     onClick={handleFileSelect}
-                    className="bg-accent text-white px-4 py-2 rounded-md hover:bg-accent/90 transition-colors"
-                >
-                    Upload Assets
-                </button>
+                    text="Upload Assets"
+                />
             )}
 
             {/* Upload progress */}
@@ -200,21 +198,17 @@ export default function FileUploader() {
                     {/* Action buttons */}
                     <div className="flex justify-end space-x-3">
                         {uploadState === 'complete' && (
-                            <button
+                            <Button
+                                text="Reset"
                                 onClick={resetUpload}
-                                className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors"
-                            >
-                                Reset
-                            </button>
+                                kind="gray"
+                            />
                         )}
-
-                        <button
+                        <Button
+                            text={uploadState === 'complete' ? 'Upload More' : 'Add Files'}
                             onClick={handleFileSelect}
-                            className="bg-accent text-white px-4 py-2 rounded-md hover:bg-accent/90 transition-colors"
                             disabled={uploadState === 'uploading'}
-                        >
-                            {uploadState === 'complete' ? 'Upload More' : 'Add Files'}
-                        </button>
+                        />
                     </div>
                 </div>
             )}

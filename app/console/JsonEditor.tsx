@@ -1,6 +1,7 @@
 'use client'
 
 import { useActionState, useEffect, useState } from "react"
+import { Button } from "@/shared/Atoms"
 import { handleJsonEdit } from "./actions"
 import { parseAssetUpdates } from "./common"
 
@@ -18,7 +19,7 @@ export function JsonEditor({ initialJson }: {
     return <form action={formAction}>
         <header className="flex flex-col gap-4">
             <nav className="flex flex-row gap-4">
-                <button type="submit" name="intent" value="save" disabled={isPending} className="btn btn-primary">Save</button>
+                <Button type="submit" name="intent" value="save" disabled={isPending} text="Save" />
                 <CopyButton text={text} />
             </nav>
             {!state.success
@@ -68,12 +69,15 @@ function CopyButton({ text }: {
         })
     }
 
-    return <button type="button" onClick={handleCopy} disabled={state === 'pending'} className="btn btn-primary">
-        {
+    return <Button
+        type="button"
+        onClick={handleCopy}
+        disabled={state === 'pending'}
+        text={
             state === 'pending' ? 'Copying...'
                 : state === 'success' ? 'Copied!'
                     : state === 'error' ? 'Error!'
                         : 'Copy JSON'
         }
-    </button>
+    />
 }
