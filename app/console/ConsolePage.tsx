@@ -14,9 +14,9 @@ export default function ConsolePage({
 }) {
     const kinds = extractUniqueKinds(assets)
     const tags = extractUniqueTags(assets)
-    const { action, filter, assetId } = parseSearchParams(searchParams)
-    const section = filter ?? 'all'
-    const query = filter ?? null
+    const { action, filter: filterParam, assetId } = parseSearchParams(searchParams)
+    const filter = filterParam ?? 'all'
+    const query = filterParam ?? null
     const filteredAssets = assetsForQuery(assets, query)
     const aside = <ConsoleAside
         assets={assets}
@@ -31,7 +31,7 @@ export default function ConsolePage({
                 <ConsoleHeader
                     kinds={kinds}
                     tags={tags}
-                    selectedSection={section}
+                    selectedFilter={filter}
                     selectedAction={action}
                     shallow={shallow}
                 />
@@ -42,7 +42,7 @@ export default function ConsolePage({
                 {/* Main content */}
                 <main className={clsx("flex-1 overflow-auto p-4 w-full")}>
                     <ConsoleGrid
-                        section={section}
+                        filter={filter}
                         assets={filteredAssets}
                         selectedAssetId={assetId}
                         shallow={shallow}

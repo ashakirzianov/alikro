@@ -4,7 +4,7 @@ import { Modal } from "@/shared/Modal"
 import { AssetImage } from "@/shared/AssetImage"
 import { useRouter } from "next/navigation"
 import React, { useCallback, useEffect } from "react"
-import { hrefForConsole, hrefForAssetModal, hrefForAsset } from "@/shared/href"
+import { hrefForConsole, hrefForAssetModal, hrefForAsset, filterForPathname } from "@/shared/href"
 import Link from "next/link"
 
 export function WorkModal({
@@ -34,7 +34,7 @@ export function WorkModal({
         : undefined
     const dismissLink = pathname
     const editLink = hrefForConsole({
-        pathname,
+        filter: filterForPathname(pathname),
         assetId: assetId,
     })
 

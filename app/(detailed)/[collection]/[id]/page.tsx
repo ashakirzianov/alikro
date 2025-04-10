@@ -5,25 +5,25 @@ import {
 import { getAllAssetMetadata, getAssetMetadata } from "@/shared/metadataStore"
 import { AssetImage } from "@/shared/AssetImage"
 import { isAuthenticated } from "@/shared/auth"
-import { hrefForConsole } from "@/shared/href"
+import { filterForPathname, hrefForConsole } from "@/shared/href"
 import Link from "next/link"
-import { allSections } from "@/shared/sections"
+import { allCollections } from "@/shared/collection"
 import { ogImagesForAsset } from "../utils"
 
 export async function generateStaticParams() {
     const assets = await getAllAssetMetadata()
-    const sections = allSections()
-    return sections.map(
-        section => assetsForQuery(assets, section.query)
+    const collections = allCollections()
+    return collections.map(
+        collection => assetsForQuery(assets, collection.query)
             .map(asset => ({
-                category: section.path,
+                collection: collection.id,
                 id: asset.id,
             }))
     ).flat()
 }
 
 type Props = {
-    params: Promise<{ category: string, id: string }>,
+    params: Promise<{ collection: string, id: string }>,
 }
 export async function generateMetadata(props: Props) {
     const params = await props.params
@@ -64,9 +64,8 @@ export async function generateMetadata(props: Props) {
 export default async function Page(props: Props) {
     const params = await props.params
 
-    const {
-        id
-    } = params
+    const { collection, id } = params
+    const pathname = `/${collection}/${id}`
     const auth = await isAuthenticated()
 
     const asset = await getAssetMetadata(id)
@@ -88,6 +87,7 @@ export default async function Page(props: Props) {
             <span>{assetDescription(asset)}</span>
             {auth && <Link href={hrefForConsole({
                 assetId: asset.id,
+                filter: filterForPathname(pathname),
             })}>edit</Link>}
         </div>
     </div>

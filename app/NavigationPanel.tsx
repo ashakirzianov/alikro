@@ -1,6 +1,7 @@
 'use client'
 import { NavigationLink } from "@/shared/Atoms"
-import { allSections } from "@/shared/sections"
+import { allCollections } from "@/shared/collection"
+import { hrefForCollection } from "@/shared/href"
 import { useSelectedLayoutSegment } from 'next/navigation'
 
 export function NavigationPanel() {
@@ -13,12 +14,12 @@ export function NavigationPanel() {
                 last
             />{'//'}&nbsp;
             {
-                allSections().map(section => (
+                allCollections().map(collection => (
                     <NavigationLink
-                        key={section.path}
-                        href={`/${section.path}`}
-                        title={section.section}
-                        selected={segment === section.path}
+                        key={collection.id}
+                        href={hrefForCollection({ collectionId: collection.id })}
+                        title={collection.id}
+                        selected={segment === collection.id}
                     />
                 ))
             }

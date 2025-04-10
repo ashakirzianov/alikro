@@ -1,4 +1,4 @@
-import { Section } from "./sections"
+import { Collection } from "./collection"
 import { asserNever } from "./utils"
 
 export type Timestamp = number
@@ -35,14 +35,6 @@ export function assetMetadataUpdate(asset: AssetMetadata): AssetMetadataUpdate {
 
     const { width, height, uploaded, fileName, ...update } = asset
     return update
-}
-
-export function assetsForPath(assets: AssetMetadata[], sections: Section[], path: string) {
-    const section = sections.find((section) => section.path === path)
-    if (!section) {
-        return []
-    }
-    return assetsForQuery(assets, section.query)
 }
 
 export function assetSrc(asset: AssetMetadata) {

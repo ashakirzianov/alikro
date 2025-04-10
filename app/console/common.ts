@@ -21,18 +21,3 @@ export function parseAssetUpdates(data: unknown) {
         return AssetUpdatesSchema.safeParse('Invalid JSON')
     }
 }
-
-export function parseConsoleSlug(slug: string[]): {
-    section: string | undefined,
-    action: string | undefined,
-    id: string | undefined,
-} {
-    // TODO: investigate why sometimes we get 'console' in the slug and sometimes we don't
-    if (slug[0] === 'console') {
-        const [_console, section, action, id] = slug
-        return { section, action, id }
-    } else {
-        const [section, action, id] = slug
-        return { section, action, id }
-    }
-}

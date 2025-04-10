@@ -1,9 +1,8 @@
 import { AssetQuery, not } from "./assets"
 
-export type Section = {
-    path: string,
+export type Collection = {
+    id: string,
     title: string,
-    section: string,
     description: string,
     query: AssetQuery,
     slideAndQuery?: AssetQuery,
@@ -11,71 +10,59 @@ export type Section = {
     slideLinks?: boolean,
 }
 
-export function allSections(): Section[] {
-    return sections
+export function allCollections(): Collection[] {
+    return collections
 }
 
-export function sectionForPath(path: string): Section | undefined {
-    return sections.find(section => section.path === path)
+export function collectionForId(path: string): Collection | undefined {
+    return collections.find(collection => collection.id === path)
 }
 
-export function allSectionPaths(): string[] {
-    return sections.map(section => section.path)
-}
-
-const sections: Section[] = [{
-    path: 'all',
+const collections: Collection[] = [{
+    id: 'all',
     title: 'Alikro, an artist.',
     description: 'All works by Alikro.',
-    section: 'all',
     query: null,
     slideAndQuery: 'selfportrait',
     slideLinks: true,
 }, {
-    path: 'paintings',
+    id: 'paintings',
     title: 'Paintings.',
     description: "Alikro's paintings.",
-    section: 'paintings',
     query: 'painting',
     slideAndQuery: [not('selfportrait')],
 }, {
-    path: 'drawings',
+    id: 'drawings',
     title: 'Drawings.',
     description: "Alikro's drawings.",
-    section: 'drawings',
     query: 'drawing',
     slideAndQuery: [not('selfportrait')],
 }, {
-    path: 'ceramics',
+    id: 'ceramics',
     title: 'Ceramics.',
     description: "Alikro's ceramics.",
-    section: 'ceramics',
     query: 'ceramic',
 }, {
-    path: 'illustrations',
+    id: 'illustrations',
     title: 'Illustrations.',
     description: "Alikro's illustrations.",
-    section: 'illustrations',
     query: 'illustration',
     slideAndQuery: [not('selfportrait')],
 }, {
-    path: 'posters',
+    id: 'posters',
     title: 'Posters.',
     description: "Alikro's posters.",
-    section: 'posters',
     query: 'poster',
     slideAndQuery: [not('selfportrait')],
 }, {
-    path: 'collages',
+    id: 'collages',
     title: 'Collages.',
     description: "Alikro's collages.",
-    section: 'collages',
     query: 'collage',
     slideAndQuery: [not('selfportrait')],
 }, {
-    path: 'tattoos',
+    id: 'tattoos',
     title: 'Tattoos.',
     description: "Alikro's tattoos.",
-    section: 'tattoos',
     query: 'tattoo',
 }]

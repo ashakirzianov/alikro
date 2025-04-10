@@ -1,4 +1,4 @@
-import { sectionForPath } from "./sections"
+import { collectionForId } from "./collection"
 
 export function hrefForAsset({ pathname, assetId }: {
     pathname?: string,
@@ -14,19 +14,20 @@ export function hrefForAssetModal({ pathname, assetId }: {
     return `${pathname}?show=${assetId}`
 }
 
-export function hrefForSection(category: string) {
-    return `/${category}`
+export function hrefForCollection({ collectionId }: {
+    collectionId: string,
+}) {
+    return `/${collectionId}`
 }
 
 export function hrefForConsole({
-    pathname, action, assetId
+    filter, action, assetId
 }: {
-    pathname?: string,
+    filter?: string,
     action?: string,
     assetId?: string,
 }): string {
     const searchParams = new URLSearchParams()
-    const filter = filterForPathname(pathname)
     if (filter) {
         searchParams.set('filter', filter)
     }
@@ -40,14 +41,14 @@ export function hrefForConsole({
         : `/console?${searchParams.toString()}`
 }
 
-function filterForPathname(pathname: string | undefined) {
+export function filterForPathname(pathname: string | undefined) {
     if (pathname === undefined) {
         return undefined
     }
-    const path = pathname.substring(1)
-    const section = sectionForPath(path)
-    if (section) {
-        return section.section
+    const id = pathname.substring(1)
+    const collection = collectionForId(id)
+    if (collection) {
+        return id
     } else {
         return undefined
     }
