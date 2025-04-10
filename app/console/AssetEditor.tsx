@@ -23,7 +23,7 @@ export default function AssetEditor({
   onUpdate?: (asset: AssetMetadata) => void,
   onDelete?: () => void,
 }) {
-  const [editMode, setEditMode] = useState(false)
+  const [editMode, setEditMode] = useState(true)
   const [isPending, startTransition] = useTransition()
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
   const [isDeleting, setIsDeleting] = useState(false)
@@ -75,31 +75,38 @@ export default function AssetEditor({
     <div className="w-full border-l p-4 ml-4">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">{asset.title || 'Untitled'}</h2>
-        {!editMode && !isDeleting && (
-          <div className="flex space-x-2">
-            <Button
-              onClick={() => setEditMode(true)}
-              text='Edit'
-            />
-            <Button
-              onClick={handleDelete}
-              text="Delete"
-            />
-          </div>
-        )}
-      </div>
-
-      <div className="mb-4">
-        <AssetImage
-          asset={asset}
-          size="medium"
-          style={{
-            maxWidth: '100%',
-            height: 'auto',
-            maxHeight: '300px',
-            objectFit: 'contain'
-          }}
-        />
+        <div className="flex space-x-2">
+          {editMode && !isDeleting && (
+            <>
+              <Button
+                onClick={() => handleSubmit(new FormData(document.querySelector('form') as HTMLFormElement))}
+                disabled={isPending}
+                text={isPending ? 'Saving...' : 'Save'}
+              />
+              <Button
+                onClick={() => setEditMode(false)}
+                kind="gray"
+                text="Cancel"
+              />
+              <Button
+                onClick={handleDelete}
+                text="Delete"
+              />
+            </>
+          )}
+          {!editMode && !isDeleting && (
+            <>
+              <Button
+                onClick={() => setEditMode(true)}
+                text='Edit'
+              />
+              <Button
+                onClick={handleDelete}
+                text="Delete"
+              />
+            </>
+          )}
+        </div>
       </div>
 
       {message && (
@@ -256,19 +263,21 @@ export default function AssetEditor({
             </div>
           </div>
 
-          <div className="flex space-x-2 pt-2">
-            <Button
-              type="submit"
-              disabled={isPending}
-              text={isPending ? 'Saving...' : 'Save'}
-            />
-            <Button
-              type="button"
-              onClick={() => setEditMode(false)}
-              kind="gray"
-              text="Cancel"
+          {/* Image displayed at the bottom */}
+          <div className="mt-6">
+            <AssetImage
+              asset={asset}
+              size="medium"
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+                maxHeight: '300px',
+                objectFit: 'contain'
+              }}
             />
           </div>
+
+          {/* Buttons now moved to the top */}
         </form>
       ) : (
         <div className="space-y-2">
@@ -338,6 +347,20 @@ export default function AssetEditor({
                 text="Move to Bottom"
               />
             </div>
+          </div>
+
+          {/* Image displayed at the bottom */}
+          <div className="mt-6">
+            <AssetImage
+              asset={asset}
+              size="medium"
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+                maxHeight: '300px',
+                objectFit: 'contain'
+              }}
+            />
           </div>
         </div>
       )}
