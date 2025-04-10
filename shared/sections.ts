@@ -30,7 +30,6 @@ const sections: Section[] = [{
     section: 'all',
     query: null,
     slideAndQuery: 'selfportrait',
-    slideAltPath: 'about',
     slideLinks: true,
 }, {
     path: 'drawings',
