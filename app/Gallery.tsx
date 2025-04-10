@@ -7,10 +7,10 @@ import { hrefForAssetModal } from "@/shared/href"
 import { WorkModal } from "./WorkModal"
 
 export function Gallery({
-    assets, path, modalAssetId, authenticated,
+    assets, pathname, modalAssetId, authenticated,
 }: {
     assets: AssetMetadata[],
-    path: string,
+    pathname: string,
     modalAssetId?: string,
     authenticated?: boolean,
 }) {
@@ -19,7 +19,7 @@ export function Gallery({
             {modalAssetId && <WorkModal
                 assetId={modalAssetId}
                 assets={assets}
-                path={path}
+                pathname={pathname}
                 authenticated={authenticated}
             />}
             <div className="columns-3 sm:columns-4">
@@ -27,7 +27,7 @@ export function Gallery({
                     <Tile
                         key={asset.fileName}
                         asset={asset}
-                        path={path}
+                        pathname={pathname}
                     />
                 ))}
             </div>
@@ -35,11 +35,14 @@ export function Gallery({
     )
 }
 
-function Tile({ asset, path }: {
+function Tile({ asset, pathname }: {
     asset: AssetMetadata,
-    path: string,
+    pathname: string,
 }) {
-    return <Link href={hrefForAssetModal(asset, path)} className="block mb-4">
+    return <Link href={hrefForAssetModal({
+        pathname,
+        assetId: asset.id,
+    })} className="block mb-4">
         <div className="flex flex-col break-inside-avoid-column">
             <AssetImage asset={asset} size="medium" />
             <span className="hidden sm:flex text-xs text-accent">

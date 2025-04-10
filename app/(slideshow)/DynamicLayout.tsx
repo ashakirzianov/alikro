@@ -1,12 +1,10 @@
 'use client'
 import { AssetImage } from "@/shared/AssetImage"
-import Link from "next/link"
 import dynamic from 'next/dynamic'
 import { ReactNode, useEffect, useState } from "react"
 import { BehanceLink, InstagramLink, MailLink } from "@/shared/SocialLinks"
 import { Slider } from "./Slider"
 import { assetHeight, AssetMetadata, assetWidth } from "@/shared/assets"
-import { hrefForAsset } from "@/shared/href"
 
 export const ClientsideDynamicPage = dynamic(() => Promise.resolve(DynamicPage), {
     ssr: false,
@@ -171,16 +169,16 @@ function AssetLine({ assets, scroll, height, direction }: {
             position: 'relative',
             left: direction === 'right' ? scroll : -scroll,
         }}>
-            {assets.map((asset, idx) =>
-                <Link key={idx} href={hrefForAsset(asset)} style={{
+            {assets.map((asset) =>
+                <div key={asset.id} style={{
                     aspectRatio: `${assetWidth(asset)} / ${assetHeight(asset)}`,
                     height: '100%',
                 }}>
                     <AssetImage asset={asset} size="medium" />
-                </Link>
+                </div>
             )}
         </div>
-    </div>
+    </div >
 }
 
 function computeLines({ slides, aspect, fractions }: {

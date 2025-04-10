@@ -4,15 +4,15 @@ import { Modal } from "@/shared/Modal"
 import { AssetImage } from "@/shared/AssetImage"
 import { useRouter } from "next/navigation"
 import React, { useCallback, useEffect } from "react"
-import { hrefForSection, hrefForConsole, hrefForAssetModal, hrefForAsset } from "@/shared/href"
+import { hrefForConsole, hrefForAssetModal, hrefForAsset } from "@/shared/href"
 import Link from "next/link"
 
 export function WorkModal({
-    assets, assetId, path, authenticated,
+    assets, assetId, pathname, authenticated,
 }: {
     assetId: string,
     assets: AssetMetadata[],
-    path: string,
+    pathname: string,
     authenticated?: boolean,
 }) {
     const currentIndex = assets.findIndex(a => a.id === assetId)
@@ -21,18 +21,27 @@ export function WorkModal({
     const prevIndex = (currentIndex - 1 + assets.length) % assets.length
 
     const nextLink = nextIndex >= 0 && nextIndex < assets.length
-        ? hrefForAssetModal(assets[nextIndex], path)
+        ? hrefForAssetModal({
+            pathname,
+            assetId: assets[nextIndex].id,
+        })
         : undefined
     const prevLink = prevIndex >= 0 && prevIndex < assets.length
-        ? hrefForAssetModal(assets[prevIndex], path)
+        ? hrefForAssetModal({
+            pathname,
+            assetId: assets[prevIndex].id,
+        })
         : undefined
-    const dismissLink = hrefForSection(path)
+    const dismissLink = pathname
     const editLink = hrefForConsole({
-        section: path,
+        pathname,
         assetId: assetId,
     })
 
-    const currentAssetLink = hrefForAsset(asset)
+    const currentAssetLink = hrefForAsset({
+        assetId: assetId,
+        pathname,
+    })
 
     const router = useRouter()
     useEffect(() => {

@@ -1,12 +1,17 @@
-import { AssetMetadata } from "./assets"
+import { sectionForPath } from "./sections"
 
-// TODO: combine w/hrefForAssetModal
-export function hrefForAsset(asset: Pick<AssetMetadata, 'id'>) {
-    return `/works/${asset.id}`
+export function hrefForAsset({ assetId }: {
+    pathname?: string,
+    assetId: string,
+}) {
+    return `/works/${assetId}`
 }
 
-export function hrefForAssetModal(asset: AssetMetadata, section: string) {
-    return `/${section}?show=${asset.id}`
+export function hrefForAssetModal({ pathname, assetId }: {
+    pathname: string,
+    assetId: string,
+}) {
+    return `${pathname}?show=${assetId}`
 }
 
 export function hrefForSection(category: string) {
@@ -14,15 +19,16 @@ export function hrefForSection(category: string) {
 }
 
 export function hrefForConsole({
-    section, action, assetId
+    pathname, action, assetId
 }: {
-    section?: string,
+    pathname?: string,
     action?: string,
     assetId?: string,
 }): string {
     const searchParams = new URLSearchParams()
-    if (section && section !== 'all') {
-        searchParams.set('filter', section)
+    const filter = filterForPathname(pathname)
+    if (filter) {
+        searchParams.set('filter', filter)
     }
     if (assetId) {
         searchParams.set('aside', `edit:${assetId}`)
@@ -32,4 +38,17 @@ export function hrefForConsole({
     return searchParams.size === 0
         ? '/console'
         : `/console?${searchParams.toString()}`
+}
+
+function filterForPathname(pathname: string | undefined) {
+    if (pathname === undefined) {
+        return undefined
+    }
+    const path = pathname.substring(1)
+    const section = sectionForPath(path)
+    if (section) {
+        return section.section
+    } else {
+        return undefined
+    }
 }

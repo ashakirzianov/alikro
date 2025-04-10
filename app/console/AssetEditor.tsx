@@ -299,7 +299,9 @@ export default function AssetEditor({
         </div>
 
         <div className="flex mt-4 space-x-2">
-          <Link href={hrefForAsset(asset)} target="_blank" className="text-accent hover:underline flex items-center">
+          <Link href={hrefForAsset({
+            assetId: asset.id,
+          })} target="_blank" className="text-accent hover:underline flex items-center">
             View in gallery
           </Link>
           <Button

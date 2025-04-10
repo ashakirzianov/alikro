@@ -56,10 +56,12 @@ export default async function Page({
         ? modalAssetId
         : undefined
 
+    const pathname = `/${category}`
     const authenticated = await isAuthenticated()
+
     return <Gallery
         assets={filtered}
-        path={section.path}
+        pathname={pathname}
         modalAssetId={modalAssetId}
         authenticated={authenticated}
     />

@@ -187,11 +187,14 @@ function revalidatePathsForAssets(updates: AssetMetadataUpdate[]) {
     }
 }
 
+// TODO: rethink this -- affected collections
 function affectedPathsForAsset(asset: AssetMetadataUpdate) {
     return filterOutUndefined([
         '/',
         '/console',
-        hrefForAsset(asset),
+        hrefForAsset({
+            assetId: asset.id,
+        }),
         asset.kind ? hrefForSection(asset.kind ?? '') : undefined,
     ])
 }
