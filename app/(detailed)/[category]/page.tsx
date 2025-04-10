@@ -1,5 +1,6 @@
 import { Gallery } from "@/app/Gallery"
 import { assetsForQuery, sortAssets } from "@/shared/assets"
+import { isAuthenticated } from "@/shared/auth"
 import { getAllAssetMetadata } from "@/shared/metadataStore"
 import { allSections, sectionForPath } from "@/shared/sections"
 
@@ -54,9 +55,12 @@ export default async function Page({
     modalAssetId = filtered.some(asset => asset.id === modalAssetId)
         ? modalAssetId
         : undefined
+
+    const authenticated = await isAuthenticated()
     return <Gallery
         assets={filtered}
         path={section.path}
         modalAssetId={modalAssetId}
+        authenticated={authenticated}
     />
 }
