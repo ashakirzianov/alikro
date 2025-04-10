@@ -10,10 +10,11 @@ export default async function Page() {
     return <ClientsideDynamicPage slides={slides} />
 }
 
+const MIN_ASSETS_PER_SLIDE = 10
 function buildSlides(allAssets: AssetMetadata[], sections: Section[]): SlideData[] {
     return sections
         .map(section => slideDataForSection(allAssets, section))
-        .filter(slide => slide.assets.length > 0)
+        .filter(slide => slide.assets.length >= MIN_ASSETS_PER_SLIDE)
 }
 
 function slideDataForSection(allAssets: AssetMetadata[], {

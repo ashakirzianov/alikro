@@ -32,6 +32,13 @@ const sections: Section[] = [{
     slideAndQuery: 'selfportrait',
     slideLinks: true,
 }, {
+    path: 'paintings',
+    title: 'Paintings.',
+    description: "Alikro's paintings.",
+    section: 'paintings',
+    query: 'painting',
+    slideAndQuery: [not('selfportrait')],
+}, {
     path: 'drawings',
     title: 'Drawings.',
     description: "Alikro's drawings.",
@@ -39,18 +46,17 @@ const sections: Section[] = [{
     query: 'drawing',
     slideAndQuery: [not('selfportrait')],
 }, {
+    path: 'ceramics',
+    title: 'Ceramics.',
+    description: "Alikro's ceramics.",
+    section: 'ceramics',
+    query: 'ceramic',
+}, {
     path: 'illustrations',
     title: 'Illustrations.',
     description: "Alikro's illustrations.",
     section: 'illustrations',
     query: 'illustration',
-    slideAndQuery: [not('selfportrait')],
-}, {
-    path: 'paintings',
-    title: 'Paintings.',
-    description: "Alikro's paintings.",
-    section: 'paintings',
-    query: 'painting',
     slideAndQuery: [not('selfportrait')],
 }, {
     path: 'posters',
