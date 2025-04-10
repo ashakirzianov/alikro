@@ -1,5 +1,6 @@
 import {
     assetDescription,
+    assetSrc,
 } from "@/shared/assets"
 import { getAllAssetMetadata, getAssetMetadata } from "@/shared/metadataStore"
 import { findDuplicates } from "@/shared/utils"
@@ -28,15 +29,33 @@ export async function generateMetadata(props: Props) {
     } = params
 
     const asset = await getAssetMetadata(name)
+    if (!asset) {
+        return {
+            title: 'Not found',
+            description: 'Not found',
+            openGraph: {
+                title: 'Not found',
+                description: 'Not found',
+            },
+            twitter: {
+                title: 'Not found',
+                description: 'Not found',
+            },
+        }
+    }
     const title = asset?.title ?? 'Picture'
     const description = asset ? assetDescription(asset) : 'My work'
+    const images = [{
+        url: assetSrc(asset),
+        alt: title,
+    }]
     return {
         title, description,
         openGraph: {
-            title, description,
+            title, description, images,
         },
         twitter: {
-            title, description,
+            title, description, images,
         },
     }
 }
