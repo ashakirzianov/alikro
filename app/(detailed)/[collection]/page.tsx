@@ -1,9 +1,9 @@
 import { Gallery } from "@/app/Gallery"
 import { assetsForQuery, sortAssets } from "@/shared/assets"
 import { isAuthenticated } from "@/shared/auth"
-import { getAllAssetMetadata, getAssetMetadata } from "@/shared/metadataStore"
+import { getAllAssetMetadata } from "@/shared/metadataStore"
 import { allCollections, collectionForId } from "@/shared/collection"
-import { ogImagesForAsset } from "./utils"
+import { generateMetadataForAssetId } from "../common"
 
 type Props = {
     collection: string,
@@ -23,6 +23,10 @@ export async function generateMetadata({
     params: Params,
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>,
 }) {
+    const { show } = await searchParams
+    if (typeof show === 'string') {
+        return generateMetadataForAssetId(show as string)
+    }
     const { collection } = await params
     let title = 'Not found'
     let description = 'Not found'
@@ -31,19 +35,13 @@ export async function generateMetadata({
         title = collectionMetadata.title
         description = collectionMetadata.description
     }
-    const { show } = await searchParams
-    const modalAssetId = typeof show === 'string' ? show : undefined
-    const asset = modalAssetId
-        ? await getAssetMetadata(modalAssetId)
-        : undefined
-    const images = asset ? ogImagesForAsset(asset) : undefined
     return {
         title, description,
         openGraph: {
-            title, description, images,
+            title, description,
         },
         twitter: {
-            title, description, images,
+            title, description,
         },
     }
 }

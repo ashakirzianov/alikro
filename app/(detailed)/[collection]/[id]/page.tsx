@@ -6,8 +6,7 @@ import { AssetImage } from "@/shared/AssetImage"
 import { isAuthenticated } from "@/shared/auth"
 import { filterForPathname, hrefForConsole } from "@/shared/href"
 import Link from "next/link"
-
-import { ogImagesForAsset } from "../utils"
+import { generateMetadataForAssetId } from "../../common"
 
 export const dynamicParams = true
 export async function generateStaticParams() {
@@ -18,39 +17,8 @@ type Props = {
     params: Promise<{ collection: string, id: string }>,
 }
 export async function generateMetadata(props: Props) {
-    const params = await props.params
-
-    const {
-        id
-    } = params
-
-    const asset = await getAssetMetadata(id)
-    if (!asset) {
-        return {
-            title: 'Not found',
-            description: 'Not found',
-            openGraph: {
-                title: 'Not found',
-                description: 'Not found',
-            },
-            twitter: {
-                title: 'Not found',
-                description: 'Not found',
-            },
-        }
-    }
-    const title = asset?.title ?? 'Picture'
-    const description = asset ? assetDescription(asset) : 'My work'
-    const images = ogImagesForAsset(asset)
-    return {
-        title, description,
-        openGraph: {
-            title, description, images,
-        },
-        twitter: {
-            title, description, images,
-        },
-    }
+    const { id } = await props.params
+    return generateMetadataForAssetId(id)
 }
 
 export default async function Page(props: Props) {
