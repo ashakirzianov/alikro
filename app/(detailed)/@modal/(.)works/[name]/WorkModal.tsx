@@ -4,12 +4,15 @@ import { Modal } from "@/shared/Modal"
 import { AssetImage } from "@/shared/AssetImage"
 import { useRouter, useSearchParams } from "next/navigation"
 import React, { useCallback, useEffect, useMemo, useState } from "react"
-import { hrefForAsset } from "@/shared/href"
+import { hrefForAsset, hrefForConsole } from "@/shared/href"
 import { allSections } from "@/shared/sections"
 
-export function WorkModal({ asset, allAssets }: {
+export function WorkModal({
+    asset, allAssets, authenticated,
+}: {
     asset: AssetMetadata,
     allAssets: AssetMetadata[],
+    authenticated?: boolean,
 }) {
     const searchParams = useSearchParams()
     const from = searchParams.get('from') ?? 'all'
@@ -38,6 +41,13 @@ export function WorkModal({ asset, allAssets }: {
         const prevAsset = filteredAssets[prevIndex]
         router.push(`${hrefForAsset(prevAsset)}?${search}`)
     }, [currentIndex, filteredAssets, router, search])
+
+    const navigateToEditAsset = React.useCallback(() => {
+        router.push(hrefForConsole({
+            section: from,
+            assetId: asset.id,
+        }))
+    }, [router, asset, from])
 
     // Keyboard navigation
     useEffect(() => {
@@ -107,6 +117,17 @@ export function WorkModal({ asset, allAssets }: {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
+
+            {/* Edit button */}
+            {authenticated && <button
+                onClick={navigateToEditAsset}
+                className="absolute top-4 left-4 p-2 bg-black bg-opacity-30 hover:bg-opacity-50 text-white rounded-full"
+                aria-label="Edit work"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-6 w-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                </svg>
+            </button>}
         </div>
     </Modal>
 }

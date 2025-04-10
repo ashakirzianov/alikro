@@ -2,6 +2,7 @@ import { assetDescription, sortAssets } from "@/shared/assets"
 import React from "react"
 import { WorkModal } from "./WorkModal"
 import { getAssetMetadata, getAllAssetMetadata } from "@/shared/metadataStore"
+import { isAuthenticated } from "@/shared/auth"
 
 type Props = {
   params: Promise<{ name: string }>,
@@ -44,6 +45,10 @@ export default async function Page(props: Props) {
     return 'Not found'
   }
   const sorted = sortAssets(allAssets)
+  const authenticated = await isAuthenticated()
 
-  return <WorkModal asset={asset} allAssets={sorted} />
+  return <WorkModal
+    asset={asset}
+    allAssets={sorted}
+    authenticated={authenticated} />
 }
