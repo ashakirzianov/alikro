@@ -5,6 +5,9 @@ import {
 import { getAllAssetMetadata, getAssetMetadata } from "@/shared/metadataStore"
 import { findDuplicates } from "@/shared/utils"
 import { AssetImage } from "@/shared/AssetImage"
+import { isAuthenticated } from "@/shared/auth"
+import { hrefForConsole } from "@/shared/href"
+import Link from "next/link"
 
 export async function generateStaticParams() {
     const assets = await getAllAssetMetadata()
@@ -66,6 +69,7 @@ export default async function Page(props: Props) {
     const {
         name
     } = params
+    const auth = await isAuthenticated()
 
     const asset = await getAssetMetadata(name)
     if (asset === undefined) {
@@ -82,8 +86,11 @@ export default async function Page(props: Props) {
                 cursor: 'default'
             }}
         />
-        <div className="flex text-m text-accent p-2">
-            {assetDescription(asset)}
+        <div className="flex flex-row gap-1 text-m text-accent p-2">
+            <span>{assetDescription(asset)}</span>
+            {auth && <Link href={hrefForConsole({
+                assetId: asset.id,
+            })}>edit</Link>}
         </div>
     </div>
 }
