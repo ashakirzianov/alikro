@@ -242,7 +242,7 @@ export default function AssetEditor({
                     const form = e.currentTarget.closest('form')
                     const orderInput = form?.querySelector('input[name="order"]') as HTMLInputElement
                     if (orderInput) {
-                      orderInput.value = (orderRange[1] + 1).toString()
+                      orderInput.value = (orderRange[0] - 1).toString()
                     }
                   }}
                   text='Move to Top'
@@ -254,7 +254,7 @@ export default function AssetEditor({
                     const form = e.currentTarget.closest('form')
                     const orderInput = form?.querySelector('input[name="order"]') as HTMLInputElement
                     if (orderInput) {
-                      orderInput.value = (orderRange[0] - 1).toString()
+                      orderInput.value = (orderRange[1] + 1).toString()
                     }
                   }}
                   text="Move to Bottom"
@@ -303,7 +303,7 @@ export default function AssetEditor({
                   formData.append('kind', asset.kind || '')
                   formData.append('customKind', '') // Empty custom kind
                   formData.append('tags', asset.tags?.join(', ') || '')
-                  formData.append('order', (orderRange[1] + 1).toString())
+                  formData.append('order', (orderRange[0] - 1).toString())
 
                   startTransition(async () => {
                     const result = await updateAsset(asset.id, formData)
@@ -329,7 +329,7 @@ export default function AssetEditor({
                   formData.append('kind', asset.kind || '')
                   formData.append('customKind', '') // Empty custom kind
                   formData.append('tags', asset.tags?.join(', ') || '')
-                  formData.append('order', (orderRange[0] - 1).toString())
+                  formData.append('order', (orderRange[1] + 1).toString())
 
                   startTransition(async () => {
                     const result = await updateAsset(asset.id, formData)
