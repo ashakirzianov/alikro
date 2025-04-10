@@ -48,7 +48,9 @@ export function filterForPathname(pathname: string | undefined) {
     const id = pathname.substring(1)
     const collection = collectionForId(id)
     if (collection) {
-        return id
+        return typeof collection.query === 'string'
+            ? collection.query
+            : undefined
     } else {
         return undefined
     }

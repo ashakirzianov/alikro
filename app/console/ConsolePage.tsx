@@ -16,7 +16,7 @@ export default function ConsolePage({
     const tags = extractUniqueTags(assets)
     const { action, filter: filterParam, assetId } = parseSearchParams(searchParams)
     const filter = filterParam ?? 'all'
-    const query = filterParam ?? null
+    const query = filter === 'all' ? null : filter
     const filteredAssets = assetsForQuery(assets, query)
     const aside = <ConsoleAside
         assets={assets}
