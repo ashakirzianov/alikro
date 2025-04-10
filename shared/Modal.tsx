@@ -17,7 +17,7 @@ export function Modal({ children, onDismiss }: {
             justifyContent: "center",
             alignItems: "center",
         }}
-        onClick={onDismiss}
+            onClick={onDismiss}
         >
             {children}
         </div>
