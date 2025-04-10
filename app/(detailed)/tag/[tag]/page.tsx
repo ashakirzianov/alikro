@@ -1,5 +1,5 @@
 import { generateMetadataForAssetId } from "../../common"
-import AssetsPage from "../../AssetsPage"
+import { AssetsPage } from "../../AssetsPage"
 
 type Props = {
     tag: string,

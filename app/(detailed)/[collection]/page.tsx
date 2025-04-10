@@ -1,6 +1,6 @@
 import { allCollections, collectionForId } from "@/shared/collection"
 import { generateMetadataForAssetId } from "../common"
-import AssetsPage from "../AssetsPage"
+import { AssetsPage } from "../AssetsPage"
 
 type Props = {
     collection: string,

@@ -1,9 +1,11 @@
 import { AssetQuery, assetsForQuery, sortAssets } from "@/shared/assets"
 import { isAuthenticated } from "@/shared/auth"
-import { getAllAssetMetadata } from "@/shared/metadataStore"
+import { getAllAssetMetadata, getAssetMetadata } from "@/shared/metadataStore"
 import { Gallery } from "../Gallery"
+import { AssetView } from "./AssetView"
+import { notFound } from "next/navigation"
 
-export default async function AssetsPage({
+export async function AssetsPage({
     query, pathname, modalAssetId,
 }: {
     query: AssetQuery,
@@ -24,5 +26,24 @@ export default async function AssetsPage({
         pathname={pathname}
         modalAssetId={modalAssetId}
         authenticated={authenticated}
+    />
+}
+
+export async function AssetPage({
+    assetId, pathname,
+}: {
+    assetId: string,
+    pathname: string,
+}) {
+    const authenticated = await isAuthenticated()
+
+    const asset = await getAssetMetadata(assetId)
+    if (asset === undefined) {
+        return notFound()
+    }
+    return <AssetView
+        asset={asset}
+        authenticated={authenticated}
+        pathname={pathname}
     />
 }
