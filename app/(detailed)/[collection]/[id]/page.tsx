@@ -1,25 +1,17 @@
 import {
     assetDescription,
-    assetsForQuery,
 } from "@/shared/assets"
-import { getAllAssetMetadata, getAssetMetadata } from "@/shared/metadataStore"
+import { getAssetMetadata } from "@/shared/metadataStore"
 import { AssetImage } from "@/shared/AssetImage"
 import { isAuthenticated } from "@/shared/auth"
 import { filterForPathname, hrefForConsole } from "@/shared/href"
 import Link from "next/link"
-import { allCollections } from "@/shared/collection"
+
 import { ogImagesForAsset } from "../utils"
 
+export const dynamicParams = true
 export async function generateStaticParams() {
-    const assets = await getAllAssetMetadata()
-    const collections = allCollections()
-    return collections.map(
-        collection => assetsForQuery(assets, collection.query)
-            .map(asset => ({
-                collection: collection.id,
-                id: asset.id,
-            }))
-    ).flat()
+    return []
 }
 
 type Props = {
