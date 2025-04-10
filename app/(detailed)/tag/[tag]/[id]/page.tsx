@@ -7,7 +7,7 @@ export async function generateStaticParams() {
 }
 
 type Props = {
-    params: Promise<{ collection: string, id: string }>,
+    params: Promise<{ tag: string, id: string }>,
 }
 export async function generateMetadata(props: Props) {
     const { id } = await props.params
@@ -15,9 +15,8 @@ export async function generateMetadata(props: Props) {
 }
 
 export default async function Page(props: Props) {
-    const { collection, id } = await props.params
-
-    const pathname = `/${collection}/${id}`
+    const { tag, id } = await props.params
+    const pathname = `/tag/${tag}/${id}`
     return <AssetPage
         assetId={id}
         pathname={pathname}
