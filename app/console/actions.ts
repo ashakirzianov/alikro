@@ -5,7 +5,7 @@ import { isAuthenticated } from "@/shared/auth"
 import { parseAssetUpdates } from "@/app/console/common"
 import { uploadAssetFile } from "@/shared/fileStore"
 import { filterOutUndefined } from "@/shared/utils"
-import { hrefForAsset, hrefForCategory } from "@/shared/href"
+import { hrefForAsset, hrefForSection } from "@/shared/href"
 import { revalidatePath } from "next/cache"
 
 export async function updateAsset(
@@ -192,7 +192,7 @@ function affectedPathsForAsset(asset: AssetMetadataUpdate) {
         '/',
         '/console',
         hrefForAsset(asset),
-        asset.kind ? hrefForCategory(asset.kind ?? '') : undefined,
+        asset.kind ? hrefForSection(asset.kind ?? '') : undefined,
     ])
 }
 

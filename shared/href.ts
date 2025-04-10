@@ -4,8 +4,8 @@ export function hrefForAsset(asset: Pick<AssetMetadata, 'id'>) {
     return `/works/${asset.id}`
 }
 
-export function hrefForCategory(category: string) {
-    return `/works/${category}`
+export function hrefForSection(category: string) {
+    return `/${category}`
 }
 
 export function hrefForConsole({
