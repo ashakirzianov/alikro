@@ -36,17 +36,27 @@ export async function generateMetadata({ params }: { params: Params }) {
 }
 
 export default async function Page({
-    params,
+    params, searchParams,
 }: {
     params: Promise<{ category: string }>
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>,
 }) {
     const { category } = await params
     const section = sectionForPath(category)
     if (section === undefined) {
         return null
     }
+    const { show } = await searchParams
+    let modalAssetId = typeof show === 'string' ? show : undefined
     const unsorted = await getAllAssetMetadata()
     const assets = sortAssets(unsorted)
     const filtered = assetsForQuery(assets, section.query)
-    return <Gallery assets={filtered} path={section.path} />
+    modalAssetId = filtered.some(asset => asset.id === modalAssetId)
+        ? modalAssetId
+        : undefined
+    return <Gallery
+        assets={filtered}
+        path={section.path}
+        modalAssetId={modalAssetId}
+    />
 }

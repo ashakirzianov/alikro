@@ -3,16 +3,16 @@ import { AssetMetadata } from "@/shared/assets"
 import { Modal } from "@/shared/Modal"
 import { AssetImage } from "@/shared/AssetImage"
 import { useRouter } from "next/navigation"
-import React, { useEffect } from "react"
-import { hrefForAsset, hrefForSection, hrefForConsole } from "@/shared/href"
+import React, { useCallback, useEffect } from "react"
+import { hrefForSection, hrefForConsole, hrefForAssetModal, hrefForAsset } from "@/shared/href"
 import Link from "next/link"
 
 export function WorkModal({
-    assets, assetId, section, authenticated,
+    assets, assetId, path, authenticated,
 }: {
     assetId: string,
     assets: AssetMetadata[],
-    section: string,
+    path: string,
     authenticated?: boolean,
 }) {
     const currentIndex = assets.findIndex(a => a.id === assetId)
@@ -21,16 +21,18 @@ export function WorkModal({
     const prevIndex = (currentIndex - 1 + assets.length) % assets.length
 
     const nextLink = nextIndex >= 0 && nextIndex < assets.length
-        ? hrefForAsset(assets[nextIndex])
+        ? hrefForAssetModal(assets[nextIndex], path)
         : undefined
     const prevLink = prevIndex >= 0 && prevIndex < assets.length
-        ? hrefForAsset(assets[prevIndex])
+        ? hrefForAssetModal(assets[prevIndex], path)
         : undefined
-    const dismissLink = hrefForSection(section)
+    const dismissLink = hrefForSection(path)
     const editLink = hrefForConsole({
-        section,
+        section: path,
         assetId: assetId,
     })
+
+    const currentAssetLink = hrefForAsset(asset)
 
     const router = useRouter()
     useEffect(() => {
@@ -54,11 +56,15 @@ export function WorkModal({
         return () => window.removeEventListener('keydown', handleKeyDown)
     }, [nextLink, prevLink, dismissLink, router])
 
+    const dismiss = useCallback(function dismiss() {
+        router.push(dismissLink)
+    }, [router, dismissLink])
+
     return <Modal
-        onDismiss={() => router.push(dismissLink)}
+        onDismiss={dismiss}
     >
         <div className="relative" onClick={e => e.stopPropagation()}>
-            <div>
+            <Link href={currentAssetLink}>
                 <AssetImage
                     asset={asset}
                     size="full"
@@ -66,10 +72,9 @@ export function WorkModal({
                         objectFit: 'contain',
                         maxWidth: '100svw',
                         maxHeight: '100svh',
-                        cursor: 'default'
                     }}
                 />
-            </div>
+            </Link>
 
             {/* Navigation buttons */}
             <div className="absolute inset-0 flex items-center justify-between">

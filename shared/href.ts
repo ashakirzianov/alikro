@@ -1,7 +1,12 @@
 import { AssetMetadata } from "./assets"
 
+// TODO: combine w/hrefForAssetModal
 export function hrefForAsset(asset: Pick<AssetMetadata, 'id'>) {
     return `/works/${asset.id}`
+}
+
+export function hrefForAssetModal(asset: AssetMetadata, section: string) {
+    return `/${section}?show=${asset.id}`
 }
 
 export function hrefForSection(category: string) {
