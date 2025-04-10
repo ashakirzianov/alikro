@@ -1,7 +1,6 @@
 import {
     assetDescription,
     assetsForQuery,
-    assetSrc,
 } from "@/shared/assets"
 import { getAllAssetMetadata, getAssetMetadata } from "@/shared/metadataStore"
 import { AssetImage } from "@/shared/AssetImage"
@@ -9,6 +8,7 @@ import { isAuthenticated } from "@/shared/auth"
 import { hrefForConsole } from "@/shared/href"
 import Link from "next/link"
 import { allSections } from "@/shared/sections"
+import { ogImagesForAsset } from "../utils"
 
 export async function generateStaticParams() {
     const assets = await getAllAssetMetadata()
@@ -49,10 +49,7 @@ export async function generateMetadata(props: Props) {
     }
     const title = asset?.title ?? 'Picture'
     const description = asset ? assetDescription(asset) : 'My work'
-    const images = [{
-        url: assetSrc(asset),
-        alt: title,
-    }]
+    const images = ogImagesForAsset(asset)
     return {
         title, description,
         openGraph: {
