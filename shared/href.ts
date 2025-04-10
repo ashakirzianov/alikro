@@ -1,10 +1,10 @@
 import { sectionForPath } from "./sections"
 
-export function hrefForAsset({ assetId }: {
+export function hrefForAsset({ pathname, assetId }: {
     pathname?: string,
     assetId: string,
 }) {
-    return `/works/${assetId}`
+    return `${pathname ?? '/all'}/${assetId}`
 }
 
 export function hrefForAssetModal({ pathname, assetId }: {

@@ -1,37 +1,38 @@
 import {
     assetDescription,
+    assetsForQuery,
     assetSrc,
 } from "@/shared/assets"
 import { getAllAssetMetadata, getAssetMetadata } from "@/shared/metadataStore"
-import { findDuplicates } from "@/shared/utils"
 import { AssetImage } from "@/shared/AssetImage"
 import { isAuthenticated } from "@/shared/auth"
 import { hrefForConsole } from "@/shared/href"
 import Link from "next/link"
+import { allSections } from "@/shared/sections"
 
 export async function generateStaticParams() {
     const assets = await getAllAssetMetadata()
-    const segments = assets.map(a => a.id)
-    const dups = findDuplicates(segments, (a, b) => a === b)
-    if (dups.length > 0) {
-        console.error(`Duplicate asset segments: ${dups.join(', ')}`)
-    }
-    return segments.map((segment) => ({
-        name: segment,
-    }))
+    const sections = allSections()
+    return sections.map(
+        section => assetsForQuery(assets, section.query)
+            .map(asset => ({
+                category: section.path,
+                id: asset.id,
+            }))
+    ).flat()
 }
 
 type Props = {
-    params: Promise<{ name: string }>,
+    params: Promise<{ category: string, id: string }>,
 }
 export async function generateMetadata(props: Props) {
     const params = await props.params
 
     const {
-        name
+        id
     } = params
 
-    const asset = await getAssetMetadata(name)
+    const asset = await getAssetMetadata(id)
     if (!asset) {
         return {
             title: 'Not found',
@@ -67,11 +68,11 @@ export default async function Page(props: Props) {
     const params = await props.params
 
     const {
-        name
+        id
     } = params
     const auth = await isAuthenticated()
 
-    const asset = await getAssetMetadata(name)
+    const asset = await getAssetMetadata(id)
     if (asset === undefined) {
         return 'Not found'
     }
