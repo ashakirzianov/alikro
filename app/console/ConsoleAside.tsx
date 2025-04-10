@@ -28,6 +28,7 @@ export default function ConsoleAside({
             const kinds = extractUniqueKinds(assets)
             const tags = extractUniqueTags(assets)
             return <AssetEditor
+                key={asset.id} // Add key to ensure component re-mounts when asset changes
                 asset={asset}
                 orderRange={orderRange}
                 kinds={kinds}
