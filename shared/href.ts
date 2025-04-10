@@ -44,6 +44,9 @@ export function hrefForConsole({
 export function filterForPathname(pathname: string | undefined) {
     if (pathname === undefined) {
         return undefined
+    } else if (pathname.startsWith('/tag/')) {
+        const tag = pathname.substring('/tag/'.length)
+        return tag
     }
     const id = pathname.substring(1)
     const collection = collectionForId(id)

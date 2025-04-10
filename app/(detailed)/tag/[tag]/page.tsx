@@ -1,17 +1,13 @@
-import { allCollections, collectionForId } from "@/shared/collection"
-import { generateMetadataForAssetId } from "../common"
-import AssetsPage from "../AssetsPage"
+import { generateMetadataForAssetId } from "../../common"
+import AssetsPage from "../../AssetsPage"
 
 type Props = {
-    collection: string,
+    tag: string,
 }
 type Params = Promise<Props>
 
 export async function generateStaticParams(): Promise<Props[]> {
-    const collections = allCollections()
-    return collections.map(collection => ({
-        collection: collection.id,
-    }))
+    return []
 }
 
 export async function generateMetadata({
@@ -24,14 +20,9 @@ export async function generateMetadata({
     if (typeof show === 'string') {
         return generateMetadataForAssetId(show as string)
     }
-    const { collection } = await params
-    let title = 'Not found'
-    let description = 'Not found'
-    const collectionMetadata = collectionForId(collection)
-    if (collectionMetadata !== undefined) {
-        title = collectionMetadata.title
-        description = collectionMetadata.description
-    }
+    const { tag } = await params
+    const title = `Alikro | ${tag}`
+    const description = `Alikro's works marked as '${tag}'`
     return {
         title, description,
         openGraph: {
@@ -46,20 +37,16 @@ export async function generateMetadata({
 export default async function Page({
     params, searchParams,
 }: {
-    params: Promise<{ collection: string }>
+    params: Params,
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>,
 }) {
-    const { collection } = await params
+    const { tag } = await params
     const { show } = await searchParams
-    const pathname = `/${collection}`
+    const pathname = `/tag/${tag}`
     const modalAssetId = typeof show === 'string' ? show : undefined
-    const collectionObject = collectionForId(collection)
-    if (collectionObject === undefined) {
-        return null
-    }
 
     return <AssetsPage
-        query={collectionObject.query}
+        query={tag}
         pathname={pathname}
         modalAssetId={modalAssetId}
     />
