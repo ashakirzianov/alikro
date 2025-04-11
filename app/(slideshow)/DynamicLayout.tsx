@@ -24,6 +24,16 @@ function DynamicPage({ slides }: {
 }) {
     const [scroll, setScroll] = useState(0)
     const aspect = useAspectRatio()
+    let ticking = false
+    function handleScroll(value: number) {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                setScroll(value)
+                ticking = false
+            })
+            ticking = true
+        }
+    }
     const corner = <div className="flex flex-row">
         <div className="bg-accent hover:bg-white">
             <div className="p-4 invert brightness-0 hover:invert-0 hover:brightness-0">
@@ -64,7 +74,7 @@ function DynamicPage({ slides }: {
             gridArea: 'center',
             zIndex: 2,
         }}>
-            <Slider onScroll={setScroll}>
+            <Slider onScroll={handleScroll}>
                 {
                     slides.map((slide, idx) => {
                         const { title, href, includeLinks } = slide
