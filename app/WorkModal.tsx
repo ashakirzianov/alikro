@@ -40,7 +40,6 @@ export function WorkModal({
 
     const currentAssetLink = hrefForAsset({
         assetId: assetId,
-        pathname,
     })
 
     const router = useRouter()
