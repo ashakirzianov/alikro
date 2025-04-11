@@ -84,17 +84,17 @@ function metadataForCollection({
     description: string,
     pathname: string,
 }) {
-    const image = {
+    const images = [{
         url: `/api/og${pathname}`,
         alt: title,
-    }
+    }]
     return {
         title, description,
         openGraph: {
-            title, description, image,
+            title, description, images,
         },
         twitter: {
-            title, description, image,
+            title, description, images,
         },
     }
 }
