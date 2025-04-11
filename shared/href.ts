@@ -20,6 +20,24 @@ export function hrefForCollection({ collectionId }: {
     return `/${collectionId}`
 }
 
+export function hrefForYear({ year }: {
+    year: number,
+}) {
+    return `/year/${year}`
+}
+
+export function hrefForTag({ tag }: {
+    tag: string,
+}) {
+    return `/tag/${tag}`
+}
+
+export function hrefForMaterial({ material }: {
+    material: string,
+}) {
+    return `/material/${material}`
+}
+
 export function hrefForConsole({
     filter, action, assetId
 }: {
