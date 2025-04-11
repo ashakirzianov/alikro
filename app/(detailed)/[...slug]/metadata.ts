@@ -35,6 +35,7 @@ export async function generateMetadataForAssetId(assetId: string) {
 }
 
 export async function generateMetadataForTag(tag: string) {
+    tag = decodeURIComponent(tag)
     const title = `Alikro | ${tag}`
     const description = `Alikro's works marked as '${tag}'`
     return {
@@ -49,6 +50,7 @@ export async function generateMetadataForTag(tag: string) {
 }
 
 export async function generateMetadataForMaterial(material: string) {
+    material = decodeURIComponent(material)
     const title = `Alikro | ${material}`
     const description = `Alikro's works made from '${material}'`
     return {
