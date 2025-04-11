@@ -2,7 +2,7 @@ import { allCollections, collectionForId } from "@/shared/collection"
 import { AssetPage, AssetsPage } from "@/app/(detailed)/AssetsPage"
 import { generateMetadataForAssetId, generateMetadataForCollectionId, generateMetadataForMaterial, generateMetadataForTag, generateMetadataForYear } from "./metadata"
 import { notFound } from "next/navigation"
-import { material, tag, year } from "@/shared/assets"
+import { AssetQuery, material, tag, year } from "@/shared/assets"
 
 type Props = {
     slug: string[],
@@ -45,51 +45,63 @@ export async function generateMetadata({
     }
 }
 
+export type AssetsPageData = {
+    kind: 'collection' | 'tag' | 'material' | 'year',
+    query: AssetQuery,
+    assetId: string,
+}
+export function assetsPageDataForSlug(slug: string[]): AssetsPageData | undefined {
+    const [first, second, third] = slug
+    switch (first) {
+        case 'tag': case 'year': case 'material':
+            if (second === undefined) {
+                return undefined
+            } else {
+                const query = first === 'year' ? year(parseInt(second))
+                    : first === 'material' ? material(decodeURIComponent(second))
+                        : tag(decodeURIComponent(second))
+                const assetId = third
+                return {
+                    kind: first,
+                    query,
+                    assetId,
+                }
+            }
+        default: {
+            const collectionObject = collectionForId(first)
+            if (collectionObject === undefined) {
+                return undefined
+            }
+            return {
+                kind: 'collection',
+                query: collectionObject.query,
+                assetId: second,
+            }
+        }
+    }
+}
+
 export default async function Page({
     params, searchParams,
 }: Input) {
     const { show } = await searchParams
     const { slug } = await params
-    const [first, second, third] = slug
     const pathname = `/${slug.join('/')}`
     const modalAssetId = typeof show === 'string' ? show : undefined
 
-    switch (first) {
-        case 'tag': case 'year': case 'material':
-            if (second === undefined) {
-                return null
-            } else if (third === undefined) {
-                const query = first === 'year' ? year(parseInt(second))
-                    : first === 'material' ? material(decodeURIComponent(second))
-                        : tag(decodeURIComponent(second))
-                return <AssetsPage
-                    query={query}
-                    pathname={pathname}
-                    modalAssetId={modalAssetId}
-                />
-            } else {
-                return <AssetPage
-                    assetId={third}
-                    pathname={pathname}
-                />
-            }
-        default: {
-            const collectionObject = collectionForId(first)
-            if (collectionObject === undefined) {
-                return notFound()
-            }
-            if (second === undefined) {
-                return <AssetsPage
-                    query={collectionObject.query}
-                    pathname={pathname}
-                    modalAssetId={modalAssetId}
-                />
-            } else {
-                return <AssetPage
-                    assetId={second}
-                    pathname={pathname}
-                />
-            }
-        }
+    const pageData = assetsPageDataForSlug(slug)
+    if (pageData === undefined) {
+        return notFound()
+    } else if (pageData.assetId !== undefined) {
+        return <AssetPage
+            assetId={pageData.assetId}
+            pathname={pathname}
+        />
+    } else {
+        return <AssetsPage
+            query={pageData.query}
+            pathname={pathname}
+            modalAssetId={modalAssetId}
+        />
     }
 }

@@ -38,44 +38,29 @@ export async function generateMetadataForTag(tag: string) {
     tag = decodeURIComponent(tag)
     const title = `Alikro | ${tag}`
     const description = `Alikro's works marked as '${tag}'`
-    return {
+    return metadataForCollection({
         title, description,
-        openGraph: {
-            title, description,
-        },
-        twitter: {
-            title, description,
-        },
-    }
+        pathname: `/tag/${tag}`,
+    })
 }
 
 export async function generateMetadataForMaterial(material: string) {
     material = decodeURIComponent(material)
     const title = `Alikro | ${material}`
     const description = `Alikro's works made from '${material}'`
-    return {
+    return metadataForCollection({
         title, description,
-        openGraph: {
-            title, description,
-        },
-        twitter: {
-            title, description,
-        },
-    }
+        pathname: `/material/${material}`,
+    })
 }
 
 export async function generateMetadataForYear(year: string) {
     const title = `Alikro | ${year}`
     const description = `Alikro's works made in '${year}'`
-    return {
+    return metadataForCollection({
         title, description,
-        openGraph: {
-            title, description,
-        },
-        twitter: {
-            title, description,
-        },
-    }
+        pathname: `/year/${year}`,
+    })
 }
 
 export async function generateMetadataForCollectionId(collectionId: string) {
@@ -86,13 +71,30 @@ export async function generateMetadataForCollectionId(collectionId: string) {
         title = collectionMetadata.title
         description = collectionMetadata.description
     }
+    return metadataForCollection({
+        title, description,
+        pathname: `/${collectionId}`,
+    })
+}
+
+function metadataForCollection({
+    title, description, pathname,
+}: {
+    title: string,
+    description: string,
+    pathname: string,
+}) {
+    const images = [{
+        url: `/api/og${pathname}`,
+        alt: title,
+    }]
     return {
         title, description,
         openGraph: {
-            title, description,
+            title, description, images,
         },
         twitter: {
-            title, description,
+            title, description, images,
         },
     }
 }

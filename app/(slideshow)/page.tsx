@@ -1,13 +1,13 @@
 import { assetsForQuery, sortAssets, AssetMetadata } from "@/shared/assets"
-import { ClientsideDynamicPage, SlideData } from "./DynamicLayout"
 import { getAllAssetMetadata } from "@/shared/metadataStore"
 import { allCollections, Collection } from "@/shared/collection"
+import { SlideData, ClientsideSlideshow } from "./Slideshow"
 
 export default async function Page() {
     const unsorted = await getAllAssetMetadata()
     const assets = sortAssets(unsorted)
     const slides = buildSlides(assets, allCollections())
-    return <ClientsideDynamicPage slides={slides} />
+    return <ClientsideSlideshow slides={slides} />
 }
 
 const MIN_ASSETS_PER_SLIDE = 10
