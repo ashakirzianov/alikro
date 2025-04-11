@@ -1,6 +1,6 @@
 import { AssetImage } from "@/shared/AssetImage"
 import { AssetMetadata } from "@/shared/assets"
-import { filterForPathname, hrefForConsole, hrefForMaterial, hrefForYear } from "@/shared/href"
+import { filterForPathname, hrefForConsole, hrefForMaterial, hrefForTag, hrefForYear } from "@/shared/href"
 import Link from "next/link"
 
 export function AssetView({
@@ -21,7 +21,7 @@ export function AssetView({
                 cursor: 'default'
             }}
         />
-        <div className="flex flex-row gap-1 p-2">
+        <div className="flex flex-row gap-1">
             {asset.title ?? 'Untitled'}
             {asset.year &&
                 <span>
@@ -40,6 +40,17 @@ export function AssetView({
                 </span>
             }
         </div>
+        {(asset?.tags?.length ?? 0) > 0 && <div className="flex flex-row gap-1">
+            {asset.tags?.map((tag, index) => {
+                return <span key={index}>
+                    {index > 0 && ', '}
+                    <Link href={hrefForTag({ tag })} className="hover:underline">
+                        {tag}
+                    </Link>
+                </span>
+            }
+            )}
+        </div>}
         {authenticated && <Link href={hrefForConsole({
             assetId: asset.id,
             filter: filterForPathname(pathname),

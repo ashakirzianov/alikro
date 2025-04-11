@@ -57,7 +57,7 @@ export default async function Page({
             } else if (third === undefined) {
                 const query = first === 'year' ? year(parseInt(second))
                     : first === 'material' ? material(decodeURIComponent(second))
-                        : tag(second)
+                        : tag(decodeURIComponent(second))
                 return <AssetsPage
                     query={query}
                     pathname={pathname}
