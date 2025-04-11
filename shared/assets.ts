@@ -1,4 +1,3 @@
-import { Section } from "./sections"
 import { asserNever } from "./utils"
 
 export type Timestamp = number
@@ -28,6 +27,12 @@ export type AssetQuery = null | string | AssetQuery[] | {
 } | {
     kind: 'not',
     query: AssetQuery,
+} | {
+    kind: 'year',
+    year: number,
+} | {
+    kind: 'material',
+    material: string,
 }
 export type AssetSize = `${number}x${number}`
 
@@ -35,14 +40,6 @@ export function assetMetadataUpdate(asset: AssetMetadata): AssetMetadataUpdate {
 
     const { width, height, uploaded, fileName, ...update } = asset
     return update
-}
-
-export function assetsForPath(assets: AssetMetadata[], sections: Section[], path: string) {
-    const section = sections.find((section) => section.path === path)
-    if (!section) {
-        return []
-    }
-    return assetsForQuery(assets, section.query)
 }
 
 export function assetSrc(asset: AssetMetadata) {
@@ -80,6 +77,18 @@ export function or(...queries: AssetQuery[]): AssetQuery {
 
 export function not(query: AssetQuery): AssetQuery {
     return { kind: 'not', query }
+}
+
+export function year(year: number): AssetQuery {
+    return { kind: 'year', year }
+}
+
+export function material(material: string): AssetQuery {
+    return { kind: 'material', material }
+}
+
+export function tag(tag: string): AssetQuery {
+    return tag
 }
 
 export function sortAssets(assets: AssetMetadata[]) {
@@ -123,6 +132,10 @@ function matchQuery(asset: AssetMetadata, query: AssetQuery): boolean {
             return query.queries.every((q) => matchQuery(asset, q))
         case 'not':
             return !matchQuery(asset, query.query)
+        case 'material':
+            return asset.material === query.material
+        case 'year':
+            return asset.year === query.year
         default:
             // This should never happen if the type system is correct
             asserNever(query)

@@ -2,15 +2,15 @@ import { NavigationLink } from "@/shared/Atoms"
 import { hrefForConsole } from "@/shared/href"
 
 export default function ConsoleHeader({
-    kinds, tags, selectedSection, selectedAction, shallow,
+    kinds, tags, selectedFilter, selectedAction, shallow,
 }: {
     kinds: string[],
     tags: string[],
-    selectedSection: string,
+    selectedFilter: string,
     selectedAction: string | undefined,
     shallow?: boolean,
 }) {
-    const sections = ['all', ...kinds, ...tags]
+    const filters = ['all', ...kinds, ...tags]
     return (
         <nav className="flex flex-row flex-wrap text-accent text-2xl sm:text-5xl whitespace-nowrap pb-2">
             <NavigationLink
@@ -20,20 +20,20 @@ export default function ConsoleHeader({
                 last
             />{'//'}&nbsp;
 
-            {sections.map((section, index) => (
+            {filters.map((filter, index) => (
                 <NavigationLink
-                    key={section}
-                    href={hrefForConsole({ section })}
-                    title={section}
-                    selected={selectedSection === section}
+                    key={filter}
+                    href={hrefForConsole({ filter })}
+                    title={filter}
+                    selected={selectedFilter === filter}
                     shallow={shallow}
-                    last={index === sections.length - 1}
+                    last={index === filters.length - 1}
                 />
             ))}
             &nbsp;//&nbsp;
             <NavigationLink
                 href={hrefForConsole({
-                    section: selectedSection,
+                    filter: selectedFilter,
                     action: 'upload',
                 })}
                 title="Upload"
@@ -44,7 +44,7 @@ export default function ConsoleHeader({
             &nbsp;//&nbsp;
             <NavigationLink
                 href={hrefForConsole({
-                    section: selectedSection,
+                    filter: selectedFilter,
                     action: 'json',
                 })}
                 title="Json"
@@ -55,7 +55,7 @@ export default function ConsoleHeader({
             &nbsp;//&nbsp;
             <NavigationLink
                 href={hrefForConsole({
-                    section: selectedSection,
+                    filter: selectedFilter,
                     action: 'workers',
                 })}
                 title="Workers"

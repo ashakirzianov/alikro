@@ -5,7 +5,7 @@ import { isAuthenticated } from "@/shared/auth"
 import { parseAssetUpdates } from "@/app/console/common"
 import { uploadAssetFile } from "@/shared/fileStore"
 import { filterOutUndefined } from "@/shared/utils"
-import { hrefForAsset, hrefForCategory } from "@/shared/href"
+import { hrefForAsset, hrefForCollection } from "@/shared/href"
 import { revalidatePath } from "next/cache"
 
 export async function updateAsset(
@@ -187,12 +187,17 @@ function revalidatePathsForAssets(updates: AssetMetadataUpdate[]) {
     }
 }
 
+// TODO: rethink this -- affected collections
 function affectedPathsForAsset(asset: AssetMetadataUpdate) {
-    return filterOutUndefined([
+    const assetCollections = filterOutUndefined(['all', asset.kind])
+    const collectionPaths = assetCollections.map((collection) => hrefForCollection({ collectionId: collection }))
+    return [
         '/',
         '/console',
-        hrefForAsset(asset),
-        asset.kind ? hrefForCategory(asset.kind ?? '') : undefined,
-    ])
+        hrefForAsset({
+            assetId: asset.id,
+        }),
+        ...collectionPaths,
+    ]
 }
 

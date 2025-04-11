@@ -6,9 +6,9 @@ import { hrefForConsole } from "@/shared/href"
 
 // Component for the asset grid
 export function ConsoleGrid({
-    section, assets, selectedAssetId, shallow,
+    filter, assets, selectedAssetId, shallow,
 }: {
-    section: string,
+    filter: string,
     assets: AssetMetadata[],
     selectedAssetId: string | undefined,
     shallow?: boolean,
@@ -18,7 +18,7 @@ export function ConsoleGrid({
             {assets.map((asset) => (
                 <AssetCard
                     key={asset.id}
-                    section={section}
+                    filter={filter}
                     asset={asset}
                     isSelected={asset.id === selectedAssetId}
                     shallow={shallow}
@@ -45,16 +45,16 @@ function AssetCardTags({ tags }: { tags?: string[] }) {
 
 // Component for a single asset card
 function AssetCard({
-    section, asset, isSelected, shallow,
+    asset, isSelected, shallow, filter,
 }: {
-    section: string,
     asset: AssetMetadata,
     isSelected: boolean,
     shallow?: boolean,
+    filter: string,
 }) {
     return (
         <Link href={hrefForConsole({
-            section,
+            filter,
             action: 'edit',
             assetId: asset.id,
         })} shallow={shallow}>

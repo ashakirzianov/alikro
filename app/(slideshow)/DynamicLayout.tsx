@@ -1,12 +1,12 @@
 'use client'
 import { AssetImage } from "@/shared/AssetImage"
-import Link from "next/link"
 import dynamic from 'next/dynamic'
 import { ReactNode, useEffect, useState } from "react"
 import { BehanceLink, InstagramLink, MailLink } from "@/shared/SocialLinks"
 import { Slider } from "./Slider"
 import { assetHeight, AssetMetadata, assetWidth } from "@/shared/assets"
 import { hrefForAsset } from "@/shared/href"
+import Link from "next/link"
 
 export const ClientsideDynamicPage = dynamic(() => Promise.resolve(DynamicPage), {
     ssr: false,
@@ -24,6 +24,16 @@ function DynamicPage({ slides }: {
 }) {
     const [scroll, setScroll] = useState(0)
     const aspect = useAspectRatio()
+    let ticking = false
+    function handleScroll(value: number) {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                setScroll(value)
+                ticking = false
+            })
+            ticking = true
+        }
+    }
     const corner = <div className="flex flex-row">
         <div className="bg-accent hover:bg-white">
             <div className="p-4 invert brightness-0 hover:invert-0 hover:brightness-0">
@@ -64,7 +74,7 @@ function DynamicPage({ slides }: {
             gridArea: 'center',
             zIndex: 2,
         }}>
-            <Slider onScroll={setScroll}>
+            <Slider onScroll={handleScroll}>
                 {
                     slides.map((slide, idx) => {
                         const { title, href, includeLinks } = slide
@@ -171,16 +181,21 @@ function AssetLine({ assets, scroll, height, direction }: {
             position: 'relative',
             left: direction === 'right' ? scroll : -scroll,
         }}>
-            {assets.map((asset, idx) =>
-                <Link key={idx} href={hrefForAsset(asset)} style={{
+            {assets.map((asset) =>
+                <div key={asset.id} style={{
                     aspectRatio: `${assetWidth(asset)} / ${assetHeight(asset)}`,
                     height: '100%',
-                }}>
-                    <AssetImage asset={asset} size="medium" />
-                </Link>
+                }}
+                >
+                    <Link href={hrefForAsset({
+                        assetId: asset.id,
+                    })}>
+                        <AssetImage asset={asset} size="medium" />
+                    </Link>
+                </div>
             )}
         </div>
-    </div>
+    </div >
 }
 
 function computeLines({ slides, aspect, fractions }: {

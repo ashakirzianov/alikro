@@ -1,10 +1,15 @@
 'use client'
 import { NavigationLink } from "@/shared/Atoms"
-import { allSections } from "@/shared/sections"
-import { useSelectedLayoutSegment } from 'next/navigation'
+import { allCollections } from "@/shared/collection"
+import { hrefForCollection } from "@/shared/href"
+import { useSelectedLayoutSegments } from 'next/navigation'
 
 export function NavigationPanel() {
-    const segment = useSelectedLayoutSegment()
+    const segments = useSelectedLayoutSegments()
+    const [first, second] = segments
+        .map(s => s.split('/')).flat().map(decodeURIComponent)
+    const showExtra = second !== undefined
+        && ['tag', 'year', 'material'].includes(first)
     return (
         <nav className="flex flex-row flex-wrap text-accent text-2xl sm:text-5xl whitespace-nowrap pb-2">
             <NavigationLink
@@ -13,20 +18,30 @@ export function NavigationPanel() {
                 last
             />{'//'}&nbsp;
             {
-                allSections().map(section => (
+                allCollections().map(collection => (
                     <NavigationLink
-                        key={section.path}
-                        href={`/${section.path}`}
-                        title={section.section}
-                        selected={segment === section.path}
+                        key={collection.id}
+                        href={hrefForCollection({ collectionId: collection.id })}
+                        title={collection.id}
+                        selected={first === collection.id}
                     />
                 ))
             }
             <NavigationLink title="about"
                 href="/about"
-                selected={segment === 'about'}
+                selected={first === 'about'}
                 last
             />
+            {showExtra && <>
+                <span>{'//'}&nbsp;</span>
+                <NavigationLink
+                    href={`/${first}/${second}`}
+                    title={second}
+                    selected={true}
+                    last={true}
+                />
+            </>
+            }
         </nav>
     )
 }
