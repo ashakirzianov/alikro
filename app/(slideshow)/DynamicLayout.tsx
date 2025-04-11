@@ -5,6 +5,8 @@ import { ReactNode, useEffect, useState } from "react"
 import { BehanceLink, InstagramLink, MailLink } from "@/shared/SocialLinks"
 import { Slider } from "./Slider"
 import { assetHeight, AssetMetadata, assetWidth } from "@/shared/assets"
+import { hrefForAsset } from "@/shared/href"
+import Link from "next/link"
 
 export const ClientsideDynamicPage = dynamic(() => Promise.resolve(DynamicPage), {
     ssr: false,
@@ -173,8 +175,13 @@ function AssetLine({ assets, scroll, height, direction }: {
                 <div key={asset.id} style={{
                     aspectRatio: `${assetWidth(asset)} / ${assetHeight(asset)}`,
                     height: '100%',
-                }}>
-                    <AssetImage asset={asset} size="medium" />
+                }}
+                >
+                    <Link href={hrefForAsset({
+                        assetId: asset.id,
+                    })}>
+                        <AssetImage asset={asset} size="medium" />
+                    </Link>
                 </div>
             )}
         </div>
