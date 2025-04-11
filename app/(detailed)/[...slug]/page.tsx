@@ -47,7 +47,7 @@ export default async function Page({
     const { show } = await searchParams
     const { slug } = await params
     const [first, second, third] = slug
-    const pathname = `${slug.join('/')}`
+    const pathname = `/${slug.join('/')}`
     const modalAssetId = typeof show === 'string' ? show : undefined
 
     switch (first) {

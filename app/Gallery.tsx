@@ -39,10 +39,11 @@ function Tile({ asset, pathname }: {
     asset: AssetMetadata,
     pathname: string,
 }) {
-    return <Link href={hrefForAssetModal({
+    const href = hrefForAssetModal({
         pathname,
         assetId: asset.id,
-    })} className="block mb-4">
+    })
+    return <Link href={href} className="block mb-4">
         <div className="flex flex-col break-inside-avoid-column">
             <AssetImage asset={asset} size="medium" />
             <span className="hidden sm:flex text-xs text-accent">
