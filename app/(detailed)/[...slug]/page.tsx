@@ -37,7 +37,11 @@ export async function generateMetadata({
         case 'year':
             return generateMetadataForYear(second)
         default:
-            return generateMetadataForCollectionId(first)
+            if (second === undefined) {
+                return generateMetadataForCollectionId(first)
+            } else {
+                return generateMetadataForAssetId(second)
+            }
     }
 }
 
