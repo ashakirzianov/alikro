@@ -14,6 +14,15 @@ export function Gallery({
     modalAssetId?: string,
     authenticated?: boolean,
 }) {
+    function buildColumns(assets: AssetMetadata[], num: number) {
+        const columns: AssetMetadata[][] = Array(num).fill(null).map(() => [])
+        assets.forEach((asset, index) => {
+            const columnIndex = index % num
+            columns[columnIndex].push(asset)
+        })
+        return columns
+    }
+    const columns = buildColumns(assets, 4)
     return (
         <>
             {modalAssetId && <WorkModal
@@ -22,13 +31,17 @@ export function Gallery({
                 pathname={pathname}
                 authenticated={authenticated}
             />}
-            <div className="columns-3 sm:columns-4">
-                {assets.map((asset) => (
-                    <Tile
-                        key={asset.fileName}
-                        asset={asset}
-                        pathname={pathname}
-                    />
+            <div className="flex flex-row gap-2">
+                {columns.map((column, index) => (
+                    <div key={index} className="flex flex-col w-1/4 gap-0">
+                        {column.map((asset) => (
+                            <Tile
+                                key={asset.fileName}
+                                asset={asset}
+                                pathname={pathname}
+                            />
+                        ))}
+                    </div>
                 ))}
             </div>
         </>
@@ -43,7 +56,7 @@ function Tile({ asset, pathname }: {
         pathname,
         assetId: asset.id,
     })
-    return <Link href={href} className="block mb-4">
+    return <Link href={href} className="block">
         <div className="flex flex-col break-inside-avoid-column">
             <AssetImage asset={asset} size="medium" />
             <span className="hidden sm:flex text-xs text-accent">
