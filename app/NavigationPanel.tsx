@@ -5,8 +5,11 @@ import { hrefForCollection } from "@/shared/href"
 import { useSelectedLayoutSegments } from 'next/navigation'
 
 export function NavigationPanel() {
-    const [first, second] = useSelectedLayoutSegments()
-    const showExtra = second !== undefined && ['tag'].includes(first)
+    const segments = useSelectedLayoutSegments()
+    const [first, second] = segments
+        .map(s => s.split('/')).flat().map(decodeURIComponent)
+    const showExtra = second !== undefined
+        && ['tag', 'year', 'material'].includes(first)
     return (
         <nav className="flex flex-row flex-wrap text-accent text-2xl sm:text-5xl whitespace-nowrap pb-2">
             <NavigationLink

@@ -32,7 +32,7 @@ export function AssetView({
             }
             {asset.material &&
                 <span>
-                    ,&nbsp;<Link href={hrefForMaterial({
+                    |&nbsp;<Link href={hrefForMaterial({
                         material: asset.material,
                     })} className="hover:underline">
                         {asset.material}
@@ -40,13 +40,13 @@ export function AssetView({
                 </span>
             }
         </div>
-        {(asset?.tags?.length ?? 0) > 0 && <div className="flex flex-row gap-1">
+        {(asset.tags && asset.tags.length > 0) && <div className="flex flex-row gap-1">
             {asset.tags?.map((tag, index) => {
                 return <span key={index}>
-                    {index > 0 && ', '}
                     <Link href={hrefForTag({ tag })} className="hover:underline">
                         {tag}
                     </Link>
+                    {index < asset.tags!.length - 1 && ', '}
                 </span>
             }
             )}
