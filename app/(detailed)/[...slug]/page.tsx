@@ -1,7 +1,8 @@
 import { allCollections, collectionForId } from "@/shared/collection"
 import { AssetPage, AssetsPage } from "@/app/(detailed)/AssetsPage"
-import { generateMetadataForAssetId, generateMetadataForCollectionId, generateMetadataForTag } from "./metadata"
+import { generateMetadataForAssetId, generateMetadataForCollectionId, generateMetadataForMaterial, generateMetadataForTag, generateMetadataForYear } from "./metadata"
 import { notFound } from "next/navigation"
+import { material, tag, year } from "@/shared/assets"
 
 type Props = {
     slug: string[],
@@ -31,6 +32,10 @@ export async function generateMetadata({
     switch (first) {
         case 'tag':
             return generateMetadataForTag(second)
+        case 'material':
+            return generateMetadataForMaterial(second)
+        case 'year':
+            return generateMetadataForYear(second)
         default:
             return generateMetadataForCollectionId(first)
     }
@@ -46,12 +51,15 @@ export default async function Page({
     const modalAssetId = typeof show === 'string' ? show : undefined
 
     switch (first) {
-        case 'tag':
+        case 'tag': case 'year': case 'material':
             if (second === undefined) {
                 return null
             } else if (third === undefined) {
+                const query = first === 'year' ? year(parseInt(second))
+                    : first === 'material' ? material(second)
+                        : tag(second)
                 return <AssetsPage
-                    query={second}
+                    query={query}
                     pathname={pathname}
                     modalAssetId={modalAssetId}
                 />

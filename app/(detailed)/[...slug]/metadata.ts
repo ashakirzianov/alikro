@@ -48,6 +48,34 @@ export async function generateMetadataForTag(tag: string) {
     }
 }
 
+export async function generateMetadataForMaterial(material: string) {
+    const title = `Alikro | ${material}`
+    const description = `Alikro's works made from '${material}'`
+    return {
+        title, description,
+        openGraph: {
+            title, description,
+        },
+        twitter: {
+            title, description,
+        },
+    }
+}
+
+export async function generateMetadataForYear(year: string) {
+    const title = `Alikro | ${year}`
+    const description = `Alikro's works made in '${year}'`
+    return {
+        title, description,
+        openGraph: {
+            title, description,
+        },
+        twitter: {
+            title, description,
+        },
+    }
+}
+
 export async function generateMetadataForCollectionId(collectionId: string) {
     let title = 'Not found'
     let description = 'Not found'
