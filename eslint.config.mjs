@@ -26,7 +26,8 @@ const eslintConfig = [
             'no-unreachable': 'off',
             '@typescript-eslint/no-unused-vars': ['error', {
                 ignoreRestSiblings: true,
-                destructuredArrayIgnorePattern: '^_'
+                destructuredArrayIgnorePattern: '^_',
+                argsIgnorePattern: '^_',
             }],
         }
     },

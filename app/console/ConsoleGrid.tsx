@@ -13,7 +13,10 @@ export function ConsoleGrid({
     selectedAssetId: string | undefined,
     shallow?: boolean,
 }) {
-    return (
+    return (<>
+        <section className="text-accent">
+            <span>{assets.length} assets in collection</span>
+        </section>
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
             {assets.map((asset) => (
                 <AssetCard
@@ -25,7 +28,7 @@ export function ConsoleGrid({
                 />
             ))}
         </section>
-    )
+    </>)
 }
 
 // Component for displaying tags in an asset card
@@ -68,7 +71,7 @@ function AssetCard({
                     <div className="h-full relative w-full">
                         <AssetImage
                             asset={asset}
-                            size="small"
+                            size="medium"
                             style={{
                                 objectFit: 'contain',
                                 width: '100%',
