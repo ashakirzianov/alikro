@@ -14,7 +14,8 @@ const nextConfig = {
                 pathname: '/**',
                 search: '',
             },
-        ]
+        ],
+        minimumCacheTTL: 2678400, // 31 days
     }
 }
 
