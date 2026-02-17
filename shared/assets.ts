@@ -1,6 +1,8 @@
 import { asserNever } from "./utils"
 
 export type Timestamp = number
+export type AssetVariant = `${number}` | `${number}@${number}`
+
 export type AssetMetadata = {
     id: string,
     fileName: string,
@@ -13,6 +15,7 @@ export type AssetMetadata = {
     year?: number,
     material?: string,
     tags?: string[],
+    variants?: string[],
 }
 export type AssetMetadataUpdate = Omit<
     AssetMetadata,
@@ -44,6 +47,10 @@ export function assetMetadataUpdate(asset: AssetMetadata): AssetMetadataUpdate {
 
 export function assetSrc(asset: AssetMetadata) {
     return `https://${process.env.NEXT_PUBLIC_ASSETS_DOMAIN}/${asset.fileName}`
+}
+
+export function assetVariantSrc(asset: AssetMetadata, variant: string) {
+    return `https://${process.env.NEXT_PUBLIC_ASSETS_DOMAIN}/variants/${asset.id}-${variant}.webp`
 }
 
 export function assetAlt(asset: AssetMetadata) {

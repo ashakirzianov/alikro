@@ -1,7 +1,7 @@
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
-import { generateAssetId, splitFileNameAndExtension, AssetMetadata } from './assets'
-import { getAssetNames, storeAsset } from './metadataStore'
-import { ProcessedImage, processImage } from './images'
+import { generateAssetId, splitFileNameAndExtension, AssetMetadata, assetSrc, assetVariantSrc } from './assets'
+import { getAssetNames, storeAsset, applyMetadataUpdates } from './metadataStore'
+import { ProcessedImage, processImage, resizeImage } from './images'
 
 const UNPUBLISHED_KIND = 'unpublished'
 
@@ -224,6 +224,57 @@ async function uploadToS3Bucket({
             message: error instanceof Error ? `S3 upload error: ${error.message}` : 'Unknown S3 error'
         }
     }
+}
+
+/**
+ * Requests a resized image variant for an asset. If the variant doesn't exist yet,
+ * downloads the original, resizes it, uploads it to S3 under 'variants/' and updates
+ * the asset metadata. Variant format: "${width}" or "${width}@${quality}".
+ */
+export async function requestImageVariant(
+    asset: AssetMetadata,
+    variant: string,
+): Promise<{ success: boolean; message: string; src?: string }> {
+    if (asset.variants?.includes(variant)) {
+        return { success: true, message: 'Variant already exists', src: assetVariantSrc(asset, variant) }
+    }
+
+    const s3Client = getS3Client()
+    if (!s3Client) {
+        return { success: false, message: 'S3 client not initialized. Check AWS credentials.' }
+    }
+
+    const [widthStr, qualityStr] = variant.split('@')
+    const width = parseInt(widthStr, 10)
+    const quality = qualityStr ? parseInt(qualityStr, 10) : undefined
+
+    const response = await fetch(assetSrc(asset))
+    if (!response.ok) {
+        return { success: false, message: `Failed to download original image: ${response.statusText}` }
+    }
+    const blob = await response.blob()
+    const file = new File([blob], asset.fileName, { type: blob.type })
+
+    const resizeResult = await resizeImage({ file, width, quality })
+    if (!resizeResult.success || !resizeResult.image) {
+        return { success: false, message: resizeResult.message }
+    }
+
+    const variantKey = `variants/${asset.id}-${variant}.webp`
+    const uploadResult = await uploadToS3Bucket({
+        s3Client,
+        bucketName: S3_CONFIG.BUCKET_NAME,
+        key: variantKey,
+        buffer: resizeResult.image.buffer,
+        contentType: 'image/webp',
+    })
+    if (!uploadResult.success) {
+        return uploadResult
+    }
+
+    await applyMetadataUpdates([{ id: asset.id, variants: [...(asset.variants ?? []), variant] }])
+
+    return { success: true, message: 'Variant created successfully', src: assetVariantSrc(asset, variant) }
 }
 
 /**
