@@ -32,7 +32,6 @@ export function AssetImage({ asset, size, style }: AssetImageProps) {
             alt={assetAlt(asset)}
             width={width}
             height={height}
-            unoptimized
             style={{
                 userSelect: 'none',
                 WebkitUserSelect: 'none',
