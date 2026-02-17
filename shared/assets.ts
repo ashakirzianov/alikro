@@ -43,7 +43,7 @@ export function assetMetadataUpdate(asset: AssetMetadata): AssetMetadataUpdate {
 }
 
 export function assetSrc(asset: AssetMetadata) {
-    return `https://${process.env.NEXT_PUBLIC_ASSETS_DOMAIN}/${asset.fileName}`
+    return `https://${process.env.NEXT_PUBLIC_CROW_ASSETS_DOMAIN}/alikro/originals/${asset.fileName}`
 }
 
 export function assetAlt(asset: AssetMetadata) {

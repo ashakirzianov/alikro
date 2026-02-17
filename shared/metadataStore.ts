@@ -22,11 +22,30 @@ export async function getAssetMetadata(id: string) {
     return loadAssetMetadata(id)
 }
 
-async function loadAssetMetadata(_id: string): Promise<AssetMetadata | undefined> {
-    return undefined
+async function loadAssetMetadata(id: string): Promise<AssetMetadata | undefined> {
+    const base = process.env.NEXT_PUBLIC_CROW_CMS
+    const secret = process.env.CROW_CMS_SECRET_KEY
+    const res = await fetch(`${base}/api/projects/alikro/assets/${id}`, {
+        headers: { Authorization: `Bearer ${secret}` },
+    })
+    if (!res.ok) return undefined
+    type Response = AssetMetadata
+    const asset = await res.json() as Response
+    return asset
 }
 
 // Get all stored assets
 async function loadAllAssetMetadata(): Promise<AssetMetadata[]> {
-    return []
+    console.log('Loading all asset metadata from CMS...')
+    const base = process.env.NEXT_PUBLIC_CROW_CMS
+    const secret = process.env.CROW_CMS_SECRET_KEY
+    const res = await fetch(`${base}/api/projects/alikro/assets`, {
+        headers: { Authorization: `Bearer ${secret}` },
+    })
+    console.log(`Response status: ${res.status}, for ${base}/api/projects/alikro/assets`)
+    if (!res.ok) return []
+    type Response = AssetMetadata[]
+    const data: Response = await res.json()
+    console.log(`Loaded ${data.length} assets from CMS`)
+    return data
 }
