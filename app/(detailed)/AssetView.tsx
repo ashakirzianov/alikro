@@ -4,11 +4,11 @@ import { filterForPathname, hrefForConsole, hrefForMaterial, hrefForTag, hrefFor
 import Link from "next/link"
 
 export function AssetView({
-    asset, pathname, authenticated,
+    asset, pathname, admin,
 }: {
     asset: AssetMetadata,
     pathname: string,
-    authenticated?: boolean,
+    admin?: boolean,
 }) {
     return <div className="flex flex-col items-center text-m text-accent">
         <AssetImage
@@ -51,7 +51,7 @@ export function AssetView({
             }
             )}
         </div>}
-        {authenticated && <Link href={hrefForConsole({
+        {admin && <Link href={hrefForConsole({
             assetId: asset.id,
             filter: filterForPathname(pathname),
         })} className="hover:underline">edit</Link>}

@@ -8,12 +8,12 @@ import { hrefForConsole, hrefForAssetModal, hrefForAsset, filterForPathname } fr
 import Link from "next/link"
 
 export function WorkModal({
-    assets, assetId, pathname, authenticated,
+    assets, assetId, pathname, admin,
 }: {
     assetId: string,
     assets: AssetMetadata[],
     pathname: string,
-    authenticated?: boolean,
+    admin?: boolean,
 }) {
     const currentIndex = assets.findIndex(a => a.id === assetId)
     const asset = assets[currentIndex]
@@ -125,7 +125,7 @@ export function WorkModal({
         </Link>
 
         {/* Edit button */}
-        {authenticated && <Link
+        {admin && <Link
             href={editLink}
             className="absolute top-4 left-4 p-2 bg-black bg-opacity-30 hover:bg-opacity-50 text-white rounded-full"
             aria-label="Edit work"
