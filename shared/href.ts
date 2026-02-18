@@ -54,9 +54,10 @@ export function hrefForConsole({
     } else if (action) {
         searchParams.set('aside', action)
     }
-    return searchParams.size === 0
-        ? '/console'
-        : `/console?${searchParams.toString()}`
+    const path = searchParams.size === 0
+        ? '/alikro'
+        : `/alikro?${searchParams.toString()}`
+    return `${process.env.NEXT_PUBLIC_CROW_CMS}/projects${path}`
 }
 
 export function filterForPathname(pathname: string | undefined) {

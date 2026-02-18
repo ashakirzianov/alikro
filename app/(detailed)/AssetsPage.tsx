@@ -1,16 +1,16 @@
 import { AssetQuery, assetsForQuery, sortAssets } from "@/shared/assets"
-import { isAuthenticated } from "@/shared/auth"
 import { getAllAssetMetadata, getAssetMetadata } from "@/shared/metadataStore"
 import { Gallery } from "../Gallery"
 import { AssetView } from "./AssetView"
 import { notFound } from "next/navigation"
 
 export async function AssetsPage({
-    query, pathname, modalAssetId,
+    query, pathname, modalAssetId, admin,
 }: {
     query: AssetQuery,
     pathname: string,
     modalAssetId?: string,
+    admin?: boolean,
 }) {
     const unsorted = await getAllAssetMetadata()
     const assets = sortAssets(unsorted)
@@ -19,31 +19,28 @@ export async function AssetsPage({
         ? modalAssetId
         : undefined
 
-    const authenticated = await isAuthenticated()
-
     return <Gallery
         assets={filtered}
         pathname={pathname}
         modalAssetId={modalAssetId}
-        authenticated={authenticated}
+        admin={admin}
     />
 }
 
 export async function AssetPage({
-    assetId, pathname,
+    assetId, pathname, admin,
 }: {
     assetId: string,
     pathname: string,
+    admin?: boolean,
 }) {
-    const authenticated = await isAuthenticated()
-
     const asset = await getAssetMetadata(assetId)
     if (asset === undefined) {
         return notFound()
     }
     return <AssetView
         asset={asset}
-        authenticated={authenticated}
+        admin={admin}
         pathname={pathname}
     />
 }

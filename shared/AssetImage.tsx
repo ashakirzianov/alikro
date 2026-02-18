@@ -1,3 +1,4 @@
+'use client'
 import Image from "next/image"
 import { AssetMetadata, assetAlt, assetHeight, assetWidth } from "./assets"
 import { imageSrc } from "./images"

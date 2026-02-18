@@ -9,6 +9,7 @@ const inter = Inter({ subsets: ['latin'] })
 const title = 'Alikro'
 const description = `Alikro, an artist.`
 export const metadata: Metadata = {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? 'http://alikro.art'),
     title, description,
     openGraph: {
         title, description,
