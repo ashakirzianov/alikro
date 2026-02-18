@@ -1,4 +1,5 @@
-import { assetDescription, assetSrc } from "@/shared/assets"
+import { assetDescription } from "@/shared/assets"
+import { imageSrc } from "@/shared/images"
 import { getAssetMetadata } from "@/shared/metadataStore"
 
 export async function generateMetadataForAssetId(assetId: string) {
@@ -19,7 +20,10 @@ export async function generateMetadataForAssetId(assetId: string) {
     const title = asset?.title ?? 'Picture'
     const description = asset ? assetDescription(asset) : 'My work'
     const images = [{
-        url: assetSrc(asset),
+        url: imageSrc({
+            fileName: asset.fileName,
+            width: 1200,
+        }),
         alt: asset.title,
     }]
     return {

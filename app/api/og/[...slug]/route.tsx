@@ -1,8 +1,9 @@
 import { ImageResponse } from "next/og"
-import { assetAlt, AssetMetadata, assetsForQuery, assetSrc, sortAssets } from "@/shared/assets"
+import { assetAlt, AssetMetadata, assetsForQuery, sortAssets } from "@/shared/assets"
 import { getAllAssetMetadata } from "@/shared/metadataStore"
 import { assetHeight, assetWidth } from "@/shared/assets"
 import { assetsPageDataForSlug } from "@/app/(detailed)/[...slug]/page"
+import { imageSrc } from "@/shared/images"
 
 const WIDTH = 1200
 const HEIGHT = 600
@@ -71,20 +72,24 @@ function AssetLine({ assets, height, }: {
       margin: '0 0 0 0',
       gap: '0 0 0 0',
     }}>
-      {assets.map((asset) =>
+      {assets.map((asset) => {
+        const width = Math.ceil(assetWidth(asset) * (height / assetHeight(asset)))
         // eslint-disable-next-line @next/next/no-img-element
-        <img
+        return <img
           key={asset.id}
-          src={assetSrc(asset)}
+          src={imageSrc({
+            fileName: asset.fileName,
+            width,
+          })}
           alt={assetAlt(asset)}
           style={{
             height,
             aspectRatio: `${assetWidth(asset)} / ${assetHeight(asset)}`,
-            width: Math.ceil(assetWidth(asset) * (height / assetHeight(asset))),
+            width,
             objectFit: 'fill',
           }}
         />
-      )}
+      })}
     </div>
   </div >
 }

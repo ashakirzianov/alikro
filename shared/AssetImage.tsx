@@ -1,5 +1,6 @@
 import Image from "next/image"
-import { AssetMetadata, assetAlt, assetHeight, assetSrc, assetWidth } from "./assets"
+import { AssetMetadata, assetAlt, assetHeight, assetWidth } from "./assets"
+import { imageSrc } from "./images"
 
 export type AssetImageSize = 'medium' | 'full'
 
@@ -24,11 +25,19 @@ function getDimensionsForAsset(asset: AssetMetadata, _size: AssetImageSize): [nu
     return [width, height]
 }
 
+function loader({ src, width }: { src: string, width: number }) {
+    return imageSrc({
+        fileName: src,
+        width,
+    })
+}
+
 export function AssetImage({ asset, size, style }: AssetImageProps) {
     const [width, height] = getDimensionsForAsset(asset, size)
     return (
         <Image
-            src={assetSrc(asset)}
+            src={asset.fileName}
+            loader={loader}
             alt={assetAlt(asset)}
             width={width}
             height={height}
