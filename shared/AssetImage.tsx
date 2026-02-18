@@ -25,13 +25,19 @@ function getDimensionsForAsset(asset: AssetMetadata, _size: AssetImageSize): [nu
     return [width, height]
 }
 
+function loader({ src, width }: { src: string, width: number }) {
+    return imageSrc({
+        fileName: src,
+        width,
+    })
+}
+
 export function AssetImage({ asset, size, style }: AssetImageProps) {
     const [width, height] = getDimensionsForAsset(asset, size)
     return (
         <Image
-            src={imageSrc({
-                fileName: asset.fileName,
-            })}
+            src={asset.fileName}
+            loader={loader}
             alt={assetAlt(asset)}
             width={width}
             height={height}

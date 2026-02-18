@@ -13,7 +13,7 @@ export function imageSrc({
     })}`
 }
 
-function variantFileName({
+export function variantFileName({
     originalName, width, quality, format,
 }: {
     originalName: string, format: string,
