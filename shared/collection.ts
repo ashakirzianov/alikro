@@ -1,4 +1,4 @@
-import { AssetQuery, not } from "./assets"
+import { AssetQuery, not, tag } from "./assets"
 
 export type Collection = {
     id: string,
@@ -23,20 +23,20 @@ const collections: Collection[] = [{
     title: 'Alikro, an artist.',
     description: 'All works by Alikro.',
     query: null,
-    slideAndQuery: 'selfportrait',
+    slideAndQuery: tag('selfportrait'),
     slideLinks: true,
 }, {
     id: 'paintings',
     title: 'Paintings.',
     description: "Alikro's paintings.",
     query: 'painting',
-    slideAndQuery: [not('selfportrait')],
+    slideAndQuery: [not(tag('selfportrait'))],
 }, {
     id: 'drawings',
     title: 'Drawings.',
     description: "Alikro's drawings.",
     query: 'drawing',
-    slideAndQuery: [not('selfportrait')],
+    slideAndQuery: [not(tag('selfportrait'))],
 }, {
     id: 'ceramics',
     title: 'Ceramics.',
@@ -47,19 +47,19 @@ const collections: Collection[] = [{
     title: 'Illustrations.',
     description: "Alikro's illustrations.",
     query: 'illustration',
-    slideAndQuery: [not('selfportrait')],
+    slideAndQuery: [not(tag('selfportrait'))],
 }, {
     id: 'posters',
     title: 'Posters.',
     description: "Alikro's posters.",
     query: 'poster',
-    slideAndQuery: [not('selfportrait')],
+    slideAndQuery: [not(tag('selfportrait'))],
 }, {
     id: 'collages',
     title: 'Collages.',
     description: "Alikro's collages.",
     query: 'collage',
-    slideAndQuery: [not('selfportrait')],
+    slideAndQuery: [not(tag('selfportrait'))],
 }, {
     id: 'tattoos',
     title: 'Tattoos.',
