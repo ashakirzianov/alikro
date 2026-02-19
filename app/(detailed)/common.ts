@@ -36,3 +36,25 @@ export async function generateMetadataForAssetId(assetId: string) {
         },
     }
 }
+
+export function metadataForCollection({
+    title, description, pathname,
+}: {
+    title: string,
+    description: string,
+    pathname: string,
+}) {
+    const images = [{
+        url: `/api/og${pathname}`,
+        alt: title,
+    }]
+    return {
+        title, description,
+        openGraph: {
+            title, description, images,
+        },
+        twitter: {
+            title, description, images,
+        },
+    }
+}

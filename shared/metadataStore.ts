@@ -1,9 +1,33 @@
-import { AssetMetadata } from './assets'
+import {
+    AssetMetadata, AssetQuery, assetsForQuery, sortAssets,
+    year as yearQuery
+} from './assets'
 
 let allAssets: AssetMetadata[] | null = null
 function invalidateCache() {
     allAssets = null
 }
+
+export async function getAssetsForYear(year: number) {
+    const query = yearQuery(year)
+    return getSortedAssetsForQuery(query)
+}
+
+export async function getUniquePropertyValues<P extends keyof AssetMetadata>(property: P): Promise<NonNullable<AssetMetadata[P]>[]> {
+    const assets = await getAllAssetMetadata()
+    const values = assets
+        .map(asset => asset[property])
+        .filter((value): value is NonNullable<AssetMetadata[P]> => value !== undefined)
+    return Array.from(new Set(values))
+}
+
+async function getSortedAssetsForQuery(query: AssetQuery) {
+    const unsorted = await getAllAssetMetadata()
+    const assets = sortAssets(unsorted)
+    const filtered = assetsForQuery(assets, query)
+    return filtered
+}
+
 export async function getAllAssetMetadata(force?: boolean) {
     if (force || null === allAssets) {
         allAssets = await loadAllAssetMetadata()
