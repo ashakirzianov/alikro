@@ -1,7 +1,15 @@
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 export function useShowEditButton() {
     return useBooleanSetting('showEditButton')
+}
+
+export function useIsClient() {
+    const [isClient, setIsClient] = useState(false)
+    useEffect(() => {
+        setIsClient(true)
+    }, [])
+    return isClient
 }
 
 function useBooleanSetting(key: string) {
