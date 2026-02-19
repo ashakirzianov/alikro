@@ -1,9 +1,8 @@
 import { ImageResponse } from "next/og"
-import { assetAlt, AssetMetadata, assetsForQuery, sortAssets } from "@/shared/assets"
-import { getAllAssetMetadata } from "@/shared/metadataStore"
+import { assetAlt, AssetMetadata } from "@/shared/assets"
 import { assetHeight, assetWidth } from "@/shared/assets"
-import { assetsPageDataForSlug } from "@/app/(detailed)/[...slug]/page"
 import { imageSrc } from "@/shared/images"
+import { assetsPageDataForSlug } from "@/app/(detailed)/[...slug]/data"
 
 const WIDTH = 1200
 const HEIGHT = 600
@@ -12,12 +11,9 @@ export async function GET(
   { params }: { params: Promise<{ slug: string[] }> },
 ) {
   const { slug } = await params
-  const { query } = assetsPageDataForSlug(slug) ?? { query: null }
-  const assets = await getAllAssetMetadata()
-  const sorted = sortAssets(assets)
-  const filtered = assetsForQuery(sorted, query)
+  const { assets } = await assetsPageDataForSlug(slug) ?? { assets: [] }
   return new ImageResponse(
-    <Preview assets={filtered} />,
+    <Preview assets={assets ?? []} />,
     {
       width: WIDTH,
       height: HEIGHT,

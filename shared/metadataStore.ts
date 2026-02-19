@@ -1,7 +1,8 @@
 import {
     AssetMetadata, AssetQuery, assetsForQuery, sortAssets,
-    year as yearQuery
+    year as yearQuery, material as materialQuery, tag as tagQuery,
 } from './assets'
+import { collectionForId } from './collection'
 
 let allAssets: AssetMetadata[] | null = null
 function invalidateCache() {
@@ -10,6 +11,25 @@ function invalidateCache() {
 
 export async function getAssetsForYear(year: number) {
     const query = yearQuery(year)
+    return getSortedAssetsForQuery(query)
+}
+
+export async function getAssetsForTag(tag: string) {
+    const query = tagQuery(tag)
+    return getSortedAssetsForQuery(query)
+}
+
+export async function getAssetsForMaterial(material: string) {
+    const query = materialQuery(material)
+    return getSortedAssetsForQuery(query)
+}
+
+export async function getAssetsForCollection(collectionId: string) {
+    const collectionObject = collectionForId(collectionId)
+    if (collectionObject === undefined) {
+        return []
+    }
+    const query = collectionObject.query
     return getSortedAssetsForQuery(query)
 }
 
