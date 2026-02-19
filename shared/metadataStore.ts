@@ -2,9 +2,10 @@ import {
     AssetMetadata, AssetQuery, assetsForQuery, sortAssets,
     year as yearQuery, material as materialQuery, tag as tagQuery,
 } from './assets'
-import { cacheTagForAssetId, cacheTagForQuery } from './cache'
-import { fetchAllAssetMetadata, fetchAssetMetadata } from './cms'
+import { cacheTagForAssetId, cacheTagForIndex, cacheTagForQuery } from './cache'
+import { fetchAllAssetMetadata } from './cms'
 import { collectionForId } from './collection'
+import { cacheLife } from 'next/cache'
 
 export async function getAssetsForSlideshow() {
     return getSortedAssetsForQuery(null)
@@ -35,6 +36,9 @@ export async function getAssetsForCollection(collectionId: string) {
 }
 
 export async function getUniquePropertyValues<P extends keyof AssetMetadata>(property: P): Promise<NonNullable<AssetMetadata[P]>[]> {
+    'use cache'
+    cacheTagForIndex()
+    cacheLife('days')
     const assets = await getAllAssetMetadata()
     const values = assets
         .map(asset => asset[property])
@@ -44,6 +48,7 @@ export async function getUniquePropertyValues<P extends keyof AssetMetadata>(pro
 
 async function getSortedAssetsForQuery(query: AssetQuery) {
     'use cache'
+    cacheLife('days')
     const unsorted = await getAllAssetMetadata()
     const assets = sortAssets(unsorted)
     const filtered = assetsForQuery(assets, query)
@@ -54,25 +59,15 @@ async function getSortedAssetsForQuery(query: AssetQuery) {
 
 export async function getAssetMetadata(id: string) {
     'use cache'
+    cacheLife('days')
     cacheTagForAssetId(id)
-    if (null !== allAssets) {
-        const asset = allAssets.find((asset) => asset.id === id)
-        if (asset) {
-            return asset
-        }
-    }
-    return fetchAssetMetadata(id)
+    const assets = await getAllAssetMetadata()
+    return assets.find(asset => asset.id === id)
 }
 
-async function getAllAssetMetadata(force?: boolean) {
-    if (force || null === allAssets) {
-        allAssets = await fetchAllAssetMetadata()
-        setTimeout(invalidateCache, 1000 * 60 * 1) // Invalidate cache after 1 minute
-    }
-    return allAssets
-}
-
-let allAssets: AssetMetadata[] | null = null
-function invalidateCache() {
-    allAssets = null
+async function getAllAssetMetadata() {
+    'use cache'
+    cacheTagForIndex()
+    cacheLife('days')
+    return fetchAllAssetMetadata()
 }
