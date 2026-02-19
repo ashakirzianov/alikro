@@ -8,6 +8,7 @@ export async function POST(
   const auth = request.headers.get("Authorization")
   const secret = process.env.CROW_CMS_SECRET_KEY
   if (!secret || auth !== `Bearer ${secret}`) {
+    console.warn("Unauthorized revalidation attempt", { auth })
     return new Response("Unauthorized", { status: 401 })
   }
 
