@@ -1,7 +1,7 @@
 'use client'
 import dynamic from 'next/dynamic'
 import { ReactNode, useEffect, useState } from "react"
-import { BehanceLink, InstagramLink, MailLink } from "@/shared/SocialLinks"
+import { BehanceLink, InstagramLink, MailLink } from "@/app/(detailed)/about/SocialLinks"
 import { Slider } from "./Slider"
 import { AssetMetadata } from "@/shared/assets"
 import { DynamicLayout } from './DynamicLayout'

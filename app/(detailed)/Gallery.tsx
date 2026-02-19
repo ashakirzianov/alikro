@@ -2,9 +2,9 @@ import {
     AssetMetadata, assetDescription,
 } from "@/shared/assets"
 import Link from "next/link"
-import { AssetImage } from "@/shared/AssetImage"
+import { AssetImage } from "@/app/AssetImage"
 import { hrefForAssetModal } from "@/shared/href"
-import { OptionalModal } from "../WorkModal"
+import { OptionalModal } from "./WorkModal"
 
 export function Gallery({
     assets, pathname,

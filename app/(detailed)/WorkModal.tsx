@@ -1,7 +1,7 @@
 'use client'
 import { AssetMetadata } from "@/shared/assets"
-import { Modal } from "@/shared/Modal"
-import { AssetImage } from "@/shared/AssetImage"
+import { Modal } from "@/app/(detailed)/Modal"
+import { AssetImage } from "@/app/AssetImage"
 import { useRouter, useSearchParams } from "next/navigation"
 import React, { Suspense, useCallback, useEffect } from "react"
 import { hrefForConsole, hrefForAssetModal, hrefForAsset, filterForPathname } from "@/shared/href"

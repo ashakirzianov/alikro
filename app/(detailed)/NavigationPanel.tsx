@@ -1,5 +1,5 @@
 'use client'
-import { NavigationLink } from "@/shared/Atoms"
+import { NavigationLink } from "@/app/(detailed)/Atoms"
 import { allCollections } from "@/shared/collection"
 import { hrefForCollection } from "@/shared/href"
 import { useSelectedLayoutSegments } from 'next/navigation'

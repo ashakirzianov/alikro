@@ -1,4 +1,4 @@
-import { AssetImage } from "@/shared/AssetImage"
+import { AssetImage } from "@/app/AssetImage"
 import { AssetMetadata } from "@/shared/assets"
 import { filterForPathname, hrefForConsole, hrefForMaterial, hrefForTag, hrefForYear } from "@/shared/href"
 import Link from "next/link"
