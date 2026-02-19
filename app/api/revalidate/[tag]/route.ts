@@ -28,7 +28,7 @@ export async function POST(
   { params }: { params: Promise<{ tag: string }> },
 ) {
   const origin = request.headers.get("origin")
-  const auth = request.headers.get("Authorization")
+  const auth = request.headers.get("authorization")
   const secret = process.env.CROW_CMS_SECRET_KEY
   if (!secret || auth !== `Bearer ${secret}`) {
     console.warn("Unauthorized revalidation attempt", { auth })
