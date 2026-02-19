@@ -1,48 +1,73 @@
-import { AssetMetadata } from './assets'
+import {
+    AssetMetadata, AssetQuery, assetsForQuery, sortAssets,
+    year as yearQuery, material as materialQuery, tag as tagQuery,
+} from './assets'
+import { cacheTagForAssetId, cacheTagForIndex, cacheTagForQuery } from './cache'
+import { fetchAllAssetMetadata } from './cms'
+import { collectionForId } from './collection'
+import { cacheLife } from 'next/cache'
 
-let allAssets: AssetMetadata[] | null = null
-function invalidateCache() {
-    allAssets = null
+export async function getAssetsForSlideshow() {
+    return getSortedAssetsForQuery(null)
 }
-export async function getAllAssetMetadata(force?: boolean) {
-    if (force || null === allAssets) {
-        allAssets = await loadAllAssetMetadata()
-        setTimeout(invalidateCache, 1000 * 60 * 1) // Invalidate cache after 1 minute
+
+export async function getAssetsForYear(year: number) {
+    const query = yearQuery(year)
+    return getSortedAssetsForQuery(query)
+}
+
+export async function getAssetsForTag(tag: string) {
+    const query = tagQuery(tag)
+    return getSortedAssetsForQuery(query)
+}
+
+export async function getAssetsForMaterial(material: string) {
+    const query = materialQuery(material)
+    return getSortedAssetsForQuery(query)
+}
+
+export async function getAssetsForCollection(collectionId: string) {
+    const collectionObject = collectionForId(collectionId)
+    if (collectionObject === undefined) {
+        return []
     }
-    return allAssets
+    const query = collectionObject.query
+    return getSortedAssetsForQuery(query)
+}
+
+export async function getUniquePropertyValues<P extends keyof AssetMetadata>(property: P): Promise<NonNullable<AssetMetadata[P]>[]> {
+    'use cache'
+    cacheTagForIndex()
+    cacheLife('days')
+    const assets = await getAllAssetMetadata()
+    const values = assets
+        .map(asset => asset[property])
+        .filter((value): value is NonNullable<AssetMetadata[P]> => value !== undefined)
+    return Array.from(new Set(values))
+}
+
+async function getSortedAssetsForQuery(query: AssetQuery) {
+    'use cache'
+    cacheLife('days')
+    const unsorted = await getAllAssetMetadata()
+    const assets = sortAssets(unsorted)
+    const filtered = assetsForQuery(assets, query)
+    cacheTagForQuery(query)
+    filtered.forEach(asset => cacheTagForAssetId(asset.id))
+    return filtered
 }
 
 export async function getAssetMetadata(id: string) {
-    if (null !== allAssets) {
-        const asset = allAssets.find((asset) => asset.id === id)
-        if (asset) {
-            return asset
-        }
-    }
-    return loadAssetMetadata(id)
+    'use cache'
+    cacheLife('days')
+    cacheTagForAssetId(id)
+    const assets = await getAllAssetMetadata()
+    return assets.find(asset => asset.id === id)
 }
 
-async function loadAssetMetadata(id: string): Promise<AssetMetadata | undefined> {
-    const base = process.env.NEXT_PUBLIC_CROW_CMS
-    const secret = process.env.CROW_CMS_SECRET_KEY
-    const res = await fetch(`${base}/api/projects/alikro/metadata/${id}`, {
-        headers: { Authorization: `Bearer ${secret}` },
-    })
-    if (!res.ok) return undefined
-    type Response = AssetMetadata
-    const asset = await res.json() as Response
-    return asset
-}
-
-// Get all stored assets
-async function loadAllAssetMetadata(): Promise<AssetMetadata[]> {
-    const base = process.env.NEXT_PUBLIC_CROW_CMS
-    const secret = process.env.CROW_CMS_SECRET_KEY
-    const res = await fetch(`${base}/api/projects/alikro/metadata`, {
-        headers: { Authorization: `Bearer ${secret}` },
-    })
-    if (!res.ok) return []
-    type Response = AssetMetadata[]
-    const data: Response = await res.json()
-    return data
+async function getAllAssetMetadata() {
+    'use cache'
+    cacheTagForIndex()
+    cacheLife('days')
+    return fetchAllAssetMetadata()
 }

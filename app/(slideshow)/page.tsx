@@ -1,11 +1,10 @@
-import { assetsForQuery, sortAssets, AssetMetadata } from "@/shared/assets"
-import { getAllAssetMetadata } from "@/shared/metadataStore"
+import { assetsForQuery, AssetMetadata } from "@/shared/assets"
+import { getAssetsForSlideshow } from "@/shared/metadataStore"
 import { allCollections, Collection } from "@/shared/collection"
 import { SlideData, ClientsideSlideshow } from "./Slideshow"
 
 export default async function Page() {
-    const unsorted = await getAllAssetMetadata()
-    const assets = sortAssets(unsorted)
+    const assets = await getAssetsForSlideshow()
     const slides = buildSlides(assets, allCollections())
     return <ClientsideSlideshow slides={slides} />
 }

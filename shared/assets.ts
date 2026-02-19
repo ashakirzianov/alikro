@@ -129,7 +129,7 @@ function matchQuery(asset: AssetMetadata, query: AssetQuery): boolean {
     }
     switch (query.kind) {
         case 'or':
-            return query.queries.every((q) => matchQuery(asset, q))
+            return query.queries.some((q) => matchQuery(asset, q))
         case 'not':
             return !matchQuery(asset, query.query)
         case 'material':

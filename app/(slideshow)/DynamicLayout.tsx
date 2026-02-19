@@ -1,4 +1,4 @@
-import { AssetImage } from "@/shared/AssetImage"
+import { AssetImage } from "@/app/AssetImage"
 import { assetHeight, AssetMetadata, assetWidth } from "@/shared/assets"
 import { hrefForAsset } from "@/shared/href"
 import Link from "next/link"

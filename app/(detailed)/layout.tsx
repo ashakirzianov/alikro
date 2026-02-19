@@ -1,6 +1,6 @@
 import '@/app/globals.css'
 import { Inter } from 'next/font/google'
-import { NavigationPanel } from '@/app/NavigationPanel'
+import { NavigationPanel } from '@/app/(detailed)/NavigationPanel'
 import Script from 'next/script'
 import { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
