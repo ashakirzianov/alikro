@@ -2,6 +2,7 @@ import {
     AssetMetadata, AssetQuery, assetsForQuery, sortAssets,
     year as yearQuery, material as materialQuery, tag as tagQuery,
 } from './assets'
+import { cacheTagForAssetId, cacheTagForQuery } from './cache'
 import { fetchAllAssetMetadata, fetchAssetMetadata } from './cms'
 import { collectionForId } from './collection'
 
@@ -42,13 +43,18 @@ export async function getUniquePropertyValues<P extends keyof AssetMetadata>(pro
 }
 
 async function getSortedAssetsForQuery(query: AssetQuery) {
+    'use cache'
     const unsorted = await getAllAssetMetadata()
     const assets = sortAssets(unsorted)
     const filtered = assetsForQuery(assets, query)
+    cacheTagForQuery(query)
+    filtered.forEach(asset => cacheTagForAssetId(asset.id))
     return filtered
 }
 
 export async function getAssetMetadata(id: string) {
+    'use cache'
+    cacheTagForAssetId(id)
     if (null !== allAssets) {
         const asset = allAssets.find((asset) => asset.id === id)
         if (asset) {

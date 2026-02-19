@@ -12,7 +12,6 @@ type Input = {
     params: Promise<{ slug: string[] }>
 }
 
-export const dynamicParams = true
 export async function generateStaticParams(): Promise<Props[]> {
     const collections = allCollections()
     return collections.map(collection => ({
