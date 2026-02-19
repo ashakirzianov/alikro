@@ -1,5 +1,4 @@
 import { revalidateTag } from "next/cache"
-import { headers } from "next/headers"
 import { NextRequest } from "next/server"
 
 const ALLOWED_ORIGINS = [
