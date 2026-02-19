@@ -78,7 +78,7 @@ export function WorkModal({
         <Link href={currentAssetLink} onClick={stopPropagation}>
             <AssetImage
                 asset={asset}
-                size="full"
+                sizes="100vw"
                 style={{
                     objectFit: 'contain',
                     maxWidth: '100svw',

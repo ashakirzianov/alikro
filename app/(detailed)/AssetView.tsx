@@ -13,7 +13,7 @@ export function AssetView({
     return <div className="flex flex-col items-center text-m text-accent">
         <AssetImage
             asset={asset}
-            size="full"
+            sizes="100vw"
             style={{
                 objectFit: 'contain',
                 maxWidth: '100svw',

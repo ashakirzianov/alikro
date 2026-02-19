@@ -65,7 +65,7 @@ function AssetLine({ assets, scroll, height, direction }: {
                     <Link href={hrefForAsset({
                         assetId: asset.id,
                     })}>
-                        <AssetImage asset={asset} size="medium" style={{
+                        <AssetImage asset={asset} sizes="50vw" style={{
                             objectFit: 'fill',
                         }} />
                     </Link>

@@ -3,38 +3,31 @@ import Image from "next/image"
 import { AssetMetadata, assetAlt, assetHeight, assetWidth } from "./assets"
 import { imageSrc } from "./images"
 
-export type AssetImageSize = 'medium' | 'full'
-
 interface AssetImageProps {
     asset: AssetMetadata
-    size: AssetImageSize
+    sizes?: string
     style?: React.CSSProperties
 }
 
-function getDimensionsForAsset(asset: AssetMetadata, _size: AssetImageSize): [number, number] {
-    const width = assetWidth(asset)
-    const height = assetHeight(asset)
-    // const widths: Record<AssetImageSize, number> = {
-    //     medium: 600,
-    //     full: width,
-    // }
-    // const aspect = width / height
-    // return [
-    //     widths[size],
-    //     Math.round(widths[size] / aspect),
-    // ]
-    return [width, height]
-}
-
-function loader({ src, width }: { src: string, width: number }) {
+const snapWidths = [320, 480, 640, 768, 960, 1200, 1600, 1920]
+function loader({ src, width, quality }: { src: string, width: number, quality?: number }) {
+    let closestWidth = snapWidths[0]
+    for (const snapWidth of snapWidths) {
+        closestWidth = snapWidth
+        if (snapWidth >= width) {
+            break
+        }
+    }
     return imageSrc({
         fileName: src,
-        width,
+        width: closestWidth,
+        quality,
     })
 }
 
-export function AssetImage({ asset, size, style }: AssetImageProps) {
-    const [width, height] = getDimensionsForAsset(asset, size)
+export function AssetImage({ asset, sizes, style }: AssetImageProps) {
+    const width = assetWidth(asset)
+    const height = assetHeight(asset)
     return (
         <Image
             src={asset.fileName}
@@ -42,6 +35,7 @@ export function AssetImage({ asset, size, style }: AssetImageProps) {
             alt={assetAlt(asset)}
             width={width}
             height={height}
+            sizes={sizes}
             style={{
                 userSelect: 'none',
                 WebkitUserSelect: 'none',
