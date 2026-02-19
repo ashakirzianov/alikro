@@ -5,6 +5,10 @@ import {
 import { fetchAllAssetMetadata, fetchAssetMetadata } from './cms'
 import { collectionForId } from './collection'
 
+export async function getAssetsForSlideshow() {
+    return getSortedAssetsForQuery(null)
+}
+
 export async function getAssetsForYear(year: number) {
     const query = yearQuery(year)
     return getSortedAssetsForQuery(query)
@@ -44,14 +48,6 @@ async function getSortedAssetsForQuery(query: AssetQuery) {
     return filtered
 }
 
-export async function getAllAssetMetadata(force?: boolean) {
-    if (force || null === allAssets) {
-        allAssets = await fetchAllAssetMetadata()
-        setTimeout(invalidateCache, 1000 * 60 * 1) // Invalidate cache after 1 minute
-    }
-    return allAssets
-}
-
 export async function getAssetMetadata(id: string) {
     if (null !== allAssets) {
         const asset = allAssets.find((asset) => asset.id === id)
@@ -60,6 +56,14 @@ export async function getAssetMetadata(id: string) {
         }
     }
     return fetchAssetMetadata(id)
+}
+
+async function getAllAssetMetadata(force?: boolean) {
+    if (force || null === allAssets) {
+        allAssets = await fetchAllAssetMetadata()
+        setTimeout(invalidateCache, 1000 * 60 * 1) // Invalidate cache after 1 minute
+    }
+    return allAssets
 }
 
 let allAssets: AssetMetadata[] | null = null
