@@ -21,31 +21,36 @@ export function DynamicLayout({
         <AssetLine
             assets={lines[1]}
             scroll={scroll * aspect}
-            height={`${two}svh`}
+            fraction={two}
+            aspect={aspect}
         />
         <AssetLine
             assets={lines[0]}
             scroll={scroll * aspect}
-            height={`${one}svh`}
+            fraction={one}
+            aspect={aspect}
             direction="right"
         />
         <AssetLine
             assets={lines[2]}
             scroll={scroll * aspect}
-            height={`${three}svh`}
+            fraction={three}
+            aspect={aspect}
         />
     </>
 }
 
-function AssetLine({ assets, scroll, height, direction }: {
+function AssetLine({ assets, scroll, fraction, aspect, direction }: {
     assets: AssetMetadata[],
     scroll: number,
-    height: string,
+    fraction: number
+    aspect: number
     direction?: 'left' | 'right',
 }) {
     if (direction === 'right') {
         assets = [...assets].reverse()
     }
+    const height = `${fraction}svh`
     return <div style={{
         overflow: 'hidden',
         width: '100%',
@@ -56,8 +61,10 @@ function AssetLine({ assets, scroll, height, direction }: {
             position: 'relative',
             left: direction === 'right' ? scroll : -scroll,
         }}>
-            {assets.map((asset) =>
-                <div key={asset.id} style={{
+            {assets.map((asset) => {
+                const imageAspect = assetWidth(asset) / assetHeight(asset)
+                const vw = Math.ceil(imageAspect / aspect * fraction)
+                return <div key={asset.id} style={{
                     aspectRatio: `${assetWidth(asset)} / ${assetHeight(asset)}`,
                     height: '100%',
                 }}
@@ -65,12 +72,12 @@ function AssetLine({ assets, scroll, height, direction }: {
                     <Link href={hrefForAsset({
                         assetId: asset.id,
                     })}>
-                        <AssetImage asset={asset} sizes="50vw" style={{
+                        <AssetImage asset={asset} sizes={`${vw}vw`} style={{
                             objectFit: 'fill',
                         }} />
                     </Link>
                 </div>
-            )}
+            })}
         </div>
     </div >
 }
