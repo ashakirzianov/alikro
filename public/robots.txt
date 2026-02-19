@@ -1,0 +1,10 @@
+# Allow Google search bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+# Disallow all other robots
+User-agent: *
+Disallow: /
