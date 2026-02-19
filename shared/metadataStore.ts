@@ -2,10 +2,9 @@ import {
     AssetMetadata, AssetQuery, assetsForQuery, sortAssets,
     year as yearQuery, material as materialQuery, tag as tagQuery,
 } from './assets'
-import { cacheTagForAssetId, cacheTagForIndex, cacheTagForQuery } from './cache'
 import { fetchAllAssetMetadata } from './cms'
 import { collectionForId } from './collection'
-import { cacheLife } from 'next/cache'
+import { cacheLife, cacheTag } from 'next/cache'
 
 export async function getAssetsForSlideshow() {
     return getSortedAssetsForQuery(null)
@@ -37,7 +36,6 @@ export async function getAssetsForCollection(collectionId: string) {
 
 export async function getUniquePropertyValues<P extends keyof AssetMetadata>(property: P): Promise<NonNullable<AssetMetadata[P]>[]> {
     'use cache'
-    cacheTagForIndex()
     cacheLife('days')
     const assets = await getAllAssetMetadata()
     const values = assets
@@ -52,7 +50,6 @@ async function getSortedAssetsForQuery(query: AssetQuery) {
     const unsorted = await getAllAssetMetadata()
     const assets = sortAssets(unsorted)
     const filtered = assetsForQuery(assets, query)
-    cacheTagForQuery(query)
     filtered.forEach(asset => cacheTagForAssetId(asset.id))
     return filtered
 }
@@ -61,7 +58,7 @@ export async function getAssetMetadata(id: string) {
     'use cache'
     cacheLife('days')
     cacheTagForAssetId(id)
-    const assets = await getAllAssetMetadata()
+    const assets = await getAllAssetsInternal()
     return assets.find(asset => asset.id === id)
 }
 
@@ -69,5 +66,23 @@ async function getAllAssetMetadata() {
     'use cache'
     cacheTagForIndex()
     cacheLife('days')
-    return fetchAllAssetMetadata()
+    return getAllAssetsInternal()
+}
+
+let allAssetsPromise: Promise<AssetMetadata[]> | null = null
+function getAllAssetsInternal() {
+    if (allAssetsPromise) {
+        return allAssetsPromise
+    } else {
+        allAssetsPromise = fetchAllAssetMetadata()
+        return allAssetsPromise
+    }
+}
+
+function cacheTagForAssetId(assetId: string) {
+    cacheTag(`crow-asset-id-${assetId}`)
+}
+
+function cacheTagForIndex() {
+    cacheTag('crow-asset-index')
 }
