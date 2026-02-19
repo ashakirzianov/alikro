@@ -7,11 +7,10 @@ import { hrefForAssetModal } from "@/shared/href"
 import { OptionalModal } from "./WorkModal"
 
 export function Gallery({
-    assets, pathname, admin,
+    assets, pathname,
 }: {
     assets: AssetMetadata[],
     pathname: string,
-    admin?: boolean,
 }) {
     function buildColumns(assets: AssetMetadata[], num: number) {
         const columns: AssetMetadata[][] = Array(num).fill(null).map(() => [])
@@ -27,7 +26,6 @@ export function Gallery({
             <OptionalModal
                 assets={assets}
                 pathname={pathname}
-                admin={admin}
             />
             <div className="flex flex-row gap-2">
                 {columns.map((column, index) => (

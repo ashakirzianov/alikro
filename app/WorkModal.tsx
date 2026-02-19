@@ -3,38 +3,53 @@ import { AssetMetadata } from "@/shared/assets"
 import { Modal } from "@/shared/Modal"
 import { AssetImage } from "@/shared/AssetImage"
 import { useRouter, useSearchParams } from "next/navigation"
-import React, { useCallback, useEffect } from "react"
+import React, { Suspense, useCallback, useEffect } from "react"
 import { hrefForConsole, hrefForAssetModal, hrefForAsset, filterForPathname } from "@/shared/href"
 import Link from "next/link"
+import { useShowEditButton } from "@/shared/settings"
 
 export function OptionalModal({
-    assets, pathname, admin,
+    assets, pathname,
 }: {
     assets: AssetMetadata[],
     pathname: string,
-    admin?: boolean,
+}) {
+    return <Suspense fallback={null}>
+        <OptionalModalImpl
+            assets={assets}
+            pathname={pathname}
+        />
+    </Suspense>
+}
+
+function OptionalModalImpl({
+    assets, pathname,
+}: {
+    assets: AssetMetadata[],
+    pathname: string,
 }) {
     const searchParams = useSearchParams()
     const show = searchParams.get('show')
+    const [showEditButton] = useShowEditButton()
     if (typeof show === 'string') {
-        return <WorkModal
+        return <WorkModalImpl
             assetId={show}
             assets={assets}
             pathname={pathname}
-            admin={admin}
+            showEditButton={showEditButton}
         />
     } else {
         return null
     }
 }
 
-function WorkModal({
-    assets, assetId, pathname, admin,
+function WorkModalImpl({
+    assets, assetId, pathname, showEditButton,
 }: {
     assetId: string,
     assets: AssetMetadata[],
     pathname: string,
-    admin?: boolean,
+    showEditButton: boolean,
 }) {
     const currentIndex = assets.findIndex(a => a.id === assetId)
     const asset = assets[currentIndex]
@@ -146,7 +161,7 @@ function WorkModal({
         </Link>
 
         {/* Edit button */}
-        {admin && <Link
+        {showEditButton && <Link
             href={editLink}
             className="absolute top-4 left-4 p-2 bg-black bg-opacity-30 hover:bg-opacity-50 text-white rounded-full"
             aria-label="Edit work"

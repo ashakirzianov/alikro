@@ -9,7 +9,6 @@ type Props = {
 }
 type Input = {
     params: Promise<{ slug: string[] }>
-    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
 export const dynamicParams = true
@@ -81,13 +80,10 @@ export function assetsPageDataForSlug(slug: string[]): AssetsPageData | undefine
 }
 
 export default async function Page({
-    params, searchParams,
+    params,
 }: Input) {
-    const { show, admin } = await searchParams
     const { slug } = await params
     const pathname = `/${slug.join('/')}`
-    const modalAssetId = typeof show === 'string' ? show : undefined
-    const isAdmin = admin !== undefined
 
     const pageData = assetsPageDataForSlug(slug)
     if (pageData === undefined) {
@@ -96,14 +92,11 @@ export default async function Page({
         return <AssetPage
             assetId={pageData.assetId}
             pathname={pathname}
-            admin={isAdmin}
         />
     } else {
         return <AssetsPage
             query={pageData.query}
             pathname={pathname}
-            modalAssetId={modalAssetId}
-            admin={isAdmin}
         />
     }
 }
