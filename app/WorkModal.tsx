@@ -2,12 +2,33 @@
 import { AssetMetadata } from "@/shared/assets"
 import { Modal } from "@/shared/Modal"
 import { AssetImage } from "@/shared/AssetImage"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import React, { useCallback, useEffect } from "react"
 import { hrefForConsole, hrefForAssetModal, hrefForAsset, filterForPathname } from "@/shared/href"
 import Link from "next/link"
 
-export function WorkModal({
+export function OptionalModal({
+    assets, pathname, admin,
+}: {
+    assets: AssetMetadata[],
+    pathname: string,
+    admin?: boolean,
+}) {
+    const searchParams = useSearchParams()
+    const show = searchParams.get('show')
+    if (typeof show === 'string') {
+        return <WorkModal
+            assetId={show}
+            assets={assets}
+            pathname={pathname}
+            admin={admin}
+        />
+    } else {
+        return null
+    }
+}
+
+function WorkModal({
     assets, assetId, pathname, admin,
 }: {
     assetId: string,

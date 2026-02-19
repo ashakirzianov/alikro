@@ -21,14 +21,13 @@ export async function generateStaticParams(): Promise<Props[]> {
 }
 
 export async function generateMetadata({
-    params, searchParams,
+    params,
 }: Input) {
-    const { show } = await searchParams
-    if (typeof show === 'string') {
-        return generateMetadataForAssetId(show)
-    }
     const { slug } = await params
-    const [first, second] = slug
+    const [first, second, third] = slug
+    if (third !== undefined) {
+        return generateMetadataForAssetId(third)
+    }
     switch (first) {
         case 'tag':
             return generateMetadataForTag(second)
