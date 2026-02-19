@@ -4,7 +4,7 @@ import {
 import Link from "next/link"
 import { AssetImage } from "@/shared/AssetImage"
 import { hrefForAssetModal } from "@/shared/href"
-import { OptionalModal } from "./WorkModal"
+import { OptionalModal } from "../WorkModal"
 
 export function Gallery({
     assets, pathname,

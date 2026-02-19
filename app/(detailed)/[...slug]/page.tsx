@@ -3,7 +3,7 @@ import { generateMetadataForAssetId, generateMetadataForCollectionId, generateMe
 import { notFound } from "next/navigation"
 import { assetsPageDataForSlug } from "./data"
 import { AssetView } from "../AssetView"
-import { Gallery } from "@/app/Gallery"
+import { Gallery } from "@/app/(detailed)/Gallery"
 
 type Props = {
     slug: string[],
