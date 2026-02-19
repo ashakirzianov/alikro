@@ -1,4 +1,3 @@
-import { cacheTag } from 'next/cache'
 import { AssetMetadata } from './assets'
 
 let allAssets: AssetMetadata[] | null = null
@@ -6,8 +5,6 @@ function invalidateCache() {
     allAssets = null
 }
 export async function getAllAssetMetadata(force?: boolean) {
-    'use cache'
-    cacheTag(`assets:index`)
     if (force || null === allAssets) {
         allAssets = await loadAllAssetMetadata()
         setTimeout(invalidateCache, 1000 * 60 * 1) // Invalidate cache after 1 minute
@@ -16,8 +13,6 @@ export async function getAllAssetMetadata(force?: boolean) {
 }
 
 export async function getAssetMetadata(id: string) {
-    'use cache'
-    cacheTag(`asset:${id}`)
     if (null !== allAssets) {
         const asset = allAssets.find((asset) => asset.id === id)
         if (asset) {
