@@ -1,4 +1,5 @@
 import { revalidateTag } from "next/cache"
+import { headers } from "next/headers"
 import { NextRequest } from "next/server"
 
 const ALLOWED_ORIGINS = [
@@ -31,11 +32,16 @@ export async function POST(
   const auth = request.headers.get("authorization")
   const secret = process.env.CROW_CMS_SECRET_KEY
   if (!secret || auth !== `Bearer ${secret}`) {
-    console.warn("Unauthorized revalidation attempt", { auth })
+    const allHeaders: Record<string, string> = {}
+    request.headers.forEach((value, key) => {
+      allHeaders[key] = value
+    })
+    console.warn("Unauthorized revalidation attempt with headers:", allHeaders)
     return new Response("Unauthorized", { status: 401, headers: corsHeaders(origin) })
   }
 
   const { tag } = await params
   revalidateTag(tag, 'max')
+  console.info(`Revalidated tag: ${tag}`)
   return new Response(`Revalidated tag: ${tag}`, { status: 200, headers: corsHeaders(origin) })
 }
