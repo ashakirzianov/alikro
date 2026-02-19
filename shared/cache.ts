@@ -35,13 +35,16 @@ export function cacheTagForQuery(query: AssetQuery) {
                 query.queries.forEach((q) => cacheTagForQuery(q))
                 break
             case 'not':
-                cacheTagForQuery(query.query)
+                cacheTagForIndex()
                 break
             case 'material':
                 cacheTagForMaterial(query.material)
                 break
             case 'year':
                 cacheTagForYear(query.year)
+                break
+            case 'tag':
+                cacheTagForTag(query.tag)
                 break
             default:
                 // This should never happen if the type system is correct

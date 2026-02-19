@@ -21,19 +21,16 @@ export type AssetMetadataUpdate = Omit<
 
 export type AssetKind = 'drawing' | 'illustration' | 'painting' | 'poster' | 'hidden' | 'collage' | 'tattoo'
 export type AssetTag = 'selfportrait' | 'favorite' | 'secondary'
-export type AssetQuery = null | string | AssetQuery[] | {
-    kind: 'or',
-    queries: AssetQuery[],
-} | {
-    kind: 'not',
-    query: AssetQuery,
-} | {
-    kind: 'year',
-    year: number,
-} | {
-    kind: 'material',
-    material: string,
-}
+
+type AssetWildcardQuery = null
+type AssetKindQuery = string
+type AssetAndQuery = AssetQuery[]
+type AssetOrQuery = { kind: 'or', queries: AssetQuery[] }
+type AssetNotQuery = { kind: 'not', query: AssetQuery }
+type AssetYearQuery = { kind: 'year', year: number }
+type AssetMaterialQuery = { kind: 'material', material: string }
+type AssetTagQuery = { kind: 'tag', tag: string }
+export type AssetQuery = AssetWildcardQuery | AssetKindQuery | AssetAndQuery | AssetOrQuery | AssetNotQuery | AssetYearQuery | AssetMaterialQuery | AssetTagQuery
 export type AssetSize = `${number}x${number}`
 
 export function assetMetadataUpdate(asset: AssetMetadata): AssetMetadataUpdate {
@@ -88,7 +85,7 @@ export function material(material: string): AssetQuery {
 }
 
 export function tag(tag: string): AssetQuery {
-    return tag
+    return { kind: 'tag', tag }
 }
 
 export function sortAssets(assets: AssetMetadata[]) {
@@ -123,7 +120,7 @@ function matchQuery(asset: AssetMetadata, query: AssetQuery): boolean {
     if (query === null) {
         return true
     } else if (typeof query === 'string') {
-        return asset.tags?.includes(query as AssetTag) || asset.kind === query
+        return asset.kind === query
     } else if (Array.isArray(query)) {
         return query.every((q) => matchQuery(asset, q))
     }
@@ -136,6 +133,8 @@ function matchQuery(asset: AssetMetadata, query: AssetQuery): boolean {
             return asset.material === query.material
         case 'year':
             return asset.year === query.year
+        case 'tag':
+            return asset.tags?.includes(query.tag as AssetTag) ?? false
         default:
             // This should never happen if the type system is correct
             asserNever(query)
