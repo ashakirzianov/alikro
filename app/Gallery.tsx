@@ -58,7 +58,7 @@ function Tile({ asset, pathname }: {
     })
     return <Link href={href} className="block">
         <div className="flex flex-col break-inside-avoid-column">
-            <AssetImage asset={asset} size="medium" />
+            <AssetImage asset={asset} sizes="25vw" />
             <span className="hidden sm:flex text-xs text-accent">
                 {assetDescription(asset)}
             </span>
