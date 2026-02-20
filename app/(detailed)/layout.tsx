@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode,
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark:bg-neutral-950 dark:text-white">
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-SER2JV0V21"
         strategy="afterInteractive"
