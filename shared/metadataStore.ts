@@ -5,7 +5,6 @@ import {
 import { fetchAllAssetMetadata } from './cms'
 import { collectionForId } from './collection'
 import { cacheLife, cacheTag } from 'next/cache'
-import { parseMaterialString } from './materials'
 
 export async function getAssetsForSlideshow() {
     return getSortedAssetsForQuery(null)
@@ -36,10 +35,7 @@ export async function getAssetsForCollection(collectionId: string) {
 }
 
 export async function getUniqueYears() {
-    const years = await getUniquePropertyValues('year')
-    // Sort years, undefined goes last
-    years.sort((a, b) => (b ?? 0) - (a ?? 0))
-    return years
+    return getUniquePropertyValues('year')
 }
 
 export async function getUniqueMaterials() {

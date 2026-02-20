@@ -22,7 +22,7 @@ export async function getFilters(): Promise<Filters> {
         title: material ?? 'Unspecified',
         href: hrefForMaterial({ material }),
     }))
-    const year: FilterValue[] = uniqueYears.map(year => ({
+    const year: FilterValue[] = processYears(uniqueYears).map(year => ({
         title: year?.toString() ?? 'Unknown',
         href: hrefForYear({ year: year }),
     }))
@@ -59,4 +59,10 @@ function processMaterials(materials: Array<string | undefined>): Array<string | 
         }
     })
     return Array.from(materialSet)
+}
+
+function processYears(years: Array<number | undefined>): Array<number | undefined> {
+    // Sort years, undefined goes last
+    years.sort((a, b) => (b ?? 0) - (a ?? 0))
+    return years
 }
