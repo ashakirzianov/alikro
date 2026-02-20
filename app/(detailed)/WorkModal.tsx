@@ -161,7 +161,7 @@ function RoundButton({ href, label, className, onClick, children }: {
 }) {
     return <Link
         href={href}
-        className={`p-2 bg-black bg-opacity-30 hover:bg-opacity-50 text-white rounded-full transition-all duration-150 hover:scale-110${className ? ` ${className}` : ''}`}
+        className={`p-2 bg-black bg-opacity-30 hover:bg-opacity-50 text-white rounded-full transition-all duration-150 hover:scale-110 ${className ? ` ${className}` : ''}`}
         aria-label={label}
         onClick={onClick}
     >
