@@ -5,7 +5,7 @@ export function imageSrc({
     width?: number,
     quality?: number,
 }) {
-    return `https://${process.env.NEXT_PUBLIC_CROW_ASSETS_DOMAIN}/alikro/variants/${variantFileName({
+    return `${process.env.NEXT_PUBLIC_IMG_BASE}/${variantFileName({
         originalName: fileName,
         width,
         quality,
