@@ -56,7 +56,7 @@ export function assetHeight(asset: AssetMetadata) {
 }
 
 export function assetDescription(asset: AssetMetadata) {
-    return `${asset.title} (${asset.year}), ${asset.material}`
+    return `${asset.title ?? 'Untitled'} (${asset.year ?? 'year unknown'}), ${asset.material ?? 'unspecified material'}`
 }
 
 export function generateAssetId(fileName: string) {
