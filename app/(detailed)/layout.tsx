@@ -6,7 +6,6 @@ import { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { getFilters } from './filters'
-import { Suspense } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
