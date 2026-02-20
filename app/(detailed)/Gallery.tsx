@@ -1,9 +1,9 @@
 import {
-    AssetMetadata, assetDescription,
+    AssetMetadata,
 } from "@/shared/assets"
 import Link from "next/link"
 import { AssetImage } from "@/app/AssetImage"
-import { hrefForAssetModal } from "@/shared/href"
+import { hrefForAsset, hrefForAssetModal, hrefForMaterial, hrefForYear } from "@/shared/href"
 import { OptionalModal } from "./WorkModal"
 
 export function Gallery({
@@ -52,12 +52,25 @@ function Tile({ asset, pathname }: {
         pathname,
         assetId: asset.id,
     })
-    return <Link href={href} className="block">
+    return (
         <div className="flex flex-col break-inside-avoid-column">
-            <AssetImage asset={asset} sizes="25vw" />
+            <Link href={href} className="block">
+                <AssetImage asset={asset} sizes="25vw" />
+            </Link>
             <span className="hidden sm:flex text-xs text-accent">
-                {assetDescription(asset)}
+                <Link href={hrefForAsset({ assetId: asset.id })} className="hover:underline">
+                    {asset.title ?? 'Untitled'}
+                </Link>
+                {asset.year !== undefined && <>
+                    <span>&nbsp;&#40;</span>
+                    <Link href={hrefForYear({ year: asset.year })} className="hover:underline">{asset.year}</Link>
+                    <span>&#41;</span>
+                </>}
+                {asset.material && <>
+                    <span>,&nbsp;</span>
+                    <Link href={hrefForMaterial({ material: asset.material })} className="hover:underline">{asset.material}</Link>
+                </>}
             </span>
         </div>
-    </Link>
+    )
 }
