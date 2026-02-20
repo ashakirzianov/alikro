@@ -54,11 +54,21 @@ function processMaterials(materials: Array<string | undefined>): Array<string | 
         const materialElements = parseMaterialString(materialString)
         for (const materialElement of materialElements) {
             if (!materialElement.passive) {
-                materialSet.add(materialElement.content)
+                if (materialElement.on) {
+                    materialSet.add(`on ${materialElement.content}`)
+                } else {
+                    materialSet.add(materialElement.content)
+                }
             }
         }
     })
-    return Array.from(materialSet)
+    const array = Array.from(materialSet)
+    array.sort((a, b) => {
+        if (a === undefined || a.startsWith('on ')) return 1
+        if (b === undefined || b.startsWith('on ')) return -1
+        return a.localeCompare(b)
+    })
+    return array
 }
 
 function processYears(years: Array<number | undefined>): Array<number | undefined> {
