@@ -1,5 +1,6 @@
 import { allCollections } from "@/shared/collection"
 import { hrefForCollection, hrefForMaterial, hrefForTag, hrefForYear } from "@/shared/href"
+import { parseMaterialString } from "@/shared/materials"
 import { getUniqueMaterials, getUniqueTags, getUniqueYears } from "@/shared/metadataStore"
 
 export type FilterValue = {
@@ -16,12 +17,8 @@ export async function getFilters(): Promise<Filters> {
     const [uniqueMaterials, uniqueYears, uniqueTags] = await Promise.all([
         getUniqueMaterials(), getUniqueYears(), getUniqueTags(),
     ])
-    const kind: FilterValue[] = allCollections().map(collection => ({
-        title: collection.id,
-        href: hrefForCollection({ collectionId: collection.id }),
-    }))
-    kind.shift() // remove 'all' collection
-    const material: FilterValue[] = uniqueMaterials.map(material => ({
+    const kind: FilterValue[] = getKindOptions()
+    const material: FilterValue[] = processMaterials(uniqueMaterials).map(material => ({
         title: material ?? 'Unspecified',
         href: hrefForMaterial({ material }),
     }))
@@ -36,4 +33,30 @@ export async function getFilters(): Promise<Filters> {
     return {
         kind, material, year, tag,
     }
+}
+
+function getKindOptions() {
+    const kind: FilterValue[] = allCollections().map(collection => ({
+        title: collection.id,
+        href: hrefForCollection({ collectionId: collection.id }),
+    }))
+    kind.shift() // remove 'all' collection
+    return kind
+}
+
+function processMaterials(materials: Array<string | undefined>): Array<string | undefined> {
+    const materialSet = new Set<string | undefined>()
+    materials.forEach(materialString => {
+        if (materialString === undefined) {
+            materialSet.add(materialString)
+            return
+        }
+        const materialElements = parseMaterialString(materialString)
+        for (const materialElement of materialElements) {
+            if (!materialElement.passive) {
+                materialSet.add(materialElement.content)
+            }
+        }
+    })
+    return Array.from(materialSet)
 }

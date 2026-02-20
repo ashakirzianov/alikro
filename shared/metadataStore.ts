@@ -43,20 +43,7 @@ export async function getUniqueYears() {
 }
 
 export async function getUniqueMaterials() {
-    const materialStrings = await getUniquePropertyValues('material')
-    const materialSet = new Set<string>()
-    materialStrings.forEach(materialString => {
-        if (materialString === undefined) {
-            return
-        }
-        const materialElements = parseMaterialString(materialString)
-        for (const materialElement of materialElements) {
-            if (!materialElement.passive) {
-                materialSet.add(materialElement.content)
-            }
-        }
-    })
-    return Array.from(materialSet)
+    return getUniquePropertyValues('material')
 }
 
 export async function getUniqueTags() {
