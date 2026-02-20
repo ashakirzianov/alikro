@@ -5,6 +5,7 @@ import Link from "next/link"
 import { AssetImage } from "@/app/AssetImage"
 import { hrefForAsset, hrefForAssetModal, hrefForMaterial, hrefForYear } from "@/shared/href"
 import { OptionalModal } from "./WorkModal"
+import { parseMaterialString } from "@/shared/materials"
 
 export function Gallery({
     assets, pathname,
@@ -68,9 +69,26 @@ function Tile({ asset, pathname }: {
                 </>}
                 {asset.material && <>
                     <span>,&nbsp;</span>
-                    <Link href={hrefForMaterial({ material: asset.material })} className="hover:underline">{asset.material}</Link>
+                    <MaterialLinks material={asset.material} />
                 </>}
             </span>
         </div>
+    )
+}
+
+function MaterialLinks({ material }: { material: string }) {
+    const elements = parseMaterialString(material)
+    return (
+        <>
+            {elements.map((element, index) => {
+                if (element.passive) {
+                    return <span key={index}>{element.content.replaceAll(' ', '\u00A0')}</span>
+                } else if (element.on) {
+                    return <Link key={index} href={hrefForMaterial({ material: `on ${element.content}` })} className="hover:underline">{element.content}</Link>
+                } else {
+                    return <Link key={index} href={hrefForMaterial({ material: element.content })} className="hover:underline">{element.content}</Link>
+                }
+            })}
+        </>
     )
 }
