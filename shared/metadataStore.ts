@@ -34,7 +34,27 @@ export async function getAssetsForCollection(collectionId: string) {
     return getSortedAssetsForQuery(query)
 }
 
-export async function getUniquePropertyValues<P extends keyof AssetMetadata>(property: P): Promise<NonNullable<AssetMetadata[P]>[]> {
+export async function getUniqueYears() {
+    const years = await getUniquePropertyValues('year')
+    // Sort years, undefined goes last
+    years.sort((a, b) => (b ?? 0) - (a ?? 0))
+    return years
+}
+
+export async function getUniqueMaterials() {
+    return getUniquePropertyValues('material')
+}
+
+export async function getUniqueTags() {
+    const assets = await getAllAssetMetadata()
+    const tagSet = new Set<string>()
+    assets.forEach(asset => {
+        asset.tags?.forEach(tag => tagSet.add(tag))
+    })
+    return Array.from(tagSet)
+}
+
+async function getUniquePropertyValues<P extends keyof AssetMetadata>(property: P): Promise<AssetMetadata[P][]> {
     'use cache'
     cacheLife('days')
     const assets = await getAllAssetMetadata()
