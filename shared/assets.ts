@@ -130,7 +130,7 @@ function matchQuery(asset: AssetMetadata, query: AssetQuery): boolean {
         case 'not':
             return !matchQuery(asset, query.query)
         case 'material':
-            return asset.material === query.material
+            return asset.material?.includes(query.material) ?? false
         case 'year':
             return asset.year === query.year
         case 'tag':

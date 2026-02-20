@@ -5,6 +5,7 @@ import {
 import { fetchAllAssetMetadata } from './cms'
 import { collectionForId } from './collection'
 import { cacheLife, cacheTag } from 'next/cache'
+import { parseMaterialString } from './materials'
 
 export async function getAssetsForSlideshow() {
     return getSortedAssetsForQuery(null)
@@ -42,7 +43,20 @@ export async function getUniqueYears() {
 }
 
 export async function getUniqueMaterials() {
-    return getUniquePropertyValues('material')
+    const materialStrings = await getUniquePropertyValues('material')
+    const materialSet = new Set<string>()
+    materialStrings.forEach(materialString => {
+        if (materialString === undefined) {
+            return
+        }
+        const materialElements = parseMaterialString(materialString)
+        for (const materialElement of materialElements) {
+            if (!materialElement.passive) {
+                materialSet.add(materialElement.content)
+            }
+        }
+    })
+    return Array.from(materialSet)
 }
 
 export async function getUniqueTags() {
