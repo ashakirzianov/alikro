@@ -43,6 +43,28 @@ export function parseMaterialString(material: string): MaterialElement[] {
     }]
 }
 
+export function specialCasesForMaterialElements(elements: MaterialElement[]): MaterialElement[] {
+    return elements.flatMap(element => {
+        if (element.content.endsWith('clay') && element.content !== 'clay') {
+            const preElement: MaterialElement = {
+                content: element.content.substring(0, element.content.length - 'clay'.length).trimEnd(),
+                start: element.start,
+                end: element.end - 'clay'.length,
+                passive: true,
+            }
+            const clayElement: MaterialElement = {
+                ...element,
+                content: 'clay',
+                start: element.end - 'clay'.length,
+                end: element.end,
+            }
+            return [preElement, clayElement]
+        } else {
+            return element
+        }
+    })
+}
+
 type Part = {
     content: string,
     start: number,
