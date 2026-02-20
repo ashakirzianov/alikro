@@ -73,7 +73,8 @@ function AssetLine({ assets, scroll, fraction, aspect, direction }: {
                         assetId: asset.id,
                     })}>
                         <AssetImage asset={asset} sizes={`${vw}vw`} style={{
-                            objectFit: 'fill',
+                            width: '100%',
+                            height: '100%',
                         }} />
                     </Link>
                 </div>
