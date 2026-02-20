@@ -1,5 +1,9 @@
 import { collectionForId } from "./collection"
 
+export function hrefForSlideshow() {
+    return '/'
+}
+
 export function hrefForAsset({ pathname, assetId }: {
     pathname?: string,
     assetId: string,

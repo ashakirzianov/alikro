@@ -1,71 +1,92 @@
 'use client'
 import { allCollections } from "@/shared/collection"
-import { hrefForAll, hrefForCollection } from "@/shared/href"
+import { hrefForAll, hrefForCollection, hrefForSlideshow } from "@/shared/href"
 import clsx from "clsx"
 import Link from "next/link"
 import { useSearchParams, useSelectedLayoutSegments } from 'next/navigation'
-import { useState } from "react"
+import { Suspense, useMemo, useState } from "react"
 import { Filters } from "./filters"
 
 export function NavigationPanel({ filters }: {
     filters: Filters,
 }) {
+    return <Suspense fallback={<DummyNavigationPanel />}>
+        <FullNavigationPanel filters={filters} />
+    </Suspense>
+}
+
+function FullNavigationPanel({ filters }: {
+    filters: Filters,
+}) {
     const segments = useSelectedLayoutSegments()
-    const [first, second] = segments
-        .map(s => s.split('/')).flat().map(decodeURIComponent)
-
     const searchParams = useSearchParams()
-    const by = searchParams.get('by') ?? (first === 'all' ? 'kind' : first)
-    const filterKey = toFilterKey(by)
-
     const [expand, setExpand] = useState(false)
 
-    const logoRow: NavigationElement[] = [
-        {
-            href: '/',
-            title: 'Alikro',
-            selection: '',
-        },
-    ]
+    const by = searchParams.get('by')
+    const { rows, selection } = useMemo(() => {
+        const [first, second] = segments
+            .map(s => s.split('/')).flat().map(decodeURIComponent)
 
-    const filterKeys = ['kind', 'tag', 'year', 'material'] as const
-    const filterByRow: NavigationElement[] = expand ? filterKeys.map(filter => ({
-        href: hrefForAll({ by: filter }),
-        title: `by ${filter}`,
-        selection: filter,
-        onClick: () => setExpand(false),
-    })) : [{
-        href: '#',
-        title: `by ${filterKey}`,
-        selection: filterKey,
-        onClick: () => setExpand(true),
-    }]
+        const key = by ?? (first === 'all' ? 'kind' : first)
+        const filterKey = toFilterKey(key)
 
-    const options = filters[filterKey] ?? []
-    const optionsRow: NavigationElement[] = options.map(option => ({
-        href: option.href,
-        title: option.title,
-        selection: option.title,
-    }))
 
-    const selection = first === 'all'
-        ? filterKey
-        : (second === undefined ? first : second)
+        const logoRow: NavigationElement[] = [
+            {
+                href: hrefForSlideshow(),
+                title: 'Alikro',
+                selection: '',
+            },
+        ]
 
-    const rows: NavigationElement[][] = [
-        logoRow,
-        filterByRow,
-        optionsRow,
-        [{
-            href: '/about',
-            title: 'about',
-            selection: 'about',
-        }],
-    ].filter((row): row is NavigationElement[] => row !== undefined)
+        const filterKeys = ['kind', 'tag', 'year', 'material'] as const
+        const filterByRow: NavigationElement[] = expand ? filterKeys.map(filter => ({
+            href: hrefForAll({ by: filter }),
+            title: `by ${filter}`,
+            selection: filter,
+            onClick: () => setExpand(false),
+        })) : [{
+            href: '#',
+            title: `by ${filterKey}`,
+            selection: filterKey,
+            onClick: () => setExpand(true),
+        }]
+
+        const options = filters[filterKey] ?? []
+        const optionsRow: NavigationElement[] = options.map(option => ({
+            href: option.href,
+            title: option.title,
+            selection: option.title,
+        }))
+
+        const selection = first === 'all'
+            ? filterKey
+            : (second === undefined ? first : second)
+
+        const rows: NavigationElement[][] = [
+            logoRow,
+            filterByRow,
+            optionsRow,
+            [{
+                href: '/about',
+                title: 'about',
+                selection: 'about',
+            }],
+        ].filter((row): row is NavigationElement[] => row !== undefined)
+        return { rows, selection }
+    }, [segments, by, filters, expand])
     return <NavigationPanelImpl
         rows={rows}
         selection={selection}
     />
+}
+
+function DummyNavigationPanel() {
+    return <NavigationPanelImpl rows={[[{
+        href: hrefForSlideshow(),
+        title: 'Alikro',
+        selection: '',
+    }]]} selection='none' />
 }
 
 export function OldNavigationPanel() {

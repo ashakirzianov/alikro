@@ -49,9 +49,7 @@ export default async function RootLayout({
       </Script>
       <body className={inter.className}>
         <main>
-          <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
-            <NavigationPanel filters={filters} />
-          </Suspense>
+          <NavigationPanel filters={filters} />
           {children}
         </main>
         <Analytics />
