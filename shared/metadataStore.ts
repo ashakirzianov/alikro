@@ -58,7 +58,7 @@ export async function getAssetMetadata(id: string) {
     'use cache'
     cacheLife('days')
     cacheTagForAssetId(id)
-    const assets = await getAllAssetsInternal()
+    const assets = await getAllAssetMetadata()
     return assets.find(asset => asset.id === id)
 }
 
@@ -66,17 +66,7 @@ async function getAllAssetMetadata() {
     'use cache'
     cacheTagForIndex()
     cacheLife('days')
-    return getAllAssetsInternal()
-}
-
-let allAssetsPromise: Promise<AssetMetadata[]> | null = null
-function getAllAssetsInternal() {
-    if (allAssetsPromise) {
-        return allAssetsPromise
-    } else {
-        allAssetsPromise = fetchAllAssetMetadata()
-        return allAssetsPromise
-    }
+    return fetchAllAssetMetadata()
 }
 
 function cacheTagForAssetId(assetId: string) {
