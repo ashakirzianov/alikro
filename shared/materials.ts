@@ -6,6 +6,21 @@ export type MaterialElement = {
     on?: boolean,
 }
 export function parseMaterialString(material: string): MaterialElement[] {
+    const plusResult = breakOnLastSeparator(material, ' + ')
+    if (plusResult) {
+        const [before, plus, after] = plusResult
+        const beforeElements = parseMaterialString(before.content)
+        const plusElement = {
+            ...plus,
+            passive: true,
+        }
+        const afterElement = {
+            ...after,
+            end: after.end,
+            passive: false,
+        }
+        return [...beforeElements, plusElement, afterElement]
+    }
     const onResult = breakOnLastSeparator(material, ' on ')
     if (onResult) {
         const [before, on, after] = onResult
