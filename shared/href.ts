@@ -14,6 +14,12 @@ export function hrefForAssetModal({ pathname, assetId }: {
     return `${pathname}?show=${assetId}`
 }
 
+export function hrefForAll({ by }: {
+    by?: 'kind' | 'year' | 'material' | 'tag',
+}) {
+    return by ? `/all?by=${by}` : '/all'
+}
+
 export function hrefForCollection({ collectionId }: {
     collectionId: string,
 }) {
@@ -21,21 +27,21 @@ export function hrefForCollection({ collectionId }: {
 }
 
 export function hrefForYear({ year }: {
-    year: number,
+    year: number | undefined,
 }) {
-    return `/year/${year}`
+    return `/year/${year ?? 'unknown'}`
 }
 
 export function hrefForTag({ tag }: {
     tag: string,
 }) {
-    return `/tag/${tag}`
+    return `/tag/${encodeURIComponent(tag)}`
 }
 
 export function hrefForMaterial({ material }: {
-    material: string,
+    material: string | undefined,
 }) {
-    return `/material/${material}`
+    return `/material/${encodeURIComponent(material ?? 'unspecified')}`
 }
 
 export function hrefForConsole({

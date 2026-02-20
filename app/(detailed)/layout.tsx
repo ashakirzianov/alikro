@@ -5,6 +5,8 @@ import Script from 'next/script'
 import { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { getFilters } from './filters'
+import { Suspense } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,11 +26,12 @@ export const metadata: Metadata = {
   }
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode,
 }) {
+  const filters = await getFilters()
   return (
     <html lang="en" className="dark:bg-neutral-950 dark:text-white">
       <Script
@@ -46,7 +49,9 @@ export default function RootLayout({
       </Script>
       <body className={inter.className}>
         <main>
-          <NavigationPanel />
+          <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
+            <NavigationPanel filters={filters} />
+          </Suspense>
           {children}
         </main>
         <Analytics />

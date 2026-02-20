@@ -1,10 +1,74 @@
 'use client'
-import { NavigationLink } from "@/app/(detailed)/Atoms"
 import { allCollections } from "@/shared/collection"
-import { hrefForCollection } from "@/shared/href"
-import { useSelectedLayoutSegments } from 'next/navigation'
+import { hrefForAll, hrefForCollection } from "@/shared/href"
+import clsx from "clsx"
+import Link from "next/link"
+import { useSearchParams, useSelectedLayoutSegments } from 'next/navigation'
+import { useState } from "react"
+import { Filters } from "./filters"
 
-export function NavigationPanel() {
+export function NavigationPanel({ filters }: {
+    filters: Filters,
+}) {
+    const segments = useSelectedLayoutSegments()
+    const [first, second] = segments
+        .map(s => s.split('/')).flat().map(decodeURIComponent)
+
+    const searchParams = useSearchParams()
+    const by = searchParams.get('by') ?? (first === 'all' ? 'kind' : first)
+    const filterKey = toFilterKey(by)
+
+    const [expand, setExpand] = useState(false)
+
+    const logoRow: NavigationElement[] = [
+        {
+            href: '/',
+            title: 'Alikro',
+            selection: '',
+        },
+    ]
+
+    const filterKeys = ['kind', 'tag', 'year', 'material'] as const
+    const filterByRow: NavigationElement[] = expand ? filterKeys.map(filter => ({
+        href: hrefForAll({ by: filter }),
+        title: `by ${filter}`,
+        selection: filter,
+        onClick: () => setExpand(false),
+    })) : [{
+        href: '#',
+        title: `by ${filterKey}`,
+        selection: filterKey,
+        onClick: () => setExpand(true),
+    }]
+
+    const options = filters[filterKey] ?? []
+    const optionsRow: NavigationElement[] = options.map(option => ({
+        href: option.href,
+        title: option.title,
+        selection: option.title,
+    }))
+
+    const selection = first === 'all'
+        ? filterKey
+        : (second === undefined ? first : second)
+
+    const rows: NavigationElement[][] = [
+        logoRow,
+        filterByRow,
+        optionsRow,
+        [{
+            href: '/about',
+            title: 'about',
+            selection: 'about',
+        }],
+    ].filter((row): row is NavigationElement[] => row !== undefined)
+    return <NavigationPanelImpl
+        rows={rows}
+        selection={selection}
+    />
+}
+
+export function OldNavigationPanel() {
     const segments = useSelectedLayoutSegments()
     const [first, second] = segments
         .map(s => s.split('/')).flat().map(decodeURIComponent)
@@ -46,6 +110,7 @@ type NavigationElement = {
     href: string,
     title: string,
     selection: string,
+    onClick?: () => void,
 }
 function NavigationPanelImpl({ rows, selection }: {
     rows: NavigationElement[][],
@@ -80,9 +145,42 @@ function NavigationRow({ elements, selection, last }: {
                 title={element.title}
                 selected={element.selection === selection}
                 last={lastElement}
+                onClick={element.onClick}
             />
         })}
         {!last && <span>{'//'}&nbsp;</span>}
     </>
 }
 
+function NavigationLink({
+    href, title, selected, last, shallow, onClick,
+}: {
+    href: string,
+    title: string,
+    selected?: boolean,
+    last?: boolean,
+    shallow?: boolean,
+    onClick?: () => void,
+}) {
+    return <span>
+        <Link href={href} shallow={shallow} className={clsx(
+            'cursor-pointer', {
+            'bg-accent text-secondary': selected,
+            'text-accent hover:bg-accent hover:text-secondary': !selected,
+        }
+        )} onClick={onClick}>
+            {title}
+        </Link>{last ? '' : ','}&nbsp;
+    </span>
+}
+
+function toFilterKey(by: string | null) {
+    switch (by) {
+        case 'year':
+        case 'material':
+        case 'tag':
+            return by
+        default:
+            return 'kind' as const
+    }
+}
