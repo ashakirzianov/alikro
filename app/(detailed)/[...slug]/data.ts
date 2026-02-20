@@ -1,6 +1,5 @@
 import { AssetMetadata } from "@/shared/assets"
 import { getAssetMetadata, getAssetsForCollection, getAssetsForMaterial, getAssetsForTag, getAssetsForYear } from "@/shared/metadataStore"
-import { cacheLife } from "next/cache"
 
 export type AssetsPageData = {
     kind: 'tag' | 'material' | 'year',
@@ -18,8 +17,6 @@ export type AssetsPageData = {
     assets?: undefined,
 }
 export async function assetsPageDataForSlug(slug: string[]): Promise<AssetsPageData | undefined> {
-    'use cache'
-    cacheLife('days')
     const [first, second, third] = slug
     switch (first) {
         case 'tag': case 'year': case 'material':
