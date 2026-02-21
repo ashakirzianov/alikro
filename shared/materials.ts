@@ -39,7 +39,6 @@ export function parseMaterialString(material: string): MaterialElement[] {
         }
         const afterElement = {
             content: after,
-            passive: true,
         }
         return [...beforeElements, commaElement, afterElement]
     }
