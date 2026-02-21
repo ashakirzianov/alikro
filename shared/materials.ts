@@ -8,20 +8,20 @@ export function parseMaterialString(material: string): MaterialElement[] {
     return specialCasesForMaterialElements(parseMaterialStringImpl(material))
 }
 
-export function matchMaterial(assetMaterial: string | undefined, materialFilter: string): boolean {
+export function matchMaterial(assetMaterial: string | undefined, materialMatcher: string): boolean {
     if (assetMaterial === undefined) {
-        return materialFilter === 'Unspecified'
-    } else if (!assetMaterial.includes(materialFilter)) {
+        return materialMatcher === undefined
+    } else if (!assetMaterial.includes(materialMatcher)) {
         return false
     }
 
-    const shouldMatchPartially = materialFilter === 'clay'
+    const shouldMatchPartially = materialMatcher === 'clay'
     if (shouldMatchPartially) {
         return true
     }
     const assetMaterialElements = parseMaterialString(assetMaterial)
     for (const element of assetMaterialElements) {
-        if (element.content === materialFilter) {
+        if (element.content === materialMatcher) {
             return true
         }
     }

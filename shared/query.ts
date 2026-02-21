@@ -1,4 +1,5 @@
 import { AssetMetadata } from "./assets"
+import { matchMaterial } from "./materials"
 import { asserNever } from "./utils"
 
 type AssetWildcardQuery = null
@@ -53,7 +54,7 @@ function matchQuery(asset: AssetMetadata, query: AssetQuery): boolean {
         case 'not':
             return !matchQuery(asset, query.query)
         case 'material':
-            return asset.material?.includes(query.material) ?? false
+            return matchMaterial(asset.material, query.material)
         case 'year':
             return asset.year === query.year
         case 'tag':
