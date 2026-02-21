@@ -22,7 +22,7 @@ export function AssetView({
                 cursor: 'default'
             }}
         />
-        <div className="flex flex-row gap-1">
+        <div className="flex flex-row">
             <AssetDescription asset={asset} />
         </div>
         {(asset.tags && asset.tags.length > 0) && <div className="flex flex-row gap-1">

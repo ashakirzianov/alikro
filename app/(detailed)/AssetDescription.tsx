@@ -12,12 +12,12 @@ export function AssetDescription({ asset }: {
                 {asset.title ?? 'Untitled'}
             </Link>
             {asset.year !== undefined && <>
-                <span>&nbsp;&#40;</span>
+                &nbsp;&#40;
                 <Link href={hrefForYear({ year: asset.year })} className="hover:underline">{asset.year}</Link>
-                <span>&#41;</span>
+                &#41;
             </>}
             {asset.material && <>
-                <span>,&nbsp;</span>
+                ,&nbsp;
                 <MaterialLinks material={asset.material} />
             </>}
         </>
