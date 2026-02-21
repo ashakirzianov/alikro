@@ -31,9 +31,10 @@ function OptionalModalImpl({
     const searchParams = useSearchParams()
     const show = searchParams.get('show')
     const [showEditButton] = useShowEditButton()
-    if (typeof show === 'string') {
+    const assetIdx = assets.findIndex(asset => asset.id === show)
+    if (typeof show === 'string' && assetIdx !== -1) {
         return <WorkModalImpl
-            assetId={show}
+            assetIdx={assetIdx}
             assets={assets}
             pathname={pathname}
             showEditButton={showEditButton}
@@ -44,17 +45,16 @@ function OptionalModalImpl({
 }
 
 function WorkModalImpl({
-    assets, assetId, pathname, showEditButton,
+    assets, assetIdx, pathname, showEditButton,
 }: {
-    assetId: string,
+    assetIdx: number,
     assets: AssetMetadata[],
     pathname: string,
     showEditButton: boolean,
 }) {
-    const currentIndex = assets.findIndex(a => a.id === assetId)
-    const asset = assets[currentIndex]
-    const nextIndex = (currentIndex + 1) % assets.length
-    const prevIndex = (currentIndex - 1 + assets.length) % assets.length
+    const asset = assets[assetIdx]
+    const nextIndex = (assetIdx + 1) % assets.length
+    const prevIndex = (assetIdx - 1 + assets.length) % assets.length
 
     const nextLink = nextIndex >= 0 && nextIndex < assets.length
         ? hrefForAssetModal({
@@ -71,11 +71,11 @@ function WorkModalImpl({
     const dismissLink = pathname
     const editLink = hrefForConsole({
         filter: filterForPathname(pathname),
-        assetId: assetId,
+        assetId: asset.id,
     })
 
     const currentAssetLink = hrefForAsset({
-        assetId: assetId,
+        assetId: asset.id,
     })
 
     const router = useRouter()
