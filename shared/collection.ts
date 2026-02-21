@@ -60,9 +60,4 @@ const collections: Collection[] = [{
     description: "Alikro's collages.",
     query: 'collage',
     slideAndQuery: [not(tag('self-portrait'))],
-}, {
-    id: 'tattoos',
-    title: 'Tattoos.',
-    description: "Alikro's tattoos.",
-    query: 'tattoo',
 }]

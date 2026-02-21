@@ -8,6 +8,7 @@ import {
 import { fetchAllAssetMetadata } from './cms'
 import { collectionForId } from './collection'
 import { cacheLife, cacheTag } from 'next/cache'
+import { preproccessAssets } from './preprocess'
 
 export async function getAssetsForSlideshow() {
     return getSortedAssetsForQuery(null)
@@ -86,7 +87,8 @@ async function getAllAssetMetadata() {
     'use cache'
     cacheTagForIndex()
     cacheLife('days')
-    return fetchAllAssetMetadata()
+    const assets = await fetchAllAssetMetadata()
+    return preproccessAssets(assets)
 }
 
 function cacheTagForAssetId(assetId: string) {
