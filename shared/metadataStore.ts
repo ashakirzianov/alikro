@@ -1,7 +1,10 @@
 import {
-    AssetMetadata, AssetQuery, assetsForQuery, sortAssets,
-    year as yearQuery, material as materialQuery, tag as tagQuery,
+    AssetMetadata, sortAssets,
 } from './assets'
+import {
+    AssetQuery, assetsForQuery,
+    year as yearQuery, material as materialQuery, tag as tagQuery,
+} from './query'
 import { fetchAllAssetMetadata } from './cms'
 import { collectionForId } from './collection'
 import { cacheLife, cacheTag } from 'next/cache'

@@ -1,5 +1,3 @@
-import { asserNever } from "./utils"
-
 export type Timestamp = number
 export type AssetMetadata = {
     id: string,
@@ -22,15 +20,6 @@ export type AssetMetadataUpdate = Omit<
 export type AssetKind = string
 export type AssetTag = string
 
-type AssetWildcardQuery = null
-type AssetKindQuery = string
-type AssetAndQuery = AssetQuery[]
-type AssetOrQuery = { kind: 'or', queries: AssetQuery[] }
-type AssetNotQuery = { kind: 'not', query: AssetQuery }
-type AssetYearQuery = { kind: 'year', year: number }
-type AssetMaterialQuery = { kind: 'material', material: string }
-type AssetTagQuery = { kind: 'tag', tag: string }
-export type AssetQuery = AssetWildcardQuery | AssetKindQuery | AssetAndQuery | AssetOrQuery | AssetNotQuery | AssetYearQuery | AssetMaterialQuery | AssetTagQuery
 export type AssetSize = `${number}x${number}`
 
 export function assetMetadataUpdate(asset: AssetMetadata): AssetMetadataUpdate {
@@ -64,30 +53,6 @@ export function generateAssetId(fileName: string) {
     return name.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-')
 }
 
-export function and(...queries: AssetQuery[]): AssetQuery {
-    return queries
-}
-
-export function or(...queries: AssetQuery[]): AssetQuery {
-    return { kind: 'or', queries }
-}
-
-export function not(query: AssetQuery): AssetQuery {
-    return { kind: 'not', query }
-}
-
-export function year(year: number): AssetQuery {
-    return { kind: 'year', year }
-}
-
-export function material(material: string): AssetQuery {
-    return { kind: 'material', material }
-}
-
-export function tag(tag: string): AssetQuery {
-    return { kind: 'tag', tag }
-}
-
 export function sortAssets(assets: AssetMetadata[]) {
     return [...assets].sort((a, b) => {
         if (a.order !== b.order) {
@@ -98,48 +63,6 @@ export function sortAssets(assets: AssetMetadata[]) {
             return 0
         }
     })
-}
-
-export function assetsForTags(assets: AssetMetadata[], ...tags: (AssetTag | AssetKind)[]) {
-    return assets.filter((asset) =>
-        tags.some(
-            (tag) => asset.tags?.includes(tag as AssetTag) || asset.kind === tag
-        )
-    )
-}
-
-export function assetsForKind(assets: AssetMetadata[], kind: AssetKind) {
-    return assets.filter((asset) => asset.kind === kind)
-}
-
-export function assetsForQuery(assets: AssetMetadata[], query: AssetQuery) {
-    return assets.filter((asset) => matchQuery(asset, query))
-}
-
-function matchQuery(asset: AssetMetadata, query: AssetQuery): boolean {
-    if (query === null) {
-        return true
-    } else if (typeof query === 'string') {
-        return asset.kind === query
-    } else if (Array.isArray(query)) {
-        return query.every((q) => matchQuery(asset, q))
-    }
-    switch (query.kind) {
-        case 'or':
-            return query.queries.some((q) => matchQuery(asset, q))
-        case 'not':
-            return !matchQuery(asset, query.query)
-        case 'material':
-            return asset.material?.includes(query.material) ?? false
-        case 'year':
-            return asset.year === query.year
-        case 'tag':
-            return asset.tags?.includes(query.tag as AssetTag) ?? false
-        default:
-            // This should never happen if the type system is correct
-            asserNever(query)
-            return false
-    }
 }
 
 // Extract unique kinds from assets

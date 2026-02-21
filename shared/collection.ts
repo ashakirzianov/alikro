@@ -1,4 +1,4 @@
-import { AssetQuery, not, tag } from "./assets"
+import { AssetQuery, not, tag } from "./query"
 
 export type Collection = {
     id: string,
