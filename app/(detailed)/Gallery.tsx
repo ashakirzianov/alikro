@@ -3,9 +3,9 @@ import {
 } from "@/shared/assets"
 import Link from "next/link"
 import { AssetImage } from "@/app/AssetImage"
-import { hrefForAsset, hrefForAssetModal, hrefForMaterial, hrefForYear } from "@/shared/href"
+import { hrefForAssetModal } from "@/shared/href"
 import { OptionalModal } from "./WorkModal"
-import { parseMaterialString, specialCasesForMaterialElements } from "@/shared/materials"
+import { AssetDescription } from "./AssetDescription"
 
 export function Gallery({
     assets, pathname,
@@ -59,36 +59,8 @@ function Tile({ asset, pathname }: {
                 <AssetImage asset={asset} sizes="25vw" />
             </Link>
             <span className="hidden sm:flex text-xs text-accent">
-                <Link href={hrefForAsset({ assetId: asset.id })} className="hover:underline">
-                    {asset.title ?? 'Untitled'}
-                </Link>
-                {asset.year !== undefined && <>
-                    <span>&nbsp;&#40;</span>
-                    <Link href={hrefForYear({ year: asset.year })} className="hover:underline">{asset.year}</Link>
-                    <span>&#41;</span>
-                </>}
-                {asset.material && <>
-                    <span>,&nbsp;</span>
-                    <MaterialLinks material={asset.material} />
-                </>}
+                <AssetDescription asset={asset} />
             </span>
         </div>
-    )
-}
-
-function MaterialLinks({ material }: { material: string }) {
-    const elements = specialCasesForMaterialElements(parseMaterialString(material))
-    return (
-        <>
-            {elements.map((element, index) => {
-                if (element.passive) {
-                    return <span key={index}>{element.content.replaceAll(' ', '\u00A0')}</span>
-                } else if (element.on) {
-                    return <Link key={index} href={hrefForMaterial({ material: `on ${element.content}` })} className="hover:underline">{element.content}</Link>
-                } else {
-                    return <Link key={index} href={hrefForMaterial({ material: element.content })} className="hover:underline">{element.content}</Link>
-                }
-            })}
-        </>
     )
 }
