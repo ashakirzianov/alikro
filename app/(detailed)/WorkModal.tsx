@@ -1,12 +1,12 @@
 'use client'
-import { AssetMetadata } from "@/shared/assets"
+import { AssetMetadata } from "@/shared/asset"
 import { Modal } from "@/app/(detailed)/Modal"
 import { AssetImage } from "@/app/AssetImage"
 import { useRouter, useSearchParams } from "next/navigation"
 import React, { Suspense, useCallback, useEffect } from "react"
 import { hrefForConsole, hrefForAssetModal, hrefForAsset, filterForPathname } from "@/shared/href"
 import Link from "next/link"
-import { useIsClient, useShowEditButton } from "@/shared/settings"
+import { useIsClient, useShowEditButton } from "@/shared/setting"
 
 export function OptionalModal({
     assets, pathname,

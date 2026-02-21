@@ -1,6 +1,6 @@
 'use client'
 import { filterForPathname, hrefForConsole } from "@/shared/href"
-import { useIsClient, useShowEditButton } from "@/shared/settings"
+import { useIsClient, useShowEditButton } from "@/shared/setting"
 import Link from "next/link"
 
 export function EditLink({ asset, pathname }: { asset: { id: string }, pathname: string }) {

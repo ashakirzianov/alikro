@@ -1,6 +1,6 @@
 import {
     AssetMetadata,
-} from "@/shared/assets"
+} from "@/shared/asset"
 import Link from "next/link"
 import { AssetImage } from "@/app/AssetImage"
 import { hrefForAssetModal } from "@/shared/href"

@@ -1,7 +1,7 @@
 'use client'
 import Image from "next/image"
-import { AssetMetadata, assetAlt, assetHeight, assetWidth } from "../shared/assets"
-import { imageSrc } from "../shared/images"
+import { AssetMetadata, assetAlt, assetHeight, assetWidth } from "../shared/asset"
+import { imageSrc } from "../shared/image"
 
 interface AssetImageProps {
     asset: AssetMetadata

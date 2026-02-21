@@ -1,4 +1,4 @@
-import { AssetMetadata } from "@/shared/assets"
+import { AssetMetadata } from "@/shared/asset"
 import { getAssetsForSlideshow } from "@/shared/metadataStore"
 import { allCollections, Collection } from "@/shared/collection"
 import { SlideData, ClientsideSlideshow } from "./Slideshow"

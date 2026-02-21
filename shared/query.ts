@@ -1,5 +1,5 @@
-import { AssetMetadata } from "./assets"
-import { matchMaterial } from "./materials"
+import { AssetMetadata } from "./asset"
+import { matchMaterial } from "./material"
 import { asserNever } from "./utils"
 
 type AssetWildcardQuery = null

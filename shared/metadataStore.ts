@@ -1,6 +1,6 @@
 import {
     AssetMetadata, sortAssets,
-} from './assets'
+} from './asset'
 import {
     AssetQuery, assetsForQuery,
     year as yearQuery, material as materialQuery, tag as tagQuery,

@@ -1,4 +1,4 @@
-import { AssetMetadata } from "@/shared/assets"
+import { AssetMetadata } from "@/shared/asset"
 import { getAssetMetadata, getAssetsForCollection, getAssetsForMaterial, getAssetsForTag, getAssetsForYear } from "@/shared/metadataStore"
 
 export type AssetsPageData = {

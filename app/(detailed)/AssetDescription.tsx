@@ -1,6 +1,6 @@
-import { AssetMetadata } from "@/shared/assets"
+import { AssetMetadata } from "@/shared/asset"
 import { hrefForAsset, hrefForMaterial, hrefForYear } from "@/shared/href"
-import { parseMaterialString } from "@/shared/materials"
+import { parseMaterialString } from "@/shared/material"
 import Link from "next/link"
 
 export function AssetDescription({ asset }: {

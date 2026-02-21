@@ -1,6 +1,6 @@
 import { allCollections } from "@/shared/collection"
 import { hrefForCollection, hrefForMaterial, hrefForTag, hrefForYear } from "@/shared/href"
-import { parseMaterialString } from "@/shared/materials"
+import { parseMaterialString } from "@/shared/material"
 import { getUniqueMaterials, getUniqueTags, getUniqueYears } from "@/shared/metadataStore"
 
 export type FilterValue = {
