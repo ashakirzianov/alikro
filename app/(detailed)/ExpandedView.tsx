@@ -1,31 +1,40 @@
 'use client'
 import { AssetMetadata, assetAlt, assetHeight, assetWidth } from "@/shared/asset"
 import { imageSrc } from "@/shared/image"
+import { useIsClient } from "@/shared/setting"
 import React, { useEffect, useRef, useState } from "react"
 
 type Phase = 'entering' | 'visible' | 'exiting'
 
 const SCROLL_THRESHOLD = 150
 
-export function ExpandedView({
-    assets,
-    assetIdx,
-    originRect,
-    onDismiss,
-    onNavigate,
-}: {
+type ExpandedViewProps = {
     assets: AssetMetadata[],
     assetIdx: number,
     originRect: DOMRect | null,
     onDismiss: () => void,
     onNavigate: (idx: number) => void,
-}) {
+}
+
+export function ExpandedView(props: ExpandedViewProps) {
+    const isClient = useIsClient()
+    if (!isClient) return null
+    return <ExpandedViewImpl {...props} />
+}
+
+function ExpandedViewImpl({
+    assets,
+    assetIdx,
+    originRect,
+    onDismiss,
+    onNavigate,
+}: ExpandedViewProps) {
     const [phase, setPhase] = useState<Phase>('entering')
     const overlayRef = useRef<HTMLDivElement>(null)
     const thumbnailRef = useRef<HTMLImageElement>(null)
     const fullResRef = useRef<HTMLImageElement>(null)
     const dismissingRef = useRef(false)
-    const dismissViaInteractionRef = useRef<() => void>(() => {})
+    const dismissViaInteractionRef = useRef<() => void>(() => { })
 
     const asset = assets[assetIdx]
     const ar = assetWidth(asset) / assetHeight(asset)

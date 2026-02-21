@@ -3,7 +3,9 @@ import { AssetMetadata } from "@/shared/asset"
 import { AssetImage } from "@/app/AssetImage"
 import { AssetDescription } from "./AssetDescription"
 import { ExpandedView } from "./ExpandedView"
-import { useState } from "react"
+import { Suspense, useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { hrefForAssetModal } from "@/shared/href"
 
 export function Gallery({
     assets, pathname,
@@ -11,64 +13,92 @@ export function Gallery({
     assets: AssetMetadata[],
     pathname: string,
 }) {
-    const [expandedIdx, setExpandedIdx] = useState<number | null>(null)
+    return (
+        <Suspense fallback={<GalleryGrid assets={assets} pathname={pathname} onTileClick={null} />}>
+            <GalleryImpl assets={assets} pathname={pathname} />
+        </Suspense>
+    )
+}
+
+function GalleryImpl({
+    assets, pathname,
+}: {
+    assets: AssetMetadata[],
+    pathname: string,
+}) {
+    const searchParams = useSearchParams()
+    const router = useRouter()
     const [originRect, setOriginRect] = useState<DOMRect | null>(null)
 
-    function buildColumns(assets: AssetMetadata[], num: number) {
-        const columns: AssetMetadata[][] = Array(num).fill(null).map(() => [])
-        assets.forEach((asset, index) => {
-            const columnIndex = index % num
-            columns[columnIndex].push(asset)
-        })
-        return columns
-    }
-    const columns = buildColumns(assets, 4)
+    const show = searchParams.get('show')
+    const assetIdx = show ? assets.findIndex(a => a.id === show) : -1
 
-    function handleTileClick(assetIdx: number, rect: DOMRect) {
+    function handleTileClick(idx: number, rect: DOMRect) {
         setOriginRect(rect)
-        setExpandedIdx(assetIdx)
+        router.push(hrefForAssetModal({ pathname, assetId: assets[idx].id }), { scroll: false })
+    }
+
+    function handleDismiss() {
+        router.push(pathname, { scroll: false })
+    }
+
+    function handleNavigate(newIdx: number) {
+        router.push(hrefForAssetModal({ pathname, assetId: assets[newIdx].id }), { scroll: false })
     }
 
     return (
         <>
-            {expandedIdx !== null && (
+            {assetIdx !== -1 && (
                 <ExpandedView
                     assets={assets}
-                    assetIdx={expandedIdx}
+                    assetIdx={assetIdx}
                     originRect={originRect}
-                    onDismiss={() => setExpandedIdx(null)}
-                    onNavigate={setExpandedIdx}
+                    onDismiss={handleDismiss}
+                    onNavigate={handleNavigate}
                 />
             )}
-            <div className="flex flex-row gap-2">
-                {columns.map((column, colIndex) => (
-                    <div key={colIndex} className="flex flex-col w-1/4 gap-0">
-                        {column.map((asset) => (
-                            <Tile
-                                key={asset.fileName}
-                                asset={asset}
-                                pathname={pathname}
-                                onExpand={(rect) => handleTileClick(
-                                    assets.findIndex(a => a.id === asset.id),
-                                    rect,
-                                )}
-                            />
-                        ))}
-                    </div>
-                ))}
-            </div>
+            <GalleryGrid assets={assets} pathname={pathname} onTileClick={handleTileClick} />
         </>
+    )
+}
+
+function GalleryGrid({ assets, pathname, onTileClick }: {
+    assets: AssetMetadata[],
+    pathname: string,
+    onTileClick: ((idx: number, rect: DOMRect) => void) | null,
+}) {
+    const columns: AssetMetadata[][] = Array(4).fill(null).map(() => [])
+    assets.forEach((asset, index) => columns[index % 4].push(asset))
+
+    return (
+        <div className="flex flex-row gap-2">
+            {columns.map((column, colIndex) => (
+                <div key={colIndex} className="flex flex-col w-1/4 gap-0">
+                    {column.map((asset) => (
+                        <Tile
+                            key={asset.fileName}
+                            asset={asset}
+                            pathname={pathname}
+                            onExpand={onTileClick
+                                ? (rect) => onTileClick(assets.findIndex(a => a.id === asset.id), rect)
+                                : null
+                            }
+                        />
+                    ))}
+                </div>
+            ))}
+        </div>
     )
 }
 
 function Tile({ asset, pathname, onExpand }: {
     asset: AssetMetadata,
     pathname: string,
-    onExpand: (rect: DOMRect) => void,
+    onExpand: ((rect: DOMRect) => void) | null,
 }) {
     function handleClick(e: React.MouseEvent<HTMLDivElement>) {
         const img = e.currentTarget.querySelector('img')
-        if (img) {
+        if (img && onExpand) {
             onExpand(img.getBoundingClientRect())
         }
     }
