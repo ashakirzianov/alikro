@@ -1,7 +1,8 @@
 import { allCollections } from "@/shared/collection"
 import { hrefForCollection, hrefForMaterial, hrefForTag, hrefForYear } from "@/shared/href"
 import { parseMaterialString } from "@/shared/material"
-import { getUniqueMaterials, getUniqueTags, getUniqueYears } from "@/shared/metadataStore"
+import { getUniqueMaterials, getUniqueYears } from "@/shared/metadataStore"
+import { getAllTagsMetadata } from "@/shared/tag"
 
 export type FilterValue = {
     title: string,
@@ -14,8 +15,8 @@ export type Filters = {
     tag: FilterValue[],
 }
 export async function getFilters(): Promise<Filters> {
-    const [uniqueMaterials, uniqueYears, uniqueTags] = await Promise.all([
-        getUniqueMaterials(), getUniqueYears(), getUniqueTags(),
+    const [uniqueMaterials, uniqueYears] = await Promise.all([
+        getUniqueMaterials(), getUniqueYears(),
     ])
     const kind: FilterValue[] = getKindOptions()
     const material: FilterValue[] = processMaterials(uniqueMaterials).map(material => ({
@@ -26,9 +27,11 @@ export async function getFilters(): Promise<Filters> {
         title: year?.toString() ?? 'Unknown',
         href: hrefForYear({ year: year }),
     }))
-    const tag: FilterValue[] = uniqueTags.map(tag => ({
-        title: tag,
-        href: hrefForTag({ tag }),
+
+    const tagsMetadata = getAllTagsMetadata()
+    const tag: FilterValue[] = tagsMetadata.map(tag => ({
+        title: tag.title,
+        href: hrefForTag({ tag: tag.tag }),
     }))
     return {
         kind, material, year, tag,
