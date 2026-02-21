@@ -76,7 +76,7 @@ function specialCasesForMaterialElements(elements: MaterialElement[]): MaterialE
     return elements.flatMap(element => {
         if (element.content.endsWith('clay') && element.content !== 'clay') {
             const preElement: MaterialElement = {
-                content: element.content.substring(0, element.content.length - 'clay'.length).trimEnd(),
+                content: element.content.substring(0, element.content.length - 'clay'.length),
                 passive: true,
             }
             const clayElement: MaterialElement = {
