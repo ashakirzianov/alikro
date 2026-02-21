@@ -3,22 +3,27 @@ export type MaterialElement = {
     passive?: boolean,
     on?: boolean,
 }
+
 export function parseMaterialString(material: string): MaterialElement[] {
+    return specialCasesForMaterialElements(parseMaterialStringImpl(material))
+}
+
+function parseMaterialStringImpl(material: string): MaterialElement[] {
     const plusResult = breakOnLastSeparator(material, ' + ')
     if (plusResult) {
         const [before, plus, after] = plusResult
-        const beforeElements = parseMaterialString(before)
+        const beforeElements = parseMaterialStringImpl(before)
         const plusElement = {
             content: plus,
             passive: true,
         }
-        const afterElements = parseMaterialString(after)
+        const afterElements = parseMaterialStringImpl(after)
         return [...beforeElements, plusElement, ...afterElements]
     }
     const onResult = breakOnLastSeparator(material, ' on ')
     if (onResult) {
         const [before, on, after] = onResult
-        const beforeElements = parseMaterialString(before)
+        const beforeElements = parseMaterialStringImpl(before)
         const onElement = {
             content: on,
             passive: true,
@@ -32,7 +37,7 @@ export function parseMaterialString(material: string): MaterialElement[] {
     const commaResult = breakOnLastSeparator(material, ', ')
     if (commaResult) {
         const [before, comma, after] = commaResult
-        const beforeElements = parseMaterialString(before)
+        const beforeElements = parseMaterialStringImpl(before)
         const commaElement = {
             content: comma,
             passive: true,
@@ -47,7 +52,7 @@ export function parseMaterialString(material: string): MaterialElement[] {
     }]
 }
 
-export function specialCasesForMaterialElements(elements: MaterialElement[]): MaterialElement[] {
+function specialCasesForMaterialElements(elements: MaterialElement[]): MaterialElement[] {
     return elements.flatMap(element => {
         if (element.content.endsWith('clay') && element.content !== 'clay') {
             const preElement: MaterialElement = {

@@ -1,6 +1,6 @@
 import { AssetMetadata } from "@/shared/assets"
 import { hrefForAsset, hrefForMaterial, hrefForYear } from "@/shared/href"
-import { parseMaterialString, specialCasesForMaterialElements } from "@/shared/materials"
+import { parseMaterialString } from "@/shared/materials"
 import Link from "next/link"
 
 export function AssetDescription({ asset }: {
@@ -25,7 +25,7 @@ export function AssetDescription({ asset }: {
 }
 
 function MaterialLinks({ material }: { material: string }) {
-    const elements = specialCasesForMaterialElements(parseMaterialString(material))
+    const elements = parseMaterialString(material)
     return (
         <>
             {elements.map((element, index) => {

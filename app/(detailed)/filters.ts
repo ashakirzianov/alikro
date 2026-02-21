@@ -1,6 +1,6 @@
 import { allCollections } from "@/shared/collection"
 import { hrefForCollection, hrefForMaterial, hrefForTag, hrefForYear } from "@/shared/href"
-import { parseMaterialString, specialCasesForMaterialElements } from "@/shared/materials"
+import { parseMaterialString } from "@/shared/materials"
 import { getUniqueMaterials, getUniqueTags, getUniqueYears } from "@/shared/metadataStore"
 
 export type FilterValue = {
@@ -51,7 +51,7 @@ function processMaterials(materials: Array<string | undefined>): Array<string | 
             materialSet.add(materialString)
             return
         }
-        const materialElements = specialCasesForMaterialElements(parseMaterialString(materialString))
+        const materialElements = parseMaterialString(materialString)
         for (const materialElement of materialElements) {
             if (!materialElement.passive) {
                 if (materialElement.on) {
