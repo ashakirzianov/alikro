@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 import { ReactNode, useEffect, useState } from "react"
 import { BehanceLink, InstagramLink, MailLink } from "@/app/(detailed)/about/SocialLinks"
 import { Slider } from "./Slider"
-import { AssetMetadata } from "@/shared/assets"
+import { AssetMetadata } from "@/shared/asset"
 import { DynamicLayout } from './DynamicLayout'
 
 export const ClientsideSlideshow = dynamic(() => Promise.resolve(Slideshow), {

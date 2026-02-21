@@ -1,5 +1,153 @@
 [
     {
+        "id": "tempimagezwn7cj",
+        "fileName": "tempImagezWN7cj.jpg",
+        "width": 2767,
+        "height": 4088,
+        "uploaded": 1771604584246,
+        "kind": "painting",
+        "title": "Brennan",
+        "year": 2024,
+        "material": "acrylic on paper",
+        "order": 0,
+        "tags": [
+            "friend portrait"
+        ]
+    },
+    {
+        "id": "tempimagephkfew",
+        "fileName": "tempImagepHKFew.jpg",
+        "width": 2760,
+        "height": 4198,
+        "uploaded": 1771604571823,
+        "kind": "painting",
+        "title": "Alex",
+        "year": 2024,
+        "material": "acrylic on paper",
+        "order": 0,
+        "tags": [
+            "friend portrait"
+        ]
+    },
+    {
+        "id": "tempimagevhhrqk",
+        "fileName": "tempImagevHHRqk.jpg",
+        "width": 1788,
+        "height": 2951,
+        "uploaded": 1771604562675,
+        "kind": "painting",
+        "title": "Yasemin",
+        "year": 2024,
+        "material": "acrylic on paper",
+        "order": 0,
+        "tags": [
+            "friend portrait"
+        ]
+    },
+    {
+        "id": "tempimageeco2ku",
+        "fileName": "tempImageeco2ku.jpg",
+        "width": 2939,
+        "height": 4380,
+        "uploaded": 1771604550610,
+        "kind": "painting",
+        "title": "Portia",
+        "year": 2024,
+        "material": "acrylic on paper",
+        "order": 0,
+        "tags": [
+            "friend portrait"
+        ]
+    },
+    {
+        "id": "tempimagem0271t",
+        "fileName": "tempImageM0271T.jpg",
+        "width": 2910,
+        "height": 4361,
+        "uploaded": 1771604537976,
+        "kind": "painting",
+        "title": "Marco",
+        "year": 2024,
+        "material": "acrylic on paper",
+        "order": 0,
+        "tags": [
+            "friend portrait"
+        ]
+    },
+    {
+        "id": "ceramic-tile-grid-3",
+        "fileName": "Ceramic Tile Grid 3.png",
+        "width": 1080,
+        "height": 1080,
+        "uploaded": 1771602795559,
+        "kind": "ceramic",
+        "title": "ceramic tiles",
+        "year": 2025,
+        "material": "clay, underglaze",
+        "order": 0,
+        "tags": []
+    },
+    {
+        "id": "churned-1209x1938",
+        "fileName": "Churned_1209x1938.png",
+        "width": 1209,
+        "height": 1938,
+        "uploaded": 1771602029186,
+        "kind": "poster",
+        "title": "Churned",
+        "year": 2025,
+        "material": "digital",
+        "order": 0,
+        "tags": [
+            "The Black List"
+        ]
+    },
+    {
+        "id": "the-chair-1209x1938",
+        "fileName": "The_chair_1209x1938.png",
+        "width": 1209,
+        "height": 1938,
+        "uploaded": 1771602023140,
+        "kind": "poster",
+        "title": "The Chair",
+        "year": 2025,
+        "material": "digital",
+        "order": 0,
+        "tags": [
+            "The Black List"
+        ]
+    },
+    {
+        "id": "crickets-1209x1938",
+        "fileName": "Crickets_1209x1938.png",
+        "width": 1209,
+        "height": 1938,
+        "uploaded": 1771602016730,
+        "kind": "poster",
+        "title": "Crickets",
+        "year": 2025,
+        "material": "digital",
+        "order": 0,
+        "tags": [
+            "The Black List"
+        ]
+    },
+    {
+        "id": "anton-with-the-vessel",
+        "fileName": "F1220031.jpeg",
+        "width": 1840,
+        "height": 1232,
+        "uploaded": 1771552570384,
+        "kind": "painting",
+        "title": "Anton With The Vessel ",
+        "year": 2026,
+        "material": "ink, gouache on cardboard",
+        "order": 0,
+        "tags": [
+            "Porteño"
+        ]
+    },
+    {
         "id": "crown-plate-top",
         "fileName": "IMG_2228.jpeg",
         "uploaded": 1744311926143,
@@ -36,7 +184,7 @@
         "kind": "ceramic",
         "title": "Terracotta Vase With Two Legs ",
         "year": 2024,
-        "material": "murietta clay ",
+        "material": "murietta clay",
         "tags": [
             "NAI"
         ],
@@ -51,7 +199,7 @@
         "kind": "poster",
         "title": "Old Man Porn Star",
         "year": 2024,
-        "material": "digital poster",
+        "material": "digital",
         "tags": [
             "The Black List"
         ],
@@ -64,7 +212,7 @@
         "width": 1225,
         "height": 1837,
         "kind": "ceramic",
-        "title": "White vase in two parts with handles ",
+        "title": "White Vase in two parts with handles ",
         "year": 2024,
         "material": "paper clay, glaze",
         "tags": [
@@ -81,7 +229,7 @@
         "kind": "painting",
         "title": "Worried",
         "year": 2024,
-        "material": "acrylic on canvas ",
+        "material": "acrylic on canvas",
         "tags": [
             "selfportrait"
         ],
@@ -96,7 +244,7 @@
         "kind": "ceramic",
         "title": "Vase With Birds 2",
         "year": 2024,
-        "material": "recycle clay, glaze ",
+        "material": "recycle clay, glaze",
         "tags": [],
         "order": 7
     },
@@ -111,7 +259,8 @@
         "year": 2018,
         "material": "marker on paper + digital",
         "tags": [
-            "favorite"
+            "favorite",
+            "sketch from museum"
         ],
         "order": 8
     },
@@ -124,7 +273,7 @@
         "kind": "collage",
         "title": "Deep",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "tags": [
             "favorite"
         ],
@@ -139,7 +288,7 @@
         "kind": "drawing",
         "title": "Lying Down Woman",
         "year": 2021,
-        "material": "ink and pastel on paper",
+        "material": "ink, pastel on paper",
         "tags": [
             "favorite"
         ],
@@ -199,7 +348,7 @@
         "year": 2023,
         "material": "acrylic on paper",
         "tags": [
-            "friends portrait"
+            "friend portrait"
         ],
         "order": 14
     },
@@ -226,7 +375,7 @@
         "height": 954,
         "kind": "ceramic",
         "title": "Swan Plate / Top",
-        "year": 204,
+        "year": 2024,
         "material": "black mountain clay, color slip",
         "tags": [],
         "order": 15
@@ -378,7 +527,7 @@
         "kind": "poster",
         "title": "Flea-market of Vika",
         "year": 2024,
-        "material": "digital poster",
+        "material": "digital",
         "tags": [
             "Vika Temnova"
         ],
@@ -447,7 +596,7 @@
         "year": 2024,
         "material": "acrylic on paper",
         "tags": [
-            "friends portrait"
+            "friend portrait"
         ],
         "order": 31
     },
@@ -462,7 +611,7 @@
         "year": 2024,
         "material": "acrylic on paper",
         "tags": [
-            "friends portrait"
+            "friend portrait"
         ],
         "order": 32
     },
@@ -511,10 +660,14 @@
         "uploaded": 1744315953012,
         "width": 1225,
         "height": 1837,
-        "kind": "unpublished",
+        "kind": "ceramic",
         "order": 36,
         "title": "Vase With Tiny Handles",
-        "tags": []
+        "tags": [
+            "NAI"
+        ],
+        "year": 2024,
+        "material": "clay"
     },
     {
         "id": "granddad",
@@ -525,7 +678,7 @@
         "kind": "drawing",
         "title": "Granddad",
         "year": 2024,
-        "material": "marker and pencil on paper",
+        "material": "marker, pencil on paper",
         "tags": [],
         "order": 37
     },
@@ -538,7 +691,7 @@
         "kind": "poster",
         "title": "Bill on Earth ",
         "year": 2024,
-        "material": "digital poster",
+        "material": "digital",
         "tags": [
             "The Black List"
         ],
@@ -553,7 +706,7 @@
         "kind": "poster",
         "title": "Muses",
         "year": 2024,
-        "material": "digital poster",
+        "material": "digital",
         "tags": [
             "The Black List"
         ],
@@ -581,9 +734,9 @@
         "kind": "painting",
         "title": "Lucas",
         "year": 2024,
-        "material": "acrylic on paper ",
+        "material": "acrylic on paper",
         "tags": [
-            "friends portrait"
+            "friend portrait"
         ],
         "order": 41
     },
@@ -622,7 +775,7 @@
         "kind": "poster",
         "title": "Charity flea-market ",
         "year": 2024,
-        "material": "digital poster",
+        "material": "digital",
         "tags": [
             "Vika Temnova"
         ],
@@ -637,7 +790,7 @@
         "kind": "painting",
         "title": "Girlhood in color",
         "year": 2024,
-        "material": "gouache on paper ",
+        "material": "gouache on paper",
         "tags": [],
         "order": 46
     },
@@ -663,7 +816,7 @@
         "kind": "ceramic",
         "title": "Princess cup",
         "year": 2024,
-        "material": "clay, glaze ",
+        "material": "clay, glaze",
         "tags": [],
         "order": 48
     },
@@ -676,7 +829,7 @@
         "kind": "poster",
         "title": "HAGS",
         "year": 2024,
-        "material": "digital poster",
+        "material": "digital",
         "tags": [
             "The Black List"
         ],
@@ -691,7 +844,7 @@
         "kind": "poster",
         "title": "Good Sisters",
         "year": 2024,
-        "material": "digital poster",
+        "material": "digital",
         "tags": [
             "The Black List"
         ],
@@ -706,7 +859,7 @@
         "kind": "poster",
         "title": "Afflicted",
         "year": 2024,
-        "material": "digital poster",
+        "material": "digital",
         "tags": [
             "The Black List"
         ],
@@ -721,7 +874,7 @@
         "kind": "ceramic",
         "title": "Crown plate / side",
         "year": 2024,
-        "material": "paper clay, underglaze ",
+        "material": "paper clay, underglaze",
         "tags": [],
         "order": 52
     },
@@ -734,7 +887,7 @@
         "kind": "ceramic",
         "title": "Warrior tile",
         "year": 2024,
-        "material": "porcelian, underglaze",
+        "material": "porcelain clay, underglaze",
         "tags": [],
         "order": 53
     },
@@ -747,7 +900,7 @@
         "kind": "ceramic",
         "title": "Deer tile",
         "year": 2024,
-        "material": "porcelain, underglaze ",
+        "material": "porcelain clay, underglaze",
         "tags": [],
         "order": 54
     },
@@ -934,7 +1087,7 @@
         "kind": "illustration",
         "title": "Illness Anxiety Disorder 1",
         "year": 2021,
-        "material": "digital collage",
+        "material": "digital",
         "tags": [
             "favorite"
         ],
@@ -964,7 +1117,7 @@
         "kind": "drawing",
         "title": "Gogen Girl",
         "year": 2022,
-        "material": "pencils on paper",
+        "material": "color pencils on paper",
         "tags": [
             "favorite"
         ],
@@ -994,7 +1147,7 @@
         "kind": "collage",
         "title": "Is your red the same red as mine?",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "tags": [
             "favorite"
         ],
@@ -1012,7 +1165,7 @@
         "material": "acrylic on paper",
         "tags": [
             "favorite",
-            "friends portrait"
+            "friend portrait"
         ],
         "order": 72
     },
@@ -1055,7 +1208,7 @@
         "kind": "collage",
         "title": "McDonald's",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "tags": [
             "favorite"
         ],
@@ -1085,7 +1238,7 @@
         "kind": "collage",
         "title": "King",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "tags": [
             "favorite"
         ],
@@ -1100,7 +1253,7 @@
         "kind": "collage",
         "title": "Not so premium!",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "tags": [
             "favorite"
         ],
@@ -1115,7 +1268,7 @@
         "kind": "collage",
         "title": "Are you looking for real job?",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "tags": [
             "favorite"
         ],
@@ -1130,7 +1283,7 @@
         "kind": "collage",
         "title": "Just don't do it",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "tags": [
             "favorite"
         ],
@@ -1145,7 +1298,7 @@
         "kind": "collage",
         "title": "Photo",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "tags": [
             "favorite"
         ],
@@ -1173,7 +1326,7 @@
         "kind": "collage",
         "title": "lAtte-lattE",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "tags": [
             "favorite"
         ],
@@ -1188,7 +1341,7 @@
         "kind": "poster",
         "title": "Monstres",
         "year": 2022,
-        "material": "mixed technique",
+        "material": "wrinkled paper + digital",
         "tags": [],
         "order": 84
     },
@@ -1229,7 +1382,7 @@
         "kind": "poster",
         "title": "In Bruges",
         "year": 2022,
-        "material": "gouache on paper, digital",
+        "material": "gouache on paper + digital",
         "tags": [],
         "order": 87
     },
@@ -1342,7 +1495,7 @@
         "kind": "collage",
         "title": "Peacedove",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "tags": [
             "favorite"
         ],
@@ -1357,7 +1510,7 @@
         "kind": "painting",
         "title": "Goodbye portrait ",
         "year": 2024,
-        "material": "acrylic on canvas ",
+        "material": "acrylic on canvas",
         "tags": [
             "selfportrait"
         ],
@@ -1387,7 +1540,7 @@
         "kind": "painting",
         "title": "Heron",
         "year": 2024,
-        "material": "acrylic on paper ",
+        "material": "acrylic on paper",
         "tags": [],
         "order": 98
     },
@@ -1415,7 +1568,7 @@
         "kind": "painting",
         "title": "LA Selfportrait ",
         "year": 2024,
-        "material": "watercolor + color pensil",
+        "material": "watercolor, color pencils on paper",
         "tags": [
             "selfportrait"
         ],
@@ -1445,7 +1598,7 @@
         "kind": "illustration",
         "title": "School Bullying 2",
         "year": 2019,
-        "material": "digtal",
+        "material": "digital",
         "tags": [
             "favorite"
         ],
@@ -1535,7 +1688,7 @@
         "kind": "collage",
         "title": "STOP",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "tags": [
             "favorite"
         ],
@@ -1595,7 +1748,7 @@
         "kind": "drawing",
         "title": "Running Away",
         "year": 2022,
-        "material": "ink and pensil on paper",
+        "material": "ink, pencil on paper",
         "tags": [
             "favorite"
         ],
@@ -1640,9 +1793,10 @@
         "kind": "drawing",
         "title": "Sketching In the Museum / Dürer",
         "year": 2018,
-        "material": "marker on paper,digital",
+        "material": "marker on paper + digital",
         "tags": [
-            "favorite"
+            "favorite",
+            "sketch from museum"
         ],
         "order": 115
     },
@@ -1700,7 +1854,7 @@
         "kind": "collage",
         "title": "What To Do If Children Watch Porn 2",
         "year": 2021,
-        "material": "digital collage",
+        "material": "digital",
         "tags": [
             "favorite"
         ],
@@ -1715,9 +1869,10 @@
         "kind": "drawing",
         "title": "Sketching In the Museum / Raphael",
         "year": 2018,
-        "material": "marker on paper,digital",
+        "material": "marker on paper + digital",
         "tags": [
-            "favorite"
+            "favorite",
+            "sketch from museum"
         ],
         "order": 120
     },
@@ -1730,7 +1885,7 @@
         "kind": "collage",
         "title": "Look at her!",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "tags": [
             "favorite"
         ],
@@ -1745,8 +1900,9 @@
         "kind": "tattoo",
         "title": "Whisk",
         "year": 2023,
-        "material": "hand poke",
-        "order": 122
+        "material": "handpoke",
+        "order": 122,
+        "tags": []
     },
     {
         "id": "home-cleaning",
@@ -1785,7 +1941,7 @@
         "kind": "collage",
         "title": "Ryaba Hen",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "tags": [
             "favorite"
         ],
@@ -1800,7 +1956,7 @@
         "kind": "collage",
         "title": "What",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "order": 126
     },
     {
@@ -1812,7 +1968,7 @@
         "kind": "collage",
         "title": "What To Do If Children Watch Porn 1",
         "year": 2021,
-        "material": "digital collage",
+        "material": "digital",
         "order": 127
     },
     {
@@ -1824,7 +1980,7 @@
         "kind": "collage",
         "title": "What To Do If Children Watch Porn 3",
         "year": 2021,
-        "material": "digital collage",
+        "material": "digital",
         "tags": [
             "favorite"
         ],
@@ -1866,7 +2022,7 @@
         "kind": "drawing",
         "title": "SPAM Cane",
         "year": 2022,
-        "material": "pencils on paper",
+        "material": "color pencils on paper",
         "tags": [
             "favorite"
         ],
@@ -2073,7 +2229,7 @@
         "kind": "collage",
         "title": "Treasure",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "order": 147
     },
     {
@@ -2085,7 +2241,7 @@
         "kind": "tattoo",
         "title": "Tooth",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 148
     },
     {
@@ -2157,8 +2313,9 @@
         "kind": "painting",
         "title": "Tiger On Green",
         "year": 2021,
-        "material": "ink and gouche on paper",
-        "order": 154
+        "material": "ink, gouache on paper",
+        "order": 154,
+        "tags": []
     },
     {
         "id": "the-hour",
@@ -2208,7 +2365,7 @@
         "kind": "tattoo",
         "title": "Table Tennis",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 158
     },
     {
@@ -2232,7 +2389,7 @@
         "kind": "tattoo",
         "title": "Sun",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 160
     },
     {
@@ -2244,7 +2401,7 @@
         "kind": "tattoo",
         "title": "Summer",
         "year": 2022,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 161
     },
     {
@@ -2268,7 +2425,7 @@
         "kind": "tattoo",
         "title": "Star in Glasses",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 163
     },
     {
@@ -2280,7 +2437,7 @@
         "kind": "tattoo",
         "title": "Star Collector",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 164
     },
     {
@@ -2328,8 +2485,11 @@
         "kind": "drawing",
         "title": "Sketching In the Museum / Mary Tudor",
         "year": 2018,
-        "material": "marker on paper,digital",
-        "order": 168
+        "material": "marker on paper + digital",
+        "order": 168,
+        "tags": [
+            "sketch from museum"
+        ]
     },
     {
         "id": "silent-french-girl",
@@ -2364,8 +2524,9 @@
         "kind": "illustration",
         "title": "Sexy Cat",
         "year": 2020,
-        "material": "dgital",
-        "order": 171
+        "material": "digital",
+        "order": 171,
+        "tags": []
     },
     {
         "id": "self-employed",
@@ -2388,8 +2549,9 @@
         "kind": "illustration",
         "title": "School Bullying 1",
         "year": 2019,
-        "material": "digtal",
-        "order": 173
+        "material": "digital",
+        "order": 173,
+        "tags": []
     },
     {
         "id": "saving-energy",
@@ -2460,7 +2622,7 @@
         "kind": "tattoo",
         "title": "Prickly Flower",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 179
     },
     {
@@ -2484,7 +2646,7 @@
         "kind": "tattoo",
         "title": "Pin-Pong",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 181
     },
     {
@@ -2496,7 +2658,7 @@
         "kind": "tattoo",
         "title": "Pigeon",
         "year": 2022,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 182
     },
     {
@@ -2703,7 +2865,7 @@
         "kind": "tattoo",
         "title": "Moon",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 199
     },
     {
@@ -2763,7 +2925,7 @@
         "kind": "tattoo",
         "title": "Man",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 204
     },
     {
@@ -2799,7 +2961,7 @@
         "kind": "tattoo",
         "title": "Locket",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 207
     },
     {
@@ -2811,7 +2973,7 @@
         "kind": "tattoo",
         "title": "Lion",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 208
     },
     {
@@ -2835,8 +2997,9 @@
         "kind": "poster",
         "title": "Kyiv",
         "year": 2022,
-        "material": "mixed technique",
-        "order": 210
+        "material": "wrinkled foil + digital",
+        "order": 210,
+        "tags": []
     },
     {
         "id": "kisff",
@@ -2871,8 +3034,9 @@
         "kind": "poster",
         "title": "In decent",
         "year": 2022,
-        "material": "ink on paper, digital",
-        "order": 213
+        "material": "ink on paper + digital",
+        "order": 213,
+        "tags": []
     },
     {
         "id": "illness-anxiety-disorder-4",
@@ -2883,7 +3047,7 @@
         "kind": "illustration",
         "title": "Illness Anxiety Disorder 4",
         "year": 2021,
-        "material": "digital collage",
+        "material": "digital",
         "order": 214
     },
     {
@@ -2895,7 +3059,7 @@
         "kind": "illustration",
         "title": "Illness Anxiety Disorder 2",
         "year": 2021,
-        "material": "digital collage",
+        "material": "digital",
         "order": 215
     },
     {
@@ -2970,7 +3134,7 @@
         "kind": "tattoo",
         "title": "Have A Day",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 221
     },
     {
@@ -2982,8 +3146,9 @@
         "kind": "illustration",
         "title": "Harm",
         "year": 2020,
-        "material": "digtal",
-        "order": 222
+        "material": "digital",
+        "order": 222,
+        "tags": []
     },
     {
         "id": "happy",
@@ -3102,7 +3267,7 @@
         "kind": "tattoo",
         "title": "Eye Star",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 232
     },
     {
@@ -3198,8 +3363,9 @@
         "kind": "drawing",
         "title": "Daisies",
         "year": 2022,
-        "material": "ink and pensil on paper",
-        "order": 240
+        "material": "ink, pencil on paper",
+        "order": 240,
+        "tags": []
     },
     {
         "id": "covid-selfportrait",
@@ -3370,8 +3536,9 @@
         "kind": "poster",
         "title": "Bronx Gothic",
         "year": 2022,
-        "material": "colors pensil on paper, digital",
-        "order": 254
+        "material": "digital + color pencils on paper",
+        "order": 254,
+        "tags": []
     },
     {
         "id": "bird-2",
@@ -3382,7 +3549,7 @@
         "kind": "tattoo",
         "title": "Bird #2",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 255
     },
     {
@@ -3565,7 +3732,7 @@
         "kind": "poster",
         "title": "House cooling party",
         "year": 2024,
-        "material": "digital ",
+        "material": "digital",
         "tags": [],
         "order": 270
     },
@@ -3592,7 +3759,9 @@
         "title": "Room 16",
         "year": 2018,
         "material": "ink on paper + digital",
-        "tags": [],
+        "tags": [
+            "sketch from museum"
+        ],
         "order": 272
     },
     {
@@ -3704,7 +3873,7 @@
         "kind": "collage",
         "title": "10 Hryvnias",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "order": 281
     },
     {
@@ -3888,7 +4057,7 @@
         "kind": "tattoo",
         "title": "Finger Tattoo 1",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 296
     },
     {
@@ -3998,7 +4167,7 @@
         "kind": "collage",
         "title": "Working Hard",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "order": 305
     },
     {
@@ -4049,7 +4218,7 @@
         "kind": "collage",
         "title": "We Are Getting Off At The Next Stop",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "order": 309
     },
     {
@@ -4133,7 +4302,7 @@
         "kind": "tattoo",
         "title": "Venice Building",
         "year": 2023,
-        "material": "hand_poke",
+        "material": "handpoke",
         "order": 316
     },
     {
@@ -4157,7 +4326,7 @@
         "kind": "tattoo",
         "title": "TT",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 318
     },
     {
@@ -4253,7 +4422,7 @@
         "kind": "collage",
         "title": "The human face",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "order": 326
     },
     {
@@ -4373,7 +4542,7 @@
         "kind": "tattoo",
         "title": "Snakes",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 336
     },
     {
@@ -4409,8 +4578,11 @@
         "kind": "drawing",
         "title": "Sketching In the Museum",
         "year": 2018,
-        "material": "marker on paper,digital",
-        "order": 339
+        "material": "marker on paper + digital",
+        "order": 339,
+        "tags": [
+            "sketch from museum"
+        ]
     },
     {
         "id": "sketching-in-the-museum-tiepolo",
@@ -4421,8 +4593,11 @@
         "kind": "drawing",
         "title": "Sketching In the Museum / Tiepolo",
         "year": 2018,
-        "material": "marker on paper,digital",
-        "order": 340
+        "material": "marker on paper + digital",
+        "order": 340,
+        "tags": [
+            "sketch from museum"
+        ]
     },
     {
         "id": "sketching-in-the-museum-judit",
@@ -4433,8 +4608,9 @@
         "kind": "drawing",
         "title": "Sketching In The Museum. Judit",
         "year": 2018,
-        "material": "marker on paper, digital",
-        "order": 341
+        "material": "marker on paper + digital",
+        "order": 341,
+        "tags": []
     },
     {
         "id": "self-monitoring",
@@ -4493,7 +4669,7 @@
         "kind": "tattoo",
         "title": "Red Ornament",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 346
     },
     {
@@ -4613,8 +4789,9 @@
         "kind": "poster",
         "title": "Ophelia",
         "year": 2022,
-        "material": "mixed technique",
-        "order": 356
+        "material": "ink on paper + digital",
+        "order": 356,
+        "tags": []
     },
     {
         "id": "oper",
@@ -4625,8 +4802,9 @@
         "kind": "poster",
         "title": "Oper",
         "year": 2022,
-        "material": "mixed technique",
-        "order": 357
+        "material": "ink on paper + digital",
+        "order": 357,
+        "tags": []
     },
     {
         "id": "oops",
@@ -4676,7 +4854,7 @@
         "kind": "tattoo",
         "title": "Match",
         "year": 2022,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 361
     },
     {
@@ -4700,7 +4878,7 @@
         "kind": "tattoo",
         "title": "Lamp",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 363
     },
     {
@@ -4736,8 +4914,9 @@
         "kind": "poster",
         "title": "Green Theatre Opening",
         "year": 2019,
-        "material": "digtal",
-        "order": 366
+        "material": "digital",
+        "order": 366,
+        "tags": []
     },
     {
         "id": "clock",
@@ -4784,7 +4963,7 @@
         "kind": "tattoo",
         "title": "Bread",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 370
     },
     {
@@ -4796,7 +4975,7 @@
         "kind": "tattoo",
         "title": "Bambi",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 371
     },
     {
@@ -4810,7 +4989,7 @@
         "year": 2024,
         "material": "acrylic on paper",
         "tags": [
-            "friends portrait"
+            "friend portrait"
         ],
         "order": 372
     },
@@ -4995,8 +5174,9 @@
         "kind": "poster",
         "title": "Les miserables",
         "year": 2022,
-        "material": "mixed technique",
-        "order": 387
+        "material": "ink on paper + digital",
+        "order": 387,
+        "tags": []
     },
     {
         "id": "lemon-tree",
@@ -5031,7 +5211,7 @@
         "kind": "illustration",
         "title": "Illness Anxiety Disorder 3",
         "year": 2021,
-        "material": "digital collage",
+        "material": "digital",
         "order": 390
     },
     {
@@ -5091,7 +5271,7 @@
         "kind": "collage",
         "title": "Have a Good One!",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "order": 395
     },
     {
@@ -5103,7 +5283,7 @@
         "kind": "collage",
         "title": "Hat",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "order": 396
     },
     {
@@ -5115,8 +5295,9 @@
         "kind": "drawing",
         "title": "Happy Flower",
         "year": 2022,
-        "material": "ink and pencil on paper",
-        "order": 397
+        "material": "ink, pencil on paper",
+        "order": 397,
+        "tags": []
     },
     {
         "id": "green-theatre-hiring-2",
@@ -5247,7 +5428,7 @@
         "kind": "tattoo",
         "title": "Finger Tattoo 2",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 408
     },
     {
@@ -5367,8 +5548,9 @@
         "kind": "drawing",
         "title": "Dog",
         "year": 2022,
-        "material": "ink on paper, color pencil",
-        "order": 418
+        "material": "ink, color pencils on paper",
+        "order": 418,
+        "tags": []
     },
     {
         "id": "diarrhea",
@@ -5511,7 +5693,7 @@
         "kind": "tattoo",
         "title": "Chiken",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 430
     },
     {
@@ -5598,7 +5780,7 @@
         "kind": "tattoo",
         "title": "Bouquet",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 437
     },
     {
@@ -5646,7 +5828,7 @@
         "kind": "tattoo",
         "title": "Bird",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 441
     },
     {
@@ -5658,8 +5840,9 @@
         "kind": "drawing",
         "title": "Berlin Museum",
         "year": 2022,
-        "material": "pensils on paper",
-        "order": 442
+        "material": "color pencils on paper",
+        "order": 442,
+        "tags": []
     },
     {
         "id": "back-pain",
@@ -5682,7 +5865,7 @@
         "kind": "collage",
         "title": "Au revoir,moncher.jpg",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "order": 444
     },
     {
@@ -5706,7 +5889,7 @@
         "kind": "tattoo",
         "title": "Antons Tiger",
         "year": 2022,
-        "material": "hand poke",
+        "material": "handpoke",
         "order": 446
     },
     {
@@ -5778,7 +5961,7 @@
         "kind": "collage",
         "title": "All Cats",
         "year": 2015,
-        "material": "hand-cut magazine images, ink",
+        "material": "cut magazine, ink",
         "order": 452
     },
     {
@@ -5838,7 +6021,7 @@
         "kind": "poster",
         "title": "Hamlet",
         "year": 2022,
-        "material": "digital ",
+        "material": "digital",
         "tags": [],
         "order": 457
     },
@@ -6233,7 +6416,7 @@
         "kind": "poster",
         "title": "Romance",
         "year": 2022,
-        "material": "diital",
+        "material": "digital",
         "tags": [
             "secondary"
         ],
@@ -6263,7 +6446,7 @@
         "kind": "tattoo",
         "title": "Ornament",
         "year": 2024,
-        "material": "Hand poke",
+        "material": "handpoke",
         "tags": [],
         "order": 488
     },
@@ -6276,7 +6459,7 @@
         "kind": "tattoo",
         "title": "Ornament",
         "year": 2024,
-        "material": "hand poke",
+        "material": "handpoke",
         "tags": [],
         "order": 489
     },
@@ -6302,7 +6485,7 @@
         "kind": "collage",
         "title": "Dragon ",
         "year": 2024,
-        "material": "hand cut magazine images, ink ",
+        "material": "cut magazine, ink",
         "tags": [],
         "order": 491
     },
@@ -6371,7 +6554,7 @@
         "kind": "tattoo",
         "title": "Lover",
         "year": 2023,
-        "material": "hand poke ",
+        "material": "handpoke",
         "tags": [],
         "order": 496
     },
@@ -6423,7 +6606,7 @@
         "kind": "tattoo",
         "title": "Love bird",
         "year": 2023,
-        "material": "hand poke ",
+        "material": "handpoke",
         "tags": [],
         "order": 500
     },
@@ -6436,7 +6619,7 @@
         "kind": "tattoo",
         "title": "Snakes",
         "year": 2023,
-        "material": "hand poke",
+        "material": "handpoke",
         "tags": [],
         "order": 501
     },

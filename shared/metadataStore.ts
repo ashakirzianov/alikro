@@ -1,10 +1,14 @@
 import {
-    AssetMetadata, AssetQuery, assetsForQuery, sortAssets,
+    AssetMetadata, sortAssets,
+} from './asset'
+import {
+    AssetQuery, assetsForQuery,
     year as yearQuery, material as materialQuery, tag as tagQuery,
-} from './assets'
+} from './query'
 import { fetchAllAssetMetadata } from './cms'
 import { collectionForId } from './collection'
 import { cacheLife, cacheTag } from 'next/cache'
+import { preproccessAssets } from './preprocess'
 
 export async function getAssetsForSlideshow() {
     return getSortedAssetsForQuery(null)
@@ -34,7 +38,24 @@ export async function getAssetsForCollection(collectionId: string) {
     return getSortedAssetsForQuery(query)
 }
 
-export async function getUniquePropertyValues<P extends keyof AssetMetadata>(property: P): Promise<NonNullable<AssetMetadata[P]>[]> {
+export async function getUniqueYears() {
+    return getUniquePropertyValues('year')
+}
+
+export async function getUniqueMaterials() {
+    return getUniquePropertyValues('material')
+}
+
+export async function getUniqueTags() {
+    const assets = await getAllAssetMetadata()
+    const tagSet = new Set<string>()
+    assets.forEach(asset => {
+        asset.tags?.forEach(tag => tagSet.add(tag))
+    })
+    return Array.from(tagSet)
+}
+
+async function getUniquePropertyValues<P extends keyof AssetMetadata>(property: P): Promise<AssetMetadata[P][]> {
     'use cache'
     cacheLife('days')
     const assets = await getAllAssetMetadata()
@@ -66,7 +87,8 @@ async function getAllAssetMetadata() {
     'use cache'
     cacheTagForIndex()
     cacheLife('days')
-    return fetchAllAssetMetadata()
+    const assets = await fetchAllAssetMetadata()
+    return preproccessAssets(assets)
 }
 
 function cacheTagForAssetId(assetId: string) {

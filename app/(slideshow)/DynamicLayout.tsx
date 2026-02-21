@@ -1,5 +1,5 @@
 import { AssetImage } from "@/app/AssetImage"
-import { assetHeight, AssetMetadata, assetWidth } from "@/shared/assets"
+import { assetHeight, AssetMetadata, assetWidth } from "@/shared/asset"
 import { hrefForAsset } from "@/shared/href"
 import Link from "next/link"
 

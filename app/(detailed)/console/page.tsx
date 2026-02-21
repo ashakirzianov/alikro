@@ -1,6 +1,6 @@
 'use client'
 
-import { useShowEditButton } from "@/shared/settings"
+import { useShowEditButton } from "@/shared/setting"
 
 const cmsUrl = process.env.NEXT_PUBLIC_CROW_CMS
 

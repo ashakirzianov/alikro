@@ -1,14 +1,15 @@
 import { AssetImage } from "@/app/AssetImage"
-import { AssetMetadata } from "@/shared/assets"
-import { filterForPathname, hrefForConsole, hrefForMaterial, hrefForTag, hrefForYear } from "@/shared/href"
+import { AssetMetadata } from "@/shared/asset"
+import { hrefForTag } from "@/shared/href"
 import Link from "next/link"
+import { AssetDescription } from "./AssetDescription"
+import { EditLink } from "./EditLink"
 
 export function AssetView({
-    asset, pathname, admin,
+    asset, pathname,
 }: {
     asset: AssetMetadata,
     pathname: string,
-    admin?: boolean,
 }) {
     return <div className="flex flex-col items-center text-m text-accent">
         <AssetImage
@@ -21,24 +22,8 @@ export function AssetView({
                 cursor: 'default'
             }}
         />
-        <div className="flex flex-row gap-1">
-            {asset.title ?? 'Untitled'}
-            {asset.year &&
-                <span>
-                    (<Link href={hrefForYear({ year: asset.year })} className="hover:underline">
-                        {asset.year}
-                    </Link>)
-                </span>
-            }
-            {asset.material &&
-                <span>
-                    |&nbsp;<Link href={hrefForMaterial({
-                        material: asset.material,
-                    })} className="hover:underline">
-                        {asset.material}
-                    </Link>
-                </span>
-            }
+        <div className="flex flex-row">
+            <AssetDescription asset={asset} pathname={pathname} />
         </div>
         {(asset.tags && asset.tags.length > 0) && <div className="flex flex-row gap-1">
             {asset.tags?.map((tag, index) => {
@@ -51,9 +36,6 @@ export function AssetView({
             }
             )}
         </div>}
-        {admin && <Link href={hrefForConsole({
-            assetId: asset.id,
-            filter: filterForPathname(pathname),
-        })} className="hover:underline">edit</Link>}
-    </div>
+        <EditLink asset={asset} pathname={pathname} />
+    </div >
 }

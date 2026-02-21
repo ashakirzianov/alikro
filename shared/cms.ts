@@ -1,4 +1,4 @@
-import { AssetMetadata } from "./assets"
+import { AssetMetadata } from "./asset"
 
 export async function fetchAssetMetadata(id: string): Promise<AssetMetadata | undefined> {
     const base = process.env.NEXT_PUBLIC_CROW_CMS

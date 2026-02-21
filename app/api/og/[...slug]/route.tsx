@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og"
-import { assetAlt, AssetMetadata } from "@/shared/assets"
-import { assetHeight, assetWidth } from "@/shared/assets"
-import { imageSrc } from "@/shared/images"
+import { assetAlt, AssetMetadata } from "@/shared/asset"
+import { assetHeight, assetWidth } from "@/shared/asset"
+import { imageSrc } from "@/shared/image"
 import { assetsPageDataForSlug } from "@/app/(detailed)/[...slug]/data"
 
 const WIDTH = 1200

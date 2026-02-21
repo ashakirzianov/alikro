@@ -1,6 +1,6 @@
-import { assetDescription } from "@/shared/assets"
+import { assetDescription } from "@/shared/asset"
 import { collectionForId } from "@/shared/collection"
-import { imageSrc } from "@/shared/images"
+import { imageSrc } from "@/shared/image"
 import { getAssetMetadata } from "@/shared/metadataStore"
 
 export async function generateMetadataForAssetId(assetId: string) {
