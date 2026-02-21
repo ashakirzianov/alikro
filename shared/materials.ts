@@ -8,6 +8,26 @@ export function parseMaterialString(material: string): MaterialElement[] {
     return specialCasesForMaterialElements(parseMaterialStringImpl(material))
 }
 
+export function matchMaterial(assetMaterial: string | undefined, materialFilter: string): boolean {
+    if (assetMaterial === undefined) {
+        return materialFilter === 'Unspecified'
+    } else if (!assetMaterial.includes(materialFilter)) {
+        return false
+    }
+
+    const shouldMatchPartially = materialFilter === 'clay'
+    if (shouldMatchPartially) {
+        return true
+    }
+    const assetMaterialElements = parseMaterialString(assetMaterial)
+    for (const element of assetMaterialElements) {
+        if (element.content === materialFilter) {
+            return true
+        }
+    }
+    return false
+}
+
 function parseMaterialStringImpl(material: string): MaterialElement[] {
     const plusResult = breakOnLastSeparator(material, ' + ')
     if (plusResult) {
