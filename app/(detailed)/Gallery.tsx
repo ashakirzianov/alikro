@@ -108,7 +108,7 @@ function Tile({ asset, pathname, onExpand }: {
             className="flex flex-col break-inside-avoid-column cursor-pointer"
             onClick={handleClick}
         >
-            <AssetImage asset={asset} sizes="25vw" />
+            <AssetImage asset={asset} sizes="480" />
             <span className="text-xs text-accent">
                 <AssetDescription asset={asset} pathname={pathname} />
             </span>
