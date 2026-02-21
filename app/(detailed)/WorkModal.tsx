@@ -76,6 +76,7 @@ function WorkModalImpl({
 
     const currentAssetLink = hrefForAsset({
         assetId: asset.id,
+        pathname,
     })
 
     const router = useRouter()

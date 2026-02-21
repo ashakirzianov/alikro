@@ -3,12 +3,13 @@ import { hrefForAsset, hrefForMaterial, hrefForYear } from "@/shared/href"
 import { parseMaterialString } from "@/shared/material"
 import Link from "next/link"
 
-export function AssetDescription({ asset }: {
+export function AssetDescription({ asset, pathname }: {
     asset: AssetMetadata,
+    pathname: string,
 }) {
     return (
         <>
-            <Link href={hrefForAsset({ assetId: asset.id })} className="hover:underline">
+            <Link href={hrefForAsset({ assetId: asset.id, pathname })} className="hover:underline">
                 {asset.title ?? 'Untitled'}
             </Link>
             {asset.year !== undefined && <>

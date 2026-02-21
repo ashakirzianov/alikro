@@ -23,7 +23,7 @@ export function AssetView({
             }}
         />
         <div className="flex flex-row">
-            <AssetDescription asset={asset} />
+            <AssetDescription asset={asset} pathname={pathname} />
         </div>
         {(asset.tags && asset.tags.length > 0) && <div className="flex flex-row gap-1">
             {asset.tags?.map((tag, index) => {

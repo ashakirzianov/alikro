@@ -59,7 +59,7 @@ function Tile({ asset, pathname }: {
                 <AssetImage asset={asset} sizes="25vw" />
             </Link>
             <span className="text-xs text-accent">
-                <AssetDescription asset={asset} />
+                <AssetDescription asset={asset} pathname={pathname} />
             </span>
         </div>
     )
