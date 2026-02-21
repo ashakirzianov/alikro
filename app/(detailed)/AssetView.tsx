@@ -1,15 +1,15 @@
 import { AssetImage } from "@/app/AssetImage"
 import { AssetMetadata } from "@/shared/assets"
-import { filterForPathname, hrefForConsole, hrefForTag } from "@/shared/href"
+import { hrefForTag } from "@/shared/href"
 import Link from "next/link"
 import { AssetDescription } from "./AssetDescription"
+import { EditLink } from "./EditLink"
 
 export function AssetView({
-    asset, pathname, admin,
+    asset, pathname,
 }: {
     asset: AssetMetadata,
     pathname: string,
-    admin?: boolean,
 }) {
     return <div className="flex flex-col items-center text-m text-accent">
         <AssetImage
@@ -36,9 +36,6 @@ export function AssetView({
             }
             )}
         </div>}
-        {admin && <Link href={hrefForConsole({
-            assetId: asset.id,
-            filter: filterForPathname(pathname),
-        })} className="hover:underline">edit</Link>}
-    </div>
+        <EditLink asset={asset} pathname={pathname} />
+    </div >
 }
