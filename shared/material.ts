@@ -1,3 +1,5 @@
+const SPECIAL_SUFFIXES = ['clay', 'glaze']
+
 export type MaterialElement = {
     content: string,
     passive?: boolean,
@@ -15,7 +17,7 @@ export function matchMaterial(assetMaterial: string | undefined, materialMatcher
         return false
     }
 
-    const shouldMatchPartially = materialMatcher === 'clay'
+    const shouldMatchPartially = SPECIAL_SUFFIXES.includes(materialMatcher)
     if (shouldMatchPartially) {
         return true
     }
@@ -74,19 +76,20 @@ function parseMaterialStringImpl(material: string): MaterialElement[] {
 
 function specialCasesForMaterialElements(elements: MaterialElement[]): MaterialElement[] {
     return elements.flatMap(element => {
-        if (element.content.endsWith('clay') && element.content !== 'clay') {
-            const preElement: MaterialElement = {
-                content: element.content.substring(0, element.content.length - 'clay'.length),
-                passive: true,
+        for (const suffix of SPECIAL_SUFFIXES) {
+            if (element.content.endsWith(suffix) && element.content !== suffix) {
+                const preElement: MaterialElement = {
+                    content: element.content.substring(0, element.content.length - suffix.length),
+                    passive: true,
+                }
+                const clayElement: MaterialElement = {
+                    ...element,
+                    content: suffix,
+                }
+                return [preElement, clayElement]
             }
-            const clayElement: MaterialElement = {
-                ...element,
-                content: 'clay',
-            }
-            return [preElement, clayElement]
-        } else {
-            return element
         }
+        return element
     })
 }
 
