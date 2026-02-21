@@ -6,7 +6,44 @@ import React, { useEffect, useRef, useState } from "react"
 
 type Phase = 'entering' | 'visible' | 'exiting'
 
-const SCROLL_THRESHOLD = 150
+const SCROLL_THRESHOLD = 75
+const OVERLAY_OPACITY = 0.75
+
+function NavButton({ side, style, onClick }: {
+    side: 'left' | 'right',
+    style?: React.CSSProperties,
+    onClick: React.MouseEventHandler<HTMLButtonElement>,
+}) {
+    return (
+        <button
+            aria-label={side === 'left' ? 'Previous' : 'Next'}
+            onClick={onClick}
+            style={{
+                position: 'fixed',
+                top: '50%',
+                [side]: '1rem',
+                transform: 'translateY(-50%)',
+                width: '2.75rem',
+                height: '2.75rem',
+                borderRadius: '50%',
+                border: 'none',
+                color: 'var(--color-accent)',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                ...style,
+            }}
+        >
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                {side === 'left'
+                    ? <polyline points="15 18 9 12 15 6" />
+                    : <polyline points="9 6 15 12 9 18" />
+                }
+            </svg>
+        </button>
+    )
+}
 
 type ExpandedViewProps = {
     assets: AssetMetadata[],
@@ -96,7 +133,7 @@ function ExpandedViewImpl({
             )
             if (overlayRef.current) {
                 overlayRef.current.style.transition = 'none'
-                overlayRef.current.style.backgroundColor = `rgba(0, 0, 0, ${0.85 * (1 - t)})`
+                overlayRef.current.style.backgroundColor = `rgba(0, 0, 0, ${OVERLAY_OPACITY * (1 - t)})`
             }
         }
 
@@ -138,7 +175,7 @@ function ExpandedViewImpl({
         return 'translate(-50%, -50%)'
     }
 
-    const overlayOpacity = phase === 'visible' ? 0.85 : 0
+    const overlayOpacity = phase === 'visible' ? OVERLAY_OPACITY : 0
     const imgOpacity = phase === 'exiting' ? 0 : 1
     const imgTransition = phase === 'entering'
         ? 'none'
@@ -158,6 +195,13 @@ function ExpandedViewImpl({
         pointerEvents: 'none',
     }
 
+    const controlsVisible = phase === 'visible'
+    const controlsStyle: React.CSSProperties = {
+        opacity: controlsVisible ? 1 : 0,
+        transition: 'opacity 0.35s ease',
+        pointerEvents: controlsVisible ? 'auto' : 'none',
+    }
+
     return (
         <div
             ref={overlayRef}
@@ -167,7 +211,7 @@ function ExpandedViewImpl({
                 zIndex: 50,
                 backgroundColor: `rgba(0, 0, 0, ${overlayOpacity})`,
                 transition: 'background-color 0.35s ease',
-                cursor: 'zoom-out',
+                // cursor: 'zoom-out'
             }}
             onClick={dismissViaInteraction}
         >
@@ -184,9 +228,27 @@ function ExpandedViewImpl({
                 ref={fullResRef}
                 src={imageSrc({ fileName: asset.fileName, width: 1920 })}
                 alt={assetAlt(asset)}
-                style={{ ...sharedImgStyle, pointerEvents: 'auto', cursor: 'zoom-out' }}
+                style={{
+                    ...sharedImgStyle,
+                    pointerEvents: 'auto',
+                    //cursor: 'zoom-out',
+                }}
                 onClick={e => e.stopPropagation()}
             />
+
+            {/* Carousel buttons */}
+            {assets.length > 1 && <>
+                <NavButton
+                    side="left"
+                    style={controlsStyle}
+                    onClick={e => { e.stopPropagation(); onNavigate((assetIdx - 1 + assets.length) % assets.length) }}
+                />
+                <NavButton
+                    side="right"
+                    style={controlsStyle}
+                    onClick={e => { e.stopPropagation(); onNavigate((assetIdx + 1) % assets.length) }}
+                />
+            </>}
         </div>
     )
 }
