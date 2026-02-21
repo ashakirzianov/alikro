@@ -1,10 +1,16 @@
-import { ReactNode } from "react"
+'use client'
+import { ReactNode, useEffect } from "react"
 
 export function Modal({ children, onDismiss }: {
     children: ReactNode,
     onDismiss?: () => void,
 }) {
-    // Show a modal with the children
+    useEffect(() => {
+        const prev = document.body.style.overflow
+        document.body.style.overflow = 'hidden'
+        return () => { document.body.style.overflow = prev }
+    }, [])
+
     return (
         <div style={{
             position: "fixed",
