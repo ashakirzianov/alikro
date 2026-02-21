@@ -4,7 +4,7 @@ export type TagMetadata = {
 }
 
 const tags: TagMetadata[] = [
-    { tag: 'selfportrait', title: 'self portraits' },
+    { tag: 'self-portrait', title: 'self portraits' },
     { tag: 'friend portrait', title: 'friends' },
     { tag: 'The Black List', title: 'black list' },
     { tag: 'NAI', title: 'nai' },
