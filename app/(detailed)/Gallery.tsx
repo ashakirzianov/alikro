@@ -1,5 +1,7 @@
 import {
+    assetHeight,
     AssetMetadata,
+    assetWidth,
 } from "@/shared/asset"
 import Link from "next/link"
 import { AssetImage } from "@/app/AssetImage"
@@ -15,10 +17,18 @@ export function Gallery({
 }) {
     function buildColumns(assets: AssetMetadata[], num: number) {
         const columns: AssetMetadata[][] = Array(num).fill(null).map(() => [])
-        assets.forEach((asset, index) => {
-            const columnIndex = index % num
-            columns[columnIndex].push(asset)
-        })
+        const reversed = [...assets].reverse()
+        const lengths = columns.map(() => 0)
+        let asset = reversed.pop()
+        while (asset) {
+            const shortestIdx = lengths.reduce((shortestIndex, length, index) => {
+                return length < lengths[shortestIndex] ? index : shortestIndex
+            }, 0)
+            columns[shortestIdx].push(asset)
+            lengths[shortestIdx] += (assetHeight(asset) / assetWidth(asset))
+            asset = reversed.pop()
+        }
+        console.log(lengths)
         return columns
     }
     const columns = buildColumns(assets, 4)
