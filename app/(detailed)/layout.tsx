@@ -48,7 +48,7 @@ export default async function RootLayout({
       </Script>
       <body className={inter.className}>
         <main>
-          <NavigationPanel filters={filters} />
+          {/* <NavigationPanel filters={filters} /> */}
           {children}
         </main>
         <Analytics />
