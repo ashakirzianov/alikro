@@ -1,13 +1,15 @@
 import { notFound } from "next/navigation"
 import { getTiles } from "@/app/(detailed)/tiles"
 import { Gallery } from "@/app/(detailed)/Gallery"
+import { allCollections } from "@/shared/collection"
 
 type Props = {
     filter: string,
 }
 
 export async function generateStaticParams(): Promise<Props[]> {
-    return ['all', 'material', 'year', 'tag'].map(filter => ({
+    const filters = allCollections().map(collection => collection.id)
+    return [...filters, 'tag'].map(filter => ({
         filter,
     }))
 }

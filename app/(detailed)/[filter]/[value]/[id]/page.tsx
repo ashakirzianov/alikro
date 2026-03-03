@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation"
-import { getAssetMetadata } from "@/shared/metadataStore"
+import { getAssetMetadata, getAssetsForTag } from "@/shared/metadataStore"
 import { AssetView } from "@/app/(detailed)/AssetView"
 
 type Props = {
@@ -8,12 +8,21 @@ type Props = {
     id: string,
 }
 
-export async function generateStaticParams(): Promise<Props[]> {
-    return [{
-        filter: 'tag',
-        value: 'self-portrait',
-        id: '1',
-    }]
+export async function generateStaticParams({ params }: {
+    params: Omit<Props, 'id'>[],
+}): Promise<Props[]> {
+    const paramArrays = await Promise.all(params.map(async ({ filter, value }) => {
+        if (filter !== 'tag') {
+            return []
+        }
+        const assets = await getAssetsForTag(value)
+        return assets.map(asset => ({
+            filter,
+            value,
+            id: asset.id,
+        }))
+    }))
+    return paramArrays.flat()
 }
 
 export default async function Page({
