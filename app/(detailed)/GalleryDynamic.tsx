@@ -8,7 +8,7 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { AssetDescription } from "./AssetDescription"
 
-export function GalleryLayout({
+export function GalleryDynamic({
     assets, fractions, pathname,
 }: {
     assets: AssetMetadata[],
