@@ -6,7 +6,6 @@ import {
 import Link from "next/link"
 import { AssetImage } from "@/app/AssetImage"
 import { hrefForAssetModal } from "@/shared/href"
-import { OptionalModal } from "./WorkModal"
 import { AssetDescription } from "./AssetDescription"
 
 export function GalleryClassic({
@@ -28,30 +27,23 @@ export function GalleryClassic({
             lengths[shortestIdx] += (assetHeight(asset) / assetWidth(asset))
             asset = reversed.pop()
         }
-        console.log(lengths)
         return columns
     }
     const columns = buildColumns(assets, 4)
     return (
-        <>
-            <OptionalModal
-                assets={assets}
-                pathname={pathname}
-            />
-            <div className="flex flex-row gap-2">
-                {columns.map((column, index) => (
-                    <div key={index} className="flex flex-col w-1/4 gap-0">
-                        {column.map((asset) => (
-                            <Tile
-                                key={asset.fileName}
-                                asset={asset}
-                                pathname={pathname}
-                            />
-                        ))}
-                    </div>
-                ))}
-            </div>
-        </>
+        <div className="flex flex-row gap-2">
+            {columns.map((column, index) => (
+                <div key={index} className="flex flex-col w-1/4 gap-0">
+                    {column.map((asset) => (
+                        <Tile
+                            key={asset.fileName}
+                            asset={asset}
+                            pathname={pathname}
+                        />
+                    ))}
+                </div>
+            ))}
+        </div>
     )
 }
 

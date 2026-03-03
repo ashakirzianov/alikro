@@ -83,7 +83,7 @@ export async function getAssetMetadata(id: string) {
     return assets.find(asset => asset.id === id)
 }
 
-async function getAllAssetMetadata() {
+export async function getAllAssetMetadata() {
     'use cache'
     cacheTagForIndex()
     cacheLife('days')

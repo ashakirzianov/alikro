@@ -16,30 +16,51 @@ export type Filters = {
     tag: FilterLink[],
 }
 export async function getFilters(): Promise<Filters> {
-    const [uniqueMaterials, uniqueYears] = await Promise.all([
-        getUniqueMaterials(), getUniqueYears(),
+    const [material, year] = await Promise.all([
+        getMaterialFilters(), getYearFilters(),
     ])
-    const kind: FilterLink[] = getKindOptions()
-    const material: FilterLink[] = processMaterials(uniqueMaterials).map(material => ({
-        title: material ?? 'Unspecified',
-        href: hrefForMaterial({ material }),
-        value: material ?? 'Unspecified',
-    }))
-    const year: FilterLink[] = processYears(uniqueYears).map(year => ({
-        title: year?.toString() ?? 'Unknown',
-        href: hrefForYear({ year: year }),
-        value: year?.toString() ?? 'Unknown',
-    }))
+    const kind: FilterLink[] = getKindFilters()
+    const tag: FilterLink[] = getTagFilters()
+    return {
+        kind, material, year, tag,
+    }
+}
 
+export function getKindFilters(): FilterLink[] {
+    const kind: FilterLink[] = allCollections().map(collection => ({
+        title: collection.id,
+        href: hrefForCollection({ collectionId: collection.id }),
+        value: collection.id,
+    }))
+    kind.shift() // remove 'all' collection
+    return kind
+}
+
+export function getTagFilters(): FilterLink[] {
     const tagsMetadata = getAllTagsMetadata()
-    const tag: FilterLink[] = tagsMetadata.map(tag => ({
+    return tagsMetadata.map(tag => ({
         title: tag.title,
         href: hrefForTag({ tag: tag.tag }),
         value: tag.tag,
     }))
-    return {
-        kind, material, year, tag,
-    }
+}
+
+export async function getMaterialFilters(): Promise<FilterLink[]> {
+    const uniqueMaterials = await getUniqueMaterials()
+    return processMaterials(uniqueMaterials).map(material => ({
+        title: material ?? 'Unspecified',
+        href: hrefForMaterial({ material }),
+        value: material ?? 'Unspecified',
+    }))
+}
+
+export async function getYearFilters(): Promise<FilterLink[]> {
+    const uniqueYears = await getUniqueYears()
+    return processYears(uniqueYears).map(year => ({
+        title: year?.toString() ?? 'Unknown',
+        href: hrefForYear({ year: year }),
+        value: year?.toString() ?? 'Unknown',
+    }))
 }
 
 export async function getAssetsForFilter(filterKey: keyof Filters, filterValue: string) {
@@ -68,29 +89,6 @@ export async function getAssetsForFilter(filterKey: keyof Filters, filterValue: 
         default:
             return []
     }
-}
-
-export function filterKey(filter: string): keyof Filters | undefined {
-    switch (filter) {
-        case 'all':
-            return 'kind'
-        case 'material':
-        case 'year':
-        case 'tag':
-        case 'kind':
-            return filter
-        default: return undefined
-    }
-}
-
-function getKindOptions() {
-    const kind: FilterLink[] = allCollections().map(collection => ({
-        title: collection.id,
-        href: hrefForCollection({ collectionId: collection.id }),
-        value: collection.id,
-    }))
-    kind.shift() // remove 'all' collection
-    return kind
 }
 
 function processMaterials(materials: Array<string | undefined>): Array<string | undefined> {

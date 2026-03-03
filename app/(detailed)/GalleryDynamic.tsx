@@ -41,7 +41,6 @@ export function GalleryDynamic({
     if (!isClient) {
         return null
     }
-    console.log({ length })
     return <div>
         <div style={{
             position: 'sticky',
@@ -129,7 +128,6 @@ function computeLines({ assets, fractions }: {
     const shortestIdx = currentLengths.reduce((minIndex, length, index, arr) => length < arr[minIndex] ? index : minIndex, 0)
     const fraction = fractions[shortestIdx] / totalFraction
     const length = lines[shortestIdx].reduce((sum, asset) => sum + assetWidth(asset) / assetHeight(asset), 0) * fraction
-    console.log({ currentLengths, shortestIdx, length })
     return {
         lines,
         length,

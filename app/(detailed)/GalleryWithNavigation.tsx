@@ -1,96 +1,40 @@
-import {
-    AssetMetadata,
-} from "@/shared/asset"
 import Link from "next/link"
 import { AssetImage } from "@/app/AssetImage"
 import { hrefForAssetModal } from "@/shared/href"
-import { OptionalModal } from "./WorkModal"
 import { AssetDescription } from "./AssetDescription"
 import { clsx } from "clsx"
+import { GalleryTile, GalleryTileAsset, GalleryTileNavigation, GalleryTileSection } from "./tiles"
 
-export type GallerySection = {
-    title: string,
-    id: string,
-    assets: AssetMetadata[],
-}
-export type GalleryLink = {
-    title: string,
-    href: string,
-    selected: boolean,
-}
-export function Gallery({
-    sections, navigation, pathname,
+export function GalleryWithNavigation({
+    tiles, pathname,
 }: {
-    sections: GallerySection[],
-    navigation: GalleryLink[],
+    tiles: GalleryTile[],
     pathname: string,
 }) {
-    const { columns, assets } = buildColumns({
-        sections, navigation, count: 4,
+    const columns = buildColumns({
+        tiles, count: 4,
     })
     return (
-        <>
-            <OptionalModal
-                assets={assets}
-                pathname={pathname}
-            />
-            <div className="flex flex-row gap-2">
-                {columns.map((column, index) => (
-                    <div key={index} className="flex flex-col w-1/4 gap-0">
-                        {column.map((tile) => (
-                            <GalleryTile
-                                key={tile.kind === 'asset' ? tile.asset.id : tile.kind === 'section' ? tile.id : JSON.stringify(tile.links)}
-                                tile={tile}
-                            />
-                        ))}
-                    </div>
-                ))}
-            </div>
-        </>
+        <div className="flex flex-row gap-2">
+            {columns.map((column, index) => (
+                <div key={index} className="flex flex-col w-1/4 gap-0">
+                    {column.map((tile) => (
+                        <GalleryTileView
+                            key={tile.kind === 'asset' ? tile.asset.id : tile.kind === 'section' ? tile.id : JSON.stringify(tile.links)}
+                            tile={tile}
+                            pathname={pathname}
+                        />
+                    ))}
+                </div>
+            ))}
+        </div>
     )
 }
 
-function buildColumns({ sections, navigation, count }: {
-    sections: GallerySection[],
-    navigation: GalleryLink[],
+function buildColumns({ tiles, count }: {
+    tiles: GalleryTile[],
     count: number,
 }) {
-    const tiles: GalleryTile[] = []
-    const assets: AssetMetadata[] = []
-    for (const section of sections) {
-        tiles.push({
-            kind: 'section',
-            title: section.title,
-            id: section.id,
-        })
-        for (const asset of section.assets) {
-            tiles.push({
-                kind: 'asset',
-                asset,
-            })
-            assets.push(asset)
-        }
-    }
-
-    function insertTile(index: number, tile: GalleryTile) {
-        if (index >= tiles.length) {
-            tiles.push(tile)
-        } else {
-            tiles.splice(index, 0, tile)
-        }
-    }
-    insertTile(count + 1, {
-        kind: 'navigation',
-        links: sections.map(section => ({
-            title: section.title,
-            href: `#${section.id}`,
-            selected: false,
-        })),
-    })
-    insertTile(3 * count, {
-        kind: 'navigation',
-        links: navigation,
-    })
 
     const columns: GalleryTile[][] = Array.from({ length: count }, () => [])
     tiles.forEach((tile, index) => {
@@ -98,70 +42,58 @@ function buildColumns({ sections, navigation, count }: {
         columns[columnIndex].push(tile)
     })
 
-    return { columns, assets }
+    return columns
 }
 
-type GalleryTile = {
-    kind: 'asset',
-    asset: AssetMetadata,
-} | {
-    kind: 'section',
-    title: string,
-    id: string,
-} | {
-    kind: 'navigation',
-    links: GalleryLink[],
-}
-
-function GalleryTile({ tile }: { tile: GalleryTile }) {
+function GalleryTileView({ tile, pathname }: { tile: GalleryTile, pathname: string }) {
     switch (tile.kind) {
         case 'asset':
-            return <AssetTile asset={tile.asset} pathname="" />
+            return <AssetTileView tile={tile} pathname={pathname} />
         case 'section':
-            return <SectionTile title={tile.title} id={tile.id} />
+            return <SectionTileView tile={tile} />
         case 'navigation':
-            return <NavigationTile links={tile.links} />
+            return <NavigationTileView tile={tile} />
     }
 }
 
-function AssetTile({ asset, pathname }: {
-    asset: AssetMetadata,
+function AssetTileView({ tile, pathname }: {
+    tile: GalleryTileAsset,
     pathname: string,
 }) {
     const href = hrefForAssetModal({
         pathname,
-        assetId: asset.id,
+        assetId: tile.asset.id,
     })
     return (
         <div className="flex flex-col break-inside-avoid-column">
             <Link href={href} className="block">
-                <AssetImage asset={asset} sizes="25vw" />
+                <AssetImage asset={tile.asset} sizes="25vw" />
             </Link>
             <span className="text-xs text-accent">
-                <AssetDescription asset={asset} pathname={pathname} />
+                <AssetDescription asset={tile.asset} pathname={pathname} />
             </span>
         </div>
     )
 }
 
-function SectionTile({ title, id }: { title: string, id: string }) {
+function SectionTileView({ tile }: { tile: GalleryTileSection }) {
     return <div className="p-4 flex flex-col items-center" style={{
         fontSize: '5rem',
     }}>
-        <h2 className="text-accent" id={id}>{title}</h2>
+        <h2 className="text-accent" id={tile.id}>{tile.title}</h2>
     </div>
 }
 
-function NavigationTile({ links }: {
-    links: GalleryLink[],
+function NavigationTileView({ tile }: {
+    tile: GalleryTileNavigation,
 }) {
     return (
         <nav className="flex flex-row flex-wrap gap-0 items-end px-4" style={{
             fontSize: '3rem',
             color: 'red',
         }}>
-            {links.map((link, index) => {
-                const last = index === links.length - 1
+            {tile.links.map((link, index) => {
+                const last = index === tile.links.length - 1
                 return <span key={index}>
                     <Link
                         key={index}

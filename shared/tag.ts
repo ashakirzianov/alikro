@@ -14,3 +14,7 @@ const tags: TagMetadata[] = [
 export function getAllTagsMetadata(): TagMetadata[] {
     return tags
 }
+
+export function getTagMetadata(tag: string): TagMetadata | undefined {
+    return tags.find(t => t.tag === tag)
+}
