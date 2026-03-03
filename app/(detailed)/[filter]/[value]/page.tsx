@@ -42,9 +42,10 @@ export default async function Page({
     params: Promise<Props>,
 }) {
     const { filter, value } = await params
+    const decodedValue = decodeURIComponent(value)
 
     if (isKindFilter(filter)) {
-        const asset = await getAssetMetadata(value)
+        const asset = await getAssetMetadata(decodedValue)
         if (!asset) {
             return notFound()
         }
@@ -56,7 +57,7 @@ export default async function Page({
     }
 
     const pathname = `/${filter}/${value}`
-    const tiles = await getTiles(filter, value)
+    const tiles = await getTiles(filter, decodedValue)
     if (tiles.length === 0) {
         return notFound()
     }
