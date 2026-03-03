@@ -16,11 +16,11 @@ export function GalleryWithNavigation({
     })
     return (
         <div className="flex flex-row gap-2">
-            {columns.map((column, index) => (
-                <div key={index} className="flex flex-col w-1/4 gap-0">
-                    {column.map((tile) => (
+            {columns.map((column, columnIdx) => (
+                <div key={columnIdx} className="flex flex-col w-1/4 gap-0">
+                    {column.map((tile, tileIdx) => (
                         <GalleryTileView
-                            key={tile.kind === 'asset' ? tile.asset.id : tile.kind === 'section' ? tile.id : JSON.stringify(tile.links)}
+                            key={tileIdx}
                             tile={tile}
                             pathname={pathname}
                         />

@@ -14,10 +14,12 @@ export function Gallery({
     return (
         <>
             <OptionalModal
+                key='modal'
                 assets={assets}
                 pathname={pathname}
             />
             <GalleryWithNavigation
+                key='gallery'
                 tiles={tiles}
                 pathname={pathname}
             />
