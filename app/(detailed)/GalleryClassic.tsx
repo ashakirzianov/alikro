@@ -9,7 +9,7 @@ import { hrefForAssetModal } from "@/shared/href"
 import { OptionalModal } from "./WorkModal"
 import { AssetDescription } from "./AssetDescription"
 
-export function Gallery({
+export function GalleryClassic({
     assets, pathname,
 }: {
     assets: AssetMetadata[],

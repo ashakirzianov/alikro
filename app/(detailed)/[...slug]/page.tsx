@@ -3,7 +3,7 @@ import { generateMetadataForAssetId, generateMetadataForCollectionId, generateMe
 import { notFound } from "next/navigation"
 import { assetsPageDataForSlug } from "./data"
 import { AssetView } from "../AssetView"
-import { Gallery } from "@/app/(detailed)/Gallery"
+import { GalleryClassic } from "@/app/(detailed)/GalleryClassic"
 
 type Props = {
     slug: string[],
@@ -60,7 +60,7 @@ export default async function Page({
             pathname={pathname}
         />
     } else if (assets !== undefined) {
-        return <Gallery
+        return <GalleryClassic
             assets={assets}
             pathname={pathname}
         />
