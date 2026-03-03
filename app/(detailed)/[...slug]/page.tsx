@@ -1,5 +1,5 @@
 import { allCollections } from "@/shared/collection"
-import { generateMetadataForAssetId, generateMetadataForCollectionId, generateMetadataForMaterial, generateMetadataForTag, generateMetadataForYear } from "./metadata"
+import { generateMetadataForAssetId, generateMetadataForCollectionId, generateMetadataForMaterial, generateMetadataForTag, generateMetadataForYear } from "../metadata"
 import { notFound } from "next/navigation"
 import { assetsPageDataForSlug } from "./data"
 import { AssetView } from "../AssetView"
