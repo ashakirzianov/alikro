@@ -80,7 +80,7 @@ function SectionTileView({ tile }: { tile: GalleryTileSection }) {
     const content = tile.href ? <Link href={tile.href} className="hover:text-secondary hover:bg-accent">{tile.title}</Link>
         : tile.title
     return <div className="p-4 flex flex-col items-center justify-center text-center border-accent border-0">
-        <h2 className="text-accent text-6xl" id={tile.id}>{content}</h2>
+        <h2 className="text-accent text-lg sm:text-6xl" id={tile.id}>{content}</h2>
     </div>
 }
 
@@ -97,7 +97,7 @@ function NavigationTileView({ tile }: {
                         scroll={true}
                         href={link.href}
                         className={clsx(
-                            'text-6xl', {
+                            'text-lg sm:text-6xl', {
                             'text-secondary bg-accent': link.selected,
                             'text-accent hover:text-secondary hover:bg-accent': !link.selected,
                         })}
