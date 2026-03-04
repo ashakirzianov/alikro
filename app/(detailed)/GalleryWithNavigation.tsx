@@ -70,7 +70,7 @@ function AssetTileView({ tile, pathname }: {
                 <AssetImage asset={tile.asset} sizes="25vw" />
             </Link>
             <span className="text-xs text-accent block overflow-hidden min-w-0 wrap-break-word">
-                <AssetDescription asset={tile.asset} pathname={pathname} />
+                <AssetDescription asset={tile.asset} pathname={pathname} responsive />
             </span>
         </div>
     )
