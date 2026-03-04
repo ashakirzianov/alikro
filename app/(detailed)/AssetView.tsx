@@ -37,5 +37,8 @@ export function AssetView({
             )}
         </div>}
         <EditLink asset={asset} pathname={pathname} />
+        <Link href={pathname} className="text-accent hover:underline">
+            back to gallery
+        </Link>
     </div >
 }
