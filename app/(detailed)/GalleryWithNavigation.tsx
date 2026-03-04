@@ -17,7 +17,7 @@ export function GalleryWithNavigation({
     return (
         <div className="flex flex-row gap-2">
             {columns.map((column, columnIdx) => (
-                <div key={columnIdx} className="flex flex-col w-1/4 gap-1">
+                <div key={columnIdx} className="flex flex-col w-1/4 gap-1 overflow-hidden min-w-0">
                     {column.map((tile, tileIdx) => (
                         <GalleryTileView
                             key={tileIdx}
