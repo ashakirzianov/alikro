@@ -70,7 +70,7 @@ function AssetTileView({ tile, pathname }: {
                 <AssetImage asset={tile.asset} sizes="25vw" />
             </Link>
             <span className="text-xs text-accent block overflow-hidden min-w-0 wrap-break-word">
-                <AssetDescription asset={tile.asset} pathname={pathname} />
+                <AssetDescription asset={tile.asset} pathname={pathname} responsive />
             </span>
         </div>
     )
@@ -80,7 +80,7 @@ function SectionTileView({ tile }: { tile: GalleryTileSection }) {
     const content = tile.href ? <Link href={tile.href} className="hover:text-secondary hover:bg-accent">{tile.title}</Link>
         : tile.title
     return <div className="p-4 flex flex-col items-center justify-center text-center border-accent border-0">
-        <h2 className="text-accent text-lg sm:text-6xl" id={tile.id}>{content}</h2>
+        <h2 className="text-accent text-lg sm:text-3xl lg:text-6xl" id={tile.id}>{content}</h2>
     </div>
 }
 
@@ -88,7 +88,7 @@ function NavigationTileView({ tile }: {
     tile: GalleryTileNavigation,
 }) {
     return (
-        <nav className="flex flex-col gap-0 items-end px-0 py-0 sm:px-4 sm:py-1 border-accent border-2 sm:border-4">
+        <nav className="flex flex-col gap-0 items-end px-0 py-0 lg:px-4 lg:py-1 border-accent border-y-2 sm:border-2 lg:border-4">
             {tile.links.map((link, index) => {
                 const last = index === tile.links.length - 1
                 return <span key={index}>
@@ -97,7 +97,7 @@ function NavigationTileView({ tile }: {
                         scroll={true}
                         href={link.href}
                         className={clsx(
-                            'text-lg sm:text-6xl', {
+                            'text-lg sm:text-3xl lg:text-6xl', {
                             'text-secondary bg-accent': link.selected,
                             'text-accent hover:text-secondary hover:bg-accent': !link.selected,
                         })}
