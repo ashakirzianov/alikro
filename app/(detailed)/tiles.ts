@@ -1,8 +1,6 @@
 import { AssetMetadata } from "@/shared/asset"
-import { allCollections } from "@/shared/collection"
-import { hrefForCollection, hrefForSlideshow, hrefForYear } from "@/shared/href"
-import { getAllAssetMetadata, getUniqueTags } from "@/shared/metadataStore"
-import { get } from "http"
+import { hrefForAbout, hrefForSlideshow } from "@/shared/href"
+import { getAllAssetMetadata } from "@/shared/metadataStore"
 import { getAssetsForFilter, getKindFilters, getMaterialFilters, getTagFilters, getYearFilters } from "./filters"
 import { getTagMetadata } from "@/shared/tag"
 
@@ -54,7 +52,8 @@ async function tilesForAll(): Promise<GalleryTile[]> {
         getMainPageTile(),
         await getYearNavigationTile(undefined),
         getTagNavigationTile(undefined),
-        await getMaterialNavigationTile(undefined)
+        await getMaterialNavigationTile(undefined),
+        getAboutTile(),
     ]
     const combined = insertNavigationTiles(tiles, navigation)
     return combined
@@ -71,7 +70,8 @@ async function tilesForKind(kind: string): Promise<GalleryTile[]> {
         getMainPageTile(),
         await getYearNavigationTile(undefined),
         getTagNavigationTile(undefined),
-        await getMaterialNavigationTile(undefined)
+        await getMaterialNavigationTile(undefined),
+        getAboutTile(),
     ]
     const combined = insertNavigationTiles(tiles, navigation)
     return combined
@@ -97,7 +97,8 @@ async function tilesForTag(tag: string): Promise<GalleryTile[]> {
         getMainPageTile(),
         getKindNavigationTile(undefined),
         await getYearNavigationTile(undefined),
-        await getMaterialNavigationTile(undefined)
+        await getMaterialNavigationTile(undefined),
+        getAboutTile(),
     ]
     const combined = insertNavigationTiles(tiles, navigation)
     return combined
@@ -122,7 +123,8 @@ async function tilesForYear(year: string): Promise<GalleryTile[]> {
         getMainPageTile(),
         getKindNavigationTile(undefined),
         getTagNavigationTile(undefined),
-        await getMaterialNavigationTile(undefined)
+        await getMaterialNavigationTile(undefined),
+        getAboutTile(),
     ]
     const combined = insertNavigationTiles(tiles, navigation)
     return combined
@@ -148,6 +150,7 @@ async function tilesForMaterial(material: string): Promise<GalleryTile[]> {
         getKindNavigationTile(undefined),
         getTagNavigationTile(undefined),
         await getYearNavigationTile(undefined),
+        getAboutTile(),
     ]
     const combined = insertNavigationTiles(tiles, navigation)
     return combined
@@ -233,6 +236,22 @@ async function getMaterialNavigationTile(selected: string | undefined): Promise<
             href: filter.href,
             selected: filter.value === selected,
         })),
+    }
+}
+
+function getAboutTile(): GalleryTile {
+    // return {
+    //     kind: 'navigation',
+    //     links: [{
+    //         title: 'about',
+    //         href: hrefForAbout(),
+    //         selected: false,
+    //     }],
+    // }
+    return {
+        kind: 'section',
+        title: 'about',
+        href: hrefForAbout(),
     }
 }
 
