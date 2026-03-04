@@ -69,7 +69,7 @@ function AssetTileView({ tile, pathname }: {
             <Link href={href} className="block">
                 <AssetImage asset={tile.asset} sizes="25vw" />
             </Link>
-            <span className="text-xs text-accent block overflow-hidden min-w-0 break-words">
+            <span className="text-xs text-accent block overflow-hidden min-w-0 wrap-break-word">
                 <AssetDescription asset={tile.asset} pathname={pathname} />
             </span>
         </div>
@@ -88,7 +88,7 @@ function NavigationTileView({ tile }: {
     tile: GalleryTileNavigation,
 }) {
     return (
-        <nav className="flex flex-col flex-wrap gap-0 items-end px-4 border-accent border-4 py-1">
+        <nav className="flex flex-col flex-wrap gap-0 items-end px-4 border-accent border-2 sm:border-4 py-1">
             {tile.links.map((link, index) => {
                 const last = index === tile.links.length - 1
                 return <span key={index}>
