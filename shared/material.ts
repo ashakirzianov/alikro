@@ -17,7 +17,10 @@ export function matchMaterial(assetMaterial: string | undefined, materialMatcher
         return false
     }
 
-    const shouldMatchPartially = SPECIAL_SUFFIXES.includes(materialMatcher)
+    const matcherSuffix = materialMatcher.startsWith('on ')
+        ? materialMatcher.substring(' on'.length)
+        : materialMatcher
+    const shouldMatchPartially = SPECIAL_SUFFIXES.includes(matcherSuffix)
     if (shouldMatchPartially) {
         return true
     }
