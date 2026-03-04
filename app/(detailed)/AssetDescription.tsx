@@ -22,7 +22,7 @@ export function AssetDescription({ asset, pathname, responsive }: {
                 &#41;
             </span>}
             {asset.material && <span className={clsx({
-                'hidden sm:inline': responsive,
+                'hidden lg:inline': responsive,
             })}>
                 ,&nbsp;
                 <MaterialLinks material={asset.material} />
