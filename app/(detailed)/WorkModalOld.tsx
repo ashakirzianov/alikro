@@ -3,7 +3,7 @@ import { AssetMetadata } from "@/shared/asset"
 import { Modal } from "@/app/(detailed)/Modal"
 import { AssetImage } from "@/app/AssetImage"
 import { useRouter, useSearchParams } from "next/navigation"
-import React, { Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
+import React, { Suspense, useCallback, useEffect } from "react"
 import { hrefForConsole, hrefForAssetModal, hrefForAsset, filterForPathname } from "@/shared/href"
 import Link from "next/link"
 import { useIsClient, useShowEditButton } from "@/shared/setting"
@@ -44,8 +44,6 @@ function OptionalModalImpl({
     }
 }
 
-const SLIDE_DURATION_MS = 320
-
 function WorkModalImpl({
     assets, assetIdx, pathname, showEditButton,
 }: {
@@ -54,81 +52,51 @@ function WorkModalImpl({
     pathname: string,
     showEditButton: boolean,
 }) {
-    const [displayedIdx, setDisplayedIdx] = useState(assetIdx)
-    const [outgoingIdx, setOutgoingIdx] = useState<number | null>(null)
-    const [slideDir, setSlideDir] = useState<'left' | 'right'>('left')
-    const prevIdxRef = useRef(assetIdx)
-    const incomingRef = useRef<HTMLDivElement>(null)
-    const outgoingRef = useRef<HTMLDivElement>(null)
-
-    useEffect(() => {
-        const prev = prevIdxRef.current
-        if (assetIdx === prev) return
-        prevIdxRef.current = assetIdx
-
-        const isNext = (prev + 1) % assets.length === assetIdx
-        setSlideDir(isNext ? 'left' : 'right')
-        setOutgoingIdx(prev)
-        setDisplayedIdx(assetIdx)
-
-        const timer = setTimeout(() => setOutgoingIdx(null), SLIDE_DURATION_MS)
-        return () => clearTimeout(timer)
-    }, [assetIdx, assets.length])
-
-    useLayoutEffect(() => {
-        if (outgoingIdx === null) return
-        const incoming = incomingRef.current
-        const outgoing = outgoingRef.current
-        if (!incoming) return
-
-        const enterFrom = slideDir === 'left' ? '100%' : '-100%'
-        const exitTo = slideDir === 'left' ? '-100%' : '100%'
-
-        // Set initial positions without transition
-        incoming.style.transform = `translateX(${enterFrom})`
-        incoming.style.transition = 'none'
-        if (outgoing) {
-            outgoing.style.transform = 'translateX(0)'
-            outgoing.style.transition = 'none'
-        }
-
-        // Force reflow so initial positions apply before transition
-        incoming.getBoundingClientRect()
-
-        // Animate to final positions
-        const transition = `transform ${SLIDE_DURATION_MS}ms ease`
-        incoming.style.transition = transition
-        incoming.style.transform = 'translateX(0)'
-        if (outgoing) {
-            outgoing.style.transition = transition
-            outgoing.style.transform = `translateX(${exitTo})`
-        }
-    }, [outgoingIdx, slideDir])
-
-    const asset = assets[displayedIdx]
+    const asset = assets[assetIdx]
     const nextIndex = (assetIdx + 1) % assets.length
     const prevIndex = (assetIdx - 1 + assets.length) % assets.length
 
-    const nextLink = hrefForAssetModal({ pathname, assetId: assets[nextIndex].id })
-    const prevLink = hrefForAssetModal({ pathname, assetId: assets[prevIndex].id })
+    const nextLink = nextIndex >= 0 && nextIndex < assets.length
+        ? hrefForAssetModal({
+            pathname,
+            assetId: assets[nextIndex].id,
+        })
+        : undefined
+    const prevLink = prevIndex >= 0 && prevIndex < assets.length
+        ? hrefForAssetModal({
+            pathname,
+            assetId: assets[prevIndex].id,
+        })
+        : undefined
     const dismissLink = pathname
     const editLink = hrefForConsole({
         filter: filterForPathname(pathname),
         assetId: asset.id,
     })
-    const currentAssetLink = hrefForAsset({ assetId: asset.id, pathname })
+
+    const currentAssetLink = hrefForAsset({
+        assetId: asset.id,
+        pathname,
+    })
 
     const router = useRouter()
     useEffect(() => {
         function handleKeyDown(e: KeyboardEvent) {
             if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                router.push(nextLink, { scroll: false })
+                if (nextLink) {
+                    router.push(nextLink, { scroll: false })
+                }
             } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                router.push(prevLink, { scroll: false })
+                if (prevLink) {
+                    router.push(prevLink, { scroll: false })
+                }
             } else if (e.key === 'Escape') {
-                router.push(dismissLink, { scroll: false })
+                if (dismissLink) {
+                    router.push(dismissLink, { scroll: false })
+                }
             }
         }
+
         window.addEventListener('keydown', handleKeyDown)
         return () => window.removeEventListener('keydown', handleKeyDown)
     }, [nextLink, prevLink, dismissLink, router])
@@ -141,52 +109,37 @@ function WorkModalImpl({
         e.stopPropagation()
     }
 
-    return <Modal onDismiss={dismiss}>
-        {/* Carousel viewport */}
-        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
-            {outgoingIdx !== null && (
-                <div ref={outgoingRef} style={{
-                    position: 'absolute', inset: 0,
-                    display: 'flex', justifyContent: 'center', alignItems: 'center',
-                }}>
-                    <AssetImage
-                        asset={assets[outgoingIdx]}
-                        sizes="100vw"
-                        style={{ objectFit: 'contain', maxWidth: '100svw', maxHeight: '100svh' }}
-                    />
-                </div>
-            )}
-            <div ref={incomingRef} style={{
-                position: 'absolute', inset: 0,
-                display: 'flex', justifyContent: 'center', alignItems: 'center',
-                pointerEvents: 'auto',
-            }}>
-                <Link href={currentAssetLink} scroll={false} onClick={stopPropagation}>
-                    <AssetImage
-                        asset={asset}
-                        sizes="100vw"
-                        style={{ objectFit: 'contain', maxWidth: '100svw', maxHeight: '100svh' }}
-                    />
-                </Link>
-            </div>
-        </div>
+    return <Modal
+        onDismiss={dismiss}
+    >
+        <Link href={currentAssetLink} scroll={false} onClick={stopPropagation}>
+            <AssetImage
+                asset={asset}
+                sizes="100vw"
+                style={{
+                    objectFit: 'contain',
+                    maxWidth: '100svw',
+                    maxHeight: '100svh',
+                }}
+            />
+        </Link>
 
         {/* Navigation buttons */}
-        <div className="absolute top-0 bottom-0 left-4 flex items-center justify-between" onClick={stopPropagation}>
+        {prevLink && <div className="absolute top-0 bottom-0 left-4 flex items-center justify-between" onClick={stopPropagation}>
             <RoundButton href={prevLink} scroll={false} label="Previous work" className="m-4">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="square" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
             </RoundButton>
-        </div>
+        </div>}
 
-        <div className="absolute top-0 bottom-0 right-4 flex items-center justify-between" onClick={stopPropagation}>
+        {nextLink && <div className="absolute top-0 bottom-0 right-4 flex items-center justify-between" onClick={stopPropagation}>
             <RoundButton href={nextLink} scroll={false} label="Next work" className="m-4">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="square" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
             </RoundButton>
-        </div>
+        </div>}
 
         {/* Close button */}
         <RoundButton href={dismissLink} scroll={false} label="Close modal" className="absolute top-4 right-4" onClick={stopPropagation}>
@@ -197,7 +150,7 @@ function WorkModalImpl({
 
         {/* Edit button */}
         {showEditButton && <EditButton editLink={editLink} />}
-    </Modal>
+    </Modal >
 }
 
 function RoundButton({ href, label, className, scroll, onClick, children }: {
