@@ -1,9 +1,14 @@
 import { SocialLinks } from "@/app/(detailed)/about/SocialLinks"
+import Link from "next/link"
 
 export default function About() {
-    return <div className="flex flex-col items-start">
-        <div className="max-w-prose p-4 text-2xl">
-            I am an artist from Ukraine, currently living in LA.
+    return <div className="flex flex-col items-center text-accent text-2xl mt-4">
+        <span>I am <Link href={'/'} className="hover:text-secondary hover:bg-accent underline decoration-dotted">
+            Alikro
+        </Link>,
+        </span>
+        <div className="max-w-prose p-4">
+            An artist from Ukraine, currently living in BA.
             This page is like my artistic diary (well, almost). You can find my works here, from commercial to very personal. I like to combine and use different techniques and materials. I am driven by both the search for metaphor and direct observation.
             <br /><br />
             If you resonate with a particular piece or would like to add my artwork to your collection, please don&apos;t hesitate to reach out. I offer a selection of original artworks and limited-edition prints for art enthusiasts and collectors. Owning a piece of art is not only a visual delight but also a way to support and encourage artists on their creative journey.
