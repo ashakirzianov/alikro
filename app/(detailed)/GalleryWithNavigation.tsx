@@ -66,7 +66,7 @@ function AssetTileView({ tile, pathname }: {
     })
     return (
         <div className="flex flex-col break-inside-avoid-column">
-            <Link href={href} className="block">
+            <Link href={href} scroll={false} className="block">
                 <AssetImage asset={tile.asset} sizes="25vw" />
             </Link>
             <span className="text-xs text-accent block overflow-hidden min-w-0 wrap-break-word">

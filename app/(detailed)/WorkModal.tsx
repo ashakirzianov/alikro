@@ -84,15 +84,15 @@ function WorkModalImpl({
         function handleKeyDown(e: KeyboardEvent) {
             if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
                 if (nextLink) {
-                    router.push(nextLink)
+                    router.push(nextLink, { scroll: false })
                 }
             } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
                 if (prevLink) {
-                    router.push(prevLink)
+                    router.push(prevLink, { scroll: false })
                 }
             } else if (e.key === 'Escape') {
                 if (dismissLink) {
-                    router.push(dismissLink)
+                    router.push(dismissLink, { scroll: false })
                 }
             }
         }
@@ -102,7 +102,7 @@ function WorkModalImpl({
     }, [nextLink, prevLink, dismissLink, router])
 
     const dismiss = useCallback(function dismiss() {
-        router.push(dismissLink)
+        router.push(dismissLink, { scroll: false })
     }, [router, dismissLink])
 
     function stopPropagation(e: React.MouseEvent) {
@@ -162,7 +162,8 @@ function RoundButton({ href, label, className, onClick, children }: {
 }) {
     return <Link
         href={href}
-        className={`p-2 bg-black bg-opacity-30 hover:bg-opacity-50 text-white rounded-full transition-all duration-150 hover:scale-110 ${className ? ` ${className}` : ''}`}
+        scroll={false}
+        className={`p-2 text-accent rounded-full transition-all duration-150 hover:scale-110 ${className ? ` ${className}` : ''}`}
         aria-label={label}
         onClick={onClick}
     >
