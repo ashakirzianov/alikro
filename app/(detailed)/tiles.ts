@@ -45,29 +45,15 @@ export async function getTiles(filter: string, value: string | undefined): Promi
 
 async function tilesForAll(): Promise<GalleryTile[]> {
     const assets = await getAllAssetMetadata()
-    const byYear = groupAssetsByYear(assets)
-    const tiles: GalleryTile[] = []
-    byYear.forEach((group, idx) => {
-        // const title = idx === 0 ? `all works from ${group.year}` : (group.year?.toString() ?? 'unknown')
-        const title = `${group.year ?? 'unknown'}`
-        tiles.push({
-            kind: 'section',
-            title,
-            id: `year-${group.year ?? 'unknown'}`,
-            href: hrefForYear({ year: group.year }),
-        })
-        group.assets.forEach(asset => {
-            tiles.push({
-                kind: 'asset',
-                asset,
-            })
-        })
-    })
+    const tiles: GalleryTile[] = assets.map(asset => ({
+        kind: 'asset',
+        asset,
+    }))
     const navigation = [
-        getMainPageTile(),
         getKindNavigationTile(undefined),
+        getMainPageTile(),
+        await getYearNavigationTile(undefined),
         getTagNavigationTile(undefined),
-        // await getYearNavigationTile(undefined),
         await getMaterialNavigationTile(undefined)
     ]
     const combined = insertNavigationTiles(tiles, navigation)
@@ -76,24 +62,14 @@ async function tilesForAll(): Promise<GalleryTile[]> {
 
 async function tilesForKind(kind: string): Promise<GalleryTile[]> {
     const assets = await getAssetsForFilter('kind', kind)
-    const byYear = groupAssetsByYear(assets)
-    const tiles: GalleryTile[] = []
-    byYear.forEach((group, idx) => {
-        const title = idx === 0 ? `${kind} from ${group.year}` : (group.year?.toString() ?? 'unknown')
-        tiles.push({
-            kind: 'section',
-            title,
-        })
-        group.assets.forEach(asset => {
-            tiles.push({
-                kind: 'asset',
-                asset,
-            })
-        })
-    })
+    const tiles: GalleryTile[] = assets.map(asset => ({
+        kind: 'asset',
+        asset,
+    }))
     const navigation = [
-        getMainPageTile(),
         getKindNavigationTile(kind),
+        getMainPageTile(),
+        await getYearNavigationTile(undefined),
         getTagNavigationTile(undefined),
         await getMaterialNavigationTile(undefined)
     ]
@@ -107,19 +83,20 @@ async function tilesForTag(tag: string): Promise<GalleryTile[]> {
         return []
     }
     const assets = await getAssetsForFilter('tag', tag)
-    const assetTiles: GalleryTile[] = assets.map(asset => ({
+    const tiles: GalleryTile[] = assets.map(asset => ({
         kind: 'asset',
         asset,
     }))
-    const tiles: GalleryTile[] = [{
+    const header: GalleryTile = {
         kind: 'section',
         title,
-    }, ...assetTiles]
-    const navigation = [
-        getMainPageTile(),
+    }
+    const navigation: GalleryTile[] = [
+        // header,
         getTagNavigationTile(tag),
-        await getYearNavigationTile(undefined),
+        getMainPageTile(),
         getKindNavigationTile(undefined),
+        await getYearNavigationTile(undefined),
         await getMaterialNavigationTile(undefined)
     ]
     const combined = insertNavigationTiles(tiles, navigation)
@@ -131,17 +108,18 @@ async function tilesForYear(year: string): Promise<GalleryTile[]> {
     if (assets.length === 0) {
         return []
     }
-    const assetTiles: GalleryTile[] = assets.map(asset => ({
+    const tiles: GalleryTile[] = assets.map(asset => ({
         kind: 'asset',
         asset,
     }))
-    const tiles: GalleryTile[] = [{
+    const header: GalleryTile = {
         kind: 'section',
         title: year,
-    }, ...assetTiles]
+    }
     const navigation = [
-        getMainPageTile(),
+        // header,
         await getYearNavigationTile(year),
+        getMainPageTile(),
         getKindNavigationTile(undefined),
         getTagNavigationTile(undefined),
         await getMaterialNavigationTile(undefined)
@@ -155,17 +133,18 @@ async function tilesForMaterial(material: string): Promise<GalleryTile[]> {
     if (assets.length === 0) {
         return []
     }
-    const assetTiles: GalleryTile[] = assets.map(asset => ({
+    const tiles: GalleryTile[] = assets.map(asset => ({
         kind: 'asset',
         asset,
     }))
-    const tiles: GalleryTile[] = [{
+    const header: GalleryTile = {
         kind: 'section',
         title: material,
-    }, ...assetTiles]
+    }
     const navigation = [
-        getMainPageTile(),
+        // header,
         await getMaterialNavigationTile(material),
+        getMainPageTile(),
         getKindNavigationTile(undefined),
         getTagNavigationTile(undefined),
         await getYearNavigationTile(undefined),
@@ -176,20 +155,23 @@ async function tilesForMaterial(material: string): Promise<GalleryTile[]> {
 
 function insertNavigationTiles(contentTiles: GalleryTile[], navigationTiles: GalleryTile[], count: number = 4) {
     const result: GalleryTile[] = []
-    const intervals = [count - 1, count, count, count + 1]
+    const intervals = [0, count - 2, count, count, count + 1]
     let navigationIdx = 0
     let contentInserted = 0
-    for (const contentTile of contentTiles) {
-        result.push(contentTile)
-        contentInserted++
+    for (let contentIdx = 0; contentIdx < contentTiles.length;) {
         const interval = intervals[navigationIdx] ?? count
-        const assetTileToTheLeft = contentTile.kind === 'asset'
+        const assetTileToTheLeft = (result[result.length - 1]?.kind ?? 'asset') === 'asset'
         const assetTileToTheTop = (result[result.length - count]?.kind ?? 'asset') === 'asset'
-        const assetCondition = assetTileToTheLeft && assetTileToTheTop || true
+        const assetCondition = (assetTileToTheLeft && assetTileToTheTop) || true
         if (contentInserted >= interval && navigationIdx < navigationTiles.length && assetCondition) {
             result.push(navigationTiles[navigationIdx])
             navigationIdx++
             contentInserted = 0
+        } else {
+            const contentTile = contentTiles[contentIdx]
+            result.push(contentTile)
+            contentIdx++
+            contentInserted++
         }
     }
     for (; navigationIdx < navigationTiles.length; navigationIdx++) {
@@ -252,6 +234,33 @@ async function getMaterialNavigationTile(selected: string | undefined): Promise<
             selected: filter.value === selected,
         })),
     }
+}
+
+type SectionData = {
+    title: string,
+    id?: string,
+    href?: string,
+}
+type SectionDataFn = (year: number | undefined, idx: number) => SectionData
+function makeTilesWithYearSections(assets: AssetMetadata[], sectionData: SectionDataFn): GalleryTile[] {
+    const byYear = groupAssetsByYear(assets)
+    const tiles: GalleryTile[] = []
+    byYear.forEach((group, idx) => {
+        const section = sectionData(group.year, idx)
+        tiles.push({
+            kind: 'section',
+            title: section.title,
+            id: section.id,
+            href: section.href,
+        })
+        group.assets.forEach(asset => {
+            tiles.push({
+                kind: 'asset',
+                asset,
+            })
+        })
+    })
+    return tiles
 }
 
 function groupAssetsByYear(assets: AssetMetadata[]) {
