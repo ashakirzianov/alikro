@@ -64,6 +64,7 @@ async function tilesForAll(): Promise<GalleryTile[]> {
         })
     })
     const navigation = [
+        getMainPageTile(),
         getKindNavigationTile(undefined),
         getTagNavigationTile(undefined),
         // await getYearNavigationTile(undefined),
@@ -91,6 +92,7 @@ async function tilesForKind(kind: string): Promise<GalleryTile[]> {
         })
     })
     const navigation = [
+        getMainPageTile(),
         getKindNavigationTile(kind),
         getTagNavigationTile(undefined),
         await getMaterialNavigationTile(undefined)
@@ -114,6 +116,7 @@ async function tilesForTag(tag: string): Promise<GalleryTile[]> {
         title,
     }, ...assetTiles]
     const navigation = [
+        getMainPageTile(),
         getTagNavigationTile(tag),
         await getYearNavigationTile(undefined),
         getKindNavigationTile(undefined),
@@ -137,6 +140,7 @@ async function tilesForYear(year: string): Promise<GalleryTile[]> {
         title: year,
     }, ...assetTiles]
     const navigation = [
+        getMainPageTile(),
         await getYearNavigationTile(year),
         getKindNavigationTile(undefined),
         getTagNavigationTile(undefined),
@@ -160,6 +164,7 @@ async function tilesForMaterial(material: string): Promise<GalleryTile[]> {
         title: material,
     }, ...assetTiles]
     const navigation = [
+        getMainPageTile(),
         await getMaterialNavigationTile(material),
         getKindNavigationTile(undefined),
         getTagNavigationTile(undefined),
@@ -191,6 +196,14 @@ function insertNavigationTiles(contentTiles: GalleryTile[], navigationTiles: Gal
         result.push(navigationTiles[navigationIdx])
     }
     return result
+}
+
+function getMainPageTile(): GalleryTile {
+    return {
+        kind: 'section',
+        title: 'Alikro',
+        href: hrefForSlideshow(),
+    }
 }
 
 function getKindNavigationTile(selected: string | undefined): GalleryTile {
