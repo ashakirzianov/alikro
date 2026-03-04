@@ -69,7 +69,7 @@ function AssetTileView({ tile, pathname }: {
             <Link href={href} className="block">
                 <AssetImage asset={tile.asset} sizes="25vw" />
             </Link>
-            <span className="text-xs text-accent">
+            <span className="text-xs text-accent block overflow-hidden min-w-0 break-words">
                 <AssetDescription asset={tile.asset} pathname={pathname} />
             </span>
         </div>
