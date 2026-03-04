@@ -17,7 +17,7 @@ export function GalleryWithNavigation({
     return (
         <div className="flex flex-row gap-2">
             {columns.map((column, columnIdx) => (
-                <div key={columnIdx} className="flex flex-col w-1/4 gap-0">
+                <div key={columnIdx} className="flex flex-col w-1/4 gap-1">
                     {column.map((tile, tileIdx) => (
                         <GalleryTileView
                             key={tileIdx}
@@ -77,10 +77,8 @@ function AssetTileView({ tile, pathname }: {
 }
 
 function SectionTileView({ tile }: { tile: GalleryTileSection }) {
-    return <div className="p-4 flex flex-col items-center" style={{
-        fontSize: '5rem',
-    }}>
-        <h2 className="text-accent" id={tile.id}>{tile.title}</h2>
+    return <div className="p-4 flex flex-col items-center justify-center text-center border-accent border-0">
+        <h2 className="text-accent text-6xl" id={tile.id}>{tile.title}</h2>
     </div>
 }
 
@@ -88,10 +86,7 @@ function NavigationTileView({ tile }: {
     tile: GalleryTileNavigation,
 }) {
     return (
-        <nav className="flex flex-row flex-wrap gap-0 items-end px-4" style={{
-            fontSize: '3rem',
-            color: 'red',
-        }}>
+        <nav className="flex flex-col flex-wrap gap-0 items-end px-4 border-accent border-4 py-1">
             {tile.links.map((link, index) => {
                 const last = index === tile.links.length - 1
                 return <span key={index}>
@@ -100,14 +95,14 @@ function NavigationTileView({ tile }: {
                         scroll={true}
                         href={link.href}
                         className={clsx(
-                            // "text-sm",
-                            link.selected ? "text-primary" : "text-accent",
-                            // !last && "after:content-['//'] after:mx-2 after:text-accent",
-                        )}
+                            'text-6xl', {
+                            'text-secondary bg-accent': link.selected,
+                            'text-accent hover:text-secondary hover:bg-accent': !link.selected,
+                        })}
                     >
                         {link.title}
                     </Link>
-                    {!last && <span>,&nbsp;</span>}
+                    {/* {!last && <span>,&nbsp;</span>} */}
                 </span>
             })}
         </nav>

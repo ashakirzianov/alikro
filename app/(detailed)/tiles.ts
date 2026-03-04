@@ -48,7 +48,8 @@ async function tilesForAll(): Promise<GalleryTile[]> {
     const byYear = groupAssetsByYear(assets)
     const tiles: GalleryTile[] = []
     byYear.forEach((group, idx) => {
-        const title = idx === 0 ? `all works from ${group.year}` : (group.year?.toString() ?? 'unknown')
+        // const title = idx === 0 ? `all works from ${group.year}` : (group.year?.toString() ?? 'unknown')
+        const title = `${group.year ?? 'unknown'}`
         tiles.push({
             kind: 'section',
             title,
@@ -179,7 +180,8 @@ function insertNavigationTiles(contentTiles: GalleryTile[], navigationTiles: Gal
         const interval = intervals[navigationIdx] ?? count
         const assetTileToTheLeft = contentTile.kind === 'asset'
         const assetTileToTheTop = (result[result.length - count]?.kind ?? 'asset') === 'asset'
-        if (contentInserted >= interval && navigationIdx < navigationTiles.length && assetTileToTheLeft && assetTileToTheTop) {
+        const assetCondition = assetTileToTheLeft && assetTileToTheTop || true
+        if (contentInserted >= interval && navigationIdx < navigationTiles.length && assetCondition) {
             result.push(navigationTiles[navigationIdx])
             navigationIdx++
             contentInserted = 0
