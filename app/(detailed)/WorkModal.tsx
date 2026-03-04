@@ -45,6 +45,10 @@ function OptionalModalImpl({
     }
 }
 
+// How many prev/next cells to pre-render on each side of the current asset.
+// Higher values let users swipe through multiple images without waiting for a reset.
+const CAROUSEL_BUFFER = 3
+
 function WorkModalImpl({
     assets, assetIdx, pathname, showEditButton,
 }: {
@@ -63,35 +67,37 @@ function WorkModalImpl({
     centerIdxRef.current = centerIdx
 
     const n = assets.length
-    const prevIdx = (centerIdx - 1 + n) % n
-    const nextIdx = (centerIdx + 1) % n
     const asset = assets[centerIdx]
 
+    const nextIdx = (centerIdx + 1) % n
+    const prevIdx = (centerIdx - 1 + n) % n
     const nextLink = hrefForAssetModal({ pathname, assetId: assets[nextIdx].id })
     const prevLink = hrefForAssetModal({ pathname, assetId: assets[prevIdx].id })
     const dismissLink = pathname
     const editLink = hrefForConsole({ filter: filterForPathname(pathname), assetId: asset.id })
     const currentAssetLink = hrefForAsset({ assetId: asset.id, pathname })
 
+    const centerScrollLeft = (el: HTMLElement) => CAROUSEL_BUFFER * el.offsetWidth
+
     // Set initial scroll to center cell on mount
     useLayoutEffect(() => {
         const el = scrollRef.current
-        if (el) el.scrollLeft = el.offsetWidth
+        if (el) el.scrollLeft = centerScrollLeft(el)
     }, [])
 
-    // Sync with external navigation (keyboard / nav buttons)
+    // Sync with external navigation (browser back/forward)
     useLayoutEffect(() => {
         const prev = prevAssetIdxRef.current
         if (assetIdx === prev) return
         prevAssetIdxRef.current = assetIdx
         setCenterIdx(assetIdx)
         const el = scrollRef.current
-        if (el) el.scrollLeft = el.offsetWidth
+        if (el) el.scrollLeft = centerScrollLeft(el)
     }, [assetIdx])
 
     const router = useRouter()
 
-    // Detect when scroll snaps to prev or next cell, then swap and reset
+    // Detect when scroll snaps off-center, then swap cells and reset scroll
     useEffect(() => {
         const el = scrollRef.current
         if (!el) return
@@ -99,15 +105,16 @@ function WorkModalImpl({
         function handleScrollEnd() {
             const w = el!.offsetWidth
             const pos = Math.round(el!.scrollLeft / w)
-            if (pos === 1) return // snapped back to center
+            const delta = pos - CAROUSEL_BUFFER
+            if (delta === 0) return
 
             const cur = centerIdxRef.current
-            const newIdx = pos === 0 ? (cur - 1 + n) % n : (cur + 1) % n
+            const newIdx = (cur + delta + n * Math.abs(delta)) % n
 
-            // Update cells before moving scroll so there's no flash
+            // Update cells before resetting scroll to avoid a flash
             flushSync(() => setCenterIdx(newIdx))
             prevAssetIdxRef.current = newIdx
-            el!.scrollLeft = w
+            el!.scrollLeft = centerScrollLeft(el!)
 
             router.push(hrefForAssetModal({ pathname, assetId: assets[newIdx].id }), { scroll: false })
         }
@@ -121,9 +128,9 @@ function WorkModalImpl({
         function handleKeyDown(e: KeyboardEvent) {
             const el = scrollRef.current
             if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                el?.scrollTo({ left: el.offsetWidth * 2, behavior: 'smooth' })
+                el?.scrollTo({ left: (CAROUSEL_BUFFER + 1) * el.offsetWidth, behavior: 'smooth' })
             } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                el?.scrollTo({ left: 0, behavior: 'smooth' })
+                el?.scrollTo({ left: (CAROUSEL_BUFFER - 1) * el.offsetWidth, behavior: 'smooth' })
             } else if (e.key === 'Escape') {
                 router.push(dismissLink, { scroll: false })
             }
@@ -149,8 +156,15 @@ function WorkModalImpl({
         maxHeight: '100svh',
     }
 
+    // Build the cell array: BUFFER prev cells, center, BUFFER next cells
+    const cells = Array.from({ length: CAROUSEL_BUFFER * 2 + 1 }, (_, i) => {
+        const delta = i - CAROUSEL_BUFFER
+        const idx = (centerIdx + delta + n * CAROUSEL_BUFFER) % n
+        return { idx, delta }
+    })
+
     return <Modal onDismiss={dismiss}>
-        {/* Scroll-snap carousel: prev | current | next */}
+        {/* Scroll-snap carousel */}
         <div
             ref={scrollRef}
             className="carousel-scroll"
@@ -163,17 +177,16 @@ function WorkModalImpl({
                 overscrollBehaviorX: 'contain',
             }}
         >
-            <div style={slideStyle}>
-                <AssetImage asset={assets[prevIdx]} sizes="100vw" style={imageStyle} />
-            </div>
-            <div style={slideStyle}>
-                <Link href={currentAssetLink} onClick={stopPropagation}>
-                    <AssetImage asset={asset} sizes="100vw" style={imageStyle} />
-                </Link>
-            </div>
-            <div style={slideStyle}>
-                <AssetImage asset={assets[nextIdx]} sizes="100vw" style={imageStyle} />
-            </div>
+            {cells.map(({ idx, delta }) => (
+                <div key={delta} style={slideStyle}>
+                    {delta === 0
+                        ? <Link href={currentAssetLink} onClick={stopPropagation}>
+                            <AssetImage asset={assets[idx]} sizes="100vw" style={imageStyle} />
+                        </Link>
+                        : <AssetImage asset={assets[idx]} sizes="100vw" style={imageStyle} />
+                    }
+                </div>
+            ))}
         </div>
 
         {/* Navigation buttons — scroll the carousel instead of navigating directly
@@ -185,7 +198,8 @@ function WorkModalImpl({
                 className="m-4"
                 onClick={(e) => {
                     e.preventDefault()
-                    scrollRef.current?.scrollTo({ left: 0, behavior: 'smooth' })
+                    const el = scrollRef.current
+                    if (el) el.scrollTo({ left: (CAROUSEL_BUFFER - 1) * el.offsetWidth, behavior: 'smooth' })
                 }}
             >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -202,7 +216,7 @@ function WorkModalImpl({
                 onClick={(e) => {
                     e.preventDefault()
                     const el = scrollRef.current
-                    if (el) el.scrollTo({ left: el.offsetWidth * 2, behavior: 'smooth' })
+                    if (el) el.scrollTo({ left: (CAROUSEL_BUFFER + 1) * el.offsetWidth, behavior: 'smooth' })
                 }}
             >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
