@@ -1,10 +1,11 @@
 'use client'
 import dynamic from 'next/dynamic'
-import { ReactNode, useEffect, useState } from "react"
+import { ReactNode, useState } from "react"
 import { BehanceLink, InstagramLink, MailLink } from "@/app/(detailed)/about/SocialLinks"
 import { Slider } from "./Slider"
 import { AssetMetadata } from "@/shared/asset"
 import { DynamicLayout } from './DynamicLayout'
+import { useAspectRatio } from '@/shared/aspect'
 
 export const ClientsideSlideshow = dynamic(() => Promise.resolve(Slideshow), {
     ssr: false,
@@ -99,28 +100,4 @@ function TextSlide({
         </div>
         {corner ? <div className="self-end">{corner}</div> : null}
     </div>
-}
-
-function useAspectRatio() {
-    function windowAspect() {
-        if (!global?.document?.documentElement)
-            return 1
-        const { scrollWidth, scrollHeight } = document.documentElement
-        return (scrollWidth) / (scrollHeight)
-    }
-    const [aspectRatio, setAspectRatio] = useState(windowAspect())
-
-    useEffect(() => {
-        function handleResize() {
-            setAspectRatio(windowAspect())
-        };
-
-        window?.addEventListener('resize', handleResize)
-
-        return () => {
-            window?.removeEventListener('resize', handleResize)
-        }
-    }, [])
-
-    return aspectRatio
 }

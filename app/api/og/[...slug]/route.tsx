@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og"
 import { assetAlt, AssetMetadata } from "@/shared/asset"
 import { assetHeight, assetWidth } from "@/shared/asset"
 import { imageSrc } from "@/shared/image"
-import { assetsPageDataForSlug } from "@/app/(detailed)/[...slug]/data"
+import { getTiles } from "@/app/(detailed)/tiles"
 
 const WIDTH = 1200
 const HEIGHT = 600
@@ -11,7 +11,7 @@ export async function GET(
   { params }: { params: Promise<{ slug: string[] }> },
 ) {
   const { slug } = await params
-  const { assets } = await assetsPageDataForSlug(slug) ?? { assets: [] }
+  const assets = await assetsForSlug(slug)
   return new ImageResponse(
     <Preview assets={assets ?? []} />,
     {
@@ -19,6 +19,17 @@ export async function GET(
       height: HEIGHT,
     },
   )
+}
+
+async function assetsForSlug(slug: string[]): Promise<AssetMetadata[]> {
+  const [filter, value] = slug
+  if (filter === undefined) {
+    return []
+  }
+  const tiles = await getTiles(filter, value)
+  return tiles
+    .map(tile => tile.kind === 'asset' ? tile.asset : null)
+    .filter(a => a !== null) as AssetMetadata[]
 }
 
 function Preview({ assets }: {

@@ -4,6 +4,10 @@ export function hrefForSlideshow() {
     return '/'
 }
 
+export function hrefForAbout() {
+    return '/about'
+}
+
 export function hrefForAsset({ pathname, assetId }: {
     pathname?: string,
     assetId: string,
