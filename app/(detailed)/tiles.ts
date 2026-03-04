@@ -1,6 +1,6 @@
 import { AssetMetadata } from "@/shared/asset"
 import { allCollections } from "@/shared/collection"
-import { hrefForCollection, hrefForYear } from "@/shared/href"
+import { hrefForCollection, hrefForSlideshow, hrefForYear } from "@/shared/href"
 import { getAllAssetMetadata, getUniqueTags } from "@/shared/metadataStore"
 import { get } from "http"
 import { getAssetsForFilter, getKindFilters, getMaterialFilters, getTagFilters, getYearFilters } from "./filters"
@@ -64,10 +64,10 @@ async function tilesForAll(): Promise<GalleryTile[]> {
         })
     })
     const navigation = [
-        ...getKindNavigationTiles(undefined),
-        ...getTagNavigationTiles(undefined),
-        // ...await getYearNavigationTiles(undefined),
-        ...await getMaterialNavigationTiles(undefined)
+        getKindNavigationTile(undefined),
+        getTagNavigationTile(undefined),
+        // await getYearNavigationTile(undefined),
+        await getMaterialNavigationTile(undefined)
     ]
     const combined = insertNavigationTiles(tiles, navigation)
     return combined
@@ -91,9 +91,9 @@ async function tilesForKind(kind: string): Promise<GalleryTile[]> {
         })
     })
     const navigation = [
-        ...getKindNavigationTiles(kind),
-        ...getTagNavigationTiles(undefined),
-        ...await getMaterialNavigationTiles(undefined)
+        getKindNavigationTile(kind),
+        getTagNavigationTile(undefined),
+        await getMaterialNavigationTile(undefined)
     ]
     const combined = insertNavigationTiles(tiles, navigation)
     return combined
@@ -114,10 +114,10 @@ async function tilesForTag(tag: string): Promise<GalleryTile[]> {
         title,
     }, ...assetTiles]
     const navigation = [
-        ...getTagNavigationTiles(tag),
-        ...await getYearNavigationTiles(undefined),
-        ...getKindNavigationTiles(undefined),
-        ...await getMaterialNavigationTiles(undefined)
+        getTagNavigationTile(tag),
+        await getYearNavigationTile(undefined),
+        getKindNavigationTile(undefined),
+        await getMaterialNavigationTile(undefined)
     ]
     const combined = insertNavigationTiles(tiles, navigation)
     return combined
@@ -137,10 +137,10 @@ async function tilesForYear(year: string): Promise<GalleryTile[]> {
         title: year,
     }, ...assetTiles]
     const navigation = [
-        ...await getYearNavigationTiles(year),
-        ...getKindNavigationTiles(undefined),
-        ...getTagNavigationTiles(undefined),
-        ...await getMaterialNavigationTiles(undefined)
+        await getYearNavigationTile(year),
+        getKindNavigationTile(undefined),
+        getTagNavigationTile(undefined),
+        await getMaterialNavigationTile(undefined)
     ]
     const combined = insertNavigationTiles(tiles, navigation)
     return combined
@@ -160,10 +160,10 @@ async function tilesForMaterial(material: string): Promise<GalleryTile[]> {
         title: material,
     }, ...assetTiles]
     const navigation = [
-        ...await getMaterialNavigationTiles(material),
-        ...getKindNavigationTiles(undefined),
-        ...getTagNavigationTiles(undefined),
-        ...await getYearNavigationTiles(undefined),
+        await getMaterialNavigationTile(material),
+        getKindNavigationTile(undefined),
+        getTagNavigationTile(undefined),
+        await getYearNavigationTile(undefined),
     ]
     const combined = insertNavigationTiles(tiles, navigation)
     return combined
@@ -193,52 +193,52 @@ function insertNavigationTiles(contentTiles: GalleryTile[], navigationTiles: Gal
     return result
 }
 
-function getKindNavigationTiles(selected: string | undefined): GalleryTile[] {
+function getKindNavigationTile(selected: string | undefined): GalleryTile {
     const filters = getKindFilters()
-    return [{
+    return {
         kind: 'navigation',
         links: filters.map(filter => ({
             title: filter.title,
             href: filter.href,
             selected: filter.value === selected,
         })),
-    }]
+    }
 }
 
-function getTagNavigationTiles(selected: string | undefined): GalleryTile[] {
+function getTagNavigationTile(selected: string | undefined): GalleryTile {
     const filters = getTagFilters()
-    return [{
+    return {
         kind: 'navigation',
         links: filters.map(filter => ({
             title: filter.title,
             href: filter.href,
             selected: filter.value === selected,
         })),
-    }]
+    }
 }
 
-async function getYearNavigationTiles(selected: string | undefined): Promise<GalleryTile[]> {
+async function getYearNavigationTile(selected: string | undefined): Promise<GalleryTile> {
     const filters = await getYearFilters()
-    return [{
+    return {
         kind: 'navigation',
         links: filters.map(filter => ({
             title: filter.title,
             href: filter.href,
             selected: filter.value === selected,
         })),
-    }]
+    }
 }
 
-async function getMaterialNavigationTiles(selected: string | undefined): Promise<GalleryTile[]> {
+async function getMaterialNavigationTile(selected: string | undefined): Promise<GalleryTile> {
     const filters = await getMaterialFilters()
-    return [{
+    return {
         kind: 'navigation',
         links: filters.map(filter => ({
             title: filter.title,
             href: filter.href,
             selected: filter.value === selected,
         })),
-    }]
+    }
 }
 
 function groupAssetsByYear(assets: AssetMetadata[]) {
