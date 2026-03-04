@@ -88,7 +88,7 @@ function NavigationTileView({ tile }: {
     tile: GalleryTileNavigation,
 }) {
     return (
-        <nav className="flex flex-col gap-0 items-end px-0 py-0 sm:px-4 sm:py-1 border-accent border-2 sm:border-4">
+        <nav className="flex flex-col gap-0 items-end px-0 py-0 sm:px-4 sm:py-1 border-accent border-y-2 sm:border-4">
             {tile.links.map((link, index) => {
                 const last = index === tile.links.length - 1
                 return <span key={index}>
