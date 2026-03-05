@@ -57,10 +57,7 @@ async function tilesForKind(kind: string): Promise<GalleryTile[]> {
 }
 
 async function tilesForTag(tag: string): Promise<GalleryTile[]> {
-    const { title } = getTagMetadata(tag) ?? {}
-    if (!title) {
-        return []
-    }
+    const { title } = getTagMetadata(tag) ?? { title: tag }
     const assets = await getAssetsForFilter('tag', tag)
     const tiles: GalleryTile[] = assets.map(asset => ({
         kind: 'asset',
