@@ -28,8 +28,6 @@ export type GalleryLink = {
 
 export async function getTiles(filter: string, value: string | undefined): Promise<GalleryTile[]> {
     switch (filter) {
-        case 'all':
-            return tilesForAll()
         case 'tag':
             return value ? tilesForTag(value) : []
         case 'year':
@@ -39,24 +37,6 @@ export async function getTiles(filter: string, value: string | undefined): Promi
         default:
             return tilesForKind(filter)
     }
-}
-
-async function tilesForAll(): Promise<GalleryTile[]> {
-    const assets = await getAllAssetMetadata()
-    const tiles: GalleryTile[] = assets.map(asset => ({
-        kind: 'asset',
-        asset,
-    }))
-    const navigation = [
-        getKindNavigationTile(undefined),
-        getMainPageTile(),
-        await getYearNavigationTile(undefined),
-        getTagNavigationTile(undefined),
-        await getMaterialNavigationTile(undefined),
-        getAboutTile(),
-    ]
-    const combined = insertNavigationTiles(tiles, navigation)
-    return combined
 }
 
 async function tilesForKind(kind: string): Promise<GalleryTile[]> {

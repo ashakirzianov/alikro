@@ -22,7 +22,7 @@ const collections: Collection[] = [{
     id: 'all',
     title: 'Alikro, an artist.',
     description: 'All works by Alikro.',
-    query: null,
+    query: not('unpublished'),
     slideAndQuery: tag('self-portrait'),
     slideLinks: true,
 }, {
