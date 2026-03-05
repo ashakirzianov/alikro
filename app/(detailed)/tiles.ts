@@ -1,6 +1,5 @@
 import { AssetMetadata } from "@/shared/asset"
 import { hrefForAbout, hrefForSlideshow } from "@/shared/href"
-import { getAllAssetMetadata } from "@/shared/metadataStore"
 import { getAssetsForFilter, getKindFilters, getMaterialFilters, getTagFilters, getYearFilters } from "./filters"
 import { getTagMetadata } from "@/shared/tag"
 
