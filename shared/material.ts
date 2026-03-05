@@ -17,16 +17,17 @@ export function matchMaterial(assetMaterial: string | undefined, materialMatcher
         return false
     }
 
-    const matcherSuffix = materialMatcher.startsWith('on ')
-        ? materialMatcher.substring(' on'.length)
+    const isOnMatcher = materialMatcher.startsWith('on ')
+    const actualMatcher = isOnMatcher
+        ? materialMatcher.substring('on '.length)
         : materialMatcher
-    const shouldMatchPartially = SPECIAL_SUFFIXES.includes(matcherSuffix)
+    const shouldMatchPartially = SPECIAL_SUFFIXES.includes(actualMatcher)
     if (shouldMatchPartially) {
         return true
     }
     const assetMaterialElements = parseMaterialString(assetMaterial)
     for (const element of assetMaterialElements) {
-        if (element.content === materialMatcher) {
+        if (element.content === actualMatcher) {
             return true
         }
     }
