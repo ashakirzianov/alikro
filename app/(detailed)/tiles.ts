@@ -40,6 +40,9 @@ export async function getTiles(filter: string, value: string | undefined): Promi
 
 async function tilesForKind(kind: string): Promise<GalleryTile[]> {
     const assets = await getAssetsForFilter('kind', kind)
+    if (assets.length === 0) {
+        return []
+    }
     const tiles: GalleryTile[] = assets.map(asset => ({
         kind: 'asset',
         asset,
@@ -59,6 +62,9 @@ async function tilesForKind(kind: string): Promise<GalleryTile[]> {
 async function tilesForTag(tag: string): Promise<GalleryTile[]> {
     const { title } = getTagMetadata(tag) ?? { title: tag }
     const assets = await getAssetsForFilter('tag', tag)
+    if (assets.length === 0) {
+        return []
+    }
     const tiles: GalleryTile[] = assets.map(asset => ({
         kind: 'asset',
         asset,
