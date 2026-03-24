@@ -1,3 +1,3 @@
 # Tasks
 
-- [ ] Optimize ISR writes
+- [x] Optimize ISR Writes
