@@ -57,7 +57,7 @@ export async function getUniqueTags() {
 
 async function getUniquePropertyValues<P extends keyof AssetMetadata>(property: P): Promise<AssetMetadata[P][]> {
     'use cache'
-    cacheLife('days')
+    cacheLife('max')
     const assets = await getPublishedAssetsMetadata()
     const values = assets
         .map(asset => asset[property])
@@ -67,7 +67,7 @@ async function getUniquePropertyValues<P extends keyof AssetMetadata>(property: 
 
 async function getSortedAssetsForQuery(query: AssetQuery) {
     'use cache'
-    cacheLife('days')
+    cacheLife('max')
     const unsorted = await getPublishedAssetsMetadata()
     const assets = sortAssets(unsorted)
     const filtered = assetsForQuery(assets, query)
@@ -77,7 +77,7 @@ async function getSortedAssetsForQuery(query: AssetQuery) {
 
 export async function getAssetMetadata(id: string) {
     'use cache'
-    cacheLife('days')
+    cacheLife('max')
     cacheTagForAssetId(id)
     const assets = await getPublishedAssetsMetadata()
     return assets.find(asset => asset.id === id)
@@ -91,7 +91,7 @@ async function getPublishedAssetsMetadata() {
 async function getAllAssetsMetadata() {
     'use cache'
     cacheTagForIndex()
-    cacheLife('days')
+    cacheLife('max')
     const assets = await fetchAllAssetMetadata()
     return preproccessAssets(assets)
 }
