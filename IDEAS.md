@@ -1,0 +1,2 @@
+- We should reimplement gallery using CSS native masonry layout once it is fully landed (we are getting very close to it, I think)
+- In Crow CMS, we should render conten exactly or mostly how it would look like on alikro.art
