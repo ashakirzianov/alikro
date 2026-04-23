@@ -87,3 +87,7 @@ The project is small, so the workflow here is lighter than in the more structure
 Required env vars (see `shared/cms.ts`):
 - `NEXT_PUBLIC_CROW_CMS` — base URL of the `crow-cms` instance.
 - `CROW_CMS_SECRET_KEY` — bearer token for authenticated CMS requests.
+
+## Related projects
+
+- `../crow-cms` — the CMS backend that serves this site's content. All asset metadata and images flow from there through `shared/cms.ts`. The CMS also calls this repo's `/api/revalidate/[tag]` endpoint when content changes, so when touching that endpoint or the CMS client, check `../crow-cms/CLAUDE.md` and coordinate.
