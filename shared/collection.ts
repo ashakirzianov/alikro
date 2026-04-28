@@ -7,20 +7,28 @@ export type Collection = {
     query: AssetQuery,
 }
 
+export type CollectionGroup = Collection[]
+
 export function allCollections(): Collection[] {
-    return collections
+    return [allCollection, ...kindCollections]
+}
+
+export function getKindCollections(): CollectionGroup {
+    return kindCollections
 }
 
 export function collectionForId(path: string): Collection | undefined {
-    return collections.find(collection => collection.id === path)
+    return allCollections().find(collection => collection.id === path)
 }
 
-const collections: Collection[] = [{
+const allCollection: Collection = {
     id: 'all',
     title: 'Alikro, an artist.',
     description: 'All works by Alikro.',
     query: not('unpublished'),
-}, {
+}
+
+const kindCollections: CollectionGroup = [{
     id: 'paintings',
     title: 'Paintings.',
     description: "Alikro's paintings.",

@@ -1,4 +1,4 @@
-import { allCollections } from "@/shared/collection"
+import { allCollections, getKindCollections } from "@/shared/collection"
 import { hrefForCollection, hrefForMaterial, hrefForTag, hrefForYear } from "@/shared/href"
 import { parseMaterialString } from "@/shared/material"
 import { getAssetsForCollection, getAssetsForMaterial, getAssetsForTag, getAssetsForYear, getUniqueMaterials, getUniqueYears } from "@/shared/metadataStore"
@@ -27,13 +27,11 @@ export async function getFilters(): Promise<Filters> {
 }
 
 export function getKindFilters(): FilterLink[] {
-    const kind: FilterLink[] = allCollections().map(collection => ({
+    return getKindCollections().map(collection => ({
         title: collection.id,
         href: hrefForCollection({ collectionId: collection.id }),
         value: collection.id,
     }))
-    kind.shift() // remove 'all' collection
-    return kind
 }
 
 export function getTagFilters(): FilterLink[] {
