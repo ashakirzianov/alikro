@@ -3,7 +3,7 @@ import { AssetMetadata } from "@/shared/asset"
 import { Modal } from "@/app/(detailed)/Modal"
 import { AssetImage } from "@/app/AssetImage"
 import { useRouter, useSearchParams } from "next/navigation"
-import React, { Suspense, useCallback, useEffect } from "react"
+import React, { Suspense, useCallback, useEffect, useState } from "react"
 import { hrefForConsole, hrefForAssetModal, hrefForAsset, hrefForTag, filterForPathname } from "@/shared/href"
 import Link from "next/link"
 import { useIsClient, useShowEditButton } from "@/shared/setting"
@@ -94,20 +94,9 @@ function WorkModalImpl({
             renderCell={(idx, nearCurrent) => {
                 const cellAsset = assets[idx]
                 const cellLink = hrefForAsset({ assetId: cellAsset.id, pathname })
-                const image = <AssetImage asset={cellAsset} sizes="100vw" style={imageStyle} loading={nearCurrent ? 'eager' : 'lazy'} />
-                const assetTags = cellAsset.tags
-                return <>
-                    <Link href={cellLink} onClick={stopPropagation}>{image}</Link>
-                    {assetTags && assetTags.length > 0 && <div className="absolute bottom-4 left-0 right-0 flex justify-center" onClick={stopPropagation}>
-                        <div className="flex flex-row flex-wrap justify-center gap-x-2">
-                            {assetTags.map((tag, i) => (
-                                <Link key={i} href={hrefForTag({ tag })} className="text-accent hover:bg-accent hover:text-white text-sm sm:text-lg">
-                                    {tag}{i < assetTags.length - 1 ? ',' : ''}
-                                </Link>
-                            ))}
-                        </div>
-                    </div>}
-                </>
+                return <Link href={cellLink} onClick={stopPropagation}>
+                    <AssetImage asset={cellAsset} sizes="100vw" style={imageStyle} loading={nearCurrent ? 'eager' : 'lazy'} />
+                </Link>
             }}
         />
 
@@ -156,6 +145,9 @@ function WorkModalImpl({
         {/* Edit button */}
         {showEditButton && <EditButton editLink={editLink} />}
 
+        {/* More tags button */}
+        {asset.tags && asset.tags.length > 0 && <MoreTagsButton key={asset.id} tags={asset.tags} />}
+
     </Modal>
 }
 
@@ -193,4 +185,31 @@ function EditButton({ editLink }: { editLink: string }) {
             <path strokeLinecap="square" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
         </svg>
     </RoundButton>
+}
+
+function MoreTagsButton({ tags }: { tags: string[] }) {
+    const [isOpen, setIsOpen] = useState(false)
+    return <div className="absolute bottom-4 left-1/2 -translate-x-1/2" onClick={e => e.stopPropagation()}>
+        {isOpen
+            ? <div className="flex flex-row flex-wrap justify-center gap-x-2 items-center bg-black/60 px-3 py-1 rounded-full">
+                <span className="text-accent text-sm sm:text-lg">See more:</span>
+                {tags.map((tag, i) => (
+                    <Link key={i} href={hrefForTag({ tag })} className="text-accent hover:bg-accent hover:text-white text-sm sm:text-lg">
+                        {tag}{i < tags.length - 1 ? ',' : ''}
+                    </Link>
+                ))}
+            </div>
+            : <button
+                onClick={() => setIsOpen(true)}
+                className="p-2 text-accent rounded-full transition-all duration-150 hover:scale-110"
+                aria-label="Show more"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <circle cx="5" cy="12" r="2" />
+                    <circle cx="12" cy="12" r="2" />
+                    <circle cx="19" cy="12" r="2" />
+                </svg>
+            </button>
+        }
+    </div>
 }
