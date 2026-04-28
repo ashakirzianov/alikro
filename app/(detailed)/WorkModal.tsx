@@ -55,6 +55,7 @@ function WorkModalImpl({
 }) {
     const n = assets.length
     const router = useRouter()
+    const [showTags, setShowTags] = useState(false)
 
     const nextIdx = (assetIdx + 1) % n
     const prevIdx = (assetIdx - 1 + n) % n
@@ -65,6 +66,7 @@ function WorkModalImpl({
     const editLink = hrefForConsole({ filter: filterForPathname(pathname), assetId: asset.id })
 
     const handleIndexChange = useCallback((newIdx: number) => {
+        setShowTags(false)
         router.push(hrefForAssetModal({ pathname, assetId: assets[newIdx].id }), { scroll: false })
     }, [assets, pathname, router])
 
@@ -145,8 +147,30 @@ function WorkModalImpl({
         {/* Edit button */}
         {showEditButton && <EditButton editLink={editLink} />}
 
-        {/* More tags button */}
-        {asset.tags && asset.tags.length > 0 && <MoreTagsButton key={asset.id} tags={asset.tags} />}
+        {/* More tags */}
+        {asset.tags && asset.tags.length > 0 && <div className="absolute bottom-4 right-4" onClick={stopPropagation}>
+            {showTags
+                ? <div className="flex flex-row flex-wrap justify-end gap-x-2 items-center bg-black/60 px-3 py-1 rounded-full">
+                    <span className="text-accent text-sm sm:text-lg">See more:</span>
+                    {asset.tags.map((tag, i) => (
+                        <Link key={i} href={hrefForTag({ tag })} className="text-accent hover:bg-accent hover:text-white text-sm sm:text-lg">
+                            {tag}{i < asset.tags!.length - 1 ? ',' : ''}
+                        </Link>
+                    ))}
+                </div>
+                : <button
+                    onClick={() => setShowTags(true)}
+                    className="p-2 text-accent rounded-full transition-all duration-150 hover:scale-110"
+                    aria-label="Show more"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                        <circle cx="5" cy="12" r="2" />
+                        <circle cx="12" cy="12" r="2" />
+                        <circle cx="19" cy="12" r="2" />
+                    </svg>
+                </button>
+            }
+        </div>}
 
     </Modal>
 }
@@ -187,29 +211,3 @@ function EditButton({ editLink }: { editLink: string }) {
     </RoundButton>
 }
 
-function MoreTagsButton({ tags }: { tags: string[] }) {
-    const [isOpen, setIsOpen] = useState(false)
-    return <div className="absolute bottom-4 left-1/2 -translate-x-1/2" onClick={e => e.stopPropagation()}>
-        {isOpen
-            ? <div className="flex flex-row flex-wrap justify-center gap-x-2 items-center bg-black/60 px-3 py-1 rounded-full">
-                <span className="text-accent text-sm sm:text-lg">See more:</span>
-                {tags.map((tag, i) => (
-                    <Link key={i} href={hrefForTag({ tag })} className="text-accent hover:bg-accent hover:text-white text-sm sm:text-lg">
-                        {tag}{i < tags.length - 1 ? ',' : ''}
-                    </Link>
-                ))}
-            </div>
-            : <button
-                onClick={() => setIsOpen(true)}
-                className="p-2 text-accent rounded-full transition-all duration-150 hover:scale-110"
-                aria-label="Show more"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                    <circle cx="5" cy="12" r="2" />
-                    <circle cx="12" cy="12" r="2" />
-                    <circle cx="19" cy="12" r="2" />
-                </svg>
-            </button>
-        }
-    </div>
-}
