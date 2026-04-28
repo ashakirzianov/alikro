@@ -1,11 +1,9 @@
 import '@/app/globals.css'
 import { Inter } from 'next/font/google'
-import { NavigationPanel } from '@/app/(detailed)/NavigationPanel'
 import Script from 'next/script'
 import { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import { getFilters } from './filters'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,7 +28,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode,
 }) {
-  const filters = await getFilters()
   return (
     <html lang="en" className="dark:bg-neutral-950 dark:text-white">
       <Script
@@ -48,7 +45,6 @@ export default async function RootLayout({
       </Script>
       <body className={inter.className}>
         <main>
-          {/* <NavigationPanel filters={filters} /> */}
           {children}
         </main>
         <Analytics />
