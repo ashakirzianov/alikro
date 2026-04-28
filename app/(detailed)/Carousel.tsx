@@ -7,7 +7,7 @@ export function Carousel({
     count: number,
     currentIndex: number,
     onIndexChange: (index: number) => void,
-    renderCell: (index: number, isCurrent: boolean) => React.ReactNode,
+    renderCell: (index: number) => React.ReactNode,
 }) {
     const scrollRef = useRef<HTMLDivElement>(null)
     const onIndexChangeRef = useRef(onIndexChange)
@@ -81,7 +81,7 @@ export function Carousel({
                 alignItems: 'center',
                 position: 'relative',
             }}>
-                {renderCell(idx, idx === currentIndex)}
+                {renderCell(idx)}
             </div>
         ))}
     </div>

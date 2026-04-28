@@ -63,7 +63,6 @@ function WorkModalImpl({
     const dismissLink = pathname
     const asset = assets[assetIdx]
     const editLink = hrefForConsole({ filter: filterForPathname(pathname), assetId: asset.id })
-    const currentAssetLink = hrefForAsset({ assetId: asset.id, pathname })
 
     const handleIndexChange = useCallback((newIdx: number) => {
         router.push(hrefForAssetModal({ pathname, assetId: assets[newIdx].id }), { scroll: false })
@@ -92,15 +91,13 @@ function WorkModalImpl({
             count={n}
             currentIndex={assetIdx}
             onIndexChange={handleIndexChange}
-            renderCell={(idx, isCurrent) => {
+            renderCell={(idx) => {
                 const cellAsset = assets[idx]
+                const cellLink = hrefForAsset({ assetId: cellAsset.id, pathname })
                 const image = <AssetImage asset={cellAsset} sizes="100vw" style={imageStyle} />
                 const assetTags = cellAsset.tags
                 return <>
-                    {isCurrent
-                        ? <Link href={currentAssetLink} onClick={stopPropagation}>{image}</Link>
-                        : image
-                    }
+                    <Link href={cellLink} onClick={stopPropagation}>{image}</Link>
                     {assetTags && assetTags.length > 0 && <div className="absolute bottom-4 left-0 right-0 flex justify-center" onClick={stopPropagation}>
                         <div className="flex flex-row flex-wrap justify-center gap-x-2">
                             {assetTags.map((tag, i) => (
