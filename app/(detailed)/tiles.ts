@@ -101,12 +101,13 @@ async function tilesForTag(tag: string): Promise<GalleryTile[]> {
         kind: 'asset',
         asset,
     }))
+    const header: GalleryTile = {
+        kind: 'section',
+        title: tag,
+    }
     const navigation: GalleryTile[] = [
-        getSelectedNavigationTile(tag),
+        header,
         getMainPageTile(),
-        getKindNavigationTile(undefined),
-        await getYearNavigationTile(undefined),
-        await getMaterialNavigationTile(undefined),
         getAboutTile(),
     ]
     const combined = insertNavigationTiles(tiles, navigation)
