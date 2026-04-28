@@ -1,8 +1,7 @@
-import { allCollections, getKindCollections } from "@/shared/collection"
-import { hrefForCollection, hrefForMaterial, hrefForTag, hrefForYear } from "@/shared/href"
+import { getKindCollections, getSelectedCollections } from "@/shared/collection"
+import { hrefForCollection, hrefForMaterial, hrefForYear } from "@/shared/href"
 import { parseMaterialString } from "@/shared/material"
-import { getAssetsForCollection, getAssetsForMaterial, getAssetsForTag, getAssetsForYear, getUniqueMaterials, getUniqueYears } from "@/shared/metadataStore"
-import { getAllTagsMetadata } from "@/shared/tag"
+import { getAssetsForCollection, getAssetsForMaterial, getAssetsForYear, getUniqueMaterials, getUniqueYears } from "@/shared/metadataStore"
 
 export type FilterLink = {
     title: string,
@@ -10,19 +9,20 @@ export type FilterLink = {
     value: string,
 }
 export type Filters = {
-    kind: FilterLink[],
+    collection: FilterLink[],
     material: FilterLink[],
     year: FilterLink[],
-    tag: FilterLink[],
 }
 export async function getFilters(): Promise<Filters> {
     const [material, year] = await Promise.all([
         getMaterialFilters(), getYearFilters(),
     ])
-    const kind: FilterLink[] = getKindFilters()
-    const tag: FilterLink[] = getTagFilters()
+    const collection: FilterLink[] = [
+        ...getKindFilters(),
+        ...getSelectedFilters(),
+    ]
     return {
-        kind, material, year, tag,
+        collection, material, year,
     }
 }
 
@@ -34,12 +34,11 @@ export function getKindFilters(): FilterLink[] {
     }))
 }
 
-export function getTagFilters(): FilterLink[] {
-    const tagsMetadata = getAllTagsMetadata()
-    return tagsMetadata.map(tag => ({
-        title: tag.title,
-        href: hrefForTag({ tag: tag.tag }),
-        value: tag.tag,
+export function getSelectedFilters(): FilterLink[] {
+    return getSelectedCollections().map(collection => ({
+        title: collection.title,
+        href: hrefForCollection({ collectionId: collection.id }),
+        value: collection.id,
     }))
 }
 
@@ -63,13 +62,8 @@ export async function getYearFilters(): Promise<FilterLink[]> {
 
 export async function getAssetsForFilter(filterKey: keyof Filters, filterValue: string) {
     switch (filterKey) {
-        case 'kind': {
-            const collections = allCollections()
-            const collection = collections.find(c => c.id === filterValue)
-            if (!collection) {
-                return []
-            }
-            return getAssetsForCollection(collection.id)
+        case 'collection': {
+            return getAssetsForCollection(filterValue)
         }
         case 'material': {
             return getAssetsForMaterial(filterValue)
@@ -80,9 +74,6 @@ export async function getAssetsForFilter(filterKey: keyof Filters, filterValue: 
                 return []
             }
             return getAssetsForYear(year)
-        }
-        case 'tag': {
-            return getAssetsForTag(filterValue)
         }
         default:
             return []

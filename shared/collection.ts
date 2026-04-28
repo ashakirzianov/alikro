@@ -1,4 +1,4 @@
-import { AssetQuery, not } from "./query"
+import { AssetQuery, not, tag } from "./query"
 
 export type Collection = {
     id: string,
@@ -10,18 +10,22 @@ export type Collection = {
 export type CollectionGroup = Collection[]
 
 export function allCollections(): Collection[] {
-    return [allCollection, ...kindCollections]
+    return allCollectionsArray
 }
 
 export function getKindCollections(): CollectionGroup {
     return kindCollections
 }
 
+export function getSelectedCollections(): CollectionGroup {
+    return selectedCollections
+}
+
 export function collectionForId(path: string): Collection | undefined {
     return allCollections().find(collection => collection.id === path)
 }
 
-const allCollection: Collection = {
+const all: Collection = {
     id: 'all',
     title: 'Alikro, an artist.',
     description: 'All works by Alikro.',
@@ -59,3 +63,36 @@ const kindCollections: CollectionGroup = [{
     description: "Alikro's collages.",
     query: 'collage',
 }]
+
+const selectedCollections: CollectionGroup = [{
+    id: 'self-portraits',
+    title: 'self portraits',
+    description: "Alikro's self portraits.",
+    query: tag('self-portrait'),
+}, {
+    id: 'friends',
+    title: 'friends',
+    description: "Alikro's friend portraits.",
+    query: tag('friend portrait'),
+}, {
+    id: 'black-list',
+    title: 'black list',
+    description: "Alikro's Black List series.",
+    query: tag('The Black List'),
+}, {
+    id: 'nai',
+    title: 'nai',
+    description: "Alikro's NAI works.",
+    query: tag('NAI'),
+}, {
+    id: 'sketches-from-museums',
+    title: 'sketches from museums',
+    description: "Alikro's sketches from museums.",
+    query: tag('sketch from museum'),
+}]
+
+const allCollectionsArray = [
+    all,
+    ...kindCollections,
+    ...selectedCollections,
+]

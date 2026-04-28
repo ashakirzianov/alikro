@@ -27,7 +27,7 @@ function FullNavigationPanel({ filters }: {
         const [first, second] = segments
             .map(s => s.split('/')).flat().map(decodeURIComponent)
 
-        const key = by ?? (first === 'all' ? 'kind' : first)
+        const key = by ?? (first === 'all' ? 'collection' : first)
         const filterKey = toFilterKey(key)
 
 
@@ -39,7 +39,7 @@ function FullNavigationPanel({ filters }: {
             },
         ]
 
-        const filterKeys = ['kind', 'tag', 'year', 'material'] as const
+        const filterKeys = ['collection', 'year', 'material'] as const
         const filterByRow: NavigationElement[] = expand ? filterKeys.map(filter => ({
             href: hrefForAll({ by: filter }),
             title: `by ${filter}`,
@@ -199,9 +199,8 @@ function toFilterKey(by: string | null) {
     switch (by) {
         case 'year':
         case 'material':
-        case 'tag':
             return by
         default:
-            return 'kind' as const
+            return 'collection' as const
     }
 }
