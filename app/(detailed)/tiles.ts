@@ -167,6 +167,10 @@ async function tilesForMaterial(material: string): Promise<GalleryTile[]> {
 }
 
 function insertNavigationTiles(contentTiles: GalleryTile[], navigationTiles: GalleryTile[], count: number = 4) {
+    const lastNavigationTile = navigationTiles.pop()
+    if (lastNavigationTile === undefined) {
+        return contentTiles
+    }
     const result: GalleryTile[] = []
     const intervals = [0, count - 2, count, count, count + 1]
     let navigationIdx = 0
@@ -190,6 +194,7 @@ function insertNavigationTiles(contentTiles: GalleryTile[], navigationTiles: Gal
     for (; navigationIdx < navigationTiles.length; navigationIdx++) {
         result.push(navigationTiles[navigationIdx])
     }
+    result.push(lastNavigationTile) // Ensure the last navigation tile is at the end
     return result
 }
 
