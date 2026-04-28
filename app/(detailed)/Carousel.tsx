@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useLayoutEffect, useRef } from "react"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
 
 const PRELOAD_BUFFER = 3
 
@@ -14,18 +14,32 @@ export function Carousel({
     const scrollRef = useRef<HTMLDivElement>(null)
     const onIndexChangeRef = useRef(onIndexChange)
     onIndexChangeRef.current = onIndexChange
-    const currentIndexRef = useRef(currentIndex)
 
-    // Scroll to the correct cell on mount and when currentIndex changes externally
+    // visualIndex drives nearCurrent for preloading. Updated locally on
+    // scroll, so we don't depend on the URL round-trip to re-render.
+    const [visualIndex, setVisualIndex] = useState(currentIndex)
+    const visualIndexRef = useRef(visualIndex)
+    visualIndexRef.current = visualIndex
+
+    // Track whether the last index change came from scrolling, so the
+    // external sync effect doesn't fight with us.
+    const scrollOriginRef = useRef(false)
+
+    const centerScrollLeft = (el: HTMLElement, idx: number) => idx * el.offsetWidth
+
+    // Sync with external navigation (browser back/forward)
     useLayoutEffect(() => {
+        if (scrollOriginRef.current) {
+            scrollOriginRef.current = false
+            return
+        }
+        setVisualIndex(currentIndex)
         const el = scrollRef.current
         if (!el) return
-        const targetLeft = currentIndex * el.offsetWidth
-        // Only scroll if we're not already there (avoids fighting with scrollend)
+        const targetLeft = centerScrollLeft(el, currentIndex)
         if (Math.abs(el.scrollLeft - targetLeft) > 1) {
             el.scrollLeft = targetLeft
         }
-        currentIndexRef.current = currentIndex
     }, [currentIndex])
 
     // Detect scroll-snap settling on a new cell
@@ -37,10 +51,13 @@ export function Carousel({
             const w = el!.offsetWidth
             if (w === 0) return
             const newIdx = Math.round(el!.scrollLeft / w)
-            if (newIdx !== currentIndexRef.current && newIdx >= 0 && newIdx < count) {
-                currentIndexRef.current = newIdx
-                onIndexChangeRef.current(newIdx)
-            }
+            if (newIdx === visualIndexRef.current) return
+            if (newIdx < 0 || newIdx >= count) return
+
+            scrollOriginRef.current = true
+            visualIndexRef.current = newIdx
+            setVisualIndex(newIdx)
+            onIndexChangeRef.current(newIdx)
         }
 
         el.addEventListener('scrollend', handleScrollEnd)
@@ -83,7 +100,7 @@ export function Carousel({
                 alignItems: 'center',
                 position: 'relative',
             }}>
-                {renderCell(idx, Math.abs(idx - currentIndex) <= PRELOAD_BUFFER)}
+                {renderCell(idx, Math.abs(idx - visualIndex) <= PRELOAD_BUFFER)}
             </div>
         ))}
     </div>
