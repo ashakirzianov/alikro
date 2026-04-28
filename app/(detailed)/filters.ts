@@ -1,7 +1,7 @@
 import { getKindCollections, getSelectedCollections } from "@/shared/collection"
-import { hrefForCollection, hrefForMaterial, hrefForYear } from "@/shared/href"
+import { hrefForCollection, hrefForMaterial, hrefForTag, hrefForYear } from "@/shared/href"
 import { parseMaterialString } from "@/shared/material"
-import { getAssetsForCollection, getAssetsForMaterial, getAssetsForYear, getUniqueMaterials, getUniqueYears } from "@/shared/metadataStore"
+import { getAssetsForCollection, getAssetsForMaterial, getAssetsForTag, getAssetsForYear, getUniqueMaterials, getUniqueTags, getUniqueYears } from "@/shared/metadataStore"
 
 export type FilterLink = {
     title: string,
@@ -10,19 +10,20 @@ export type FilterLink = {
 }
 export type Filters = {
     collection: FilterLink[],
+    tag: FilterLink[],
     material: FilterLink[],
     year: FilterLink[],
 }
 export async function getFilters(): Promise<Filters> {
-    const [material, year] = await Promise.all([
-        getMaterialFilters(), getYearFilters(),
+    const [tag, material, year] = await Promise.all([
+        getTagFilters(), getMaterialFilters(), getYearFilters(),
     ])
     const collection: FilterLink[] = [
         ...getKindFilters(),
         ...getSelectedFilters(),
     ]
     return {
-        collection, material, year,
+        collection, tag, material, year,
     }
 }
 
@@ -39,6 +40,15 @@ export function getSelectedFilters(): FilterLink[] {
         title: collection.title,
         href: hrefForCollection({ collectionId: collection.id }),
         value: collection.id,
+    }))
+}
+
+export async function getTagFilters(): Promise<FilterLink[]> {
+    const uniqueTags = await getUniqueTags()
+    return uniqueTags.map(tag => ({
+        title: tag,
+        href: hrefForTag({ tag }),
+        value: tag,
     }))
 }
 
@@ -64,6 +74,9 @@ export async function getAssetsForFilter(filterKey: keyof Filters, filterValue: 
     switch (filterKey) {
         case 'collection': {
             return getAssetsForCollection(filterValue)
+        }
+        case 'tag': {
+            return getAssetsForTag(filterValue)
         }
         case 'material': {
             return getAssetsForMaterial(filterValue)

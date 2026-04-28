@@ -39,7 +39,7 @@ function FullNavigationPanel({ filters }: {
             },
         ]
 
-        const filterKeys = ['collection', 'year', 'material'] as const
+        const filterKeys = ['collection', 'tag', 'year', 'material'] as const
         const filterByRow: NavigationElement[] = expand ? filterKeys.map(filter => ({
             href: hrefForAll({ by: filter }),
             title: `by ${filter}`,
@@ -197,6 +197,7 @@ function NavigationLink({
 
 function toFilterKey(by: string | null) {
     switch (by) {
+        case 'tag':
         case 'year':
         case 'material':
             return by

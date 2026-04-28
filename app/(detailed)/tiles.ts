@@ -1,8 +1,7 @@
 import { AssetMetadata } from "@/shared/asset"
 import { hrefForAbout, hrefForSlideshow } from "@/shared/href"
 import { getAssetsForFilter, getKindFilters, getMaterialFilters, getSelectedFilters, getYearFilters } from "./filters"
-import { collectionForId, getSelectedCollections } from "@/shared/collection"
-import { getAssetsForCollection, getAssetsForTag } from "@/shared/metadataStore"
+import { getSelectedCollections } from "@/shared/collection"
 
 export type GalleryTile = GalleryTileAsset | GalleryTileSection | GalleryTileNavigation
 
@@ -51,7 +50,7 @@ async function tilesForCollection(id: string): Promise<GalleryTile[]> {
 }
 
 async function tilesForKind(kind: string): Promise<GalleryTile[]> {
-    const assets = await getAssetsForCollection(kind)
+    const assets = await getAssetsForFilter('collection', kind)
     if (assets.length === 0) {
         return []
     }
@@ -72,7 +71,7 @@ async function tilesForKind(kind: string): Promise<GalleryTile[]> {
 }
 
 async function tilesForSelected(id: string): Promise<GalleryTile[]> {
-    const assets = await getAssetsForCollection(id)
+    const assets = await getAssetsForFilter('collection', id)
     if (assets.length === 0) {
         return []
     }
@@ -93,7 +92,7 @@ async function tilesForSelected(id: string): Promise<GalleryTile[]> {
 }
 
 async function tilesForTag(tag: string): Promise<GalleryTile[]> {
-    const assets = await getAssetsForTag(tag)
+    const assets = await getAssetsForFilter('tag', tag)
     if (assets.length === 0) {
         return []
     }

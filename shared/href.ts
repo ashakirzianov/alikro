@@ -23,7 +23,7 @@ export function hrefForAssetModal({ pathname, assetId }: {
 }
 
 export function hrefForAll({ by }: {
-    by?: 'collection' | 'year' | 'material',
+    by?: 'collection' | 'tag' | 'year' | 'material',
 }) {
     return by ? `/all?by=${by}` : '/all'
 }
