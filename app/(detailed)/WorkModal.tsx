@@ -91,10 +91,10 @@ function WorkModalImpl({
             count={n}
             currentIndex={assetIdx}
             onIndexChange={handleIndexChange}
-            renderCell={(idx) => {
+            renderCell={(idx, nearCurrent) => {
                 const cellAsset = assets[idx]
                 const cellLink = hrefForAsset({ assetId: cellAsset.id, pathname })
-                const image = <AssetImage asset={cellAsset} sizes="100vw" style={imageStyle} />
+                const image = <AssetImage asset={cellAsset} sizes="100vw" style={imageStyle} loading={nearCurrent ? 'eager' : 'lazy'} />
                 const assetTags = cellAsset.tags
                 return <>
                     <Link href={cellLink} onClick={stopPropagation}>{image}</Link>

@@ -1,13 +1,15 @@
 'use client'
 import { useEffect, useLayoutEffect, useRef } from "react"
 
+const PRELOAD_BUFFER = 3
+
 export function Carousel({
     count, currentIndex, onIndexChange, renderCell,
 }: {
     count: number,
     currentIndex: number,
     onIndexChange: (index: number) => void,
-    renderCell: (index: number) => React.ReactNode,
+    renderCell: (index: number, nearCurrent: boolean) => React.ReactNode,
 }) {
     const scrollRef = useRef<HTMLDivElement>(null)
     const onIndexChangeRef = useRef(onIndexChange)
@@ -81,7 +83,7 @@ export function Carousel({
                 alignItems: 'center',
                 position: 'relative',
             }}>
-                {renderCell(idx)}
+                {renderCell(idx, Math.abs(idx - currentIndex) <= PRELOAD_BUFFER)}
             </div>
         ))}
     </div>
