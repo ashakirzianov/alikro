@@ -18,25 +18,14 @@ export async function getFilters(): Promise<Filters> {
     const [tag, material, year] = await Promise.all([
         getTagFilters(), getMaterialFilters(), getYearFilters(),
     ])
-    const collection: FilterLink[] = [
-        ...getKindFilters(),
-        ...getSelectedFilters(),
-    ]
+    const collection: FilterLink[] = getCollectionFilters()
     return {
         collection, tag, material, year,
     }
 }
 
-export function getKindFilters(): FilterLink[] {
-    return getKindCollections().map(collection => ({
-        title: collection.id,
-        href: hrefForCollection({ collectionId: collection.id }),
-        value: collection.id,
-    }))
-}
-
-export function getSelectedFilters(): FilterLink[] {
-    return getSelectedCollections().map(collection => ({
+export function getCollectionFilters(): FilterLink[] {
+    return [...getKindCollections(), ...getSelectedCollections()].map(collection => ({
         title: collection.title,
         href: hrefForCollection({ collectionId: collection.id }),
         value: collection.id,

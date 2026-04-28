@@ -1,7 +1,8 @@
 import { AssetMetadata } from "@/shared/asset"
 import { hrefForAbout, hrefForSlideshow } from "@/shared/href"
-import { getAssetsForFilter, getKindFilters, getMaterialFilters, getSelectedFilters, getYearFilters } from "./filters"
-import { getSelectedCollections } from "@/shared/collection"
+import { getAssetsForFilter, getMaterialFilters, getYearFilters } from "./filters"
+import { getKindCollections, getSelectedCollections } from "@/shared/collection"
+import { hrefForCollection } from "@/shared/href"
 
 export type GalleryTile = GalleryTileAsset | GalleryTileSection | GalleryTileNavigation
 
@@ -201,25 +202,25 @@ function getMainPageTile(): GalleryTile {
 }
 
 function getKindNavigationTile(selected: string | undefined): GalleryTile {
-    const filters = getKindFilters()
+    const collections = getKindCollections()
     return {
         kind: 'navigation',
-        links: filters.map(filter => ({
-            title: filter.title,
-            href: filter.href,
-            selected: filter.value === selected,
+        links: collections.map(collection => ({
+            title: collection.title,
+            href: hrefForCollection({ collectionId: collection.id }),
+            selected: collection.id === selected,
         })),
     }
 }
 
 function getSelectedNavigationTile(selected: string | undefined): GalleryTile {
-    const filters = getSelectedFilters()
+    const collections = getSelectedCollections()
     return {
         kind: 'navigation',
-        links: filters.map(filter => ({
-            title: filter.title,
-            href: filter.href,
-            selected: filter.value === selected,
+        links: collections.map(collection => ({
+            title: collection.title,
+            href: hrefForCollection({ collectionId: collection.id }),
+            selected: collection.id === selected,
         })),
     }
 }

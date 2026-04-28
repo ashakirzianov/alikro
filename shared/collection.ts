@@ -34,32 +34,32 @@ const all: Collection = {
 
 const kindCollections: CollectionGroup = [{
     id: 'paintings',
-    title: 'Paintings.',
+    title: 'paintings',
     description: "Alikro's paintings.",
     query: 'painting',
 }, {
     id: 'drawings',
-    title: 'Drawings.',
+    title: 'drawings',
     description: "Alikro's drawings.",
     query: 'drawing',
 }, {
     id: 'ceramics',
-    title: 'Ceramics.',
+    title: 'ceramics',
     description: "Alikro's ceramics.",
     query: 'ceramic',
 }, {
     id: 'illustrations',
-    title: 'Illustrations.',
+    title: 'illustrations',
     description: "Alikro's illustrations.",
     query: 'illustration',
 }, {
     id: 'posters',
-    title: 'Posters.',
+    title: 'posters',
     description: "Alikro's posters.",
     query: 'poster',
 }, {
     id: 'collages',
-    title: 'Collages.',
+    title: 'collages',
     description: "Alikro's collages.",
     query: 'collage',
 }]
