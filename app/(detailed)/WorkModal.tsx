@@ -4,33 +4,30 @@ import { Modal } from "@/app/(detailed)/Modal"
 import { AssetImage } from "@/app/AssetImage"
 import { useRouter, useSearchParams } from "next/navigation"
 import React, { Suspense, useCallback, useEffect } from "react"
-import { hrefForConsole, hrefForAssetModal, hrefForAsset, filterForPathname } from "@/shared/href"
+import { hrefForConsole, hrefForAssetModal, hrefForAsset, hrefForTag, filterForPathname } from "@/shared/href"
 import Link from "next/link"
 import { useIsClient, useShowEditButton } from "@/shared/setting"
 import { Carousel, scrollCarouselNext, scrollCarouselPrev } from "./Carousel"
 
 export function OptionalModal({
-    assets, pathname, tags,
+    assets, pathname,
 }: {
     assets: AssetMetadata[],
     pathname: string,
-    tags?: { title: string, href: string }[],
 }) {
     return <Suspense fallback={null}>
         <OptionalModalImpl
             assets={assets}
             pathname={pathname}
-            tags={tags}
         />
     </Suspense>
 }
 
 function OptionalModalImpl({
-    assets, pathname, tags,
+    assets, pathname,
 }: {
     assets: AssetMetadata[],
     pathname: string,
-    tags?: { title: string, href: string }[],
 }) {
     const searchParams = useSearchParams()
     const show = searchParams.get('show')
@@ -42,7 +39,6 @@ function OptionalModalImpl({
             assets={assets}
             pathname={pathname}
             showEditButton={showEditButton}
-            tags={tags}
         />
     } else {
         return null
@@ -50,13 +46,12 @@ function OptionalModalImpl({
 }
 
 function WorkModalImpl({
-    assets, assetIdx, pathname, showEditButton, tags,
+    assets, assetIdx, pathname, showEditButton,
 }: {
     assetIdx: number,
     assets: AssetMetadata[],
     pathname: string,
     showEditButton: boolean,
-    tags?: { title: string, href: string }[],
 }) {
     const n = assets.length
     const router = useRouter()
@@ -97,13 +92,26 @@ function WorkModalImpl({
             count={n}
             currentIndex={assetIdx}
             onIndexChange={handleIndexChange}
-            renderCell={(idx, isCurrent) =>
-                isCurrent
-                    ? <Link href={currentAssetLink} onClick={stopPropagation}>
-                        <AssetImage asset={assets[idx]} sizes="100vw" style={imageStyle} />
-                    </Link>
-                    : <AssetImage asset={assets[idx]} sizes="100vw" style={imageStyle} />
-            }
+            renderCell={(idx, isCurrent) => {
+                const cellAsset = assets[idx]
+                const image = <AssetImage asset={cellAsset} sizes="100vw" style={imageStyle} />
+                const assetTags = cellAsset.tags
+                return <>
+                    {isCurrent
+                        ? <Link href={currentAssetLink} onClick={stopPropagation}>{image}</Link>
+                        : image
+                    }
+                    {assetTags && assetTags.length > 0 && <div className="absolute bottom-4 left-0 right-0 flex justify-center" onClick={stopPropagation}>
+                        <div className="flex flex-row flex-wrap justify-center gap-x-2">
+                            {assetTags.map((tag, i) => (
+                                <Link key={i} href={hrefForTag({ tag })} className="text-accent hover:bg-accent hover:text-white text-sm sm:text-lg">
+                                    {tag}{i < assetTags.length - 1 ? ',' : ''}
+                                </Link>
+                            ))}
+                        </div>
+                    </div>}
+                </>
+            }}
         />
 
         {/* Navigation buttons */}
@@ -151,19 +159,6 @@ function WorkModalImpl({
         {/* Edit button */}
         {showEditButton && <EditButton editLink={editLink} />}
 
-        {/* Tag links */}
-        {tags && tags.length > 0 && <div
-            className="absolute bottom-4 left-0 right-0 flex justify-center pointer-events-none"
-            onClick={stopPropagation}
-        >
-            <div className="flex flex-row flex-wrap justify-center gap-x-2 pointer-events-auto">
-                {tags.map((tag, idx) => (
-                    <Link key={idx} href={tag.href} className="text-accent hover:bg-accent hover:text-white text-sm sm:text-lg">
-                        {tag.title}{idx < tags.length - 1 ? ',' : ''}
-                    </Link>
-                ))}
-            </div>
-        </div>}
     </Modal>
 }
 

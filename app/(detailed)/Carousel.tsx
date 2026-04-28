@@ -101,6 +101,7 @@ export function Carousel({
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
+                position: 'relative',
             }}>
                 {renderCell(idx, delta === 0)}
             </div>
