@@ -68,12 +68,12 @@ const selectedCollections: CollectionGroup = [{
     id: 'self-portraits',
     title: 'self portraits',
     description: "Alikro's self portraits.",
-    query: tag('self-portrait'),
+    query: tag('Self-portrait'),
 }, {
     id: 'friends',
     title: 'friends',
     description: "Alikro's friend portraits.",
-    query: tag('friend portrait'),
+    query: tag('Friend Portrait'),
 }, {
     id: 'black-list',
     title: 'black list',
@@ -88,7 +88,7 @@ const selectedCollections: CollectionGroup = [{
     id: 'sketches-from-museums',
     title: 'sketches from museums',
     description: "Alikro's sketches from museums.",
-    query: tag('sketch from museum'),
+    query: tag('Sketch from Museum'),
 }]
 
 const allCollectionsArray = [

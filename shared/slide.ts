@@ -14,16 +14,16 @@ export function allSlides(): Slide[] {
 const slides: Slide[] = [{
     title: 'Alikro, an artist.',
     href: '/all',
-    query: and(not('unpublished'), tag('self-portrait')),
+    query: and(not('unpublished'), tag('Self-portrait')),
     includeLinks: true,
 }, {
     title: 'Paintings.',
     href: '/paintings',
-    query: and('painting', not(tag('self-portrait'))),
+    query: and('painting', not(tag('Self-portrait'))),
 }, {
     title: 'Drawings.',
     href: '/drawings',
-    query: and('drawing', not(tag('self-portrait'))),
+    query: and('drawing', not(tag('Self-portrait'))),
 }, {
     title: 'Ceramics.',
     href: '/ceramics',
@@ -31,13 +31,13 @@ const slides: Slide[] = [{
 }, {
     title: 'Illustrations.',
     href: '/illustrations',
-    query: and('illustration', not(tag('self-portrait'))),
+    query: and('illustration', not(tag('Self-portrait'))),
 }, {
     title: 'Posters.',
     href: '/posters',
-    query: and('poster', not(tag('self-portrait'))),
+    query: and('poster', not(tag('Self-portrait'))),
 }, {
     title: 'Collages.',
     href: '/collages',
-    query: and('collage', not(tag('self-portrait'))),
+    query: and('collage', not(tag('Self-portrait'))),
 }]
