@@ -2,7 +2,7 @@ import { AssetImage } from "@/app/AssetImage"
 import { assetHeight, AssetMetadata, assetWidth } from "@/shared/asset"
 import { hrefForAssetModal } from "@/shared/href"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export type SlideAsset = AssetMetadata & { pathname: string, slideIndex: number }
 
@@ -129,6 +129,10 @@ function AssetCell({ asset, sizes, priority, loading }: {
     loading: 'eager' | 'lazy',
 }) {
     const [navigating, setNavigating] = useState(false)
+    useEffect(() => {
+        setNavigating(false)
+        return () => { setNavigating(false) }
+    })
     return <div style={{
         aspectRatio: `${assetWidth(asset)} / ${assetHeight(asset)}`,
         height: '100%',
