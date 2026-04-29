@@ -1,5 +1,4 @@
 'use client'
-import dynamic from 'next/dynamic'
 import { ReactNode, useState } from "react"
 import { BehanceLink, InstagramLink, MailLink } from "@/app/(detailed)/about/SocialLinks"
 import { Slider } from "./Slider"
@@ -7,17 +6,13 @@ import { AssetMetadata } from "@/shared/asset"
 import { DynamicLayout } from './DynamicLayout'
 import { useAspectRatio } from '@/shared/aspect'
 
-export const ClientsideSlideshow = dynamic(() => Promise.resolve(Slideshow), {
-    ssr: false,
-})
-
 export type SlideData = {
     assets: AssetMetadata[],
     title: string,
     href: string,
     includeLinks?: boolean,
 }
-function Slideshow({ slides }: {
+export function Slideshow({ slides }: {
     slides: SlideData[],
 }) {
     const [scroll, setScroll] = useState(0)
