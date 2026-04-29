@@ -60,7 +60,7 @@ function Slideshow({ slides }: {
             zIndex: 1,
         }}>
             <DynamicLayout
-                slides={slides.map(s => s.assets)}
+                slides={slides.map(s => s.assets.map(a => ({ ...a, pathname: s.href })))}
                 aspect={aspect}
                 // fractions={[30, 40, 30]}
                 // fractions={[25, 50, 25]}
@@ -91,8 +91,11 @@ function TextSlide({
     href: string,
     corner?: ReactNode,
 }) {
-    return <div className="flex flex-col py-[8svh] justify-between h-full cursor-pointer" onClick={() => {
-        window.location.href = href
+    return <div className="flex flex-col py-[8svh] justify-between h-full cursor-pointer" onClick={(e) => {
+        if ((e.target as HTMLElement).closest('a, button')) return
+        const elements = document.elementsFromPoint(e.clientX, e.clientY)
+        const link = elements.find(el => el.hasAttribute('data-asset-id')) as HTMLAnchorElement | undefined
+        if (link) link.click()
     }}>
         <div>
             {/* TODO: make this a Link (once I figure out how to make it work with the slider) */}
