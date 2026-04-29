@@ -2,6 +2,7 @@ import { AssetImage } from "@/app/AssetImage"
 import { assetHeight, AssetMetadata, assetWidth } from "@/shared/asset"
 import { hrefForAssetModal } from "@/shared/href"
 import Link from "next/link"
+import { useState } from "react"
 
 export type SlideAsset = AssetMetadata & { pathname: string, slideIndex: number }
 
@@ -68,26 +69,13 @@ function AssetLine({ assets, scroll, fraction, aspect, direction, priority }: {
             {assets.map((asset) => {
                 const imageAspect = assetWidth(asset) / assetHeight(asset)
                 const vw = Math.ceil(imageAspect / aspect * fraction)
-                return <div key={asset.id} style={{
-                    aspectRatio: `${assetWidth(asset)} / ${assetHeight(asset)}`,
-                    height: '100%',
-                }}
-                >
-                    <Link href={hrefForAssetModal({
-                        pathname: asset.pathname,
-                        assetId: asset.id,
-                        includeHash: true,
-                    })} data-asset-id={asset.id}>
-                        <AssetImage
-                            asset={asset} sizes={`${vw}vw`}
-                            priority={priority && asset.slideIndex === 0}
-                            loading={asset.slideIndex <= 1 ? 'eager' : 'lazy'}
-                            style={{
-                                width: '100%',
-                                height: '100%',
-                            }} />
-                    </Link>
-                </div>
+                return <AssetCell
+                    key={asset.id}
+                    asset={asset}
+                    sizes={`${vw}vw`}
+                    priority={!!priority && asset.slideIndex === 0}
+                    loading={asset.slideIndex <= 1 ? 'eager' : 'lazy'}
+                />
             })}
         </div>
     </div >
@@ -132,4 +120,49 @@ function computeLine({ slides, aspect }: {
         remaining.push(reversed.reverse())
     }
     return { line, remaining }
+}
+
+function AssetCell({ asset, sizes, priority, loading }: {
+    asset: SlideAsset,
+    sizes: string,
+    priority: boolean,
+    loading: 'eager' | 'lazy',
+}) {
+    const [navigating, setNavigating] = useState(false)
+    return <div style={{
+        aspectRatio: `${assetWidth(asset)} / ${assetHeight(asset)}`,
+        height: '100%',
+        position: 'relative',
+    }}>
+        <Link href={hrefForAssetModal({
+            pathname: asset.pathname,
+            assetId: asset.id,
+            includeHash: true,
+        })} data-asset-id={asset.id} onClick={() => setNavigating(true)}>
+            <AssetImage
+                asset={asset} sizes={sizes}
+                priority={priority}
+                loading={loading}
+                style={{
+                    width: '100%',
+                    height: '100%',
+                }} />
+        </Link>
+        {navigating && <div style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            background: 'rgba(0, 0, 0, 0.3)',
+        }}>
+            <div className="text-accent animate-spin" style={{
+                width: 32,
+                height: 32,
+                border: '3px solid currentColor',
+                borderTopColor: 'transparent',
+                borderRadius: '50%',
+            }} />
+        </div>}
+    </div>
 }
