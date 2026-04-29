@@ -3,10 +3,12 @@ import { assetHeight, AssetMetadata, assetWidth } from "@/shared/asset"
 import { hrefForAssetModal } from "@/shared/href"
 import Link from "next/link"
 
+export type SlideAsset = AssetMetadata & { pathname: string }
+
 export function DynamicLayout({
     slides, aspect, fractions, scroll,
 }: {
-    slides: AssetMetadata[][],
+    slides: SlideAsset[][],
     aspect: number,
     fractions: readonly [number, number, number],
     scroll: number,
@@ -41,7 +43,7 @@ export function DynamicLayout({
 }
 
 function AssetLine({ assets, scroll, fraction, aspect, direction }: {
-    assets: AssetMetadata[],
+    assets: SlideAsset[],
     scroll: number,
     fraction: number
     aspect: number
@@ -64,15 +66,15 @@ function AssetLine({ assets, scroll, fraction, aspect, direction }: {
             {assets.map((asset) => {
                 const imageAspect = assetWidth(asset) / assetHeight(asset)
                 const vw = Math.ceil(imageAspect / aspect * fraction)
-                return <div key={asset.id} data-asset-id={asset.id} style={{
+                return <div key={asset.id} style={{
                     aspectRatio: `${assetWidth(asset)} / ${assetHeight(asset)}`,
                     height: '100%',
                 }}
                 >
                     <Link href={hrefForAssetModal({
-                        pathname: 'all',
+                        pathname: asset.pathname,
                         assetId: asset.id,
-                    })}>
+                    })} data-asset-id={asset.id}>
                         <AssetImage asset={asset} sizes={`${vw}vw`} style={{
                             width: '100%',
                             height: '100%',
@@ -85,11 +87,11 @@ function AssetLine({ assets, scroll, fraction, aspect, direction }: {
 }
 
 function computeLines({ slides, aspect, fractions }: {
-    slides: AssetMetadata[][],
+    slides: SlideAsset[][],
     aspect: number,
     fractions: readonly number[],
 }) {
-    const lines: AssetMetadata[][] = []
+    const lines: SlideAsset[][] = []
     const totalFraction = fractions.reduce((a, b) => a + b, 0)
     const aspects = fractions.map(fraction => totalFraction * aspect / fraction)
     for (const a of aspects) {
@@ -101,11 +103,11 @@ function computeLines({ slides, aspect, fractions }: {
 }
 
 function computeLine({ slides, aspect }: {
-    slides: AssetMetadata[][],
+    slides: SlideAsset[][],
     aspect: number,
 }) {
-    const line: AssetMetadata[] = []
-    const remaining: AssetMetadata[][] = []
+    const line: SlideAsset[] = []
+    const remaining: SlideAsset[][] = []
     let width = 0
     for (let idx = 0; idx < slides.length; idx++) {
         const reversed = [...slides[idx]].reverse()
