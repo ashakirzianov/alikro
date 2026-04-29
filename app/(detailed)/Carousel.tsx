@@ -25,6 +25,9 @@ export function Carousel({
     // external sync effect doesn't fight with us.
     const scrollOriginRef = useRef(false)
 
+    // Hide the carousel until the scroll position is set correctly
+    const [positioned, setPositioned] = useState(currentIndex === 0)
+
     const centerScrollLeft = (el: HTMLElement, idx: number) => idx * el.offsetWidth
 
     // Sync with external navigation (browser back/forward)
@@ -40,6 +43,7 @@ export function Carousel({
         if (Math.abs(el.scrollLeft - targetLeft) > 1) {
             el.scrollLeft = targetLeft
         }
+        setPositioned(true)
     }, [currentIndex])
 
     // Detect scroll-snap settling on a new cell
@@ -89,6 +93,7 @@ export function Carousel({
             overflowX: 'scroll',
             scrollSnapType: 'x mandatory',
             overscrollBehaviorX: 'contain',
+            visibility: positioned ? 'visible' : 'hidden',
         }}
     >
         {Array.from({ length: count }, (_, idx) => (
