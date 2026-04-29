@@ -15,11 +15,12 @@ export function hrefForAsset({ pathname, assetId }: {
     return `${pathname ?? '/all'}/${assetId}`
 }
 
-export function hrefForAssetModal({ pathname, assetId }: {
+export function hrefForAssetModal({ pathname, assetId, includeHash }: {
     pathname: string,
     assetId: string,
+    includeHash?: boolean,
 }) {
-    return `${pathname}?show=${assetId}`
+    return `${pathname}?show=${assetId}${includeHash ? '#' + assetId : ''}`
 }
 
 export function hrefForAll({ by }: {

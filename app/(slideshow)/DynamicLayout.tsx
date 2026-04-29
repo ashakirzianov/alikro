@@ -74,6 +74,7 @@ function AssetLine({ assets, scroll, fraction, aspect, direction }: {
                     <Link href={hrefForAssetModal({
                         pathname: asset.pathname,
                         assetId: asset.id,
+                        includeHash: true,
                     })} data-asset-id={asset.id}>
                         <AssetImage asset={asset} sizes={`${vw}vw`} style={{
                             width: '100%',
