@@ -3,7 +3,7 @@ import { assetHeight, AssetMetadata, assetWidth } from "@/shared/asset"
 import { hrefForAssetModal } from "@/shared/href"
 import Link from "next/link"
 
-export type SlideAsset = AssetMetadata & { pathname: string }
+export type SlideAsset = AssetMetadata & { pathname: string, slideIndex: number }
 
 export function DynamicLayout({
     slides, aspect, fractions, scroll,
@@ -32,6 +32,7 @@ export function DynamicLayout({
             fraction={one}
             aspect={aspect}
             direction="right"
+            priority
         />
         <AssetLine
             assets={lines[2]}
@@ -42,12 +43,13 @@ export function DynamicLayout({
     </>
 }
 
-function AssetLine({ assets, scroll, fraction, aspect, direction }: {
+function AssetLine({ assets, scroll, fraction, aspect, direction, priority }: {
     assets: SlideAsset[],
     scroll: number,
     fraction: number
     aspect: number
     direction?: 'left' | 'right',
+    priority?: boolean,
 }) {
     if (direction === 'right') {
         assets = [...assets].reverse()
@@ -76,10 +78,14 @@ function AssetLine({ assets, scroll, fraction, aspect, direction }: {
                         assetId: asset.id,
                         includeHash: true,
                     })} data-asset-id={asset.id}>
-                        <AssetImage asset={asset} sizes={`${vw}vw`} style={{
-                            width: '100%',
-                            height: '100%',
-                        }} />
+                        <AssetImage
+                            asset={asset} sizes={`${vw}vw`}
+                            priority={priority && asset.slideIndex === 0}
+                            loading={asset.slideIndex <= 1 ? 'eager' : 'lazy'}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                            }} />
                     </Link>
                 </div>
             })}

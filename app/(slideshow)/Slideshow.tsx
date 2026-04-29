@@ -1,5 +1,5 @@
 'use client'
-import { ReactNode, useState } from "react"
+import { ReactNode, useMemo, useState } from "react"
 import { BehanceLink, InstagramLink, MailLink } from "@/app/(detailed)/about/SocialLinks"
 import { Slider } from "./Slider"
 import { AssetMetadata } from "@/shared/asset"
@@ -17,6 +17,13 @@ export function Slideshow({ slides }: {
 }) {
     const [scroll, setScroll] = useState(0)
     const aspect = useAspectRatio()
+    const layoutSlides = useMemo(() => slides.map(
+        (s, slideIndex) => s.assets.map(a => ({
+            ...a,
+            pathname: s.href,
+            slideIndex,
+        }))
+    ), [slides])
     let ticking = false
     function handleScroll(value: number) {
         if (!ticking) {
@@ -55,7 +62,7 @@ export function Slideshow({ slides }: {
             zIndex: 1,
         }}>
             <DynamicLayout
-                slides={slides.map(s => s.assets.map(a => ({ ...a, pathname: s.href })))}
+                slides={layoutSlides}
                 aspect={aspect}
                 // fractions={[30, 40, 30]}
                 // fractions={[25, 50, 25]}
