@@ -5,59 +5,94 @@ export type Collection = {
     title: string,
     description: string,
     query: AssetQuery,
-    slideAndQuery?: AssetQuery,
-    slideAltPath?: string,
-    slideLinks?: boolean,
 }
 
+export type CollectionGroup = Collection[]
+
 export function allCollections(): Collection[] {
-    return collections
+    return allCollectionsArray
+}
+
+export function getKindCollections(): CollectionGroup {
+    return kindCollections
+}
+
+export function getSelectedCollections(): CollectionGroup {
+    return selectedCollections
 }
 
 export function collectionForId(path: string): Collection | undefined {
-    return collections.find(collection => collection.id === path)
+    return allCollections().find(collection => collection.id === path)
 }
 
-const collections: Collection[] = [{
+const all: Collection = {
     id: 'all',
     title: 'Alikro, an artist.',
     description: 'All works by Alikro.',
     query: not('unpublished'),
-    slideAndQuery: tag('self-portrait'),
-    slideLinks: true,
-}, {
+}
+
+const kindCollections: CollectionGroup = [{
     id: 'paintings',
-    title: 'Paintings.',
+    title: 'paintings',
     description: "Alikro's paintings.",
     query: 'painting',
-    slideAndQuery: [not(tag('self-portrait'))],
 }, {
     id: 'drawings',
-    title: 'Drawings.',
+    title: 'drawings',
     description: "Alikro's drawings.",
     query: 'drawing',
-    slideAndQuery: [not(tag('self-portrait'))],
 }, {
     id: 'ceramics',
-    title: 'Ceramics.',
+    title: 'ceramics',
     description: "Alikro's ceramics.",
     query: 'ceramic',
 }, {
     id: 'illustrations',
-    title: 'Illustrations.',
+    title: 'illustrations',
     description: "Alikro's illustrations.",
     query: 'illustration',
-    slideAndQuery: [not(tag('self-portrait'))],
 }, {
     id: 'posters',
-    title: 'Posters.',
+    title: 'posters',
     description: "Alikro's posters.",
     query: 'poster',
-    slideAndQuery: [not(tag('self-portrait'))],
 }, {
     id: 'collages',
-    title: 'Collages.',
+    title: 'collages',
     description: "Alikro's collages.",
     query: 'collage',
-    slideAndQuery: [not(tag('self-portrait'))],
 }]
+
+const selectedCollections: CollectionGroup = [{
+    id: 'self-portraits',
+    title: 'self portraits',
+    description: "Alikro's self portraits.",
+    query: tag('Self-portrait'),
+}, {
+    id: 'friends',
+    title: 'friends',
+    description: "Alikro's friend portraits.",
+    query: tag('Friend Portrait'),
+}, {
+    id: 'black-list',
+    title: 'black list',
+    description: "Alikro's Black List series.",
+    query: tag('The Black List'),
+}, {
+    id: 'nai',
+    title: 'nai',
+    description: "Alikro's NAI works.",
+    query: tag('NAI'),
+}, {
+    id: 'sketches-from-museums',
+    title: 'sketches from museums',
+    description: "Alikro's sketches from museums.",
+    query: tag('Sketch from Museum'),
+}]
+
+const allCollectionsArray = [
+    all,
+    ...kindCollections,
+    ...selectedCollections,
+]

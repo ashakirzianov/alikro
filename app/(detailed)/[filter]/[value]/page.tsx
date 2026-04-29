@@ -11,10 +11,10 @@ type Props = {
     value: string,
 }
 
-export async function generateStaticParams({ params: { filter } }: { params: Omit<Props, 'value'> }): Promise<Props[]> {
+export async function generateStaticParams(): Promise<Props[]> {
     return [{
         filter: 'tag',
-        value: 'self-portrait',
+        value: 'Self-portrait',
     }]
 }
 

@@ -1,38 +1,28 @@
 import { AssetMetadata } from "@/shared/asset"
 import { getAssetsForSlideshow } from "@/shared/metadataStore"
-import { allCollections, Collection } from "@/shared/collection"
+import { allSlides, Slide } from "@/shared/slide"
 import { SlideData, ClientsideSlideshow } from "./Slideshow"
 import { assetsForQuery } from "@/shared/query"
 
 export default async function Page() {
     const assets = await getAssetsForSlideshow()
-    const slides = buildSlides(assets, allCollections())
+    const slides = buildSlides(assets, allSlides())
     return <ClientsideSlideshow slides={slides} />
 }
 
 const MIN_ASSETS_PER_SLIDE = 10
-function buildSlides(allAssets: AssetMetadata[], collections: Collection[]): SlideData[] {
-    return collections
-        .map(collection => slideDataForSection(allAssets, collection))
+function buildSlides(allAssets: AssetMetadata[], slides: Slide[]): SlideData[] {
+    return slides
+        .map(slide => slideDataForSlide(allAssets, slide))
         .filter(slide => slide.assets.length >= MIN_ASSETS_PER_SLIDE)
 }
 
-function slideDataForSection(allAssets: AssetMetadata[], {
-    id: path, title, query,
-    slideAltPath, slideAndQuery, slideLinks,
-}: Collection): SlideData {
-    let assets = assetsForQuery(allAssets, query)
-    if (slideAndQuery !== undefined) {
-        assets = assetsForQuery(assets, slideAndQuery)
-    }
-    const href = slideAltPath !== undefined
-        ? `/${slideAltPath}`
-        : `/${path}`
+function slideDataForSlide(allAssets: AssetMetadata[], slide: Slide): SlideData {
+    const assets = assetsForQuery(allAssets, slide.query)
     return {
-        href,
-        title,
+        href: slide.href,
+        title: slide.title,
         assets,
-        includeLinks: slideLinks === true,
+        includeLinks: slide.includeLinks === true,
     }
 }
-

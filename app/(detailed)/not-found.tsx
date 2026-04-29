@@ -1,11 +1,12 @@
 import Link from "next/link"
-import { getKindFilters } from "./filters"
+import { getKindCollections } from "@/shared/collection"
+import { hrefForCollection } from "@/shared/href"
 
 export default function NotFound() {
-    const kinds = getKindFilters()
+    const collections = getKindCollections()
     const links = [
         { title: 'all', href: '/all' },
-        ...kinds.map(k => ({ title: k.title, href: k.href })),
+        ...collections.map(c => ({ title: c.id, href: hrefForCollection({ collectionId: c.id }) })),
     ]
     return (
         <div className="flex flex-col items-center text-accent text-2xl sm:text-5xl mt-4">

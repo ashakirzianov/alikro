@@ -7,6 +7,7 @@ interface AssetImageProps {
     asset: AssetMetadata
     sizes?: string
     style?: React.CSSProperties
+    loading?: 'lazy' | 'eager'
 }
 
 const snapWidths = [320, 480, 640, 768, 960, 1200, 1600, 1920]
@@ -25,7 +26,7 @@ function loader({ src, width, quality }: { src: string, width: number, quality?:
     })
 }
 
-export function AssetImage({ asset, sizes, style }: AssetImageProps) {
+export function AssetImage({ asset, sizes, style, loading }: AssetImageProps) {
     const width = assetWidth(asset)
     const height = assetHeight(asset)
     return (
@@ -36,6 +37,7 @@ export function AssetImage({ asset, sizes, style }: AssetImageProps) {
             width={width}
             height={height}
             sizes={sizes}
+            loading={loading}
             style={{
                 userSelect: 'none',
                 WebkitUserSelect: 'none',

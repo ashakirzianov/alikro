@@ -1,7 +1,8 @@
 import { AssetMetadata } from "@/shared/asset"
 import { hrefForAbout, hrefForSlideshow } from "@/shared/href"
-import { getAssetsForFilter, getKindFilters, getMaterialFilters, getTagFilters, getYearFilters } from "./filters"
-import { getTagMetadata } from "@/shared/tag"
+import { getAssetsForFilter, getMaterialFilters, getYearFilters } from "./filters"
+import { getKindCollections, getSelectedCollections } from "@/shared/collection"
+import { hrefForCollection } from "@/shared/href"
 
 export type GalleryTile = GalleryTileAsset | GalleryTileSection | GalleryTileNavigation
 
@@ -34,12 +35,23 @@ export async function getTiles(filter: string, value: string | undefined): Promi
         case 'material':
             return value ? tilesForMaterial(value) : []
         default:
-            return tilesForKind(filter)
+            return tilesForCollection(filter)
     }
 }
 
+function isSelectedCollection(id: string): boolean {
+    return getSelectedCollections().some(c => c.id === id)
+}
+
+async function tilesForCollection(id: string): Promise<GalleryTile[]> {
+    if (isSelectedCollection(id)) {
+        return tilesForSelected(id)
+    }
+    return tilesForKind(id)
+}
+
 async function tilesForKind(kind: string): Promise<GalleryTile[]> {
-    const assets = await getAssetsForFilter('kind', kind)
+    const assets = await getAssetsForFilter('collection', kind)
     if (assets.length === 0) {
         return []
     }
@@ -51,7 +63,28 @@ async function tilesForKind(kind: string): Promise<GalleryTile[]> {
         getKindNavigationTile(kind),
         getMainPageTile(),
         await getYearNavigationTile(undefined),
-        getTagNavigationTile(undefined),
+        getSelectedNavigationTile(undefined),
+        await getMaterialNavigationTile(undefined),
+        getAboutTile(),
+    ]
+    const combined = insertNavigationTiles(tiles, navigation)
+    return combined
+}
+
+async function tilesForSelected(id: string): Promise<GalleryTile[]> {
+    const assets = await getAssetsForFilter('collection', id)
+    if (assets.length === 0) {
+        return []
+    }
+    const tiles: GalleryTile[] = assets.map(asset => ({
+        kind: 'asset',
+        asset,
+    }))
+    const navigation: GalleryTile[] = [
+        getSelectedNavigationTile(id),
+        getMainPageTile(),
+        getKindNavigationTile(undefined),
+        await getYearNavigationTile(undefined),
         await getMaterialNavigationTile(undefined),
         getAboutTile(),
     ]
@@ -60,7 +93,6 @@ async function tilesForKind(kind: string): Promise<GalleryTile[]> {
 }
 
 async function tilesForTag(tag: string): Promise<GalleryTile[]> {
-    const { title } = getTagMetadata(tag) ?? { title: tag }
     const assets = await getAssetsForFilter('tag', tag)
     if (assets.length === 0) {
         return []
@@ -71,15 +103,11 @@ async function tilesForTag(tag: string): Promise<GalleryTile[]> {
     }))
     const header: GalleryTile = {
         kind: 'section',
-        title,
+        title: tag,
     }
     const navigation: GalleryTile[] = [
-        // header,
-        getTagNavigationTile(tag),
+        header,
         getMainPageTile(),
-        getKindNavigationTile(undefined),
-        await getYearNavigationTile(undefined),
-        await getMaterialNavigationTile(undefined),
         getAboutTile(),
     ]
     const combined = insertNavigationTiles(tiles, navigation)
@@ -104,7 +132,7 @@ async function tilesForYear(year: string): Promise<GalleryTile[]> {
         await getYearNavigationTile(year),
         getMainPageTile(),
         getKindNavigationTile(undefined),
-        getTagNavigationTile(undefined),
+        getSelectedNavigationTile(undefined),
         await getMaterialNavigationTile(undefined),
         getAboutTile(),
     ]
@@ -130,7 +158,7 @@ async function tilesForMaterial(material: string): Promise<GalleryTile[]> {
         await getMaterialNavigationTile(material),
         getMainPageTile(),
         getKindNavigationTile(undefined),
-        getTagNavigationTile(undefined),
+        getSelectedNavigationTile(undefined),
         await getYearNavigationTile(undefined),
         getAboutTile(),
     ]
@@ -139,6 +167,10 @@ async function tilesForMaterial(material: string): Promise<GalleryTile[]> {
 }
 
 function insertNavigationTiles(contentTiles: GalleryTile[], navigationTiles: GalleryTile[], count: number = 4) {
+    const lastNavigationTile = navigationTiles.pop()
+    if (lastNavigationTile === undefined) {
+        return contentTiles
+    }
     const result: GalleryTile[] = []
     const intervals = [0, count - 2, count, count, count + 1]
     let navigationIdx = 0
@@ -162,6 +194,7 @@ function insertNavigationTiles(contentTiles: GalleryTile[], navigationTiles: Gal
     for (; navigationIdx < navigationTiles.length; navigationIdx++) {
         result.push(navigationTiles[navigationIdx])
     }
+    result.push(lastNavigationTile) // Ensure the last navigation tile is at the end
     return result
 }
 
@@ -174,25 +207,25 @@ function getMainPageTile(): GalleryTile {
 }
 
 function getKindNavigationTile(selected: string | undefined): GalleryTile {
-    const filters = getKindFilters()
+    const collections = getKindCollections()
     return {
         kind: 'navigation',
-        links: filters.map(filter => ({
-            title: filter.title,
-            href: filter.href,
-            selected: filter.value === selected,
+        links: collections.map(collection => ({
+            title: collection.title,
+            href: hrefForCollection({ collectionId: collection.id }),
+            selected: collection.id === selected,
         })),
     }
 }
 
-function getTagNavigationTile(selected: string | undefined): GalleryTile {
-    const filters = getTagFilters()
+function getSelectedNavigationTile(selected: string | undefined): GalleryTile {
+    const collections = getSelectedCollections()
     return {
         kind: 'navigation',
-        links: filters.map(filter => ({
-            title: filter.title,
-            href: filter.href,
-            selected: filter.value === selected,
+        links: collections.map(collection => ({
+            title: collection.title,
+            href: hrefForCollection({ collectionId: collection.id }),
+            selected: collection.id === selected,
         })),
     }
 }

@@ -1,8 +1,7 @@
-import { allCollections } from "@/shared/collection"
+import { getKindCollections, getSelectedCollections } from "@/shared/collection"
 import { hrefForCollection, hrefForMaterial, hrefForTag, hrefForYear } from "@/shared/href"
 import { parseMaterialString } from "@/shared/material"
-import { getAssetsForCollection, getAssetsForMaterial, getAssetsForTag, getAssetsForYear, getUniqueMaterials, getUniqueYears } from "@/shared/metadataStore"
-import { getAllTagsMetadata } from "@/shared/tag"
+import { getAssetsForCollection, getAssetsForMaterial, getAssetsForTag, getAssetsForYear, getUniqueMaterials, getUniqueTags, getUniqueYears } from "@/shared/metadataStore"
 
 export type FilterLink = {
     title: string,
@@ -10,38 +9,35 @@ export type FilterLink = {
     value: string,
 }
 export type Filters = {
-    kind: FilterLink[],
+    collection: FilterLink[],
+    tag: FilterLink[],
     material: FilterLink[],
     year: FilterLink[],
-    tag: FilterLink[],
 }
 export async function getFilters(): Promise<Filters> {
-    const [material, year] = await Promise.all([
-        getMaterialFilters(), getYearFilters(),
+    const [tag, material, year] = await Promise.all([
+        getTagFilters(), getMaterialFilters(), getYearFilters(),
     ])
-    const kind: FilterLink[] = getKindFilters()
-    const tag: FilterLink[] = getTagFilters()
+    const collection: FilterLink[] = getCollectionFilters()
     return {
-        kind, material, year, tag,
+        collection, tag, material, year,
     }
 }
 
-export function getKindFilters(): FilterLink[] {
-    const kind: FilterLink[] = allCollections().map(collection => ({
-        title: collection.id,
+export function getCollectionFilters(): FilterLink[] {
+    return [...getKindCollections(), ...getSelectedCollections()].map(collection => ({
+        title: collection.title,
         href: hrefForCollection({ collectionId: collection.id }),
         value: collection.id,
     }))
-    kind.shift() // remove 'all' collection
-    return kind
 }
 
-export function getTagFilters(): FilterLink[] {
-    const tagsMetadata = getAllTagsMetadata()
-    return tagsMetadata.map(tag => ({
-        title: tag.title,
-        href: hrefForTag({ tag: tag.tag }),
-        value: tag.tag,
+export async function getTagFilters(): Promise<FilterLink[]> {
+    const uniqueTags = await getUniqueTags()
+    return uniqueTags.map(tag => ({
+        title: tag,
+        href: hrefForTag({ tag }),
+        value: tag,
     }))
 }
 
@@ -65,13 +61,11 @@ export async function getYearFilters(): Promise<FilterLink[]> {
 
 export async function getAssetsForFilter(filterKey: keyof Filters, filterValue: string) {
     switch (filterKey) {
-        case 'kind': {
-            const collections = allCollections()
-            const collection = collections.find(c => c.id === filterValue)
-            if (!collection) {
-                return []
-            }
-            return getAssetsForCollection(collection.id)
+        case 'collection': {
+            return getAssetsForCollection(filterValue)
+        }
+        case 'tag': {
+            return getAssetsForTag(filterValue)
         }
         case 'material': {
             return getAssetsForMaterial(filterValue)
@@ -82,9 +76,6 @@ export async function getAssetsForFilter(filterKey: keyof Filters, filterValue: 
                 return []
             }
             return getAssetsForYear(year)
-        }
-        case 'tag': {
-            return getAssetsForTag(filterValue)
         }
         default:
             return []

@@ -19,6 +19,8 @@ export function Modal({ children, onDismiss }: {
             right: 0,
             bottom: 0,
             backgroundColor: "rgba(0, 0, 0, 0.5)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
