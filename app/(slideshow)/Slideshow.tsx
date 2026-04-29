@@ -91,8 +91,12 @@ function TextSlide({
     href: string,
     corner?: ReactNode,
 }) {
-    return <div className="flex flex-col py-[8svh] justify-between h-full cursor-pointer" onClick={() => {
-        window.location.href = href
+    return <div className="flex flex-col py-[8svh] justify-between h-full cursor-pointer" onClick={(e) => {
+        if ((e.target as HTMLElement).closest('a, button')) return
+        const elements = document.elementsFromPoint(e.clientX, e.clientY)
+        const assetEl = elements.find(el => el.hasAttribute('data-asset-id'))
+        const link = assetEl?.querySelector('a')
+        if (link) link.click()
     }}>
         <div>
             {/* TODO: make this a Link (once I figure out how to make it work with the slider) */}

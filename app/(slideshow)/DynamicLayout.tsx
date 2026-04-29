@@ -1,6 +1,6 @@
 import { AssetImage } from "@/app/AssetImage"
 import { assetHeight, AssetMetadata, assetWidth } from "@/shared/asset"
-import { hrefForAsset } from "@/shared/href"
+import { hrefForAssetModal } from "@/shared/href"
 import Link from "next/link"
 
 export function DynamicLayout({
@@ -64,12 +64,13 @@ function AssetLine({ assets, scroll, fraction, aspect, direction }: {
             {assets.map((asset) => {
                 const imageAspect = assetWidth(asset) / assetHeight(asset)
                 const vw = Math.ceil(imageAspect / aspect * fraction)
-                return <div key={asset.id} style={{
+                return <div key={asset.id} data-asset-id={asset.id} style={{
                     aspectRatio: `${assetWidth(asset)} / ${assetHeight(asset)}`,
                     height: '100%',
                 }}
                 >
-                    <Link href={hrefForAsset({
+                    <Link href={hrefForAssetModal({
+                        pathname: 'all',
                         assetId: asset.id,
                     })}>
                         <AssetImage asset={asset} sizes={`${vw}vw`} style={{
