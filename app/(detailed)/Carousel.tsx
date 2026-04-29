@@ -83,32 +83,53 @@ export function Carousel({
         return () => window.removeEventListener('keydown', handleKeyDown)
     }, [])
 
-    return <div
-        ref={scrollRef}
-        className="carousel-scroll"
-        style={{
+    return <>
+        {!positioned && <div style={{
             position: 'absolute',
             inset: 0,
             display: 'flex',
-            overflowX: 'scroll',
-            scrollSnapType: 'x mandatory',
-            overscrollBehaviorX: 'contain',
-            visibility: positioned ? 'visible' : 'hidden',
-        }}
-    >
-        {Array.from({ length: count }, (_, idx) => (
-            <div key={idx} style={{
-                flex: '0 0 100%',
-                scrollSnapAlign: 'start',
+            justifyContent: 'center',
+            alignItems: 'center',
+        }}>
+            <Spinner />
+        </div>}
+        <div
+            ref={scrollRef}
+            className="carousel-scroll"
+            style={{
+                position: 'absolute',
+                inset: 0,
                 display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                position: 'relative',
-            }}>
-                {renderCell(idx, Math.abs(idx - visualIndex) <= PRELOAD_BUFFER)}
-            </div>
-        ))}
-    </div>
+                overflowX: 'scroll',
+                scrollSnapType: 'x mandatory',
+                overscrollBehaviorX: 'contain',
+                visibility: positioned ? 'visible' : 'hidden',
+            }}
+        >
+            {Array.from({ length: count }, (_, idx) => (
+                <div key={idx} style={{
+                    flex: '0 0 100%',
+                    scrollSnapAlign: 'start',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    position: 'relative',
+                }}>
+                    {renderCell(idx, Math.abs(idx - visualIndex) <= PRELOAD_BUFFER)}
+                </div>
+            ))}
+        </div>
+    </>
+}
+
+function Spinner() {
+    return <div className="text-accent animate-spin" style={{
+        width: 32,
+        height: 32,
+        border: '3px solid currentColor',
+        borderTopColor: 'transparent',
+        borderRadius: '50%',
+    }} />
 }
 
 export function scrollCarouselNext(el: HTMLElement) {
