@@ -1,13 +1,13 @@
 import { AssetMetadata } from "@/shared/asset"
 import { getAssetsForSlideshow } from "@/shared/metadataStore"
 import { allSlides, Slide } from "@/shared/slide"
-import { SlideData, Slideshow } from "./Slideshow"
+import { SlideData, ClientsideSlideshow } from "./Slideshow"
 import { assetsForQuery } from "@/shared/query"
 
 export default async function Page() {
     const assets = await getAssetsForSlideshow()
     const slides = buildSlides(assets, allSlides())
-    return <Slideshow slides={slides} />
+    return <ClientsideSlideshow slides={slides} />
 }
 
 const MIN_ASSETS_PER_SLIDE = 10
