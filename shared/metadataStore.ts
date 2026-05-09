@@ -55,9 +55,12 @@ export async function getUniqueTags() {
     return Array.from(tagSet)
 }
 
+export async function getAssetMetadata(id: string) {
+    const assets = await getPublishedAssetsMetadata()
+    return assets.find(asset => asset.id === id)
+}
+
 async function getUniquePropertyValues<P extends keyof AssetMetadata>(property: P): Promise<AssetMetadata[P][]> {
-    'use cache'
-    cacheLife('max')
     const assets = await getPublishedAssetsMetadata()
     const values = assets
         .map(asset => asset[property])
@@ -66,21 +69,9 @@ async function getUniquePropertyValues<P extends keyof AssetMetadata>(property: 
 }
 
 async function getSortedAssetsForQuery(query: AssetQuery) {
-    'use cache'
-    cacheLife('max')
     const unsorted = await getPublishedAssetsMetadata()
     const assets = sortAssets(unsorted)
-    const filtered = assetsForQuery(assets, query)
-    filtered.forEach(asset => cacheTagForAssetId(asset.id))
-    return filtered
-}
-
-export async function getAssetMetadata(id: string) {
-    'use cache'
-    cacheLife('max')
-    cacheTagForAssetId(id)
-    const assets = await getPublishedAssetsMetadata()
-    return assets.find(asset => asset.id === id)
+    return assetsForQuery(assets, query)
 }
 
 async function getPublishedAssetsMetadata() {
@@ -90,16 +81,8 @@ async function getPublishedAssetsMetadata() {
 
 async function getAllAssetsMetadata() {
     'use cache'
-    cacheTagForIndex()
     cacheLife('max')
+    cacheTag('crow-content')
     const assets = await fetchAllAssetMetadata()
     return preproccessAssets(assets)
-}
-
-function cacheTagForAssetId(assetId: string) {
-    cacheTag(`crow-asset-id-${assetId}`)
-}
-
-function cacheTagForIndex() {
-    cacheTag('crow-asset-index')
 }
