@@ -73,13 +73,19 @@ free-text tags at request time. Payload makes it a document.
 | — | — | `Vika Temnova` | 2 |
 | — | — | `Porteño` | 1 |
 
-> **Three of these are currently broken.** `matchQuery` does a case-sensitive
-> `tags.includes(...)`, and `Self-portrait` / `Friend Portrait` /
-> `Sketch from Museum` do not match the stored `selfportrait` /
-> `friend portrait` / `sketch from museum`. Those three collections render empty
-> today. Migrating series into documents fixes this by construction — worth
-> confirming against production before assuming the `assets.json` snapshot is
-> current.
+> **Three of these are currently broken — a live bug on alikro.art, independent
+> of this trial.** `matchQuery` does a case-sensitive `tags.includes(...)`, and
+> `Self-portrait` / `Friend Portrait` / `Sketch from Museum` do not match the
+> stored `selfportrait` / `friend portrait` / `sketch from museum`. Those three
+> collection pages render empty today; `The Black List` and `NAI` match exactly
+> and work. Worth confirming against production before assuming the
+> `assets.json` snapshot is current.
+>
+> **The trial fixes this by construction, which confounds the comparison unless
+> recorded.** Series membership becomes an explicit relation, so all seven
+> populate — meaning the Payload site will show *more* content than production
+> does, for reasons that have nothing to do with Payload. Noted here so the
+> playtest reads it as a modelling win, not a media or performance one.
 
 **Not series:** `favorite` (60) and `secondary` (9) stay flat `tags` — they are
 flags on a work, not bodies of work. `kind` (medium) stays a field: the
@@ -90,6 +96,18 @@ Fields: `slug`, `title`, `description`, `cover`, `featured` (show in nav),
 `order` (position in nav), and `artworks` — a `join` on `artworks.series` with
 `orderable: true`, which is what turns "reorder a gallery" into a drag inside one
 document.
+
+**Membership is settable from either side.** The real, writable field is
+`artworks.series` (a hasMany relationship), so Alina can assign a series on the
+artwork she is already looking at; the `join` on the series document is the
+read-only reverse view that carries the drag-ordering. Worth stating because
+Payload joins are virtual and read-only — if membership lived only on the series
+side, cataloguing a new upload would force a detour to another document.
+
+**Two orderings coexist; be explicit about which drives what.** `artworks.order`
+is Crow's flat global position and drives the `all` gallery and the `kind`
+collections. The per-series fractional index drives a series page only. They can
+drift, and neither is derived from the other.
 
 ---
 
@@ -191,11 +209,25 @@ Two consequences of that flag that are Anton's to action in Phase 2:
 
 ## 6. Open questions for Anton — the blessing gate
 
-1. **`kind` vs publication state.** Split `unpublished`/`hidden` out into a
-   `status` field (or a `published` checkbox) and let `kind` mean medium only? It
-   is the right model and the migration is the cheap moment to do it — but it
-   changes alikro's query code, so it is not free. *Default if you say nothing:
-   keep Crow's shape.*
+1. **`kind` is overloaded — recommend splitting it.** Crow's `kind` carries three
+   unrelated things: **medium** (painting/drawing/ceramic/illustration/poster/
+   collage), **publication state** (`unpublished`, `hidden`), and **a category the
+   site filters out in code** (`tattoo`, dropped by `shared/preprocess.ts`). The
+   recommendation — from the design advisor, and I agree — is: `kind` means medium
+   only; `unpublished`/`hidden` become Payload's **native draft/published
+   `_status`**; the tattoo exclusion becomes an explicit visibility field instead
+   of a hardcoded filter.
+
+   This is not tidiness. Drafts/versioning is a baseline CMS dimension Crow scores
+   1/5 on and one of the strongest reasons Payload might win the trial — modelling
+   it this way is the only way the playtest actually exercises it. It is also a
+   direct data point for evaluation criterion 2 (effort to model alikro's content).
+   The cost is real but bounded: it changes alikro's query code, and drafts add a
+   versions table plus `_status` to every read.
+
+   **This is the one open question I would rather you answered than defaulted.**
+   Currently implemented as Crow's shape (parity). If you say yes, I do it at the
+   top of Phase 2, before the archive pass — it is cheap then and expensive after.
 2. **Per-series ordering is approximate.** Payload's `orderable` join stores one
    fractional-index column per artwork, and for a `hasMany` relationship the
    reorder scope comes from the artwork's *first* series. A work in two series
@@ -216,9 +248,31 @@ Two consequences of that flag that are Anton's to action in Phase 2:
    commit the migration before the archive job. *Default: I do this at the top of
    Phase 2.*
 5. **Series seeding needs your eye.** The derivation in §2 is mine, from tags. It
-   produces a review list for Alina during the playtest — but if `Vika Temnova` and
-   `Porteño` are something other than series (a collaborator? a place?), say so
-   before the migration links them.
+   produces a review list for Alina during the playtest — but `Vika Temnova` (2)
+   and `Porteño` (1) read more like portrait subjects than series. Modelled as
+   series for now, since it exercises the relation; they are flagged in Alina's
+   review list, and she is the one who knows.
 6. **Multi-image works.** An `artworks` document is one image, exactly like Crow.
    Ceramics with detail shots would want several. Out of scope for the trial;
    flagging because it is the kind of thing the modelling layer is supposed to buy.
+
+---
+
+## 7. Recorded for the trial write-up
+
+Observations that belong to the evaluation rather than to the schema:
+
+- **Version coupling is a recurring cost, not a one-time one.** Embedding pins
+  alikro's Next floor to whatever the installed Payload requires — 3.86.0 demands
+  `>=16.2.6`, which forced 16.1.6 → 16.2.12 and React 19.2.4 → 19.2.8, plus a full
+  ESM conversion. Payload v3 ships near-weekly, so this coupling recurs on every
+  upgrade. Feeds criterion 5 (maintenance weight vs Crow's ~zero).
+- **Watch the cataloguing path in the playtest** (criterion 1). Assigning a series
+  from the artwork works because the writable field lives there — but the drag
+  ordering only exists on the series document, so a full "upload and catalogue"
+  still crosses two documents.
+- **The missing on-demand fallback already bites**, at the OG-image route (§4).
+  That answers the trial plan's open question without waiting for the playtest.
+- **The `.gif` is a non-issue.** Payload passes sharp's `animated: true` for
+  gif/avif/webp, so variants keep their frames. Only the stored "original" differs:
+  animated types are re-encoded through libvips rather than kept byte-identical.
