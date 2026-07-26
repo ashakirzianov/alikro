@@ -27,6 +27,9 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# payload trial: local-disk upload fallback (used when S3_BUCKET is unset)
+/media
+
 # vercel
 .vercel
 
