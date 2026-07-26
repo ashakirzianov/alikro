@@ -4,10 +4,11 @@ Branch-only document. Belongs to the Payload kill-test described in
 `../axis/docs/crow-payload-trial.md`; production alikro.art still reads from Crow
 and is untouched by this branch.
 
-**Status: blessed 2026-07-26**, with rulings applied — `exhibitions` dropped from
+**Status: blessed 2026-07-26**, all rulings applied — `exhibitions` dropped from
 the trial, `kind` split into medium + draft state + an explicit visibility flag,
-and the two competing orderings collapsed into one. What remains open is at the
-bottom: one real question (which tags are series) and one Phase-2 prerequisite.
+the two competing orderings collapsed into one, and `material` modelled into a
+taxonomy while keeping the prose (§2b). What remains open is at the bottom: one
+content question (which tags are series) and one Phase-2 prerequisite.
 
 ---
 
@@ -50,7 +51,7 @@ it in `shared/asset.ts`.
 | `kind: 'hidden'` | `showOnSite: false` | checkbox | Two live records, both digital illustrations made for an app ("Love (for app)", "Love and Kindness (for app)"). They migrate as `medium: illustration` with the box unchecked. |
 | `title` | `title` | text | All 632 have one. |
 | `year` | `year` | number | All 632 have one. Range 2015–2026. |
-| `material` | `material` | text | Stays free text — `shared/material.ts` parses it (`" on "`, `" + "`, `", "`, clay/glaze suffixes) and that parser is the contract. |
+| `material` | `material` + `materials` + `support` | text + two relationships | **Modelled, with the prose kept.** The raw string stays authoritative on every record — the site still parses it, and it makes the modelling fully reversible. Alongside it, the same parser derives relations into a `materials` taxonomy: what the work is made *of*, and what it is made *on*. See §2b. |
 | `tags` | `series` + `favorite` | relationship / checkbox | Split by §2. Every tag either names a body of work (→ a series relation) or is the single flag `Favorite` (→ a checkbox). There is no flat-tag field: an unclassified tag **blocks the migration** rather than being carried silently. |
 
 **Added by Payload, no Crow equivalent:** `mimeType`, `filesize`, `url`,
@@ -91,6 +92,45 @@ and for a hasMany relationship the reorder scope comes from the artwork's *first
 series). Payload's native drag-to-reorder is still available as a **replacement**
 for the numeric field if the playtest says dragging beats typing numbers; that is
 a UX question for Alina, not a schema decision to take now.
+
+---
+
+## 2b. `materials` — modelling the prose
+
+Crow stores "gouache on paper + digital" as a string. alikro depends on its
+structure anyway, re-deriving it on every request with a bespoke parser — which
+makes **the parser the schema**. This is the one place the trial asks Payload to
+model something Crow could only describe.
+
+`materials` is a collection (`slug`, `name`, optional `broader`), and artworks
+carry two relationships into it: **`materials`** (what it is made of) and
+**`support`** (what it is made on — the "on paper" half). The raw string stays on
+every record and remains authoritative, so this is additive and reversible.
+
+**Seeded from the archive, not hand-listed.** The migration runs the site's own
+parser over all 632 records: **30 terms** from 56 distinct descriptions — 27
+media, 3 supports (paper, canvas, cardboard).
+
+**One design decision worth stating, because it went against the obvious.** The
+site's parser is deliberately *lossy*: it splits "soldate clay" into a discarded
+"soldate" plus "clay" so the filter can offer one broad term. Deriving from that
+output would have been faithful to the filter — and would have baked the parser's
+compromises into the schema, throwing away exactly the distinction a ceramicist
+cares about. Because the raw string is retained, filter parity is guaranteed
+regardless of the taxonomy's grain, so there was no reason to inherit the
+lossiness. The qualifiers are preserved: `soldate clay`, `murietta clay`,
+`porcelain clay`, `raku glaze`, `underglaze` all survive as distinct terms.
+
+**What that surfaced.** The archive has a material *hierarchy* the flat string
+could never express — six kinds of clay, two of glaze. The migration reports
+these as broader/narrower pairs and does **not** merge them; `Materials.broader`
+exists for Alina to confirm. It likewise reports `marker ~ markers` as a likely
+duplicate rather than merging it, because collapsing two terms is a content
+decision and not one a regex should make.
+
+**Blocking guard:** a record whose `material` is non-empty but yields no
+components stops the dry run. An artwork silently arriving with no materials is
+the kind of hole nobody notices until someone filters for it.
 
 ---
 
@@ -192,8 +232,8 @@ mechanism over two. After 632 records exist, a shape decision gets expensive.
 | `uploadedAt` duplicated `createdAt` | **Adopted the native one.** Verified in `@payloadcms/drizzle/upsertRow`: a supplied `createdAt` is honoured, defaulted only when absent. Two timestamps would have forced every consumer to choose between them forever. |
 | `tags` was vestigial; `Favorite` a boolean as a string | **Replaced with a checkbox**, flat-tag field dropped, unclassified tags now blocking. |
 | `order` vs Payload's native fractional ordering | **No change** — already ruled, and one mechanism either way. The deferral is demonstrably safe: converting 632 numbers to fractional keys later is a single ordered pass. |
-| `material` is structured data inside a string, parsed at runtime | **Open — with Anton.** The clearest remaining Crow-ism: `shared/material.ts` parses `" on "` / `" + "` / `", "` and clay-glaze suffixes, which makes *the parser the schema*. Modelling it is the best remaining test of the modelling layer, and migration is the cheap moment because the parser already exists to derive structure at write time. |
-| `medium` as a code-defined select | **Open — with Anton.** More restrictive than Crow's free text: adding a medium now needs a deploy, which is an editor-autonomy regression dressed as validation. Recommendation is to keep the select *through* the run (it fails loudly on unknown values) and revisit after; converting 7 values to a relationship later is small and scriptable. Related asymmetry worth recording either way: series are content, but the medium collections are still hardcoded in `shared/collection.ts`. |
+| `material` is structured data inside a string, parsed at runtime | **Modelled** (Anton, 2026-07-26) — see §2b. Raw string retained, so it is fully reversible. |
+| `medium` as a code-defined select | **Kept through the migration** (Anton, 2026-07-26), because it fails loudly on unknown values during a bulk pass; revisit straight after the playtest. The cost is real and is now stated in the field's own admin description: adding a medium needs a code change, where Crow accepted free text. Recorded as a playtest finding either way, along with the taxonomy asymmetry — series and materials are content, but the medium collections are still hardcoded in `shared/collection.ts`. |
 
 Swept and genuinely fine: `slug` (no native equivalent, and carrying Crow's id
 verbatim is the point), `showOnSite` (drafts are the wrong primitive — these are

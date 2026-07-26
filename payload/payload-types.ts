@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     artworks: Artwork;
     series: Series;
+    materials: Material;
     users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -83,6 +84,7 @@ export interface Config {
   collectionsSelect: {
     artworks: ArtworksSelect<false> | ArtworksSelect<true>;
     series: SeriesSelect<false> | SeriesSelect<true>;
+    materials: MaterialsSelect<false> | MaterialsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -138,9 +140,20 @@ export interface Artwork {
   title?: string | null;
   year?: number | null;
   /**
-   * Free text, matching Crow — e.g. "acrylic on paper", "clay, underglaze". alikro parses it for the material filter.
+   * The original free-text description, e.g. "acrylic on paper". Source of truth; the relations below are derived from it.
    */
   material?: string | null;
+  /**
+   * What the work is made of.
+   */
+  materials?: (number | Material)[] | null;
+  /**
+   * What it is made on — the "on paper" half of the description.
+   */
+  support?: (number | Material)[] | null;
+  /**
+   * Adding a new medium currently requires a code change — flagged as a trial finding.
+   */
   medium?: ('painting' | 'drawing' | 'ceramic' | 'illustration' | 'poster' | 'collage' | 'tattoo') | null;
   /**
    * Uncheck to keep a published work out of the public galleries. Migration unchecks it for tattoos, matching what the site does today.
@@ -230,6 +243,23 @@ export interface Artwork {
       filename?: string | null;
     };
   };
+}
+/**
+ * Media and supports. Merge duplicates here rather than editing 600 artworks.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "materials".
+ */
+export interface Material {
+  id: number;
+  slug: string;
+  name: string;
+  /**
+   * A more general material, if this is a specific kind of one (e.g. soldate clay → clay).
+   */
+  broader?: (number | null) | Material;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * A named body of work. Replaces alikro's hardcoded tag-query collections.
@@ -324,6 +354,10 @@ export interface PayloadLockedDocument {
         value: number | Series;
       } | null)
     | ({
+        relationTo: 'materials';
+        value: number | Material;
+      } | null)
+    | ({
         relationTo: 'users';
         value: number | User;
       } | null);
@@ -378,6 +412,8 @@ export interface ArtworksSelect<T extends boolean = true> {
   title?: T;
   year?: T;
   material?: T;
+  materials?: T;
+  support?: T;
   medium?: T;
   showOnSite?: T;
   favorite?: T;
@@ -492,6 +528,17 @@ export interface SeriesSelect<T extends boolean = true> {
   featured?: T;
   order?: T;
   artworks?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "materials_select".
+ */
+export interface MaterialsSelect<T extends boolean = true> {
+  slug?: T;
+  name?: T;
+  broader?: T;
   updatedAt?: T;
   createdAt?: T;
 }

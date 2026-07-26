@@ -19,6 +19,7 @@ import { getPayload } from 'payload'
 
 import config from '../../payload.config'
 import { createDataFor, mapExport, type CrowExport, type MappedArtwork } from './mapping'
+import { deriveMaterialTaxonomy } from './materials'
 import { SERIES_SEEDS } from './series'
 
 const EXPORT_PATH = path.resolve(process.cwd(), 'payload/migration/crow-export.json')
@@ -68,6 +69,10 @@ export async function migrate({ limit, seriesOnly }: { limit?: number, seriesOnl
 
     const seriesIds = await ensureSeries(payload)
     console.log(`Series ready: ${seriesIds.size}`)
+
+    const materialIds = await ensureMaterials(payload, crowExport.assets.map(asset => asset.material))
+    console.log(`Materials ready: ${materialIds.size}`)
+
     if (seriesOnly) {
         return
     }
@@ -81,7 +86,7 @@ export async function migrate({ limit, seriesOnly }: { limit?: number, seriesOnl
 
     const counts = { created: 0, missing: 0, failed: 0 }
     await forEachWithConcurrency(work, CONCURRENCY, async artwork => {
-        const outcome = await migrateArtwork({ payload, artwork, seriesIds, stagingDir: stagingDir! })
+        const outcome = await migrateArtwork({ payload, artwork, seriesIds, materialIds, stagingDir: stagingDir! })
         if (outcome.outcome === 'created') counts.created++
         if (outcome.outcome === 'skipped-missing-file') counts.missing++
         if (outcome.outcome === 'failed') counts.failed++
@@ -123,10 +128,41 @@ export async function ensureSeries(payload: Awaited<ReturnType<typeof getPayload
     return ids
 }
 
-async function migrateArtwork({ payload, artwork, seriesIds, stagingDir }: {
+// Seeded from the archive rather than a hand-written table: the terms are
+// derived by the site's own parser, so they are exactly what the work is made
+// of. Idempotent by slug.
+export async function ensureMaterials(
+    payload: Awaited<ReturnType<typeof getPayload>>,
+    materials: (string | undefined)[],
+) {
+    const { terms } = deriveMaterialTaxonomy(materials)
+    const ids = new Map<string, number>()
+    for (const term of terms) {
+        const found = await payload.find({
+            collection: 'materials',
+            where: { slug: { equals: term.slug } },
+            limit: 1,
+            depth: 0,
+        })
+        const existing = found.docs[0]
+        if (existing) {
+            ids.set(term.slug, existing.id)
+            continue
+        }
+        const created = await payload.create({
+            collection: 'materials',
+            data: { slug: term.slug, name: term.name },
+        })
+        ids.set(term.slug, created.id)
+    }
+    return ids
+}
+
+async function migrateArtwork({ payload, artwork, seriesIds, materialIds, stagingDir }: {
     payload: Awaited<ReturnType<typeof getPayload>>,
     artwork: MappedArtwork,
     seriesIds: Map<string, number>,
+    materialIds: Map<string, number>,
     stagingDir: string,
 }): Promise<LogEntry> {
     const at = new Date().toISOString()
@@ -140,6 +176,12 @@ async function migrateArtwork({ payload, artwork, seriesIds, stagingDir }: {
     const series = artwork.seriesSlugs
         .map(slug => seriesIds.get(slug))
         .filter((id): id is number => id !== undefined)
+    const materials = artwork.materialSlugs
+        .map(slug => materialIds.get(slug))
+        .filter((id): id is number => id !== undefined)
+    const support = artwork.supportSlugs
+        .map(slug => materialIds.get(slug))
+        .filter((id): id is number => id !== undefined)
 
     try {
         // Passing filePath rather than a buffer lets Payload handle the formats
@@ -151,6 +193,8 @@ async function migrateArtwork({ payload, artwork, seriesIds, stagingDir }: {
             data: {
                 ...createDataFor(artwork),
                 series,
+                materials,
+                support,
             },
             // The archive is the source of truth here; access control and the
             // draft/publish workflow are for humans in the admin.

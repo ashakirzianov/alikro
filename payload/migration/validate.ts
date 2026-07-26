@@ -13,6 +13,7 @@ import path from 'path'
 import sharp from 'sharp'
 
 import { mapExport, type CrowExport } from './mapping'
+import { deriveMaterialTaxonomy } from './materials'
 import { SERIES_SEEDS } from './series'
 
 const EXPORT_PATH = path.resolve(process.cwd(), 'payload/migration/crow-export.json')
@@ -55,6 +56,19 @@ async function main() {
         console.log(`  empty: ${empty.join(', ')}`)
     }
 
+    // --- material taxonomy ---------------------------------------------------
+    const taxonomy = deriveMaterialTaxonomy(crowExport.assets.map(a => a.material))
+    const withMaterial = artworks.filter(a => a.material && a.material.trim().length > 0)
+    console.log(`\nmaterials: ${taxonomy.terms.length} terms derived from ${new Set(withMaterial.map(a => a.material)).size} distinct descriptions`)
+    console.log(`  media:    ${taxonomy.terms.filter(t => t.role === 'medium').map(t => t.slug).join(' ')}`)
+    console.log(`  supports: ${taxonomy.terms.filter(t => t.role === 'support').map(t => t.slug).join(' ')}`)
+    if (taxonomy.plural.length > 0) {
+        console.log(`  likely duplicates (for Alina, NOT merged): ${taxonomy.plural.map(p => p.join(' ~ ')).join(', ')}`)
+    }
+    if (taxonomy.narrower.length > 0) {
+        console.log(`  broader/narrower pairs (for Alina, NOT merged): ${taxonomy.narrower.map(p => p.join(' < ')).join(', ')}`)
+    }
+
     // --- invariants ----------------------------------------------------------
     const failures: string[] = []
     check(failures, artworks.every(a => a.slug.length > 0), 'every artwork has a slug')
@@ -64,6 +78,9 @@ async function main() {
     check(failures, new Set(artworks.map(a => a.fileName)).size === artworks.length, 'fileNames are unique (clean join)')
     check(failures, artworks.every(a => a.seriesSlugs.every(slug => SERIES_SEEDS.some(seed => seed.slug === slug))), 'every series link resolves to a seed')
     check(failures, artworks.filter(a => a.status === 'draft').every(a => a.medium === undefined), 'drafts are the records with no medium')
+    check(failures, withMaterial.every(a => a.materialSlugs.length > 0), 'every described material yields at least one component')
+    check(failures, artworks.every(a => [...a.materialSlugs, ...a.supportSlugs].every(slug => taxonomy.terms.some(term => term.slug === slug))), 'every material link resolves to a derived term')
+    check(failures, artworks.every(a => !a.material || a.material.length > 0), 'the raw material string is preserved on every record')
 
     // The whole point of carrying rather than deriving slugs.
     const derived = artworks.filter(a => a.slug !== deriveSlug(a.fileName))

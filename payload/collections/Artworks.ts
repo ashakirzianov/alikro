@@ -113,17 +113,46 @@ export const Artworks: CollectionConfig = {
             index: true,
         },
         {
+            // Kept verbatim alongside the modelled relations below. It is what
+            // the site still parses for its material filter, and it makes the
+            // whole modelling step fully reversible: if the taxonomy is wrong,
+            // the prose it came from is still on every record.
             name: 'material',
             type: 'text',
             admin: {
-                description: 'Free text, matching Crow — e.g. "acrylic on paper", "clay, underglaze". alikro parses it for the material filter.',
+                description: 'The original free-text description, e.g. "acrylic on paper". Source of truth; the relations below are derived from it.',
             },
         },
         {
+            name: 'materials',
+            type: 'relationship',
+            relationTo: 'materials',
+            hasMany: true,
+            admin: {
+                description: 'What the work is made of.',
+            },
+        },
+        {
+            name: 'support',
+            type: 'relationship',
+            relationTo: 'materials',
+            hasMany: true,
+            admin: {
+                description: 'What it is made on — the "on paper" half of the description.',
+            },
+        },
+        {
+            // A code-defined select is stricter than Crow's free text: adding a
+            // medium needs a deploy. Kept for the migration because it fails
+            // loudly on an unknown value during a bulk pass; revisit after the
+            // playtest, when the editor-autonomy cost has actually been felt.
             name: 'medium',
             type: 'select',
             options: MEDIUMS,
             index: true,
+            admin: {
+                description: 'Adding a new medium currently requires a code change — flagged as a trial finding.',
+            },
         },
         {
             // Replaces the hardcoded `kind !== 'tattoo'` filter in
