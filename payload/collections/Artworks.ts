@@ -14,9 +14,12 @@ const WEBP_OPTIONS = {
     smartSubsample: true,
 }
 
-// Every `kind` present in the live archive (assets.json snapshot, 523 records),
-// plus `unpublished`, which Crow assigns to freshly uploaded assets.
-const KINDS = [
+// Crow's `kind` carried three unrelated things at once: medium, publication
+// state (`unpublished`, `hidden`), and a category the site filtered out in code
+// (`tattoo`). Split per Anton: this is medium only. `unpublished` becomes
+// Payload's native draft state, `hidden` is dropped, and the tattoo exclusion
+// becomes the explicit `showOnSite` field below.
+const MEDIUMS = [
     'painting',
     'drawing',
     'ceramic',
@@ -24,20 +27,24 @@ const KINDS = [
     'poster',
     'collage',
     'tattoo',
-    'hidden',
-    'unpublished',
 ]
 
 export const Artworks: CollectionConfig = {
     slug: 'artworks',
     access: {
         // Payload's default for an undefined `read` is "any authenticated user",
-        // so public read has to be explicit. Scoped, though: Crow's metadata
-        // endpoint is bearer-gated, and an unscoped `() => true` would publish
-        // work marked `unpublished`/`hidden` over REST and GraphQL. Signed-in
-        // editors still see everything, and the embedded site reads through the
-        // Local API, which bypasses access control entirely.
-        read: ({ req }) => req.user ? true : { kind: { not_in: ['unpublished', 'hidden'] } },
+        // so public read has to be explicit. Scoped to published, though: Crow's
+        // metadata endpoint is bearer-gated, and an unscoped `() => true` would
+        // serve drafts over REST and GraphQL. Signed-in editors see everything,
+        // and the embedded site reads through the Local API, which bypasses
+        // access control entirely.
+        read: ({ req }) => req.user ? true : { _status: { equals: 'published' } },
+    },
+    // Replaces Crow's `unpublished` kind. Crow marks every fresh upload
+    // unpublished; here an unfinished record is simply a draft, which is the
+    // primitive Payload actually has and Crow does not.
+    versions: {
+        drafts: true,
     },
     admin: {
         useAsTitle: 'title',
@@ -108,12 +115,21 @@ export const Artworks: CollectionConfig = {
             },
         },
         {
-            name: 'kind',
+            name: 'medium',
             type: 'select',
-            options: KINDS,
+            options: MEDIUMS,
+            index: true,
+        },
+        {
+            // Replaces the hardcoded `kind !== 'tattoo'` filter in
+            // shared/preprocess.ts: the same exclusion, but visible and editable
+            // instead of buried in the consumer's code.
+            name: 'showOnSite',
+            type: 'checkbox',
+            defaultValue: true,
             index: true,
             admin: {
-                description: 'Medium. `unpublished` and `hidden` double as publication state — inherited from Crow, see the field-mapping doc.',
+                description: 'Uncheck to keep a published work out of the public galleries. Migration unchecks it for tattoos, matching what the site does today.',
             },
         },
         {
@@ -130,7 +146,7 @@ export const Artworks: CollectionConfig = {
             type: 'number',
             index: true,
             admin: {
-                description: 'Global sort position across the whole archive, ascending. Crow parity; per-series order lives on the series document.',
+                description: 'Sort position across the whole archive, ascending. The single ordering — series pages sort by it too, exactly as they do today.',
             },
         },
         {
@@ -144,12 +160,6 @@ export const Artworks: CollectionConfig = {
             name: 'series',
             type: 'relationship',
             relationTo: 'series',
-            hasMany: true,
-        },
-        {
-            name: 'exhibitions',
-            type: 'relationship',
-            relationTo: 'exhibitions',
             hasMany: true,
         },
     ],

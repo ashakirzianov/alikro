@@ -69,7 +69,6 @@ export interface Config {
   collections: {
     artworks: Artwork;
     series: Series;
-    exhibitions: Exhibition;
     users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -80,14 +79,10 @@ export interface Config {
     series: {
       artworks: 'artworks';
     };
-    exhibitions: {
-      artworks: 'artworks';
-    };
   };
   collectionsSelect: {
     artworks: ArtworksSelect<false> | ArtworksSelect<true>;
     series: SeriesSelect<false> | SeriesSelect<true>;
-    exhibitions: ExhibitionsSelect<false> | ExhibitionsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -136,7 +131,6 @@ export interface UserAuthOperations {
  */
 export interface Artwork {
   id: number;
-  _artworks_artworks_order?: string | null;
   /**
    * Public URL segment — leave empty to derive it from the file name. Migrated artworks carry Crow's asset id verbatim so existing links keep working.
    */
@@ -147,18 +141,17 @@ export interface Artwork {
    * Free text, matching Crow — e.g. "acrylic on paper", "clay, underglaze". alikro parses it for the material filter.
    */
   material?: string | null;
+  medium?: ('painting' | 'drawing' | 'ceramic' | 'illustration' | 'poster' | 'collage' | 'tattoo') | null;
   /**
-   * Medium. `unpublished` and `hidden` double as publication state — inherited from Crow, see the field-mapping doc.
+   * Uncheck to keep a published work out of the public galleries. Migration unchecks it for tattoos, matching what the site does today.
    */
-  kind?:
-    | ('painting' | 'drawing' | 'ceramic' | 'illustration' | 'poster' | 'collage' | 'tattoo' | 'hidden' | 'unpublished')
-    | null;
+  showOnSite?: boolean | null;
   /**
    * Flat labels that are not series — currently `favorite` and `secondary`.
    */
   tags?: string[] | null;
   /**
-   * Global sort position across the whole archive, ascending. Crow parity; per-series order lives on the series document.
+   * Sort position across the whole archive, ascending. The single ordering — series pages sort by it too, exactly as they do today.
    */
   order?: number | null;
   /**
@@ -166,9 +159,9 @@ export interface Artwork {
    */
   uploadedAt?: string | null;
   series?: (number | Series)[] | null;
-  exhibitions?: (number | Exhibition)[] | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
   url?: string | null;
   thumbnailURL?: string | null;
   filename?: string | null;
@@ -277,34 +270,6 @@ export interface Series {
   createdAt: string;
 }
 /**
- * A show: where the work hung, when, and which pieces were in it.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "exhibitions".
- */
-export interface Exhibition {
-  id: number;
-  slug: string;
-  title: string;
-  venue?: string | null;
-  city?: string | null;
-  startDate?: string | null;
-  endDate?: string | null;
-  description?: string | null;
-  /**
-   * Gallery or event page, if there is one.
-   */
-  externalUrl?: string | null;
-  cover?: (number | null) | Artwork;
-  artworks?: {
-    docs?: (number | Artwork)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
@@ -366,10 +331,6 @@ export interface PayloadLockedDocument {
         value: number | Series;
       } | null)
     | ({
-        relationTo: 'exhibitions';
-        value: number | Exhibition;
-      } | null)
-    | ({
         relationTo: 'users';
         value: number | User;
       } | null);
@@ -420,19 +381,19 @@ export interface PayloadMigration {
  * via the `definition` "artworks_select".
  */
 export interface ArtworksSelect<T extends boolean = true> {
-  _artworks_artworks_order?: T;
   slug?: T;
   title?: T;
   year?: T;
   material?: T;
-  kind?: T;
+  medium?: T;
+  showOnSite?: T;
   tags?: T;
   order?: T;
   uploadedAt?: T;
   series?: T;
-  exhibitions?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
   url?: T;
   thumbnailURL?: T;
   filename?: T;
@@ -538,24 +499,6 @@ export interface SeriesSelect<T extends boolean = true> {
   cover?: T;
   featured?: T;
   order?: T;
-  artworks?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "exhibitions_select".
- */
-export interface ExhibitionsSelect<T extends boolean = true> {
-  slug?: T;
-  title?: T;
-  venue?: T;
-  city?: T;
-  startDate?: T;
-  endDate?: T;
-  description?: T;
-  externalUrl?: T;
-  cover?: T;
   artworks?: T;
   updatedAt?: T;
   createdAt?: T;

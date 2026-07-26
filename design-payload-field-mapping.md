@@ -4,37 +4,57 @@ Branch-only document. Belongs to the Payload kill-test described in
 `../axis/docs/crow-payload-trial.md`; production alikro.art still reads from Crow
 and is untouched by this branch.
 
-**This is the blessing gate.** Phase 2 (the overnight archive migration) should not
-run until Anton has read this and the collections in `payload/collections/`. The
-open questions at the bottom are the parts where a wrong guess costs a re-run.
+**Status: blessed 2026-07-26**, with rulings applied — `exhibitions` dropped from
+the trial, `kind` split into medium + draft state + an explicit visibility flag,
+and the two competing orderings collapsed into one. What remains open is at the
+bottom: one real question (which tags are series) and one Phase-2 prerequisite.
+
+---
+
+## 0. Where the numbers come from
+
+**The live Crow archive: 632 records, read 2026-07-26.** An earlier draft of this
+document profiled `assets.json` instead — that file is a **February 2026 backup,
+109 records stale**, and its tag values have since been recased.
+
+One retraction follows from that: the earlier claim that three "selected"
+collection pages render empty in production, from a case-sensitivity mismatch, is
+**wrong**. The live tags are `Self-portrait`, `Friend Portrait` and
+`Sketch from Museum` — matching `shared/collection.ts` exactly. Those pages work.
+There is no production bug, and no confound to record in the playtest.
+
+| | live | Feb backup |
+|---|---|---|
+| records | 632 | 523 |
+| distinct tags | 31 | 9 |
+| formats | 337 png, 186 jpg, 106 jpeg, 2 **tiff**, 1 gif | no tiff |
+| ids diverged from filename | 190 | 149 |
 
 ---
 
 ## 1. `artworks` — parity with Crow's asset record
 
 Crow's record is `AssetMetadata` in `crow-cms/shared/assets.ts`; alikro re-declares
-it in `shared/asset.ts`. Every field maps one-to-one.
+it in `shared/asset.ts`.
 
 | Crow field | Payload field | Type | Notes |
 |---|---|---|---|
-| `id` | `slug` | text, unique, indexed | **Carry verbatim — never recompute.** Crow's id starts as a slugified filename (`generateAssetId`) but is user-editable, and **149 of the 523 live records have diverged** (`anton-with-the-vessel` ← `F1220031.jpeg`). Deriving instead of copying would break 149 `/all/<id>` URLs. Payload's own `id` is a Postgres serial and is not a public identifier. |
-| `fileName` | `filename` | auto (upload) | **The migration join key.** Payload sets it from the uploaded file; Crow's value is what identifies the matching S3 object. |
-| `width` | `width` | auto (upload) | Measured by Payload with the `image-size` package — header dimensions, **EXIF orientation not applied** — whereas the variants come out of sharp with `.rotate()`. A `beforeChange` hook on the collection swaps the pair back when it disagrees with the variants, restoring Crow's `sharp().rotate().metadata()` behaviour. Compare against Crow's recorded values during the spot-check. |
+| `id` | `slug` | text, unique, indexed | **Carry verbatim — never recompute.** Crow's id starts as a slugified filename (`generateAssetId`) but is user-editable, and **190 of the 632 live records have diverged** (`anton-with-the-vessel` ← `F1220031.jpeg`). Deriving instead of copying would break 190 `/all/<id>` URLs. Payload's own `id` is a Postgres serial and is not a public identifier. |
+| `fileName` | `filename` | auto (upload) | **The migration join key.** Unique across all 632 records, so the join is clean and one-to-one. |
+| `width` | `width` | auto (upload) | Payload measures with the `image-size` package — header dimensions, **EXIF orientation not applied** — while variants go through sharp `.rotate()`. A `beforeChange` hook swaps the pair back when it disagrees with the variants, restoring Crow's `sharp().rotate().metadata()` behaviour. |
 | `height` | `height` | auto (upload) | Same. |
-| `uploaded` (epoch ms) | `uploadedAt` | date | **Needs conversion:** `new Date(asset.uploaded).toISOString()`. Payload's date validation runs `Date.parse` on the value, and `Date.parse("1771604584246")` is `NaN` — passing the raw epoch fails the create. Explicit field rather than `createdAt`, which Payload owns; alikro's `sortAssets` uses `order`, then newest-`uploaded` first, so the tie-break needs the original value. |
-| `order` | `order` | number, indexed | Global position across the archive. Ascending; unset sorts as `0`. |
-| `kind` | `kind` | select | Constrained to the nine values in the live data (see §5). Crow's is free text. |
-| `title` | `title` | text | Optional in both. All 523 live records have one. |
-| `year` | `year` | number | Optional. Live range 2015–2026. |
-| `material` | `material` | text | Stays free text — alikro's `shared/material.ts` parses it (`" on "`, `" + "`, `", "`, clay/glaze suffixes) and that parser is the contract. |
-| `tags` | `tags` | text, `hasMany` | Free labels, same as Crow. But most current tags become **series** instead — see §2. |
-| — | `series` | relationship → `series`, hasMany | New. |
-| — | `exhibitions` | relationship → `exhibitions`, hasMany | New. |
+| `uploaded` (epoch ms) | `uploadedAt` | date | **Needs conversion:** `new Date(asset.uploaded).toISOString()`. Payload runs `Date.parse` on the value and `Date.parse("1771604584246")` is `NaN`, so the raw epoch fails validation. Kept as its own field because `createdAt` is Payload's; alikro's `sortAssets` tie-breaks on it. |
+| `order` | `order` | number, indexed | **The single ordering** (see §2). 575 distinct values across 632 records; one record has none and 58 sit at 0. |
+| `kind` | `medium` | select | **Split three ways** — see §4. Medium only: painting, drawing, ceramic, illustration, poster, collage, tattoo. |
+| `kind: 'unpublished'` | `_status` | draft/published | Payload's native draft state, via `versions: { drafts: true }`. Zero live records carry it today, but Crow stamps it on every fresh upload. |
+| `kind: 'hidden'` | `showOnSite: false` | checkbox | Two live records, both digital illustrations made for an app ("Love (for app)", "Love and Kindness (for app)"). They migrate as `medium: illustration` with the box unchecked. |
+| `title` | `title` | text | All 632 have one. |
+| `year` | `year` | number | All 632 have one. Range 2015–2026. |
+| `material` | `material` | text | Stays free text — `shared/material.ts` parses it (`" on "`, `" + "`, `", "`, clay/glaze suffixes) and that parser is the contract. |
+| `tags` | `tags` + `series` | text hasMany / relationship | Split by §2. Tags that name a body of work become series documents; the rest stay flat. |
 
 **Added by Payload, no Crow equivalent:** `mimeType`, `filesize`, `url`,
-`thumbnailURL`, `sizes.*` (per-variant url/width/height/filesize/filename),
-`createdAt`, `updatedAt`, `_artworks_artworks_order` (the fractional index behind
-series drag-ordering).
+`thumbnailURL`, `sizes.*`, `createdAt`, `updatedAt`, `_status`.
 
 **Dropped from Crow:** nothing.
 
@@ -42,267 +62,153 @@ series drag-ordering).
 
 For each file staged from `alikro/originals/`, join on **`fileName`** to the
 exported Crow metadata, then `payload.create` with the mapped fields plus the file
-bytes. Filenames are unique across the 523 live records (verified), so the join is
-clean and one-to-one. Idempotency key for resume: `slug` (equivalently, `filename`).
+bytes. Idempotency key for resume: `slug`.
 
-**Create sequentially, not in parallel.** The fractional index behind series
-ordering is allocated in a `beforeChange` hook that reads the current maximum and
-generates a key after it — no lock, no unique constraint. Two concurrent
-`payload.create` calls read the same maximum and get the same key. Parallelising
-the archive pass is the obvious optimisation and it is the wrong one.
-
-**Also budget for:** a single unreadable original hard-fails its `payload.create`
-with `FileUploadError`. Crow tolerates this (`failOnError: false`); Payload gives
-no way to reach the variant pipeline's sharp constructor, so the resumable script
-has to catch, log, and continue.
+**Create sequentially, not in parallel** — and budget for failures: a single
+unreadable original hard-fails its `payload.create` with `FileUploadError`. Crow
+tolerates this (`failOnError: false`); Payload gives no way to reach the variant
+pipeline's sharp constructor, so the resumable script has to catch, log, continue.
 
 ---
 
 ## 2. `series` — the "beyond parity" layer
 
 Today a "series" is a hardcoded query in `shared/collection.ts`, matched against
-free-text tags at request time. Payload makes it a document.
+free-text tags at request time. Payload makes it a document: `slug`, `title`,
+`description`, `cover`, `featured` (show in nav), `order` (position in nav), and
+`artworks` — a read-only `join` view of its members.
 
-| alikro collection id | tag it queries today | live tag in the data | artworks |
-|---|---|---|---|
-| `self-portraits` | `Self-portrait` | `selfportrait` | 26 |
-| `friends` | `Friend Portrait` | `friend portrait` | 11 |
-| `black-list` | `The Black List` | `The Black List` | 9 |
-| `nai` | `NAI` | `NAI` | 10 |
-| `sketches-from-museums` | `Sketch from Museum` | `sketch from museum` | 7 |
-| — | — | `Vika Temnova` | 2 |
-| — | — | `Porteño` | 1 |
+**Membership is set on the artwork** (`artworks.series`, a hasMany relationship),
+so cataloguing a new upload never leaves the document being edited. Only 31 of 632
+works carry more than one tag, and 361 carry none, so overlap is rare.
 
-> **Three of these are currently broken — a live bug on alikro.art, independent
-> of this trial.** `matchQuery` does a case-sensitive `tags.includes(...)`, and
-> `Self-portrait` / `Friend Portrait` / `Sketch from Museum` do not match the
-> stored `selfportrait` / `friend portrait` / `sketch from museum`. Those three
-> collection pages render empty today; `The Black List` and `NAI` match exactly
-> and work. Worth confirming against production before assuming the
-> `assets.json` snapshot is current.
->
-> **The trial fixes this by construction, which confounds the comparison unless
-> recorded.** Series membership becomes an explicit relation, so all seven
-> populate — meaning the Payload site will show *more* content than production
-> does, for reasons that have nothing to do with Payload. Noted here so the
-> playtest reads it as a modelling win, not a media or performance one.
-
-**Not series:** `favorite` (60) and `secondary` (9) stay flat `tags` — they are
-flags on a work, not bodies of work. `kind` (medium) stays a field: the
-`paintings` / `drawings` / `ceramics` / `illustrations` / `posters` / `collages`
-collections in `shared/collection.ts` are `kind` queries and remain so.
-
-Fields: `slug`, `title`, `description`, `cover`, `featured` (show in nav),
-`order` (position in nav), and `artworks` — a `join` on `artworks.series` with
-`orderable: true`, which is what turns "reorder a gallery" into a drag inside one
-document.
-
-**Membership is settable from either side.** The real, writable field is
-`artworks.series` (a hasMany relationship), so Alina can assign a series on the
-artwork she is already looking at; the `join` on the series document is the
-read-only reverse view that carries the drag-ordering. Worth stating because
-Payload joins are virtual and read-only — if membership lived only on the series
-side, cataloguing a new upload would force a detour to another document.
-
-**Two orderings coexist; be explicit about which drives what.** `artworks.order`
-is Crow's flat global position and drives the `all` gallery and the `kind`
-collections. The per-series fractional index drives a series page only. They can
-drift, and neither is derived from the other.
+**One ordering, not two.** Per-series ordering is gone: `artworks.order` is the
+only sort key, and series pages use it exactly as the tag-driven collections do
+today. The alternative was a per-series fractional index on the join, which would
+have been a second ordering that drifts from the first with neither derived from
+the other — and it was approximate anyway (Payload marks `orderable` experimental,
+and for a hasMany relationship the reorder scope comes from the artwork's *first*
+series). Payload's native drag-to-reorder is still available as a **replacement**
+for the numeric field if the playtest says dragging beats typing numbers; that is
+a UX question for Alina, not a schema decision to take now.
 
 ---
 
-## 3. `exhibitions` — no Crow equivalent at all
-
-Nothing in Crow represents a show. Fields: `slug`, `title`, `venue`, `city`,
-`startDate`, `endDate`, `description`, `externalUrl`, `cover`, and an `artworks`
-join. Populated by hand during the playtest — this is deliberately the part of the
-trial where Payload is asked to do something Crow cannot.
-
----
-
-## 4. Media pipeline
+## 3. Media pipeline
 
 | Crow | Payload |
 |---|---|
-| `alikro/originals/<fileName>` | the upload's main file, **unconverted** (no top-level `formatOptions`, so original bytes are preserved) — except animated types, where Payload always builds a sharp instance and stores a libvips re-encode. Affects exactly one live asset, `gay_love.gif`. |
+| `alikro/originals/<fileName>` | the upload's main file, **unconverted** (no top-level `formatOptions`) — except animated types, where Payload always builds a sharp instance and stores a libvips re-encode. Affects exactly one live asset, `gay_love.gif`. |
 | `alikro/variants/<fileName>@w<width>.webp`, widths 320/480/640/768/960/1200/1600/1920 | eight `imageSizes` named `w320`…`w1920`, each `formatOptions: webp` |
 | webp `quality: 80, effort: 5, smartSubsample: true` | same values, copied verbatim |
 | `resize({ width, withoutEnlargement: true })` | `withoutEnlargement: true` per size |
-| one extra full-size `@.webp` variant | **not reproduced** — alikro's `imageSrc` always passes a width, so nothing requests it |
-| on-demand variant fallback endpoint that persists to S3 | **not reproduced** — Payload is eager-only. Deferred deliberately and confirmed recoverable (see the trial doc). |
-| sharp `animated: true` for gif/webp | same — Payload sets it for `image/gif`, `image/avif`, `image/webp`, so the one animated asset keeps its frames |
+| one extra full-size `@.webp` variant | **not reproduced** — alikro's `imageSrc` always passes a width |
+| on-demand variant fallback that persists to S3 | **not reproduced** — Payload is eager-only. Deferred deliberately, confirmed recoverable (see the trial doc). |
+| sharp `animated: true` for gif/webp | same — Payload sets it for `image/gif`, `image/avif`, `image/webp` |
+
+**Two tiffs in the archive** (`broken_vessel.tiff`, `a_cup.tiff`). Payload has a
+dedicated tiff path — it cannot measure tiffs from a buffer, so it writes a temp
+file first. Worth watching in the spot-check; sharp handles the conversion.
 
 **Eight sizes does not mean eight files.** `withoutEnlargement: true` returns the
 original width for anything smaller, and Payload names variants by their *actual*
-output dimensions — so for the 478 originals narrower than 1920px, several `sizes`
-entries collapse onto one file (399 are narrower than 1600 as well). Semantically
-identical to Crow, which writes distinct names holding identical bytes, but the
-object count in the parity spot-check will legitimately differ.
+output dimensions — so for the 491 originals narrower than 1920px, several `sizes`
+entries collapse onto one file (406 are narrower than 1600 too).
 
-**This kills URL-construction-by-convention, and that is a Phase-2 constraint, not
-a config detail.** Crow's contract is that a variant URL is *derivable*: the
-consumer builds `file.jpg@w1600.webp` from the filename and a width, and
-CloudFront serves it or Crow generates it. Under Payload a constructed name for a
-collapsed width simply does not exist. So alikro's image layer has to **read
-`doc.sizes`** instead of composing names — `shared/image.ts` and `AssetImage`'s
-snapping loader both change shape. That is fine, arguably better (the `sizes` map
-is authoritative and travels with the document through the Local API), but it is a
-rewrite rather than a swap, in either direction. Consequence for the spot-check:
-compare **srcset coverage** — does every width alikro actually requests resolve to
-an appropriately sized file — rather than counting objects.
+**That kills URL-construction-by-convention, and it is a Phase-2 constraint.**
+Crow's contract is that a variant URL is *derivable*: build `file.jpg@w1600.webp`
+from filename and width, and CloudFront serves or generates it. Under Payload a
+constructed name for a collapsed width does not exist. So alikro's image layer has
+to **read `doc.sizes`** instead of composing names — `shared/image.ts` and
+`AssetImage`'s snapping loader both change shape. Arguably better (the map is
+authoritative and travels with the document through the Local API), but a rewrite,
+not a swap. Spot-check accordingly: measure **srcset coverage**, not object counts.
 
 **One route asks for widths that will not exist.** `app/api/og/[...slug]/route.tsx`
-computes an arbitrary width from the asset's aspect ratio and passes it to
-`imageSrc`; under Crow that falls through to the on-demand generator. Payload is
-eager-only with exactly eight named sizes, so this is a concrete answer to the
-trial plan's open question "record whether the absence of the fallback ever bites"
-— it bites here, and the OG route needs to snap to the eight widths (or read
-`doc.sizes`) during the Phase-2 rewiring.
-
-**URL shape changes.** Crow: `<IMG_BASE>/<fileName>@w320.webp`. Payload:
-`<bucket-or-CDN>/<prefix>/<basename>-320x<h>.webp`, read from `doc.sizes.w320.url`
-rather than constructed by the client. Payload's `generateImageName` per image size
-could reproduce Crow's exact naming if URL parity ever matters; the trial does not
-use it, because Phase 2 points the site at the Local API where `sizes` is available
-directly.
+computes an arbitrary width from the aspect ratio and passes it to `imageSrc`;
+under Crow that falls through to the on-demand generator. This is a concrete answer
+to the trial plan's "record whether the absence of the fallback ever bites" — it
+bites here, and the OG route must snap to the eight widths during Phase-2 rewiring.
 
 **Storage.** `@payloadcms/storage-s3` engages only when `S3_BUCKET` is set;
 otherwise uploads go to `media/` on local disk, which is how this branch runs
-without credentials. The `artworks` collection sets
-`disablePayloadAccessControl: true` — **verified present in 3.86.0** — so file URLs
-point straight at the bucket (or `NEXT_PUBLIC_PAYLOAD_ASSETS_DOMAIN`) instead of
-being proxied through Payload's own route with per-request access control. That was
-the Phase-1 verification item from the trial plan: it exists and is per-collection.
+without credentials. `disablePayloadAccessControl: true` on `artworks` — verified
+present in 3.86.0 — points file URLs straight at the bucket. Two consequences for
+Phase 2:
 
-Two consequences of that flag that are Anton's to action in Phase 2:
-
-- **The bucket needs a public-read policy.** Turning off Payload's access control
-  also removes its static handler, so there is no serving path other than the
-  bucket itself. The config sets no `acl` (and `public-read` would be rejected
-  anyway on a modern bucket with Block Public Access on and bucket-owner-enforced
-  ownership) — so the trial bucket needs an `s3:GetObject` policy on `<prefix>/*`.
+- **The bucket needs an `s3:GetObject` policy** on `<prefix>/*`. Disabling
+  Payload's access control also removes its serving route, so the bucket is the
+  only path.
 - **The public URL host is built explicitly** in `payload.config.ts`, defaulting to
-  `<bucket>.s3.<region>.amazonaws.com`. The adapter's own generator would fall back
-  to `config.endpoint`, which is unset for plain AWS, and would write the literal
-  string `undefined/…` into every `url` and `sizes.*.url` column — at write time,
-  so an entire archive pass would have to be redone.
+  `<bucket>.s3.<region>.amazonaws.com`. The adapter's own generator falls back to
+  `config.endpoint`, unset for plain AWS — it would have written the literal string
+  `undefined/…` into every `url` and `sizes.*.url` column at write time, i.e. an
+  entire archive pass redone.
 
 ---
 
-## 5. Transformation notes
+## 4. Transformation notes
 
-- **`kind` becomes a select.** Options: `painting`, `drawing`, `ceramic`,
-  `illustration`, `poster`, `collage`, `tattoo`, `hidden`, `unpublished` — every
-  value in the live archive plus Crow's on-upload default. Migration fails loudly
-  on an unknown value, which is the desired behaviour.
-- **`kind` conflates medium with publication state.** `unpublished` and `hidden`
-  are not media. Inherited from Crow as-is for parity; see the open questions.
-  Note only `unpublished` is actually load-bearing — `shared/collection.ts`
-  filters it from the `all` collection, but nothing anywhere filters `hidden`, so
-  those two records are visible on the site today.
-- **Public read is scoped.** `unpublished` and `hidden` are excluded from
-  unauthenticated REST/GraphQL reads (signed-in editors see everything, and the
-  Local API bypasses access control). Without that, embedding would publish over
-  the API what Crow keeps behind a bearer token.
+- **`kind` split three ways.** Crow's single field carried medium, publication
+  state and a hardcoded site exclusion. Now: `medium` (7 values, medium only);
+  `unpublished` → Payload's native draft state; `hidden` → `showOnSite: false`;
+  and the `kind !== 'tattoo'` filter in `shared/preprocess.ts` → `showOnSite:
+  false` on the 53 tattoos, so the exclusion is visible and editable instead of
+  buried in the consumer's code.
+- **Public read is scoped to published.** Unauthenticated REST/GraphQL sees
+  published work only; editors see everything; the Local API bypasses access
+  control entirely. An unscoped `read: () => true` would have served drafts that
+  Crow keeps behind a bearer token.
 - **Slugs are derived, not required.** The admin validates required fields in the
-  browser before it POSTs, so a `required` slug would force Alina to hand-type one
-  on every upload and the derivation hook would never run.
-- **`tattoo` is invisible on the site.** `shared/preprocess.ts` filters it out
-  client-side. Migrated as-is — the filtering stays in alikro's code for now.
-- **New uploads get a Crow-shaped slug.** A `beforeValidate` hook on `slug`
-  reproduces `generateAssetId` (lowercase, non-alphanumerics → `-`), so a piece
-  uploaded through the Payload admin lands on the same URL it would have had in
-  Crow.
-- **`order` is global, not per-series.** Crow has one linear ordering (live data:
-  1–513, plus ten zeros). Per-series ordering is new and lives on the series
-  document.
+  browser before it POSTs, so a `required` slug would force a hand-typed value on
+  every upload and the derivation hook would never run. The hook reproduces Crow's
+  `generateAssetId` for new uploads; migrated records carry their id verbatim.
+- **`Favorite` (59) stays a flat tag** — a flag on a work, not a body of work.
+- **`medium` collections are unchanged.** The `paintings` / `drawings` /
+  `ceramics` / `illustrations` / `posters` / `collages` pages are medium queries
+  and stay that way.
 
 ---
 
-## 6. Open questions for Anton — the blessing gate
+## 5. Still open
 
-1. **`kind` is overloaded — recommend splitting it.** Crow's `kind` carries three
-   unrelated things: **medium** (painting/drawing/ceramic/illustration/poster/
-   collage), **publication state** (`unpublished`, `hidden`), and **a category the
-   site filters out in code** (`tattoo`, dropped by `shared/preprocess.ts`). The
-   recommendation — from the design advisor, and I agree — is: `kind` means medium
-   only; `unpublished`/`hidden` become Payload's **native draft/published
-   `_status`**; the tattoo exclusion becomes an explicit visibility field instead
-   of a hardcoded filter.
+1. **Which tags are series?** This is the one question left, and it is yours —
+   31 distinct tags, and the answer decides what the migration links. Confirmed so
+   far: `Vika Temnova` (posters made for her) and `Porteño` (Buenos Aires) are
+   series. My proposed default for the rest:
 
-   This is not tidiness. Drafts/versioning is a baseline CMS dimension Crow scores
-   1/5 on and one of the strongest reasons Payload might win the trial — modelling
-   it this way is the only way the playtest actually exercises it. It is also a
-   direct data point for evaluation criterion 2 (effort to model alikro's content).
-   The cost is real but bounded: it changes alikro's query code, and drafts add a
-   versions table plus `_status` to every read.
+   | group | tags | → |
+   |---|---|---|
+   | bodies of work | Green Theatre (26), Vietnam (22), Sketch from Museum (20), The Black List (15), Ukrainian History (14), NAI (11), Friend Portrait (11), Self-portrait (28), Venice Beach (9), IT (9), Plates (6), Kunsht (4), Vsi.Svoi (3), Cat Hotel (3), Anton (12), War (12), Vika Temnova (2), Porteño (1) | series |
+   | poster topics, 2019–21, 35 works, no shared campaign tag — Eating Disorders, Illness Anxiety Disorder, Menstruation, Abuse, Cat Calling, Parenthood, Children Watch Porn, Sperm Donation, School Bullying, Toxic Masculinity, Organ Donation, Sirens | each 1–4 works | series each, unless they are one campaign — **your call** |
+   | flag | Favorite (59) | stays a tag |
 
-   **This is the one open question I would rather you answered than defaulted.**
-   Currently implemented as Crow's shape (parity). If you say yes, I do it at the
-   top of Phase 2, before the archive pass — it is cheap then and expensive after.
+   Correct anything wrong here and I will seed from it; silence means I migrate the
+   table as written and Alina reviews the result during the playtest.
 
-   *One product question inside it:* nothing anywhere filters `hidden`, so the two
-   works marked that way **are visible on alikro.art today**. A `kind` literally
-   named `hidden` that hides nothing reads like an intent that was never
-   implemented. If it was meant to hide them, that changes what `_status` should
-   map to — `hidden` → draft alongside `unpublished`, rather than being folded
-   into medium. Worth thirty seconds of your time either way.
-2. **Per-series ordering is approximate.** Payload's `orderable` join stores one
-   fractional-index column per artwork, and for a `hasMany` relationship the
-   reorder scope comes from the artwork's *first* series. A work in two series
-   shares one sort key across both. Exact per-series order would need an explicit
-   array field on `series` instead of a join — more precise, but loses the reverse
-   view on the artwork and the drag UI. Payload also marks `orderable`
-   experimental. *Default: keep the join, accept the approximation.*
-3. **Exhibition hang order is not orderable at all.** Payload derives the index
-   column name from `_{collection}_{fieldName}_order`, so a second orderable join
-   named `artworks` on `artworks` would collide with the Series one — same column,
-   and the later registration wins the scope mapping. Left off. Fixable by renaming
-   the field (e.g. `exhibitions.works`) if hang order matters. *Default: leave it.*
-4. **Database migrations.** The Postgres adapter is on its default `push` (dev
-   only), which is right while the model is still moving — but it means there is
-   no committed migration for a deployed environment, and a *headless* run whose
-   schema has drifted calls an interactive prompt, gets the default "no", and
-   exits **0**, which reads as success. Run `payload migrate:create` once and
-   commit the migration before the archive job. *Default: I do this at the top of
-   Phase 2.*
-5. **Series seeding needs your eye.** The derivation in §2 is mine, from tags. It
-   produces a review list for Alina during the playtest — but `Vika Temnova` (2)
-   and `Porteño` (1) read more like portrait subjects than series. Modelled as
-   series for now, since it exercises the relation; they are flagged in Alina's
-   review list, and she is the one who knows.
-6. **Multi-image works.** An `artworks` document is one image, exactly like Crow.
-   Ceramics with detail shots would want several. Out of scope for the trial;
-   flagging because it is the kind of thing the modelling layer is supposed to buy.
+2. **Database migrations — a Phase-2 prerequisite, not a question.** The Postgres
+   adapter is on its default `push` (dev only), which is right while the model
+   moves, but it leaves no committed migration for a deployed environment — and a
+   *headless* run whose schema has drifted hits an interactive prompt, takes the
+   default "no", and exits **0**, which reads as success. I run
+   `payload migrate:create` and commit the migration before the archive job.
 
 ---
 
-## 7. Recorded for the trial write-up
+## 6. Recorded for the trial write-up
 
-Observations that belong to the evaluation rather than to the schema:
-
-- **Version coupling is a recurring cost, not a one-time one.** Embedding pins
-  alikro's Next floor to whatever the installed Payload requires — 3.86.0 demands
-  `>=16.2.6`, which forced 16.1.6 → 16.2.12 and React 19.2.4 → 19.2.8, plus a full
-  ESM conversion. Payload v3 ships near-weekly, so this coupling recurs on every
-  upgrade. Feeds criterion 5 (maintenance weight vs Crow's ~zero).
-- **The consumer's image layer is not portable between the two models, in either
-  direction** (criterion 5, and the largest single migration cost found so far).
-  Crow's variant URLs are derivable by convention; Payload's are authoritative
-  only via `doc.sizes`. Moving either way means rewriting `shared/image.ts` and
-  `AssetImage`'s snapping loader, not re-pointing a base URL.
-- **Two media traps the next person would hit**, both found here and one only
-  patched rather than fixed upstream: Payload measures the main file with
-  `image-size` (header dimensions, EXIF orientation ignored) while variants go
-  through sharp `.rotate()`; and eight configured sizes yield fewer than eight
-  files whenever the original is narrower than the size. Neither is documented on
-  Payload's side.
-- **Watch the cataloguing path in the playtest** (criterion 1). Assigning a series
-  from the artwork works because the writable field lives there — but the drag
-  ordering only exists on the series document, so a full "upload and catalogue"
-  still crosses two documents.
-- **The missing on-demand fallback already bites**, at the OG-image route (§4).
-  That answers the trial plan's open question without waiting for the playtest.
-- **The `.gif` is a non-issue.** Payload passes sharp's `animated: true` for
-  gif/avif/webp, so variants keep their frames. Only the stored "original" differs:
-  animated types are re-encoded through libvips rather than kept byte-identical.
+- **Version coupling is a recurring cost.** Embedding pins alikro's Next floor to
+  whatever the installed Payload requires — 3.86.0 demands `>=16.2.6`, forcing
+  16.1.6 → 16.2.12, React 19.2.4 → 19.2.8, and a full ESM conversion. Payload v3
+  ships near-weekly, so this recurs on every upgrade. Criterion 5.
+- **The consumer's image layer is not portable, in either direction** — the largest
+  single migration cost found so far (§3). It is symmetric: it would also be the
+  cost of ever moving back.
+- **Two undocumented media traps**: `image-size` vs sharp `.rotate()` dimensions,
+  and eight configured sizes yielding fewer than eight files. Mine are patched or
+  accounted for; neither is documented on Payload's side.
+- **Drafts are now genuinely exercised** — a baseline dimension Crow scores 1/5 on,
+  and one of the strongest reasons Payload might win. Leaving `kind` overloaded
+  would have rigged the playtest against it.
+- **Stale-backup caution.** `assets.json` is a periodic backup, not the archive.
+  Anything derived from it needs re-checking against the live CMS.

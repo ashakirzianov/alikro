@@ -54,21 +54,21 @@ export const Series: CollectionConfig = {
             },
         },
         {
-            // The reverse side of artworks.series. `orderable` is what makes
-            // "reorder a gallery" — one of the trial's scripted tasks — a drag
-            // inside this document instead of an edit across N artworks.
+            // The reverse side of artworks.series: a read-only view of what is
+            // in this series. Membership is set on the artwork.
             //
-            // Caveat (Payload marks `orderable` experimental): the fractional
-            // index is a single column on `artworks`, and for a hasMany
-            // relationship the reorder scope is taken from the *first* related
-            // series. An artwork in two series therefore shares one sort key
-            // across both. Exact per-series order would need an explicit array
-            // field here instead — see the field-mapping doc.
+            // Deliberately not `orderable`. A per-series fractional index would
+            // be a second ordering alongside `artworks.order`, and the two can
+            // drift with neither derived from the other — so this sorts by the
+            // one global order, exactly as the tag-driven collections do today.
+            // (It was also approximate: Payload marks `orderable` experimental,
+            // and for a hasMany relationship the reorder scope comes from the
+            // artwork's *first* series.)
             name: 'artworks',
             type: 'join',
             collection: 'artworks',
             on: 'series',
-            orderable: true,
+            defaultSort: 'order',
         },
     ],
 }

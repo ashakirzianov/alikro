@@ -8,7 +8,6 @@ import { buildConfig } from 'payload'
 import sharp from 'sharp'
 
 import { Artworks } from './payload/collections/Artworks'
-import { Exhibitions } from './payload/collections/Exhibitions'
 import { Series } from './payload/collections/Series'
 import { Users } from './payload/collections/Users'
 
@@ -25,7 +24,7 @@ export default buildConfig({
             baseDir: path.resolve(dirname),
         },
     },
-    collections: [Artworks, Series, Exhibitions, Users],
+    collections: [Artworks, Series, Users],
     editor: lexicalEditor(),
     secret: process.env.PAYLOAD_SECRET || '',
     typescript: {
