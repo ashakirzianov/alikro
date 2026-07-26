@@ -10,6 +10,7 @@
 // production does.
 
 import { AssetMetadata, AssetVariant } from './asset'
+import { FAVORITE_TAG, tagForSeriesSlug } from '../payload/migration/series'
 
 export function isPayloadContentSource() {
     return process.env.CONTENT_SOURCE === 'payload'
@@ -57,14 +58,13 @@ type ArtworkDoc = {
     filename?: string | null,
     width?: number | null,
     height?: number | null,
-    uploadedAt?: string | null,
     createdAt: string,
     order?: number | null,
     medium?: string | null,
     title?: string | null,
     year?: number | null,
     material?: string | null,
-    tags?: string[] | null,
+    favorite?: boolean | null,
     series?: (number | { slug?: string | null })[] | null,
     sizes?: Record<string, { url?: string | null, width?: number | null } | undefined> | null,
 }
@@ -79,16 +79,30 @@ function toAssetMetadata(doc: ArtworkWithSlug): AssetMetadata {
         fileName: doc.filename ?? '',
         width: doc.width ?? 300,
         height: doc.height ?? 300,
-        uploaded: Date.parse(doc.uploadedAt ?? doc.createdAt),
+        uploaded: Date.parse(doc.createdAt),
         order: doc.order ?? undefined,
         kind: doc.medium ?? undefined,
         title: doc.title ?? undefined,
         year: doc.year ?? undefined,
         material: doc.material ?? undefined,
-        tags: doc.tags ?? undefined,
+        tags: legacyTags(doc),
         series: seriesSlugs(doc),
         variants: variantsFor(doc),
     }
+}
+
+// alikro's filters and its hardcoded collections still query Crow's tag
+// vocabulary. Payload stores series relations and a boolean instead, so the
+// vocabulary is reconstructed here rather than duplicated in the database —
+// which keeps the A/B comparing presentation rather than two different models.
+function legacyTags(doc: ArtworkWithSlug): string[] | undefined {
+    const tags = (seriesSlugs(doc) ?? [])
+        .map(tagForSeriesSlug)
+        .filter((tag): tag is string => tag !== undefined)
+    if (doc.favorite) {
+        tags.push(FAVORITE_TAG)
+    }
+    return tags.length > 0 ? tags : undefined
 }
 
 function seriesSlugs(doc: ArtworkWithSlug): string[] | undefined {

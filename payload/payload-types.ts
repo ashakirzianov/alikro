@@ -146,18 +146,11 @@ export interface Artwork {
    * Uncheck to keep a published work out of the public galleries. Migration unchecks it for tattoos, matching what the site does today.
    */
   showOnSite?: boolean | null;
-  /**
-   * Flat labels that are not series — currently `favorite` and `secondary`.
-   */
-  tags?: string[] | null;
+  favorite?: boolean | null;
   /**
    * Sort position across the whole archive, ascending. The single ordering — series pages sort by it too, exactly as they do today.
    */
   order?: number | null;
-  /**
-   * Crow's `uploaded` timestamp, preserved so the existing tie-break sort (order, then newest first) survives the migration.
-   */
-  uploadedAt?: string | null;
   series?: (number | Series)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -387,9 +380,8 @@ export interface ArtworksSelect<T extends boolean = true> {
   material?: T;
   medium?: T;
   showOnSite?: T;
-  tags?: T;
+  favorite?: T;
   order?: T;
-  uploadedAt?: T;
   series?: T;
   updatedAt?: T;
   createdAt?: T;

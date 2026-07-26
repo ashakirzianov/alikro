@@ -14,6 +14,11 @@ const WEBP_OPTIONS = {
     smartSubsample: true,
 }
 
+// Crow's `uploaded` timestamp maps onto Payload's own `createdAt`, which the
+// Postgres adapter only defaults when a value is not supplied — so there is no
+// second date field here. For a migrated archive the upload time *is* the
+// creation time.
+//
 // Crow's `kind` carried three unrelated things at once: medium, publication
 // state (`unpublished`, `hidden`), and a category the site filtered out in code
 // (`tattoo`). Split per Anton: this is medium only. `unpublished` becomes
@@ -48,7 +53,7 @@ export const Artworks: CollectionConfig = {
     },
     admin: {
         useAsTitle: 'title',
-        defaultColumns: ['title', 'kind', 'year', 'order'],
+        defaultColumns: ['title', 'medium', 'year', 'order'],
         description: 'One record per artwork — the image and its catalogue data.',
     },
     upload: {
@@ -133,13 +138,13 @@ export const Artworks: CollectionConfig = {
             },
         },
         {
-            name: 'tags',
-            type: 'text',
-            hasMany: true,
+            // Crow stored this as the magic string "Favorite" inside a tags
+            // array. Every other tag became a series, so what was left was a
+            // boolean wearing a string costume.
+            name: 'favorite',
+            type: 'checkbox',
+            defaultValue: false,
             index: true,
-            admin: {
-                description: 'Flat labels that are not series — currently `favorite` and `secondary`.',
-            },
         },
         {
             name: 'order',
@@ -147,13 +152,6 @@ export const Artworks: CollectionConfig = {
             index: true,
             admin: {
                 description: 'Sort position across the whole archive, ascending. The single ordering — series pages sort by it too, exactly as they do today.',
-            },
-        },
-        {
-            name: 'uploadedAt',
-            type: 'date',
-            admin: {
-                description: 'Crow\'s `uploaded` timestamp, preserved so the existing tie-break sort (order, then newest first) survives the migration.',
             },
         },
         {

@@ -42,12 +42,12 @@ async function main() {
     const byMedium = tally(artworks.map(a => a.medium ?? '(none)'))
     const byStatus = tally(artworks.map(a => a.status))
     const seriesLinks = tally(artworks.flatMap(a => a.seriesSlugs))
-    const flatTags = tally(artworks.flatMap(a => a.tags))
+    const favorites = artworks.filter(a => a.favorite).length
 
     console.log(`\nmedium: ${format(byMedium)}`)
     console.log(`status: ${format(byStatus)}`)
     console.log(`showOnSite=false: ${artworks.filter(a => !a.showOnSite).length}`)
-    console.log(`flat tags: ${format(flatTags)}`)
+    console.log(`favorite=true: ${favorites}`)
     console.log(`\nseries (${seriesLinks.size} of ${SERIES_SEEDS.length} seeded receive members):`)
     console.log(`  ${format(seriesLinks)}`)
     const empty = SERIES_SEEDS.filter(seed => !seriesLinks.has(seed.slug)).map(seed => seed.slug)
@@ -59,7 +59,7 @@ async function main() {
     const failures: string[] = []
     check(failures, artworks.every(a => a.slug.length > 0), 'every artwork has a slug')
     check(failures, new Set(artworks.map(a => a.slug)).size === artworks.length, 'slugs are unique')
-    check(failures, artworks.every(a => !Number.isNaN(Date.parse(a.uploadedAt))), 'every uploadedAt parses as a date')
+    check(failures, artworks.every(a => !Number.isNaN(Date.parse(a.createdAt))), 'every createdAt parses as a date')
     check(failures, artworks.every(a => a.fileName.length > 0), 'every artwork has a fileName to join on')
     check(failures, new Set(artworks.map(a => a.fileName)).size === artworks.length, 'fileNames are unique (clean join)')
     check(failures, artworks.every(a => a.seriesSlugs.every(slug => SERIES_SEEDS.some(seed => seed.slug === slug))), 'every series link resolves to a seed')
@@ -69,10 +69,13 @@ async function main() {
     const derived = artworks.filter(a => a.slug !== deriveSlug(a.fileName))
     console.log(`\nslugs that would break if recomputed from the filename: ${derived.length}`)
 
+    const blocking = issues.filter(issue => issue.blocking)
+    check(failures, blocking.length === 0, `no blocking mapping issues (${blocking.length})`)
+
     if (issues.length > 0) {
         console.log(`\n${issues.length} mapping issue(s):`)
         for (const issue of issues.slice(0, 40)) {
-            console.log(`  [${issue.field}] ${issue.slug}: ${issue.message}`)
+            console.log(`  ${issue.blocking ? 'BLOCKING' : 'note    '} [${issue.field}] ${issue.slug}: ${issue.message}`)
         }
         if (issues.length > 40) {
             console.log(`  … ${issues.length - 40} more`)

@@ -2,7 +2,7 @@
 // can be exercised over the whole archive without a database. `validate.ts` runs
 // it across all 632 records; `migrate.ts` is the only thing that writes.
 
-import { isFlagTag, seriesSlugForTag } from './series'
+import { isFavoriteTag, seriesSlugForTag } from './series'
 
 // Crow's AssetMetadata, as it comes out of the export.
 export type CrowAsset = {
@@ -36,8 +36,11 @@ export type MappedArtwork = {
     showOnSite: boolean,
     status: 'draft' | 'published',
     order?: number,
-    uploadedAt: string,
-    tags: string[],
+    // Crow's `uploaded`, as Payload's own createdAt. The Postgres adapter only
+    // defaults createdAt when one is not supplied, so no second date field is
+    // needed to preserve it.
+    createdAt: string,
+    favorite: boolean,
     seriesSlugs: string[],
 }
 
@@ -45,6 +48,9 @@ export type MappingIssue = {
     slug: string,
     field: string,
     message: string,
+    // Blocking issues stop the migration. An unclassified tag is blocking on
+    // purpose: silently carrying it is how mis-modelling survives a review.
+    blocking: boolean,
 }
 
 const MEDIUMS = ['painting', 'drawing', 'ceramic', 'illustration', 'poster', 'collage', 'tattoo'] as const
@@ -65,35 +71,40 @@ export function mapAsset(asset: CrowAsset): { artwork: MappedArtwork, issues: Ma
     const slug = asset.id
 
     if (!slug) {
-        issues.push({ slug: '(missing)', field: 'slug', message: 'Crow record has no id' })
+        issues.push({ slug: '(missing)', field: 'slug', message: 'Crow record has no id', blocking: true })
     }
     if (!asset.fileName) {
-        issues.push({ slug, field: 'fileName', message: 'Crow record has no fileName — nothing to join to' })
+        issues.push({ slug, field: 'fileName', message: 'Crow record has no fileName — nothing to join to', blocking: true })
     }
 
-    const uploadedAt = new Date(asset.uploaded ?? 0).toISOString()
-    if (Number.isNaN(Date.parse(uploadedAt))) {
-        issues.push({ slug, field: 'uploadedAt', message: `uploaded value ${asset.uploaded} is not a date` })
+    const createdAt = new Date(asset.uploaded ?? 0).toISOString()
+    if (Number.isNaN(Date.parse(createdAt))) {
+        issues.push({ slug, field: 'createdAt', message: `uploaded value ${asset.uploaded} is not a date`, blocking: true })
     }
 
     const medium = mediumForKind(asset.kind)
     if (asset.kind && medium === undefined && asset.kind !== KIND_UNPUBLISHED) {
-        issues.push({ slug, field: 'medium', message: `unknown kind "${asset.kind}" — add it to MEDIUMS or map it` })
+        issues.push({ slug, field: 'medium', message: `unknown kind "${asset.kind}" — add it to MEDIUMS or map it`, blocking: true })
     }
 
-    const tags: string[] = []
+    let favorite = false
     const seriesSlugs: string[] = []
     for (const tag of asset.tags ?? []) {
         const seriesSlug = seriesSlugForTag(tag)
         if (seriesSlug) {
             seriesSlugs.push(seriesSlug)
-        } else if (isFlagTag(tag)) {
-            tags.push(tag)
+        } else if (isFavoriteTag(tag)) {
+            favorite = true
         } else {
-            // A tag added to Crow after the series table was written. Kept as a
-            // flat tag so nothing is lost, and reported so it can be classified.
-            tags.push(tag)
-            issues.push({ slug, field: 'tags', message: `tag "${tag}" is neither a known series nor a known flag — kept as a flat tag` })
+            // A tag added to Crow after the series table was written. There is
+            // no flat-tag field to hide it in any more, and quietly dropping it
+            // would mis-model the work — so this stops the run.
+            issues.push({
+                slug,
+                field: 'series',
+                message: `tag "${tag}" is neither a known series nor the favorite flag — classify it in series.ts before migrating`,
+                blocking: true,
+            })
         }
     }
 
@@ -108,8 +119,8 @@ export function mapAsset(asset: CrowAsset): { artwork: MappedArtwork, issues: Ma
             showOnSite: showOnSiteForKind(asset.kind),
             status: asset.kind === KIND_UNPUBLISHED ? 'draft' : 'published',
             order: asset.order,
-            uploadedAt,
-            tags,
+            createdAt,
+            favorite,
             seriesSlugs,
         },
         issues,
@@ -139,8 +150,8 @@ export function createDataFor(artwork: MappedArtwork) {
         medium: artwork.medium,
         showOnSite: artwork.showOnSite,
         order: artwork.order,
-        uploadedAt: artwork.uploadedAt,
-        tags: artwork.tags,
+        createdAt: artwork.createdAt,
+        favorite: artwork.favorite,
         _status: artwork.status,
     }
 }
@@ -177,5 +188,6 @@ function duplicateSlugIssues(artworks: MappedArtwork[]): MappingIssue[] {
             slug,
             field: 'slug',
             message: `${count} records share this slug — the unique index will reject all but the first`,
+            blocking: true,
         }))
 }

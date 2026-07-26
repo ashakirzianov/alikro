@@ -50,8 +50,18 @@ export async function migrate({ limit, seriesOnly }: { limit?: number, seriesOnl
 
     const crowExport = await loadExport()
     const { artworks, issues } = mapExport(crowExport.assets)
+    const blocking = issues.filter(issue => issue.blocking)
+    if (blocking.length > 0) {
+        // Refuse rather than migrate a shape nobody has looked at. An
+        // unclassified tag reaching this point means the archive grew a concept
+        // the series table does not know about.
+        for (const issue of blocking.slice(0, 20)) {
+            console.error(`  [${issue.field}] ${issue.slug}: ${issue.message}`)
+        }
+        throw new Error(`${blocking.length} blocking mapping issue(s) — run \`npm run migrate:validate\` and resolve them first`)
+    }
     if (issues.length > 0) {
-        console.warn(`${issues.length} mapping issue(s) — run \`npm run migrate:validate\` for the detail`)
+        console.warn(`${issues.length} non-blocking mapping issue(s)`)
     }
 
     const payload = await getPayload({ config })

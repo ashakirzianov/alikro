@@ -43,7 +43,7 @@ it in `shared/asset.ts`.
 | `fileName` | `filename` | auto (upload) | **The migration join key.** Unique across all 632 records, so the join is clean and one-to-one. |
 | `width` | `width` | auto (upload) | Payload measures with the `image-size` package — header dimensions, **EXIF orientation not applied** — while variants go through sharp `.rotate()`. A `beforeChange` hook swaps the pair back when it disagrees with the variants, restoring Crow's `sharp().rotate().metadata()` behaviour. |
 | `height` | `height` | auto (upload) | Same. |
-| `uploaded` (epoch ms) | `uploadedAt` | date | **Needs conversion:** `new Date(asset.uploaded).toISOString()`. Payload runs `Date.parse` on the value and `Date.parse("1771604584246")` is `NaN`, so the raw epoch fails validation. Kept as its own field because `createdAt` is Payload's; alikro's `sortAssets` tie-breaks on it. |
+| `uploaded` (epoch ms) | `createdAt` | date (native) | **Needs conversion:** `new Date(asset.uploaded).toISOString()` — `Date.parse("1771604584246")` is `NaN`, so the raw epoch fails validation. Goes into Payload's *own* `createdAt`: the Postgres adapter defaults it only when a value is not supplied (`@payloadcms/drizzle/upsertRow`), so no second date field is needed. For a migrated archive the upload time is the creation time. |
 | `order` | `order` | number, indexed | **The single ordering** (see §2). 575 distinct values across 632 records; one record has none and 58 sit at 0. |
 | `kind` | `medium` | select | **Split three ways** — see §4. Medium only: painting, drawing, ceramic, illustration, poster, collage, tattoo. |
 | `kind: 'unpublished'` | `_status` | draft/published | Payload's native draft state, via `versions: { drafts: true }`. Zero live records carry it today, but Crow stamps it on every fresh upload. |
@@ -51,7 +51,7 @@ it in `shared/asset.ts`.
 | `title` | `title` | text | All 632 have one. |
 | `year` | `year` | number | All 632 have one. Range 2015–2026. |
 | `material` | `material` | text | Stays free text — `shared/material.ts` parses it (`" on "`, `" + "`, `", "`, clay/glaze suffixes) and that parser is the contract. |
-| `tags` | `tags` + `series` | text hasMany / relationship | Split by §2. Tags that name a body of work become series documents; the rest stay flat. |
+| `tags` | `series` + `favorite` | relationship / checkbox | Split by §2. Every tag either names a body of work (→ a series relation) or is the single flag `Favorite` (→ a checkbox). There is no flat-tag field: an unclassified tag **blocks the migration** rather than being carried silently. |
 
 **Added by Payload, no Crow equivalent:** `mimeType`, `filesize`, `url`,
 `thumbnailURL`, `sizes.*`, `createdAt`, `updatedAt`, `_status`.
@@ -163,10 +163,32 @@ Phase 2:
   browser before it POSTs, so a `required` slug would force a hand-typed value on
   every upload and the derivation hook would never run. The hook reproduces Crow's
   `generateAssetId` for new uploads; migrated records carry their id verbatim.
-- **`Favorite` (59) stays a flat tag** — a flag on a work, not a body of work.
+- **`Favorite` (59) becomes a checkbox.** Crow stored it as a magic string inside a tags array; it is a boolean, and Payload has booleans. With every other tag now a series, the flat-tag field had exactly one possible value left, so it is gone — and a tag that matches neither a series nor the flag is a **blocking** dry-run error. Verified by tampering with the export: an unknown tag fails the dry run rather than reaching the archive pass.
+- **alikro's tag vocabulary is reconstructed, not stored.** The site's filters and its hardcoded collections still query Crow-style tag strings, so the Payload adapter rebuilds them from series relations plus the flag (`shared/payloadContent.ts`). The legacy vocabulary stays out of the database, and the A/B compares presentation rather than two different models.
 - **`medium` collections are unchanged.** The `paintings` / `drawings` /
   `ceramics` / `illustrations` / `posters` / `collages` pages are medium queries
   and stay that way.
+
+---
+
+### Native-primitive sweep
+
+Run before the archive pass, on the principle behind Anton's gate rulings: prefer
+the target system's native primitive over reproducing the legacy shape, and one
+mechanism over two. After 632 records exist, a shape decision gets expensive.
+
+| finding | outcome |
+|---|---|
+| `uploadedAt` duplicated `createdAt` | **Adopted the native one.** Verified in `@payloadcms/drizzle/upsertRow`: a supplied `createdAt` is honoured, defaulted only when absent. Two timestamps would have forced every consumer to choose between them forever. |
+| `tags` was vestigial; `Favorite` a boolean as a string | **Replaced with a checkbox**, flat-tag field dropped, unclassified tags now blocking. |
+| `order` vs Payload's native fractional ordering | **No change** — already ruled, and one mechanism either way. The deferral is demonstrably safe: converting 632 numbers to fractional keys later is a single ordered pass. |
+| `material` is structured data inside a string, parsed at runtime | **Open — with Anton.** The clearest remaining Crow-ism: `shared/material.ts` parses `" on "` / `" + "` / `", "` and clay-glaze suffixes, which makes *the parser the schema*. Modelling it is the best remaining test of the modelling layer, and migration is the cheap moment because the parser already exists to derive structure at write time. |
+| `medium` as a code-defined select | **Open — with Anton.** More restrictive than Crow's free text: adding a medium now needs a deploy, which is an editor-autonomy regression dressed as validation. Recommendation is to keep the select *through* the run (it fails loudly on unknown values) and revisit after; converting 7 values to a relationship later is small and scriptable. Related asymmetry worth recording either way: series are content, but the medium collections are still hardcoded in `shared/collection.ts`. |
+
+Swept and genuinely fine: `slug` (no native equivalent, and carrying Crow's id
+verbatim is the point), `showOnSite` (drafts are the wrong primitive — these are
+published works deliberately kept out of galleries), `series`, variants,
+`_status`, access.
 
 ---
 

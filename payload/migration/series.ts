@@ -55,15 +55,24 @@ export const SERIES_SEEDS: SeriesSeed[] = [
     { slug: 'sirens', title: 'Sirens', tag: 'Sirens' },
 ]
 
-// Tags that stay flat labels rather than becoming series.
-export const FLAG_TAGS = ['Favorite']
+// The one Crow tag that is a boolean rather than a body of work. It becomes the
+// `favorite` checkbox; every other tag must be a known series, or the dry run
+// stops the migration.
+export const FAVORITE_TAG = 'Favorite'
 
 export function seriesSlugForTag(tag: string): string | undefined {
     return seedsByTag().get(tag)?.slug
 }
 
-export function isFlagTag(tag: string): boolean {
-    return FLAG_TAGS.includes(tag)
+export function isFavoriteTag(tag: string): boolean {
+    return tag === FAVORITE_TAG
+}
+
+// The Crow tag a series was derived from. The Payload-backed content adapter
+// reconstructs Crow's tag vocabulary from this so alikro's existing tag queries
+// keep working across the A/B, without the legacy vocabulary being stored.
+export function tagForSeriesSlug(slug: string): string | undefined {
+    return SERIES_SEEDS.find(seed => seed.slug === slug)?.tag
 }
 
 let cachedSeedsByTag: Map<string, SeriesSeed> | undefined
