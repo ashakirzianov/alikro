@@ -139,6 +139,18 @@ entries collapse onto one file (399 are narrower than 1600 as well). Semanticall
 identical to Crow, which writes distinct names holding identical bytes, but the
 object count in the parity spot-check will legitimately differ.
 
+**This kills URL-construction-by-convention, and that is a Phase-2 constraint, not
+a config detail.** Crow's contract is that a variant URL is *derivable*: the
+consumer builds `file.jpg@w1600.webp` from the filename and a width, and
+CloudFront serves it or Crow generates it. Under Payload a constructed name for a
+collapsed width simply does not exist. So alikro's image layer has to **read
+`doc.sizes`** instead of composing names — `shared/image.ts` and `AssetImage`'s
+snapping loader both change shape. That is fine, arguably better (the `sizes` map
+is authoritative and travels with the document through the Local API), but it is a
+rewrite rather than a swap, in either direction. Consequence for the spot-check:
+compare **srcset coverage** — does every width alikro actually requests resolve to
+an appropriately sized file — rather than counting objects.
+
 **One route asks for widths that will not exist.** `app/api/og/[...slug]/route.tsx`
 computes an arbitrary width from the asset's aspect ratio and passes it to
 `imageSrc`; under Crow that falls through to the on-demand generator. Payload is
@@ -228,6 +240,13 @@ Two consequences of that flag that are Anton's to action in Phase 2:
    **This is the one open question I would rather you answered than defaulted.**
    Currently implemented as Crow's shape (parity). If you say yes, I do it at the
    top of Phase 2, before the archive pass — it is cheap then and expensive after.
+
+   *One product question inside it:* nothing anywhere filters `hidden`, so the two
+   works marked that way **are visible on alikro.art today**. A `kind` literally
+   named `hidden` that hides nothing reads like an intent that was never
+   implemented. If it was meant to hide them, that changes what `_status` should
+   map to — `hidden` → draft alongside `unpublished`, rather than being folded
+   into medium. Worth thirty seconds of your time either way.
 2. **Per-series ordering is approximate.** Payload's `orderable` join stores one
    fractional-index column per artwork, and for a `hasMany` relationship the
    reorder scope comes from the artwork's *first* series. A work in two series
@@ -267,6 +286,17 @@ Observations that belong to the evaluation rather than to the schema:
   `>=16.2.6`, which forced 16.1.6 → 16.2.12 and React 19.2.4 → 19.2.8, plus a full
   ESM conversion. Payload v3 ships near-weekly, so this coupling recurs on every
   upgrade. Feeds criterion 5 (maintenance weight vs Crow's ~zero).
+- **The consumer's image layer is not portable between the two models, in either
+  direction** (criterion 5, and the largest single migration cost found so far).
+  Crow's variant URLs are derivable by convention; Payload's are authoritative
+  only via `doc.sizes`. Moving either way means rewriting `shared/image.ts` and
+  `AssetImage`'s snapping loader, not re-pointing a base URL.
+- **Two media traps the next person would hit**, both found here and one only
+  patched rather than fixed upstream: Payload measures the main file with
+  `image-size` (header dimensions, EXIF orientation ignored) while variants go
+  through sharp `.rotate()`; and eight configured sizes yield fewer than eight
+  files whenever the original is narrower than the size. Neither is documented on
+  Payload's side.
 - **Watch the cataloguing path in the playtest** (criterion 1). Assigning a series
   from the artwork works because the writable field lives there — but the drag
   ordering only exists on the series document, so a full "upload and catalogue"
