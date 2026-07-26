@@ -93,8 +93,13 @@ function toAssetMetadata(doc: ArtworkWithSlug): AssetMetadata {
 
 // alikro's filters and its hardcoded collections still query Crow's tag
 // vocabulary. Payload stores series relations and a boolean instead, so the
-// vocabulary is reconstructed here rather than duplicated in the database —
-// which keeps the A/B comparing presentation rather than two different models.
+// vocabulary is reconstructed here.
+//
+// Do not "fix" this by storing the legacy strings in a `tags` column. That looks
+// simpler and is worse: the database would hold both the native relation and the
+// Crow-ism it replaced, free to drift apart — and the two content paths would
+// then compare two different data models rather than two presentations of one,
+// which is the whole point of running them side by side.
 function legacyTags(doc: ArtworkWithSlug): string[] | undefined {
     const tags = (seriesSlugs(doc) ?? [])
         .map(tagForSeriesSlug)

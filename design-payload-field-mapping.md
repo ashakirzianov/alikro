@@ -164,7 +164,17 @@ Phase 2:
   every upload and the derivation hook would never run. The hook reproduces Crow's
   `generateAssetId` for new uploads; migrated records carry their id verbatim.
 - **`Favorite` (59) becomes a checkbox.** Crow stored it as a magic string inside a tags array; it is a boolean, and Payload has booleans. With every other tag now a series, the flat-tag field had exactly one possible value left, so it is gone — and a tag that matches neither a series nor the flag is a **blocking** dry-run error. Verified by tampering with the export: an unknown tag fails the dry run rather than reaching the archive pass.
-- **alikro's tag vocabulary is reconstructed, not stored.** The site's filters and its hardcoded collections still query Crow-style tag strings, so the Payload adapter rebuilds them from series relations plus the flag (`shared/payloadContent.ts`). The legacy vocabulary stays out of the database, and the A/B compares presentation rather than two different models.
+- **alikro's tag vocabulary is reconstructed, not stored — do not "simplify" this.**
+  The site's filters and its hardcoded collections still query Crow-style tag
+  strings, so the Payload adapter rebuilds them from series relations plus the
+  flag (`shared/payloadContent.ts`). The obvious shortcut — keep a `tags` column
+  populated with the legacy strings so the consumer just works — would leave the
+  database holding a hybrid model: the native relation *and* the Crow-ism it
+  replaced, free to drift apart. It would also quietly invalidate the trial,
+  because the two content paths would then be comparing **two different data
+  models** rather than two presentations of one. The native model lives in the
+  data; the legacy shape exists only at the presentation boundary, which is the
+  entire reason both paths coexist.
 - **`medium` collections are unchanged.** The `paintings` / `drawings` /
   `ceramics` / `illustrations` / `posters` / `collages` pages are medium queries
   and stay that way.
