@@ -165,6 +165,7 @@ export interface Artwork {
    */
   order?: number | null;
   series?: (number | Series)[] | null;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -419,6 +420,7 @@ export interface ArtworksSelect<T extends boolean = true> {
   favorite?: T;
   order?: T;
   series?: T;
+  prefix?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

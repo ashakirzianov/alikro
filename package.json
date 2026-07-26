@@ -14,7 +14,8 @@
     "migrate:export": "tsx payload/migration/export-crow.ts",
     "migrate:validate": "tsx payload/migration/validate.ts",
     "migrate:series": "tsx payload/migration/migrate.ts --series-only",
-    "migrate": "tsx payload/migration/migrate.ts"
+    "migrate": "tsx payload/migration/migrate.ts",
+    "migrate:spotcheck": "tsx payload/migration/spotcheck.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.782.0",
