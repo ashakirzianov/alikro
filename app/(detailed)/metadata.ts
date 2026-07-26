@@ -24,6 +24,7 @@ export async function generateMetadataForAssetId(assetId: string) {
         url: imageSrc({
             fileName: asset.fileName,
             width: 1200,
+            variants: asset.variants,
         }),
         alt: asset.title,
     }]

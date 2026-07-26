@@ -12,19 +12,26 @@ interface AssetImageProps {
 }
 
 const snapWidths = [320, 480, 640, 768, 960, 1200, 1600, 1920]
-function loader({ src, width, quality }: { src: string, width: number, quality?: number }) {
-    let closestWidth = snapWidths[0]
-    for (const snapWidth of snapWidths) {
-        closestWidth = snapWidth
-        if (snapWidth >= width) {
-            break
+function makeLoader(asset: AssetMetadata) {
+    return function loader({ src, width, quality }: { src: string, width: number, quality?: number }) {
+        // With reported variants the CMS owns the widths, so snapping to our own
+        // list would be guessing at names it never promised.
+        if (asset.variants && asset.variants.length > 0) {
+            return imageSrc({ fileName: src, width, quality, variants: asset.variants })
         }
+        let closestWidth = snapWidths[0]
+        for (const snapWidth of snapWidths) {
+            closestWidth = snapWidth
+            if (snapWidth >= width) {
+                break
+            }
+        }
+        return imageSrc({
+            fileName: src,
+            width: closestWidth,
+            quality,
+        })
     }
-    return imageSrc({
-        fileName: src,
-        width: closestWidth,
-        quality,
-    })
 }
 
 export function AssetImage({ asset, sizes, style, loading, priority }: AssetImageProps) {
@@ -33,7 +40,7 @@ export function AssetImage({ asset, sizes, style, loading, priority }: AssetImag
     return (
         <Image
             src={asset.fileName}
-            loader={loader}
+            loader={makeLoader(asset)}
             alt={assetAlt(asset)}
             width={width}
             height={height}

@@ -1,4 +1,9 @@
 export type Timestamp = number
+// One rendition of an asset, at a known width, at a known URL.
+export type AssetVariant = {
+    width: number,
+    url: string,
+}
 export type AssetMetadata = {
     id: string,
     fileName: string,
@@ -11,6 +16,12 @@ export type AssetMetadata = {
     year?: number,
     material?: string,
     tags?: string[],
+    series?: string[],
+    // Present only when the CMS reports its renditions rather than letting the
+    // client compose URLs by convention. Crow does not; Payload does, and has to
+    // — its variant filenames carry actual output dimensions, so a name built
+    // from a requested width can point at nothing. Ascending by width.
+    variants?: AssetVariant[],
 }
 export type AssetMetadataUpdate = Omit<
     AssetMetadata,

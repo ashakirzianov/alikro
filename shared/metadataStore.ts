@@ -9,6 +9,7 @@ import { fetchAllAssetMetadata } from './cms'
 import { collectionForId } from './collection'
 import { cacheLife, cacheTag } from 'next/cache'
 import { preproccessAssets } from './preprocess'
+import { fetchAllAssetMetadataFromPayload, isPayloadContentSource } from './payloadContent'
 
 export async function getAssetsForSlideshow() {
     return getSortedAssetsForQuery(null)
@@ -83,6 +84,12 @@ async function getAllAssetsMetadata() {
     'use cache'
     cacheLife('max')
     cacheTag('crow-content')
+    // CONTENT_SOURCE=payload swaps the CMS underneath the whole site. Payload
+    // already applies the publication and visibility filters in the query, so
+    // the preprocessing step is Crow-only.
+    if (isPayloadContentSource()) {
+        return fetchAllAssetMetadataFromPayload()
+    }
     const assets = await fetchAllAssetMetadata()
     return preproccessAssets(assets)
 }

@@ -30,6 +30,9 @@ yarn-error.log*
 # payload trial: local-disk upload fallback (used when S3_BUCKET is unset)
 /media
 
+# payload trial: migration run log (diagnostic; the database is the resume state)
+payload/migration/.migration-log.jsonl
+
 # vercel
 .vercel
 

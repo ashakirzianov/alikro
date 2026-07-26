@@ -195,7 +195,71 @@ Phase 2:
 
 ---
 
-## 6. Recorded for the trial write-up
+## 6. Migration (Phase 2) — built, dry-run, waiting on credentials
+
+`payload/migration/`, driven by npm scripts:
+
+| | |
+|---|---|
+| `npm run migrate:export` | Crow → neutral JSON (`crow-export.json`). The portability artifact — worth keeping under **every** verdict, FREEZE included. |
+| `npm run migrate:validate` | Dry run. No database, no bucket, no staged files needed. |
+| `npm run migrate:series` | Series documents only. Idempotent, safe to repeat. |
+| `npm run migrate` | Series + the archive. Resumable. |
+
+**Resumability is the database, not the log.** Every run reads existing slugs
+first and skips them, so a killed run resumes by being started again. The JSONL
+log beside it is a diagnostic, not state. A single unreadable original is logged
+and stepped over rather than ending the run — Crow tolerates these
+(`failOnError: false`), Payload raises `FileUploadError`, and an overnight job
+must not die on record 400 of 632.
+
+**Sequential by default, but not for the reason we thought.** The fractional
+index that was allocated without a lock disappeared along with the orderable
+join, so parallel creation is no longer *incorrect*. It stays serial because each
+document is a download, eight resizes and nine uploads, and a serial log makes
+the failure point obvious. `MIGRATION_CONCURRENCY` raises it.
+
+**The export refuses to be stale.** `migrate` rejects an export older than 24h
+unless `ALLOW_STALE_EXPORT=true`. This is a direct consequence of §0: a committed
+JSON file was trusted as the archive when it was five months and 109 records
+behind.
+
+**Dry run, all 632 records, invariants holding:** slugs unique and non-empty,
+filenames unique (clean join), every `uploadedAt` parses, every series link
+resolves. Distribution: 215 illustration, 100 poster, 90 drawing, 63 collage,
+61 painting, 53 tattoo, 50 ceramic; 632 published, 0 draft; 55 `showOnSite=false`
+(53 tattoos + the 2 ex-`hidden`); 30 series all receiving members; `Favorite`
+(59) the only flat tag. **190 slugs would break if recomputed** rather than
+carried.
+
+**Tiffs are fine.** Payload resizes `image/tiff`, and the migration passes a
+`filePath` rather than a buffer — which matters, because a tiff cannot be
+measured from a buffer at all. Measured on a synthetic 900×1400 tiff: eight sizes
+produce **five** distinct files, the four above the original's width collapsing
+into one. The predicted collapse, now a measured number.
+
+**Blocked on Anton:** the staging copy of `alikro/originals/`, the bucket + IAM
+pair, and the Neon connection string. Nothing above touches AWS or Neon.
+
+### The site can already read Payload
+
+`CONTENT_SOURCE=payload` swaps the CMS underneath the whole site
+(`shared/payloadContent.ts`, read through the **Local API** — in-process, no
+HTTP, no token, no CORS). Unset, the site reads Crow exactly as production does.
+
+Verified locally: with the switch off the site renders as before; with it on it
+reaches Payload and fails only on the absent Postgres. That is as far as this
+goes without a database.
+
+The image layer moved with it, as §3 predicted. `AssetMetadata` gained an
+optional `variants` list; `imageSrc` picks from reported renditions when they
+exist and composes Crow-style names when they do not; `AssetImage`'s snapping
+loader defers to the CMS's widths rather than guessing at filenames. Both paths
+live side by side, which is what makes the playtest an A/B rather than a rewrite.
+
+---
+
+## 7. Recorded for the trial write-up
 
 - **Version coupling is a recurring cost.** Embedding pins alikro's Next floor to
   whatever the installed Payload requires — 3.86.0 demands `>=16.2.6`, forcing
