@@ -176,6 +176,22 @@ than an impression.
 difference between 12 lines of CSS variables and a selector that fails silently
 is the number that would make this decision wrongly.
 
+### The tier-D count is a series, not a number
+
+**Any future styling pass must re-measure the Payload-internal selector count and
+report it next to the previous values, never on its own.** The trend is the
+decision-relevant output here, and a snapshot actively misleads:
+
+| pass | date | tier-D selectors |
+|---|---|---|
+| image-native spike | 2026-07-27 | **1** |
+| Crow re-skin (this) | 2026-07-27 | **3** |
+
+A snapshot says *"300 lines — cheap."* The series says *the fragile surface grows
+whenever anyone actually styles this*, and it grew from 1 to 3 in a single
+afternoon of ordinary requests. Those are different answers to criterion 5, and
+only the second one is load-bearing. Add a row; do not overwrite one.
+
 ---
 
 ## 5. Open, for Anton and Alina
