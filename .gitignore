@@ -48,3 +48,6 @@ certificates
 .claude/settings.local.json
 .claude/worktrees/
 .env*
+
+# payload trial: local playtest credentials (throwaway, local DB only)
+PLAYTEST-CREDENTIALS.local.md

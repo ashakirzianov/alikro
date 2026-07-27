@@ -59,7 +59,15 @@ export const Artworks: CollectionConfig = {
     upload: {
         staticDir: 'media',
         mimeTypes: ['image/*'],
-        adminThumbnail: 'w480',
+        // Naming a size here (`adminThumbnail: 'w480'`) builds the URL as
+        // `/api/artworks/file/<name>` — Payload's own serving route, which
+        // `disablePayloadAccessControl: true` removes. Every thumbnail in the
+        // admin then 500s and renders as a grey file icon. Reading the URL off
+        // `sizes` instead points at the bucket, the same place the site reads
+        // from. Recorded as a trial finding: the two settings interact and
+        // nothing warns you.
+        adminThumbnail: ({ doc }) =>
+            (doc as { sizes?: { w480?: { url?: string } } }).sizes?.w480?.url ?? null,
         // Both off for now: Crow has no equivalent, and enabling them would add a
         // per-asset editing step to the migration that nothing consumes yet.
         crop: false,
