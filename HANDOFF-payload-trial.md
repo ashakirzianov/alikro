@@ -54,6 +54,18 @@ documents them. Load with `set -a && . ./.env.local && set +a`.
   Use `next build --debug-prerender`, which is green.
 - Long runs are **block-buffered** through a pipe, so progress appears in batches.
   The S3 object count is a better live progress signal.
+- **The preview tool's screenshot path is broken on this machine.**
+  `preview_snapshot` and `preview_resize` fail on every call (snapshot returns a
+  bare failure, resize times out); `preview_navigate` and `preview_evaluate` work
+  fine, so the browser itself is healthy — you just cannot get an image out of
+  it. When a screenshot is the deliverable, drive **headless Chrome over CDP**
+  (`--headless=new --remote-debugging-port=9222`, then `Network.setCookie` +
+  `Page.captureScreenshot`). Do that rather than any screen-capture route:
+  headless is **page-scoped by construction**, so it cannot catch Anton's own
+  windows. That constraint is standing, not situational.
+- **`next dev` does not always take port 5733**, even when it is free — it
+  silently moves to 5734 and every documented URL is then wrong. Pass `-p 5733`
+  explicitly.
 - The migration is **resumable** — resume state is the database, not the log. It
   was killed mid-run once and recovered by simply restarting.
 

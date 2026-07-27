@@ -130,6 +130,17 @@ pre-playtest baseline.
 single feature the playtest rated a win, and in the consumer it was broken. The
 win is real, but it was not actually being exercised end-to-end until now.
 
+**Method note, because this is the generalisable part.** Every component on this
+path was individually correct: the collection *did* scope reads to published,
+the site *did* filter visibility, drafts *were* being created properly. The path
+between them was broken — the Local API bypasses access control, so the one
+component holding the `_status` rule was never on the path at all. **An
+end-to-end path can be broken while every component along it looks correct**,
+which is why it took a real person doing a real thing to expose it. Two
+independent accidents had kept it invisible: every migrated record was
+published, and the one test draft happened to carry `showOnSite: false`. Neither
+was a check that passed — both were coincidences that looked like passing checks.
+
 ---
 
 ## State
