@@ -14,6 +14,14 @@ the fair version so it can be re-judged.
 Both captured from the running admin at 1400×1000, all images loaded before
 capture. Second shot is `medium = ceramic` — 48 works, matching the site.
 
+**Said precisely, because it is easy to overclaim.** This was not "630 artworks
+rendering as images on one screen" — Payload's list is paginated and stays
+paginated. What was observed is a **paginated list over 632 records**, at 12/18/24
+cards per page, every card on every page loading its real artwork with **zero
+broken images**, and the counter reporting the true total behind them
+(`1-24 of 632`). Whether the grid holds up at 630 in a single unpaginated view is
+**untested** and would need an explicit run to claim.
+
 ---
 
 ## What was tried, cheapest first
@@ -150,6 +158,15 @@ spot-check permanently red. Parity checks now skip records that were never in
 the migration, told apart by the export's own join key (`fileName`) — so genuine
 slug drift is still caught, while a native upload is not a false alarm. A
 permanently red check is one nobody reads.
+
+**Known limit of that skip, so the next reader knows it is scoped and not
+total.** A record that drifted on *both* slug **and** filename matches neither
+key, reads as a native upload, and is therefore skipped silently. Reaching that
+state takes someone re-uploading a *different* file onto a migrated record —
+marginal, and strictly less bad than the permanent-red it replaces, which is why
+it is recorded here rather than fixed. If it ever needs closing, the fix is to
+carry a migration marker on the record instead of inferring provenance from the
+export.
 
 **It is worth naming what this one means for the trial.** Draft/publish was the
 single feature the playtest rated a win, and in the consumer it was broken. The
