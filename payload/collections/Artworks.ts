@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
+import { MEDIUMS } from './mediums'
+
 // Crow generates the eight eager webp variants listed here (see
 // ../../../crow-cms/shared/variants.ts) and alikro's <AssetImage> loader snaps
 // every srcset request to one of them. Keeping the same widths is what makes a
@@ -19,20 +21,10 @@ const WEBP_OPTIONS = {
 // second date field here. For a migrated archive the upload time *is* the
 // creation time.
 //
-// Crow's `kind` carried three unrelated things at once: medium, publication
-// state (`unpublished`, `hidden`), and a category the site filtered out in code
-// (`tattoo`). Split per Anton: this is medium only. `unpublished` becomes
-// Payload's native draft state, `hidden` is dropped, and the tattoo exclusion
-// becomes the explicit `showOnSite` field below.
-const MEDIUMS = [
-    'painting',
-    'drawing',
-    'ceramic',
-    'illustration',
-    'poster',
-    'collage',
-    'tattoo',
-]
+// `MEDIUMS` now lives in ./mediums so the admin's client-side grid can build
+// Crow's filter row from the same list. `unpublished` becomes Payload's native
+// draft state, `hidden` is dropped, and the tattoo exclusion becomes the
+// explicit `showOnSite` field below.
 
 export const Artworks: CollectionConfig = {
     slug: 'artworks',
@@ -58,12 +50,14 @@ export const Artworks: CollectionConfig = {
     admin: {
         useAsTitle: 'title',
         defaultColumns: ['title', 'medium', 'year', 'order'],
-        description: 'One record per artwork — the image and its catalogue data.',
+        // No `description`: Crow's console carries no explanatory chrome, and the
+        // sentence that was here restated the collection name.
         components: {
-            // Draws the list as a gallery instead of rows of titles. Mounted as
-            // `beforeListTable` rather than replacing the list view, so the
-            // whole query layer — search, filters, sort, pagination — keeps
-            // working with no code of ours. See the component for the cost note.
+            // Draws the list as Crow's filter row plus a gallery, instead of rows
+            // of titles. Mounted as `beforeListTable` rather than replacing the
+            // list view, so the whole query layer — search, filters, sort,
+            // pagination — keeps working with no code of ours. See the component
+            // for the cost note.
             beforeListTable: ['/payload/components/ArtworkGrid#ArtworkGrid'],
         },
     },
@@ -113,7 +107,11 @@ export const Artworks: CollectionConfig = {
             unique: true,
             index: true,
             admin: {
-                description: 'Public URL segment — leave empty to derive it from the file name. Migrated artworks carry Crow\'s asset id verbatim so existing links keep working.',
+                // Sidebar, not the main column: this is plumbing that derives
+                // itself, and Crow's editor never showed it. Migrated artworks
+                // carry Crow's asset id verbatim so existing links keep working.
+                position: 'sidebar',
+                description: 'Leave empty to derive from the file name.',
             },
             hooks: {
                 beforeValidate: [slugFromFilename],
@@ -140,7 +138,7 @@ export const Artworks: CollectionConfig = {
             name: 'material',
             type: 'text',
             admin: {
-                description: 'Free-text description, e.g. "acrylic on paper". The site parses it for the material filter.',
+                description: 'e.g. "acrylic on paper".',
             },
         },
         {
@@ -148,13 +146,14 @@ export const Artworks: CollectionConfig = {
             // medium needs a deploy. Kept for the migration because it fails
             // loudly on an unknown value during a bulk pass; revisit after the
             // playtest, when the editor-autonomy cost has actually been felt.
+            //
+            // The description that said so has been moved into this comment: it
+            // was a note to ourselves about the trial, rendered where the artist
+            // edits her catalogue.
             name: 'medium',
             type: 'select',
             options: MEDIUMS,
             index: true,
-            admin: {
-                description: 'Adding a new medium currently requires a code change — flagged as a trial finding.',
-            },
         },
         {
             // Replaces the hardcoded `kind !== 'tattoo'` filter in
@@ -165,7 +164,10 @@ export const Artworks: CollectionConfig = {
             defaultValue: true,
             index: true,
             admin: {
-                description: 'Uncheck to keep a published work out of the public galleries. Migration unchecks it for tattoos, matching what the site does today.',
+                // Sidebar with the other publication state, so the main column is
+                // just the catalogue card Crow showed.
+                position: 'sidebar',
+                description: 'Uncheck to keep a published work out of the public galleries.',
             },
         },
         {
@@ -173,7 +175,8 @@ export const Artworks: CollectionConfig = {
             type: 'number',
             index: true,
             admin: {
-                description: 'Sort position across the whole archive, ascending. The single ordering — series pages sort by it too, exactly as they do today.',
+                position: 'sidebar',
+                description: 'Sort position across the whole archive, ascending.',
             },
         },
         {
@@ -191,7 +194,7 @@ export const Artworks: CollectionConfig = {
             hasMany: true,
             index: true,
             admin: {
-                description: 'Free-text tags, as Crow stores them. "Favorite" is one of these rather than its own field.',
+                description: '"Favorite" is one of these rather than its own field.',
             },
         },
     ],

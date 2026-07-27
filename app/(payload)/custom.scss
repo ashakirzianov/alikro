@@ -1,52 +1,179 @@
-// Spike (2026-07-27): image-native artworks list. See
-// payload/components/ArtworkGrid.tsx for what this styles and why.
+// Re-skin (2026-07-27): make the Payload admin read as Crow, the CMS it would
+// replace. See RESKIN-crow-admin.md for the tiered cost and the coupling list —
+// this file is deliberately split into three marked tiers because they carry
+// very different maintenance costs.
 //
-// The grid is mounted as `beforeListTable`, so the default table still renders
-// underneath it. Hiding the table is what turns "gallery plus a redundant list"
-// into a gallery — and it is also the honest cost of this approach: Payload has
-// no supported way to *replace* the table from `beforeListTable`, so this leans
-// on a Payload-owned class name. That selector is exactly the kind of thing a
-// weekly release can rename out from under us.
+// Crow's console, for reference (../crow-cms): white, Inter, one accent colour
+// (`--color-accent: red`), a comma-separated red filter row, and a dense
+// four-column wall of pictures with a tiny red caption. Almost no chrome.
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+// ───────────────────────────────────────────────────────────────────────────
+// TIER 1 — theme variables only.
+//
+// Every declaration below is a documented `--theme-*` / `--base-*` custom
+// property. Nothing here names a Payload class, so nothing here can be broken
+// by a Payload release renaming an internal. This is the durable tier.
+// ───────────────────────────────────────────────────────────────────────────
+
+:root {
+    // Crow's accent is literally `red`. Ours, not Payload's — Payload has no
+    // brand-accent variable at all (see the TIER 2 note).
+    --crow-accent: #f00;
+    --crow-accent-hover: #d40000;
+
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+    // Density. Payload's baseline is 20px against a 13px body; Crow's console is
+    // tighter, and on an archive of 630 works the difference is a screenful.
+    --base-px: 18;
+    --gutter-h: calc(var(--base) * 1.2);
+
+    // Crow rounds almost nothing; images are flush and inputs are barely rounded.
+    --style-radius-s: 2px;
+    --style-radius-m: 2px;
+    --style-radius-l: 3px;
+
+    // Crow has no sidebar at all. Payload's is 275px of collection list; this
+    // narrows it rather than removing it, because removing it would mean
+    // replacing `admin.components.Nav` — a whole component, i.e. TIER 3.
+    --nav-width: 200px;
+
+    // Payload's focus ring is `--theme-success-500`, a blue. On a red-accented
+    // admin that reads as a second, competing accent.
+    //
+    // Named side effect, because this variable is Payload's and its *meaning* is
+    // "success", not "focus": the drag-over state of an upload dropzone also
+    // turns red. Success banners and success pills use the 100/600 and 150/800
+    // steps and are untouched, so "saved" still reads as positive.
+    --theme-success-500: var(--crow-accent);
+}
+
+// ───────────────────────────────────────────────────────────────────────────
+// TIER 2 — Payload-owned class names. THIS IS THE COUPLING.
+//
+// Each selector here is an internal of Payload's own stylesheet. A release can
+// rename any of them with no error and no deprecation — the symptom is this
+// styling silently reverting, not a build failure. Two selectors, listed:
+//
+//   1. `.collection-list--artworks .table`   (pre-existing, from the spike)
+//   2. `.btn--style-primary`                 (new)
+//
+//   3. `.file-details .thumbnail`             (new)
+//
+// Why (2) is here rather than in TIER 1: Payload's admin is monochrome by
+// design and exposes no accent variable. Its primary button is painted with
+// `--theme-elevation-800`, which is the same variable as body text, input text,
+// field labels and icon fills — 61 declarations in the shipped stylesheet.
+// Overriding it to red would turn every form input's text red. So "give the
+// admin a brand colour" is not expressible in Payload's supported variable set.
+// That is a finding about Payload, not a shortcut taken here.
+// ───────────────────────────────────────────────────────────────────────────
+
+// The gallery is mounted as `beforeListTable`, which can only add a component
+// *above* the table — there is no supported way to replace it from that slot.
+// When this selector goes stale the symptom is a redundant 630-row table
+// quietly reappearing underneath the gallery. No error.
 .collection-list--artworks {
     .table {
         display: none;
     }
 }
 
-.artwork-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: var(--base);
-    margin-block: var(--base);
+// Crow's action button: `bg-accent text-secondary` — solid red, white label.
+.btn--style-primary {
+    --bg-color: var(--crow-accent);
+    --hover-bg: var(--crow-accent-hover);
+}
+
+// In Crow's editor the artwork is the biggest thing on screen. Payload renders
+// the upload as a file *row* — a ~90px cover-cropped chip next to the filename,
+// which for an art archive puts the metadata above the work.
+//
+// Worth noticing what this cost: wanting the picture bigger *in its own editor*
+// is not expressible in any variable, so it immediately became a third coupled
+// selector. That is how this list grows.
+.file-details .thumbnail {
+    width: 45%;
+    min-height: calc(var(--base) * 11);
+
+    img {
+        object-fit: contain;
+    }
+}
+
+// ───────────────────────────────────────────────────────────────────────────
+// TIER 3 — styling for components we wrote. Owned forever either way; a Payload
+// release cannot break it, and a Payload release cannot maintain it either.
+// Styles `payload/components/ArtworkGrid.tsx` and `CrowDashboard.tsx`.
+// ───────────────────────────────────────────────────────────────────────────
+
+.crow {
+    &__nav {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        font-size: 1.75rem;
+        line-height: 1.15;
+        color: var(--crow-accent);
+        padding-block-end: calc(var(--base) / 2);
+        white-space: nowrap;
+    }
+
+    &__filter {
+        background: none;
+        border: 0;
+        padding: 0 2px;
+        font: inherit;
+        color: var(--crow-accent);
+        cursor: pointer;
+
+        &:hover,
+        &--on {
+            background: var(--crow-accent);
+            color: #fff;
+        }
+    }
+
+    &__grid {
+        display: flex;
+        gap: calc(var(--base) / 2);
+        margin-block: calc(var(--base) / 2);
+    }
+
+    &__column {
+        display: flex;
+        flex-direction: column;
+        gap: calc(var(--base) / 4);
+        flex: 1 1 0;
+        min-width: 0;
+    }
 
     &__card {
         display: flex;
         flex-direction: column;
-        gap: calc(var(--base) / 4);
         text-decoration: none;
-        color: inherit;
 
-        &:hover .artwork-grid__frame {
-            border-color: var(--theme-elevation-400);
+        &:hover .crow__frame {
+            outline: 2px solid var(--crow-accent);
         }
     }
 
+    // No fixed aspect ratio: Crow shows every work at its own proportions, and a
+    // square crop is most of what made the stock admin feel like a database.
     &__frame {
         position: relative;
         display: flex;
+        min-height: calc(var(--base) * 2);
         align-items: center;
         justify-content: center;
-        aspect-ratio: 1;
-        overflow: hidden;
         background: var(--theme-elevation-50);
-        border: 1px solid var(--theme-elevation-150);
-        border-radius: 3px;
 
         img {
             width: 100%;
-            height: 100%;
-            object-fit: contain;
+            height: auto;
+            display: block;
         }
     }
 
@@ -57,40 +184,66 @@
 
     &__badge {
         position: absolute;
-        top: 6px;
-        left: 6px;
-        padding: 1px 6px;
-        border-radius: 2px;
+        top: 4px;
+        left: 4px;
+        padding: 0 5px;
         font-size: 0.65rem;
         text-transform: uppercase;
         letter-spacing: 0.04em;
-        background: var(--theme-warning-500);
-        color: var(--theme-base-800);
+        background: var(--crow-accent);
+        color: #fff;
 
         &--muted {
             left: auto;
-            right: 6px;
-            background: var(--theme-elevation-300);
-            color: var(--theme-elevation-800);
+            right: 4px;
+            background: var(--theme-elevation-800);
         }
     }
 
-    &__meta {
-        display: flex;
-        flex-direction: column;
-        line-height: 1.25;
-        min-width: 0;
-    }
-
-    &__title {
-        font-size: 0.8rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    &__sub {
+    &__caption {
         font-size: 0.72rem;
-        color: var(--theme-elevation-500);
+        line-height: 1.2;
+        color: var(--crow-accent);
+        overflow-wrap: anywhere;
+    }
+}
+
+.crow-dash {
+    &__nav {
+        font-size: 2.5rem;
+        line-height: 1.15;
+        color: var(--crow-accent);
+    }
+
+    &__link {
+        color: var(--crow-accent);
+        text-decoration: none;
+
+        &:hover {
+            background: var(--crow-accent);
+            color: #fff;
+        }
+    }
+
+    &__count {
+        margin-block-start: calc(var(--base) / 2);
+        color: var(--crow-accent);
+    }
+
+    &__recent {
+        display: flex;
+        flex-wrap: wrap;
+        gap: calc(var(--base) / 4);
+        margin-block-start: calc(var(--base) / 2);
+
+        img {
+            height: calc(var(--base) * 7);
+            width: auto;
+            display: block;
+        }
+
+        a:hover img {
+            outline: 2px solid var(--crow-accent);
+        }
     }
 }

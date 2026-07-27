@@ -23,6 +23,38 @@ export default buildConfig({
         importMap: {
             baseDir: path.resolve(dirname),
         },
+        // Crow's browser tab reads "Console". Matching it is one line and it is
+        // the first thing you see in a window list.
+        meta: {
+            titleSuffix: ' — alikro console',
+        },
+        // Crow is white-only; it has no dark mode and no theme switcher. Payload
+        // defaults to `'all'`, which follows the OS — so on a machine set to dark
+        // the admin came up dark and none of the light-theme work was visible.
+        // First-party config, and it also removes the theme picker from account
+        // settings, which is one fewer control that has no Crow counterpart.
+        theme: 'light',
+        // Re-skin (2026-07-27). `admin.dashboard` is a first-party API: naming a
+        // `defaultLayout` displaces Payload's stock "Collections" cards without
+        // touching a stylesheet or a class name. Config sanitization still pushes
+        // its own `collections` widget into `widgets`, so it stays available in
+        // the dashboard's widget picker — this changes the default, not the menu.
+        //
+        // Known limit, verified in the source rather than assumed: a saved
+        // per-user dashboard preference wins over `defaultLayout`
+        // (`getItemsFromPreferences(...) ?? getItemsFromConfig(...)`), so anyone
+        // who has already rearranged their dashboard keeps what they arranged.
+        dashboard: {
+            widgets: [
+                {
+                    slug: 'crow',
+                    label: 'alikro',
+                    Component: '/payload/components/CrowDashboard#CrowDashboard',
+                    minWidth: 'full',
+                },
+            ],
+            defaultLayout: [{ widgetSlug: 'crow', width: 'full' }],
+        },
     },
     // `series` and `materials` were dropped 2026-07-27 — the modelling layer was
     // built, shown to Anton and Alina, and rejected in favour of Crow's flat

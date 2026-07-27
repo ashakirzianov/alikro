@@ -25,21 +25,24 @@ Write-ups, each self-contained:
   `tags`, no `series`/`materials` collections; S3 bucket `alikro-payload-trial`
   (us-east-2), 5,131 objects; admin at `/admin`.
 
-### The one job that is charged and NOT started
+### The re-skin — authorised and DONE (2026-07-27)
 
-**Re-skin the admin toward Crow** — colour, simpler dashboard, simpler asset
-editing, less noise in the tile view. **Currently ON HOLD**: Anton's
-authorisation (*"I confirm requested schema change, yes"*) named the schema half
-only, and the Lead is not inferring the second unit from it. Do not start it
-without an explicit ruling.
+**`RESKIN-crow-admin.md` is the write-up.** Screenshots, the tiered cost, and
+the open questions for Anton and Alina are all there.
 
-When it is authorised, most of it is cheap and *none* of it needs the edit view
-replaced: ~30 `--theme-*` CSS variables cover colour/density/typography;
-`admin.dashboard.widgets` configures the dashboard without replacing the view;
-field-level `admin.position: 'sidebar'` / `admin.hidden` handle edit-view noise;
-the tile view is already 100% ours. Report the line count **split by tier** —
-CSS-variable theming (durable) versus replaced components (owned forever). That
-split is the criterion-5 answer, not the total.
+Headline, because it must not be summarised into a total: **300 owned lines —
+12 theme variables, 24 config, 247 components, and 17 across three
+Payload-internal CSS selectors that a release can rename with no error.**
+The tier-D list went from **1 selector to 3** in one afternoon of ordinary
+requests, which is the fact worth carrying.
+
+**The scouted route was only half right.** `admin.dashboard.widgets` and
+field-level `position: 'sidebar'` worked exactly as advertised, and `admin.theme`
+was a bonus. But **~30 `--theme-*` variables did not cover colour**: Payload
+exposes no brand-accent variable, and its primary button is painted with
+`--theme-elevation-800`, the same variable as body text and every input's text.
+Only 12 variable lines were usable. Everything recognisably Crow came from
+components and coupled selectors.
 
 ### Two records that are load-bearing — do not tidy them away
 
@@ -143,6 +146,11 @@ documents them. Load with `set -a && . ./.env.local && set +a`.
   migrations idempotently: `IF NOT EXISTS` / `IF EXISTS`, drop-then-add for
   foreign keys, and a `DO $$ … EXCEPTION WHEN duplicate_object` block for
   `CREATE TYPE`, which Postgres has no `IF NOT EXISTS` for.
+- **`screenshot.mjs` now always warns "images did not all finish loading".** It
+  is a **false alarm** since the re-skin: the grid sets `loading="lazy"`, so
+  off-screen images legitimately never complete. Do not read it as a broken
+  capture — and do fix it, because a warning that always fires trains people to
+  ignore the one time it means something.
 - **The scripts for all of the above are in `payload/tools/`** — screenshot
   capture over CDP, and `expect` wrappers for both migration commands. They were
   rebuilt from scratch more than once because they lived in `/tmp`. Read

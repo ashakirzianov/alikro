@@ -100,6 +100,7 @@ export interface Config {
   globalsSelect: {};
   locale: null;
   widgets: {
+    crow: CrowWidget;
     collections: CollectionsWidget;
   };
   user: User | PayloadMcpApiKey;
@@ -145,37 +146,32 @@ export interface PayloadMcpApiKeyAuthOperations {
   };
 }
 /**
- * One record per artwork — the image and its catalogue data.
- *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "artworks".
  */
 export interface Artwork {
   id: number;
   /**
-   * Public URL segment — leave empty to derive it from the file name. Migrated artworks carry Crow's asset id verbatim so existing links keep working.
+   * Leave empty to derive from the file name.
    */
   slug?: string | null;
   title?: string | null;
   year?: number | null;
   /**
-   * Free-text description, e.g. "acrylic on paper". The site parses it for the material filter.
+   * e.g. "acrylic on paper".
    */
   material?: string | null;
-  /**
-   * Adding a new medium currently requires a code change — flagged as a trial finding.
-   */
   medium?: ('painting' | 'drawing' | 'ceramic' | 'illustration' | 'poster' | 'collage' | 'tattoo') | null;
   /**
-   * Uncheck to keep a published work out of the public galleries. Migration unchecks it for tattoos, matching what the site does today.
+   * Uncheck to keep a published work out of the public galleries.
    */
   showOnSite?: boolean | null;
   /**
-   * Sort position across the whole archive, ascending. The single ordering — series pages sort by it too, exactly as they do today.
+   * Sort position across the whole archive, ascending.
    */
   order?: number | null;
   /**
-   * Free-text tags, as Crow stores them. "Favorite" is one of these rather than its own field.
+   * "Favorite" is one of these rather than its own field.
    */
   tags?: string[] | null;
   prefix?: string | null;
@@ -657,6 +653,16 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crow_widget".
+ */
+export interface CrowWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
