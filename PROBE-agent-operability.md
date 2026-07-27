@@ -32,12 +32,20 @@ That was accurate when it was written and is no longer true. Payload ships a
 
 | | |
 |---|---|
-| package | `@payloadcms/plugin-mcp` |
-| scope | `@payloadcms` — same npm org and maintainers as `payload` itself |
+| package | `@payloadcms/plugin-mcp`, MIT |
+| npm publisher | `elliotpayload <elliot@payloadcms.com>` |
+| maintainer set | **byte-identical to the core `payload` package** — all 11 usernames, no extras on either side |
+| repository | `github.com/payloadcms/payload`, directory `packages/plugin-mcp` — i.e. the core monorepo, not a separate repo |
+| Payload's own docs | documented at **payloadcms.com/docs/plugins/mcp** — names this package, `/api/mcp`, and the MCP → API Keys collection |
 | first published | **2025-10-23** |
 | version installed | `3.86.0` — the same release line as the core |
 | peer dependency | `payload: 3.86.0`, pinned **exact**, not a range |
 | transport | streamable HTTP at `/api/mcp` |
+
+That is four independent lines of evidence — registry publisher, identical
+maintainer set, the core monorepo as the source, and Payload's own documentation
+site — rather than a scoped-looking name. It was also **executed**, not merely
+identified: everything in the MCP column below came out of live JSON-RPC calls.
 
 No community server was evaluated, because none was needed. The exact-pinned
 peer dependency is worth noticing in both directions: it is strong evidence the
@@ -402,6 +410,43 @@ T3b global order undisturbed   order values still [11,19,40,55,91] — permuted 
 
 It is a slightly unobvious move, but it is expressible, checkable, and it did not
 need a special primitive.
+
+---
+
+## How much of this needed hand-holding?
+
+The honest split, because "all three tasks on all three surfaces" is a composite
+claim and the halves do not deserve equal confidence.
+
+**No task was completed by editing data by hand.** Every write in every probe went
+through the surface under test, and every assertion is a read-back. That part is
+literal.
+
+**But task 1 required out-of-band knowledge on two of the three surfaces**, and
+that knowledge is not obtainable from the surface itself:
+
+| task | unaided? | what was needed |
+|---|---|---|
+| upload + catalogue | ❌ **no** | REST: the `_payload` envelope — the naive form returns 201 and drops everything. MCP: `createArtworks` has no file parameter; the working remote route is the `url` field, which the schema presents as an *output*. |
+| retag | ✅ yes | nothing; the schema descriptions were sufficient, including "membership is written on the artwork" |
+| reorder a gallery | ✅ yes | nothing — and the blind driver found a **better** solution than mine unaided (one fractional write instead of five), after empirically verifying that fractional `order` values already exist |
+
+I did not discover the MCP upload route myself. My own conclusion was "MCP cannot
+upload remotely"; the blind driver hit the `url` path by accident and I then
+reproduced it. That is worth stating plainly, because it is the difference
+between *"the capability exists"* and *"an agent will find the capability"* — and
+only the first is demonstrated.
+
+**The sharpest counter-evidence is the blind-driver score: 0 of 3.** Two caveats
+pull in opposite directions and both belong in the record. Tasks 2 and 3 were
+blocked by **me** — I withheld `update` from its key as a safety bound, so those
+say nothing about Payload. But task 1 was blocked by **Payload**: that key *had*
+`create`, and an upload still could not be performed, because no documented
+create-time file route exists.
+
+So the calibrated version: **retag and reorder are agent-operable unaided;
+upload is not.** The APIs are capable on all three surfaces — discovery of the
+upload path is where an unaided agent stops.
 
 ---
 
