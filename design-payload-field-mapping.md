@@ -382,13 +382,35 @@ stored it as a magic string inside a tag array; it is a boolean, and Payload has
 booleans. It was the one place the split was genuinely better than the incumbent,
 and parity with the incumbent is what deleted it.
 
-**Two blocking guards died with the taxonomy**, and that is the sharper cost. The
-migration used to refuse a `material` string its parser could not decompose, and
-refuse a tag that matched no known series. **A flat tag list accepts every string
-— that is the point of it, and it means neither class of error can be detected any
-more.** A typo'd tag and a material the site will silently fail to filter are both
-now invisible. The modelled shape could catch them; the chosen shape structurally
-cannot.
+### The sharpest cost: two blocking guards died with the taxonomy
+
+This is **a loss of error-detection capability, not a loss of a nicer primitive**,
+and it is the one most likely to bite later with no obvious cause.
+
+The migration used to **refuse to run** on two conditions:
+
+| guard | what it caught |
+|---|---|
+| `material` string the parser could not decompose | a work that would silently vanish from every material filter |
+| a tag matching no known series | a typo, a recased tag, or a genuinely new body of work nobody had classified |
+
+Both are gone, and **not because they were removed — because there is nothing
+left for them to check.** A flat tag list accepts every string; that is the point
+of it. `Vietnam` and `vietnem` are equally valid, and so is a material the parser
+cannot read. The modelled shape could detect both classes because it had to
+resolve every value against something. The flat shape structurally cannot.
+
+**Why this bites in six months rather than today.** Neither failure produces an
+error. A mistyped tag yields a collection page that renders fine and is simply
+missing works; an unparseable material yields a filter that quietly omits a
+piece. Both look exactly like correct output. The archive as it stands is clean —
+these guards were **exercised and passing** — so nothing breaks on the day of the
+reversion. The exposure begins with the next tag Alina types.
+
+**Recorded here rather than mitigated**, because a validation layer bolted onto
+free text would reintroduce the parser-as-schema this reversion exists to remove.
+If it ever bites, the cheap countermeasure is a *reporting* check — list distinct
+tags and unparseable materials after each edit session — not a blocking one.
 
 **The reversal cost minutes, not a re-migration, and that was designed in.**
 Keeping the raw `material` string verbatim on every record was justified at the

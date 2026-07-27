@@ -4,23 +4,50 @@ For the agent picking this up **rooted in `alikro-art/`** rather than in `axis`.
 The design record is `design-payload-field-mapping.md` — read it first; this file
 only covers what that document does not.
 
-## Where things stand
+## Where things stand — updated 2026-07-27, after the playtest
 
-Phases 1 and 2 are done. The next phase is the **playtest**, which is human work:
-Anton and Alina using the admin and judging it. Your job is to support that, not
-to keep building.
+**The playtest happened and the modelling layer was reverted.** Phases 1–3 are
+done. What is left is one authorised-but-unstarted unit (below).
 
-Two things happened after the playtest and have their own write-ups:
-`SPIKE-image-native-admin.md` (making the admin image-native, and the draft leak
-it uncovered) and `PROBE-agent-operability.md` (criterion 4 — closed; Payload
-turns out to ship a **first-party** MCP server, which the landscape research
-predates).
+Write-ups, each self-contained:
+- `design-payload-field-mapping.md` — **§4a is the headline**: the modelling
+  layer was built, judged and rejected. §2/§2b are marked REVERSED and kept as
+  the record of what was built.
+- `SPIKE-image-native-admin.md` — the image-native admin grid (~140 lines) and
+  the draft leak it uncovered.
+- `PROBE-agent-operability.md` — criterion 4, closed. Payload ships a
+  **first-party** MCP server, which the landscape research predates.
 
-- Branch `payload-trial`, ~14 commits, **local only — never pushed, never merged.**
+- Branch `payload-trial`, ~20 commits, **local only — never pushed, never merged.**
 - `main` is untouched. Production alikro.art still reads from Crow.
 - `../crow-cms` is **read-only** and was never modified.
-- Live: Neon Postgres with **630 artworks, 30 series, 30 materials**; S3 bucket
-  `alikro-payload-trial` (us-east-2) with 5,131 objects; admin at `/admin`.
+- Live: Neon Postgres with **639 artworks** (630 migrated + 9 drafts), flat
+  `tags`, no `series`/`materials` collections; S3 bucket `alikro-payload-trial`
+  (us-east-2), 5,131 objects; admin at `/admin`.
+
+### The one job that is charged and NOT started
+
+**Re-skin the admin toward Crow** — colour, simpler dashboard, simpler asset
+editing, less noise in the tile view. **Currently ON HOLD**: Anton's
+authorisation (*"I confirm requested schema change, yes"*) named the schema half
+only, and the Lead is not inferring the second unit from it. Do not start it
+without an explicit ruling.
+
+When it is authorised, most of it is cheap and *none* of it needs the edit view
+replaced: ~30 `--theme-*` CSS variables cover colour/density/typography;
+`admin.dashboard.widgets` configures the dashboard without replacing the view;
+field-level `admin.position: 'sidebar'` / `admin.hidden` handle edit-view noise;
+the tile view is already 100% ours. Report the line count **split by tier** —
+CSS-variable theming (durable) versus replaced components (owned forever). That
+split is the criterion-5 answer, not the total.
+
+### Two records that are load-bearing — do not tidy them away
+
+Nine drafts exist, all invisible to the site. **Record 632** (`showOnSite:
+true`) is the only record in the archive that can express the draft-leak
+failure, because all 630 migrated records are published. Delete it and
+`migrate:spotcheck`'s draft guard degrades to a vacuous pass — it prints
+`NOT EXERCISED` rather than lying, but it stops testing anything.
 
 ## Rules that still apply
 
@@ -31,6 +58,23 @@ predates).
   alikro's usual user-commits convention, and only here.
 - Two orphans in Crow's bucket (`eye.png`, `love.png`) have no metadata record.
   Leave them; the migration iterates the export and never reads them.
+
+## What changed on 2026-07-27, in one place
+
+- **`push` is now OFF** (`payload.config.ts`). It defaults to on in dev and was
+  right while the model moved; with committed migrations it is actively harmful.
+  See the bite-list below — it cost three hung runs before the cause was visible.
+- **Flat `tags` replaced `series` + `favorite`;** `materials`/`support` are gone.
+  `material` is untouched free text, and keeping it verbatim is *why* the
+  reversal cost minutes and moved zero bytes.
+- **`npm run migrate:tags`** backfills tags from `crow-export.json`, joined on
+  slug, idempotent. Records with no export match are **skipped, not errored** —
+  that is a provenance rule, not a list of slugs, which is why 7 new probe
+  records were absorbed without editing anything.
+- **The edit button follows the active CMS** (`shared/href.ts`, `hrefForEdit`)
+  via `cmsEditPath` carried on the record — deliberately not a `NEXT_PUBLIC_`
+  copy of `CONTENT_SOURCE`, which would give the A/B two switches that can
+  disagree.
 
 ## Running things
 
@@ -75,6 +119,30 @@ documents them. Load with `set -a && . ./.env.local && set +a`.
 - **`next dev` does not always take port 5733**, even when it is free — it
   silently moves to 5734 and every documented URL is then wrong. Pass `-p 5733`
   explicitly.
+- **⚠️ The worst trap on this branch: interactive prompts inside automated runs.**
+  Payload's CLI prompts in three places, and **every one of them fails in two
+  directions that both look like success**:
+  - `payload migrate` with `push` on stops at `DATA LOSS WARNING — accept and
+    push? (y/N)`. **Piped, the prompt never reaches your terminal and the process
+    hangs forever**; unattended it takes the default and **exits 0**. Three runs
+    hung here before the cause was visible. Fixed by `push: false`, but any
+    future schema work can resurrect it.
+  - `payload migrate:create` asks *is this table created or renamed?* per
+    ambiguous table. A headless run EOFs out and **produces no migration at all**,
+    silently. Drive it with `expect` (`/tmp/migcreate.exp` pattern: answer the
+    default, which is always "create"). **Then verify zero `RENAME` statements in
+    the output** — a rename looks near-identical and carries data instead of
+    dropping it. That check is what distinguishes a correct migration from a
+    quietly wrong one.
+  - Long runs are block-buffered **through a pipe**. `cmd | grep` shows nothing
+    for minutes and looks hung. Redirect to a file (`> /tmp/x.log 2>&1`) and read
+    the file instead.
+- **`migrate:create` diffs code against the last migration *snapshot*, not the
+  live database.** Anything `push` applied without a migration (folders, MCP)
+  reappears as catch-up DDL that aborts the batch on "already exists". Write
+  migrations idempotently: `IF NOT EXISTS` / `IF EXISTS`, drop-then-add for
+  foreign keys, and a `DO $$ … EXCEPTION WHEN duplicate_object` block for
+  `CREATE TYPE`, which Postgres has no `IF NOT EXISTS` for.
 - The migration is **resumable** — resume state is the database, not the log. It
   was killed mid-run once and recovered by simply restarting.
 
@@ -119,6 +187,23 @@ it will colour her feedback on everything else.
   landscape research; owns `../axis/docs/crow-payload-trial.md`, which is the
   decided-shape doc. Live findings and open questions belong in the branch doc,
   not there.
+
+## What I would tell my successor, in one line each
+
+- **The reversion is the trial's most interesting result** (§4a). Payload's
+  headline advantage, built properly, exercised, and declined by the users. Say
+  *opened and declined*, never *unused* — Anton confirmed he opened both screens,
+  and that is the weaker headline but the far stronger evidence.
+- **Two blocking guards died with the taxonomy.** That is lost *error-detection
+  capability*, not a lost nicety, and it will bite months from now with no
+  obvious cause. Written up in §4a; don't let anyone summarise it away.
+- **Assert the positive signal.** Every check on this branch was made to fail
+  before it was trusted — the export-staleness guard, the unclassified-tag block,
+  the draft-leak guard. A guard nobody has watched fail is a guard nobody should
+  believe. `migrate:spotcheck` prints `NOT EXERCISED` rather than OK when it has
+  no fixture, for exactly that reason.
+- **Verify against real data, never a stand-in.** The one thing checked with a
+  synthetic file — tiff support — is the one thing that failed in production.
 
 ## One habit worth keeping
 
