@@ -1,0 +1,7357 @@
+{
+  "dumpedAt": "2026-07-27T21:56:08.641Z",
+  "count": 639,
+  "withSeries": 241,
+  "withMaterials": 636,
+  "withSupport": 181,
+  "favorites": 59,
+  "artworks": [
+    {
+      "slug": "014bfa33510407",
+      "material": "cut magazine, marker on paper",
+      "materials": [
+        "9",
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "0c543b33510407",
+      "material": "cut magazine, marker on paper",
+      "materials": [
+        "9",
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "10-hryvnias",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "10a02731234889",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5574",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5581",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "11"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5583",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "11"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5584",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "11"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5585",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "11"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5586",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "11"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5587",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "11"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5588",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "11"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5589",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "11"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5590",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "11"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5591",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "10"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5595",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "10"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5600",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "10"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5602",
+      "material": "ink, color pencils on paper",
+      "materials": [
+        "14",
+        "7"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "10"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5612",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "5"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5613",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "5"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5614",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "5"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5615",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "5"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5616",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "5"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5617",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "5"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5618",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "5"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5619",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "5"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5639-1",
+      "material": "charcoal on paper",
+      "materials": [
+        "5"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "9"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5641",
+      "material": "charcoal on paper",
+      "materials": [
+        "5"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "9"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5643",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5644",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "10"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5652",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5655",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5656",
+      "material": "gouache, pastel on paper",
+      "materials": [
+        "12",
+        "20"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5657",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5660",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5663",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5672",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5673",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "1q3a5674",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "20250414134324611-0001",
+      "material": "watercolor on paper",
+      "materials": [
+        "28"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "20250414134339594-0001",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "20250414134514753-0001",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "20250414134524645-0001-2",
+      "material": "watercolor on paper",
+      "materials": [
+        "28"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "290a6833510407-56ae1a3571d27",
+      "material": "cut magazine, marker on paper",
+      "materials": [
+        "9",
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "2baf1433510407",
+      "material": "cut magazine, marker on paper",
+      "materials": [
+        "9",
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "30b22961119887",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "3d98d661119887",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "14"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "451a5f61119887",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "14"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "57fb7633510407-56ae1a357aa0f",
+      "material": "cut magazine, marker on paper",
+      "materials": [
+        "9",
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "5c94c031234889",
+      "material": "Digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "66fb2a33510407-56ae1a356ead4",
+      "material": "cut magazine, markers on paper",
+      "materials": [
+        "9",
+        "16"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "6c29ab33510407-56ae1a3572e2a",
+      "material": "cut magazine, marker on paper",
+      "materials": [
+        "9",
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "71e0d333510407-56ae1a357be82",
+      "material": "cut magazine, marker on paper",
+      "materials": [
+        "9",
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "81e71233510407-56ae1a356da04",
+      "material": "cut magazine, marker on paper",
+      "materials": [
+        "9",
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "84b28e31234889",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "93rd",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "94f04d33510407-56ae1a3574070",
+      "material": "cut magazine, marker on paper",
+      "materials": [
+        "9",
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "9ad29261119887",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "14"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "a3b17531233583",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "aa",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "abuse-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "22"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "abuse-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "22"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "abuse-3",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "22"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "abuse-4",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "22"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "ad50be61119887",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "14"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "affection-of-a-tiger",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "3"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "afflicted",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "3"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "after-illness-selfportrait-colorpng",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "after-illness-selfportrait-dark",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "alabama-rain-vase",
+      "material": "paper clay",
+      "materials": [
+        "19"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "aleksievich",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "alex",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "alex-2",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "2"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "all-cats",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "all-this-is-weighing-on-mepng",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "alphabet",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "ania-with-cat",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "anna",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "anticipation-of-vacation",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "antiseptic",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "anton-with-nails",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "9"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "anton-with-the-vessel",
+      "material": "ink, gouache on cardboard",
+      "materials": [
+        "14",
+        "12"
+      ],
+      "support": [
+        "4"
+      ],
+      "series": [
+        "18",
+        "9"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "anton-working",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "9"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "antons-birthday",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "9"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "antons-tiger",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "anxiety",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "anxiety-thoughts",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "aperole",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "app",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "12"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "are-you-looking-for-real-job",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "argentina",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "arizona",
+      "material": "pastel on paper",
+      "materials": [
+        "20"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "au-revoirmoncherjpg",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "b0a8e533510407",
+      "material": "cut magazine, marker on paper",
+      "materials": [
+        "9",
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "back-pain",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "bambi",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "bdsm",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "behavioral-activation",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "berlin-museum",
+      "material": "color pencils on paper",
+      "materials": [
+        "7"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "5"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "big-childrens-day",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "bill-on-earth",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "3"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "bird",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "bird-2",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "bird-3",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "blue-flower",
+      "material": "clay, underglaze",
+      "materials": [
+        "6",
+        "27"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "blue-man",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "blue-rabbit",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "blue-wreath",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "bob-dylan-night",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "body",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "book",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "bored",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "bouquet",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "boy",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "braces",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "brain",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "branch",
+      "material": "watercolor on paper",
+      "materials": [
+        "28"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "bread",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "breakfast",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "brennan",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "2"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "bronx-gothic",
+      "material": "digital + color pencils on paper",
+      "materials": [
+        "10",
+        "7"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "bucha",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "10"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "building",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "bukov-sticker",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "bulka",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "bus-talk",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "butterfly",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "c4-probe-1",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "c4-probe-2",
+      "material": "gouache on paper",
+      "materials": [
+        "10",
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "16",
+        "5"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "c4-probe-3",
+      "material": "gouache on paper",
+      "materials": [
+        "10",
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "16",
+        "5"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "c4-probe-draft-no-file",
+      "materials": [],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "c4-probe-mcp",
+      "material": "gouache on paper",
+      "materials": [
+        "10",
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "16",
+        "5"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "c4-probe-remote",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "c4-verify-minimal",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "c5204b33510407-56ae1a3570c21",
+      "material": "cut magazine, marker on paper",
+      "materials": [
+        "9",
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "c6317133510407",
+      "material": "cut magazine, marker on paper",
+      "materials": [
+        "9",
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "candles",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "car-fixer",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "cat-calling-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "23"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "cat-calling-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "23"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "cat-calling-3",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "23"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "cat-hotel-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "16"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "cat-hotel-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "16"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "cat-hotel-3",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "16"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "cat-sitting",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "catch-fish-in-your-container",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "ceramic-tiles",
+      "material": "clay, underglaze",
+      "materials": [
+        "6",
+        "27"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "charity-flea-market",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "17"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "chervona-ruta-2-plate",
+      "material": "porcelain, underglaze",
+      "materials": [
+        "22",
+        "27"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "chervona-ruta-3-plate",
+      "material": "porcelain, underglaze",
+      "materials": [
+        "22",
+        "27"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "chervona-ruta-plate",
+      "material": "porcelain, underglaze",
+      "materials": [
+        "22",
+        "27"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "chicken",
+      "material": "clay",
+      "materials": [
+        "6"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "chiken",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "childrens-days",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "christmas-ball",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "churned",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "3"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "ciao-menstruation",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "cinema-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "cinema-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "8"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "cinema-3",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "8"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "cinema-4",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "8"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "city-communities",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "city-food-festival",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "city-heritage",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "city-services",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "clock",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "clown",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "coffee-lover",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "cognitive-restructuring",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "collecting-stuff-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "collecting-stuff-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "compliment-about-the-cheeks",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "contra-spem-spero",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "cook-your-song",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "corn",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "couple",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "cover-for-mayak",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "covid-selfportrait",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "1"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "crickets",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "3"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "crown",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "crown-plate-side",
+      "material": "paper clay, underglaze",
+      "materials": [
+        "19",
+        "27"
+      ],
+      "support": [],
+      "series": [
+        "13"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "crown-plate-top",
+      "material": "paper clay, underglaze",
+      "materials": [
+        "19",
+        "27"
+      ],
+      "support": [],
+      "series": [
+        "13"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "custom-dog",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "cut-flower",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "d167d333510407-56ae1a356fb64",
+      "material": "cut magazine, marker on paper",
+      "materials": [
+        "9",
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "dab11133510407",
+      "material": "cut magazine, marker on paper",
+      "materials": [
+        "9",
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "daisies",
+      "material": "ink, pencil on paper",
+      "materials": [
+        "14",
+        "21"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "dakh-dauters",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "dakha-brakha",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "darkside",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "daryn",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "2"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "david-lynch",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "dead-dragon",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "deep",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "deer-tile",
+      "material": "porcelain clay, underglaze",
+      "materials": [
+        "23",
+        "27"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "diarrhea",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "dog",
+      "material": "ink, color pencils on paper",
+      "materials": [
+        "14",
+        "7"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "dog-tile",
+      "material": "clay, underglaze",
+      "materials": [
+        "6",
+        "27"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "donor-day",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "doula-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "doula-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "dragon",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "dragon-2",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "dream",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "eating-disorders-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "19"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "eating-disorders-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "19"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "eating-disorders-3",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "19"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "eating-disorders-4",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "19"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "ef219731234889",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "ego",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "eight-limbs-website-poster",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "3"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "elephant",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "estata-la-mano-di-dio",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "evening-of-dmytro-bykov-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "evening-of-dmytro-bykov-3",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "evening-of-dmytrobykov-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "exposure-therapy",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "eye",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "eye-for-app",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "eye-star",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "face",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "face-2",
+      "material": "recycle clay",
+      "materials": [
+        "25"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "fall-in-oklahoma",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "fall-sadness",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "falling",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "fcc14931233583",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "fcd54f31234889",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "fears-when-you-left-home",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "feel-good",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "feel-sexy",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "filmsection-of-the-green-theater",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "finger-tattoo-1",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "finger-tattoo-2",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "first-working-day-selfportrait",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "five-senses-grounding-technique",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "fixed",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "flea-market-of-vika",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "17"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "flower-1",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "flower-2",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "flower-3",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "flower-4",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "flower-5",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "flower-6",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "flower-7",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "flower-8",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "flower-9",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "flower-vase",
+      "material": "recycle clay",
+      "materials": [
+        "25"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "food-festival",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "foot-wear",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "forty-million",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "frog",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "gay-love-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "gay-love-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "gift",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "girl",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "girlhood",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "girlhood-in-color",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "girls-club",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "glasses",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "goat",
+      "material": "clay, raku glaze",
+      "materials": [
+        "6",
+        "24"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "gogen-girl",
+      "material": "color pencils on paper",
+      "materials": [
+        "7"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "5"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "gonchara",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "9"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "good-sisters",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "3"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "goodbye-portrait",
+      "material": "acrylic on canvas",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "3"
+      ],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "grand-spectacle-de-ballets",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "granddad",
+      "material": "marker, pencil on paper",
+      "materials": [
+        "15",
+        "21"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "greek-man",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "greek-vase",
+      "material": "Murietta clay",
+      "materials": [
+        "17"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "green-theatre-hiring-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "green-theatre-hiring-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "green-theatre-opening",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "grocery-store",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "hags",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "3"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "hamlet",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "happy",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "happy-flower",
+      "material": "ink, pencil on paper",
+      "materials": [
+        "14",
+        "21"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "harm",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "hat",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "have-a-day",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "have-a-good-one",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "head",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7",
+        "5"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "headache",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "helplessness",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "heroes-engineers-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "12"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "heroes-engineers-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "heroes-engineers-3",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "12"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "heroes-engineers-4",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "12"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "heron",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "hiring",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "12"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "history",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "8"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "home-cleaning",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "home-pot",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "horse",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "house-cooling-party",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "how-much",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "12"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "how-to-choose-a-therapist-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "how-to-choose-a-therapist-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "hydra-plate",
+      "material": "clay, underglaze",
+      "materials": [
+        "6",
+        "27"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "i-cant",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "i-live-in-berlin",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "illness-anxiety-disorder-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "20"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "illness-anxiety-disorder-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "20"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "illness-anxiety-disorder-3",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "20"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "illness-anxiety-disorder-4",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "20"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "in-bruges",
+      "material": "gouache on paper + digital",
+      "materials": [
+        "12",
+        "10"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "in-decent",
+      "material": "ink on paper + digital",
+      "materials": [
+        "14",
+        "10"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "insomnia",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "is-your-red-the-same-red-as-mine",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "it-guy-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "it-guy-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "12"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "it-guy-3",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "12"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "jarmusch",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "jeff",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "2"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "just-dont-do-it",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "kamil",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "2"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "king",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "kisff",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "kotemasha",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "kyiv",
+      "material": "wrinkled foil + digital",
+      "materials": [
+        "29",
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "la",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "la-mano-di-dio",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "la-selfportrait",
+      "material": "watercolor, color pencils on paper",
+      "materials": [
+        "28",
+        "7"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "lacma",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "lady-portrait",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "lady-vase",
+      "material": "clay, glaze",
+      "materials": [
+        "6",
+        "11"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "lamp",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "latte-latte",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "lemon-tree",
+      "material": "acrylic on canvas",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "3"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "les-miserables",
+      "material": "ink on paper + digital",
+      "materials": [
+        "14",
+        "10"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "leviathan-website-poster",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "3"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "light-flower",
+      "material": "pastel on paper",
+      "materials": [
+        "20"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "line",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "lion",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "lion-2",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "little-dino-head",
+      "material": "clay, glaze",
+      "materials": [
+        "6",
+        "11"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "little-raku-bowl",
+      "material": "clay, raku glaze",
+      "materials": [
+        "6",
+        "24"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "lizard",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "locket",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "long-selfportrait",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "look-at-her",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "look-through",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "9"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "looking-for",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "looking-for-it",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "12"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "love-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "love-and-kindness-for-app",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "love-bird",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "love-for-app",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "lover",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "low-vase-with-spikes",
+      "material": "clay, glaze",
+      "materials": [
+        "6",
+        "11"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "lucas",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "2"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "lying-down-woman",
+      "material": "ink, pastel on paper",
+      "materials": [
+        "14",
+        "20"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "macbeth",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "man",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "marco",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "2"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "mari",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "mari-with-dog",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "marshall",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "marshall-2",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "2"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "masha",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "match",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "maya",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "2"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "mcdonalds",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "me",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "mens-club",
+      "material": "pencil + gouache on paper",
+      "materials": [
+        "21",
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "mens-club-2",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "menstruation-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "21"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "menstruation-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "21"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "menstruation-3",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "21"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "menstruation-4",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "21"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "mert",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "mesa",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "3"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "mess",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "michael-shur",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "microgreen",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "mindful-eating",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "minful-handwashing",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "mistakes",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "mom",
+      "material": "charcoal on  paper",
+      "materials": [
+        "5"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "monstres",
+      "material": "wrinkled paper + digital",
+      "materials": [
+        "30",
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "mood",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "moon",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "morning",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "mountain-bouquet",
+      "material": "acrylic on canvas",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "3"
+      ],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "mouse",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "movie-classics-on-mondays-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "movie-classics-on-mondays-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "movie-classics-on-mondays-3",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "movie-concert",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "muratova",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "muratova-cinema",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "muses",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "3"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "music-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "8"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "music-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "8"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "music-3",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "8"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "music-4",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "8"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "my-city",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "my-fertility",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "namaste",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "need-hugs",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "nervous-self-portrait",
+      "material": "charcoal on paper",
+      "materials": [
+        "5"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "new-year-tree",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "not-so-premium",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "odesa-district-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "odesa-district-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "odesa-with-friends",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "officer",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "oksana",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "old-man-porn-star",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "3"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "on-the-grass",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "on-the-mountain",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "online-order",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "oops",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "oper",
+      "material": "ink on paper + digital",
+      "materials": [
+        "14",
+        "10"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "ophelia",
+      "material": "ink on paper + digital",
+      "materials": [
+        "14",
+        "10"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "oppressed",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "organ-donation-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "29"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "organ-donation-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "29"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "ornament",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "ornament-2",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "overwhelmedpng",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "own-garden-in-green-theatre",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "parenthood-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "24"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "parenthood-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "24"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "parenthood-3",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "24"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "parrot",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "party",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "peacedove",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "phone",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "photo",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "pigeon",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "pill",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "pin-pong",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "pineapple",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "plate-with-the--dog",
+      "material": "clay, underglaze",
+      "materials": [
+        "6",
+        "27"
+      ],
+      "support": [],
+      "series": [
+        "13"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "plate-with-the-dog-other-side",
+      "material": "clay",
+      "materials": [
+        "6"
+      ],
+      "support": [],
+      "series": [
+        "13"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "playtest-upload-check",
+      "materials": [],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "portia",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "2"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "premonition-of-war",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "10"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "prickly-flower",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "princess-cup",
+      "material": "clay, glaze",
+      "materials": [
+        "6",
+        "11"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "problem-solving-technique",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "prometeus",
+      "material": "clay, glaze",
+      "materials": [
+        "6",
+        "11"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "pseudo-greek-vase",
+      "material": "underglaze on clay",
+      "materials": [
+        "27"
+      ],
+      "support": [
+        "6"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "psychotherapy",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "public-spaces",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "rabbit",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "rain",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "raku-woman-bust",
+      "material": "clay, raku glaze",
+      "materials": [
+        "6",
+        "24"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "raw-gray-vase-in-two-parts",
+      "material": "soldate clay",
+      "materials": [
+        "26"
+      ],
+      "support": [],
+      "series": [
+        "4"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "raw-grey-vase-with-two-legs",
+      "material": "soldate clay",
+      "materials": [
+        "26"
+      ],
+      "support": [],
+      "series": [
+        "4"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "red-eyes",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "red-flower",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "red-flower-2",
+      "material": "clay, underglaze",
+      "materials": [
+        "6",
+        "27"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "red-hat-ladypng",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "red-ornament",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "red-thread",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "reminder",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "rj",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "romance",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "romeo-and-juliet",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "romeojuliet",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "room-16",
+      "material": "ink on paper + digital",
+      "materials": [
+        "14",
+        "10"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "5"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "rose",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "rose-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "routine",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "ryaba-hen",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "sad-evening",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "10"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "sad-flower",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "sad-selfportrait",
+      "material": "charcoal on paper",
+      "materials": [
+        "5"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "sadness",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "santa-fe",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "saving-energy",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "school-bullying-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "27"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "school-bullying-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "27"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "screenshot-2026-04-29-at-11-09-48-am",
+      "materials": [],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "self-employed",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "self-love",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "self-monitoring",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "self-portrait-2026",
+      "material": "pastel",
+      "materials": [
+        "20"
+      ],
+      "support": [],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "self-portrait-in-color",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "self-portrait-on-a-chair",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "sexy-cat",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "shape",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "shark-girl",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "silent-french-girl",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "sirena-plate",
+      "material": "porcelain, underglaze",
+      "materials": [
+        "22",
+        "27"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "sirena-plate-2",
+      "material": "clay, underglaze",
+      "materials": [
+        "6",
+        "27"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "sirena-plate-3",
+      "material": "clay, underglaze",
+      "materials": [
+        "6",
+        "27"
+      ],
+      "support": [],
+      "series": [
+        "30"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "sketching-in-the-museum",
+      "material": "marker on paper + digital",
+      "materials": [
+        "15",
+        "10"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "5"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "sketching-in-the-museum-durer",
+      "material": "marker on paper + digital",
+      "materials": [
+        "15",
+        "10"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "5"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "sketching-in-the-museum-judit",
+      "material": "marker on paper + digital",
+      "materials": [
+        "15",
+        "10"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "sketching-in-the-museum-mary-tudor",
+      "material": "marker on paper + digital",
+      "materials": [
+        "15",
+        "10"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "5"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "sketching-in-the-museum-pablo-de-valladolid",
+      "material": "marker on paper + digital",
+      "materials": [
+        "15",
+        "10"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "5"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "sketching-in-the-museum-raphael",
+      "material": "marker on paper + digital",
+      "materials": [
+        "15",
+        "10"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "5"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "sketching-in-the-museum-tiepolo",
+      "material": "marker on paper + digital",
+      "materials": [
+        "15",
+        "10"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "5"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "skin-story",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "sleep",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "smell",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "smirnov",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "snake-bite",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "snakes",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "snakes-2",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "social-media",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "spam-cane",
+      "material": "color pencils on paper",
+      "materials": [
+        "7"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "5"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "spam1",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "spam2",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "sperm-donation-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "26"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "sperm-donation-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "26"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "sperm-donation-3",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "26"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "stand-with-ukraine",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "star",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "star-brain",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "star-collector",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "star-in-glasses",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "still-life-with-white-vase",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "stop",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "stress-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "stress-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "summer",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "summer-anton",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "9"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "sun",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "sunscreen-selfportrait",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "support",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "supportive-mari",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "swan-plate-top",
+      "material": "black mountain clay, color slip",
+      "materials": [
+        "2",
+        "8"
+      ],
+      "support": [],
+      "series": [
+        "13"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "sweet",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "symbol",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "table-tennis",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "tan",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "tempimage1dtnfg",
+      "material": "color pencils, ink on paper",
+      "materials": [
+        "7",
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "tempimage3dz2rf",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "tempimagedsrihj",
+      "material": "gouache on paper",
+      "materials": [
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "tempimagefyzam2",
+      "material": "ink, color pencils on paper",
+      "materials": [
+        "14",
+        "7"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "tempimagegeml1o",
+      "material": "ink, color pencils, marker on paper",
+      "materials": [
+        "14",
+        "7",
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "9",
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "tempimagejvke3d",
+      "material": "pastel on paper",
+      "materials": [
+        "20"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "tempimagekjik6x",
+      "material": "color pencils, ink on paper",
+      "materials": [
+        "7",
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "tempimagelqkptf",
+      "material": "ink, color pencils on paper",
+      "materials": [
+        "14",
+        "7"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "tempimagemv17mw",
+      "material": "pastel on paper",
+      "materials": [
+        "20"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "tempimageokshlk",
+      "material": "pastel on paper",
+      "materials": [
+        "20"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "tempimageowurm3",
+      "material": "pastel on paper",
+      "materials": [
+        "20"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "tempimagepxmbbm",
+      "material": "ink, color pencils on paper",
+      "materials": [
+        "14",
+        "7"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "tempimagerwnd3v",
+      "material": "ink, marker on paper",
+      "materials": [
+        "14",
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "tempimaget158vd",
+      "material": "pencil, marker on paper",
+      "materials": [
+        "21",
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "tempimagexof0ey",
+      "material": "color pencils, marker on paper",
+      "materials": [
+        "7",
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "tempimageyk7a7n",
+      "material": "marker on paper",
+      "materials": [
+        "15"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "terracotta-vase-with-two-legs",
+      "material": "murietta clay",
+      "materials": [
+        "17"
+      ],
+      "support": [],
+      "series": [
+        "4"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "terrible-headache",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "the-botanical-garden-at-green-theatre",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "the-chair",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "3"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "the-color-of-pomegranates",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "the-hour",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "9"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "the-human-face",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "the-king-of-phrygia",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "3"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "the-othering-of-abigail-han-website-poster",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "3"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "thoghts",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "thought-records",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "tiger",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "tiger-on-green",
+      "material": "ink, gouache on paper",
+      "materials": [
+        "14",
+        "12"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "tiger-on-green-with-dots",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "tiger-on-peas",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "tiger-on-pink",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "tiger-on-rose",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "tiger-on-snow",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "tiger-on-white",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "tiger-on-yellow",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "tiger-with-lines",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "time",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "tired-of-menstruation",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "together",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "tooth",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "toxic-masculinity-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "28"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "toxic-masculinity-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "28"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "treasure",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "trojan-war",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "tt",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "turquoise-selfportrait",
+      "material": "marker, acrylic on paper",
+      "materials": [
+        "15",
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "turquoise-vase",
+      "material": "clay",
+      "materials": [
+        "6"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "two-piece-vase",
+      "material": "clay",
+      "materials": [
+        "6"
+      ],
+      "support": [],
+      "series": [
+        "4"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "two-spiked-flowers",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "ukrainian-history-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "8"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "ukrainian-history-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "8"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "ukrainian-history-3",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "8"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "ukrainian-history-4",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "8"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "ukrainian-history-5",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "8"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "ukrainian-history-6",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "8"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "under-wave",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "urban-ecology",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "vacation",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "valik",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "valik-and-badminton",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "vase-in-three-sections",
+      "material": "clay, glaze",
+      "materials": [
+        "6",
+        "11"
+      ],
+      "support": [],
+      "series": [
+        "4"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "vase-with-birds-2",
+      "material": "recycle clay, glaze",
+      "materials": [
+        "25",
+        "11"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "vase-with-thorns",
+      "material": "glaze, ink on clay",
+      "materials": [
+        "11",
+        "14"
+      ],
+      "support": [
+        "6"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "vase-with-tiny-handles",
+      "material": "clay",
+      "materials": [
+        "6"
+      ],
+      "support": [],
+      "series": [
+        "4"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "venice",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "venice-beach",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "venice-building",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "venice-pier",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "vietnamese-woman",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "7",
+        "5"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "vingranovsky",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "violet-dog",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "vsi-svoi-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "15"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "vsi-svoi-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "15"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "vsi-svoi-3",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "15"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "w",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "walk",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "walking-figure",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "walking-meditation",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "war",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "war-1",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "10"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "war-2",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "10"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "war-3",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "10"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "war-4",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "10"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "warpeace",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "warrior-tile",
+      "material": "clay, underglaze",
+      "materials": [
+        "6",
+        "27"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "warrior-tile-2",
+      "material": "porcelain clay, underglaze",
+      "materials": [
+        "23",
+        "27"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "washing-up",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "watching-parade",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "way-to-home",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "we-are-getting-off-at-the-next-stop",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "what",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "what-to-do-if-children-watch-porn-1",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "25"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "what-to-do-if-children-watch-porn-2",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "25"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "what-to-do-if-children-watch-porn-3",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "25"
+      ],
+      "favorite": true
+    },
+    {
+      "slug": "what-will-happen-to-museums",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "whisk",
+      "material": "handpoke",
+      "materials": [
+        "13"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "white-vase",
+      "material": "soldate clay, glaze",
+      "materials": [
+        "26",
+        "11"
+      ],
+      "support": [],
+      "series": [
+        "4"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "white-vase-in-two-parts-with-handles",
+      "material": "paper clay, glaze",
+      "materials": [
+        "19",
+        "11"
+      ],
+      "support": [],
+      "series": [
+        "4"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "white-vase-with-waves",
+      "material": "soldate clay, glaze",
+      "materials": [
+        "26",
+        "11"
+      ],
+      "support": [],
+      "series": [
+        "4"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "winocur-yellow-vase-in-two-parts",
+      "material": "soldate clay, glaze",
+      "materials": [
+        "26",
+        "11"
+      ],
+      "support": [],
+      "series": [
+        "4"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "winocur-yellow-vase-in-two-parts-fragment",
+      "material": "soldate clay, glaze",
+      "materials": [
+        "26",
+        "11"
+      ],
+      "support": [],
+      "series": [
+        "4"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "with-nose",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "woman-sculp",
+      "material": "ink on paper",
+      "materials": [
+        "14"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [],
+      "favorite": true
+    },
+    {
+      "slug": "working-hard",
+      "material": "cut magazine, ink",
+      "materials": [
+        "9",
+        "14"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    },
+    {
+      "slug": "workshop",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "6"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "worried",
+      "material": "acrylic on canvas",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "3"
+      ],
+      "series": [
+        "1"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "yasemin",
+      "material": "acrylic on paper",
+      "materials": [
+        "1"
+      ],
+      "support": [
+        "18"
+      ],
+      "series": [
+        "2"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "you",
+      "material": "digital",
+      "materials": [
+        "10"
+      ],
+      "support": [],
+      "series": [
+        "9"
+      ],
+      "favorite": false
+    },
+    {
+      "slug": "zhar-ptucia-plate",
+      "material": "porcelain, underglaze",
+      "materials": [
+        "22",
+        "27"
+      ],
+      "support": [],
+      "series": [],
+      "favorite": false
+    }
+  ]
+}

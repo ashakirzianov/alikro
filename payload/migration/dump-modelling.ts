@@ -63,7 +63,43 @@ async function main() {
         membershipBySeriesSlug[seriesById.get(id) ?? `(unknown series id ${id})`] = slugs.sort()
     }
 
+    // Everything the drop destroys, recorded per artwork. `materials`, `support`
+    // and `favorite` live only on the artwork — the collection dumps above do not
+    // contain them, and the reversion removes all three. `material` (the raw
+    // string) survives, but it is included so this file alone is enough to
+    // reconstruct the modelling layer without consulting the live database.
+    const artworkState = (artworks.docs as unknown as Record<string, unknown>[])
+        .filter(doc => typeof doc.slug === 'string')
+        .map(doc => ({
+            slug: doc.slug as string,
+            material: doc.material ?? undefined,
+            materials: idsOf(doc.materials),
+            support: idsOf(doc.support),
+            series: idsOf(doc.series),
+            favorite: doc.favorite ?? false,
+        }))
+        .sort((a, b) => a.slug.localeCompare(b.slug))
+
+    // Assert the dump is complete rather than assuming it. The series `artworks`
+    // join silently truncated at 10 once already; the same trap is assumed to
+    // exist here until the numbers say otherwise.
+    if (artworkState.length !== artworks.totalDocs) {
+        throw new Error(
+            `INCOMPLETE DUMP: ${artworkState.length} artworks captured but `
+            + `totalDocs is ${artworks.totalDocs}. Refusing to write a partial backup.`,
+        )
+    }
+
     const stamp = new Date().toISOString()
+    write('artwork-modelling', {
+        dumpedAt: stamp,
+        count: artworkState.length,
+        withSeries: artworkState.filter(a => a.series.length > 0).length,
+        withMaterials: artworkState.filter(a => a.materials.length > 0).length,
+        withSupport: artworkState.filter(a => a.support.length > 0).length,
+        favorites: artworkState.filter(a => a.favorite).length,
+        artworks: artworkState,
+    })
     write('series', {
         dumpedAt: stamp,
         count: series.totalDocs,
@@ -104,6 +140,13 @@ async function main() {
         console.log(`  ${d.collection}/${d.slug}.${d.field}: seed=${JSON.stringify(d.seed)} live=${JSON.stringify(d.live)}`)
     }
     process.exit(0)
+}
+
+function idsOf(value: unknown): string[] {
+    if (!Array.isArray(value)) return []
+    return value.map(ref => typeof ref === 'object' && ref !== null
+        ? String((ref as { id?: unknown }).id)
+        : String(ref))
 }
 
 function write(name: string, payload: unknown) {
