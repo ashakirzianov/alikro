@@ -2,6 +2,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { mcpPlugin } from '@payloadcms/plugin-mcp'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { s3Storage } from '@payloadcms/storage-s3'
 import { buildConfig } from 'payload'
@@ -40,8 +41,48 @@ export default buildConfig({
         },
     }),
     sharp,
-    plugins: storagePlugins(),
+    plugins: [...storagePlugins(), agentSurface()],
 })
+
+// Criterion 4 of the trial — "how well can agents drive Payload". Payload ships
+// a first-party MCP server as `@payloadcms/plugin-mcp`, versioned in lockstep
+// with the core (peer-dependency pinned to the exact release). It mounts a
+// streamable-HTTP endpoint at `/api/mcp`.
+//
+// Registered unconditionally but gated behind `PAYLOAD_MCP`: the plugin keeps
+// its API-key collection in the schema even when disabled, which is what makes
+// the flag safe. Toggling the plugin in and out of the config array instead
+// would let dev-mode `push` drop that table on the next boot without it.
+function isEnabled(value: string | undefined) {
+    return value !== undefined && value !== '' && value !== '0' && value.toLowerCase() !== 'false'
+}
+
+function agentSurface() {
+    // `enabled` is per-capability, and `delete: false` is deliberate. This
+    // branch's standing rule is that nothing gets deleted; expressing that in
+    // the tool registry means the agent is never handed the capability, rather
+    // than being trusted not to use it.
+    const readAndWriteNoDelete = { create: true, delete: false, find: true, update: true }
+    return mcpPlugin({
+        // Explicitly falsy strings count as off: `PAYLOAD_MCP=0` reading as ON is
+        // the kind of flag that gets switched the wrong way once and never noticed.
+        disabled: !isEnabled(process.env.PAYLOAD_MCP),
+        collections: {
+            artworks: {
+                description: 'One record per artwork — the image and its catalogue data (title, year, medium, material, series membership, and `order`, the single archive-wide sort position).',
+                enabled: readAndWriteNoDelete,
+            },
+            series: {
+                description: 'A named body of work. Membership is written on the artwork (`artworks.series`), not here.',
+                enabled: readAndWriteNoDelete,
+            },
+            materials: {
+                description: 'The material vocabulary — what works are made of and made on.',
+                enabled: readAndWriteNoDelete,
+            },
+        },
+    })
+}
 
 // The S3 adapter only engages once a bucket is configured. Without it Payload
 // writes to `media/` on disk, which is what lets the branch run before any

@@ -1,0 +1,47 @@
+[
+  {
+    "id": 71,
+    "slug": "plate-with-the--dog",
+    "title": "Plate with The Dog",
+    "order": 11,
+    "series": [
+      13
+    ]
+  },
+  {
+    "id": 79,
+    "slug": "plate-with-the-dog-other-side",
+    "title": "Plate with The Dog (other side)",
+    "order": 19,
+    "series": [
+      13
+    ]
+  },
+  {
+    "id": 101,
+    "slug": "crown-plate-top",
+    "title": "Crown Plate / Top",
+    "order": 40,
+    "series": [
+      13
+    ]
+  },
+  {
+    "id": 116,
+    "slug": "swan-plate-top",
+    "title": "Swan Plate / Top",
+    "order": 55,
+    "series": [
+      13
+    ]
+  },
+  {
+    "id": 153,
+    "slug": "crown-plate-side",
+    "title": "Crown plate / side",
+    "order": 91,
+    "series": [
+      13
+    ]
+  }
+]

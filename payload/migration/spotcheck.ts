@@ -55,6 +55,24 @@ async function main() {
             .sort((a, b) => a.width - b.width)
 
         if (sizes.length === 0) {
+            // A record with no *file* is a different condition from a record
+            // whose renditions failed to generate, and only the second is a
+            // media defect. Payload skips upload validation for drafts, so a
+            // draft create with no file mints an imageless artwork — the
+            // criterion-4 probe keeps one deliberately (`c4-probe-draft-no-file`)
+            // as the evidence for that gap.
+            //
+            // Scoped as tightly as the condition allows: a *published* record,
+            // or any record that came from the migration, is still a failure
+            // even with no file. Only an unmigrated draft that never had bytes
+            // is excused, and it is announced rather than passed over quietly.
+            const fromMigration = crowExport.assets.some(
+                asset => asset.id === doc.slug || asset.fileName === doc.filename,
+            )
+            if (!doc.filename && doc._status === 'draft' && !fromMigration) {
+                console.log(`  ${slug}: draft with no file at all — not from the migration, so not a rendition failure`)
+                continue
+            }
             failures.push({ slug, problem: 'no renditions at all' })
             continue
         }

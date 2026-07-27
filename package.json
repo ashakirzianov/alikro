@@ -15,12 +15,18 @@
     "migrate:validate": "tsx payload/migration/validate.ts",
     "migrate:series": "tsx payload/migration/migrate.ts --series-only",
     "migrate": "tsx payload/migration/migrate.ts",
-    "migrate:spotcheck": "tsx payload/migration/spotcheck.ts"
+    "migrate:spotcheck": "tsx payload/migration/spotcheck.ts",
+    "probe:rest": "tsx payload/probe/rest.ts",
+    "probe:local": "tsx payload/probe/local-api.ts",
+    "probe:mcp": "tsx payload/probe/mcp.ts",
+    "probe:mcp-gate": "tsx payload/probe/mcp-capability-gate.ts",
+    "probe:restore": "tsx payload/probe/restore-order.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.782.0",
     "@payloadcms/db-postgres": "3.86.0",
     "@payloadcms/next": "3.86.0",
+    "@payloadcms/plugin-mcp": "3.86.0",
     "@payloadcms/richtext-lexical": "3.86.0",
     "@payloadcms/storage-s3": "3.86.0",
     "@payloadcms/ui": "3.86.0",

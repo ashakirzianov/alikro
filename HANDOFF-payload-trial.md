@@ -10,6 +10,12 @@ Phases 1 and 2 are done. The next phase is the **playtest**, which is human work
 Anton and Alina using the admin and judging it. Your job is to support that, not
 to keep building.
 
+Two things happened after the playtest and have their own write-ups:
+`SPIKE-image-native-admin.md` (making the admin image-native, and the draft leak
+it uncovered) and `PROBE-agent-operability.md` (criterion 4 — closed; Payload
+turns out to ship a **first-party** MCP server, which the landscape research
+predates).
+
 - Branch `payload-trial`, ~14 commits, **local only — never pushed, never merged.**
 - `main` is untouched. Production alikro.art still reads from Crow.
 - `../crow-cms` is **read-only** and was never modified.
@@ -40,6 +46,9 @@ documents them. Load with `set -a && . ./.env.local && set +a`.
 | `npm run migrate:validate` | dry run, no DB needed |
 | `npm run migrate` | resumable archive pass (already complete) |
 | `npm run migrate:spotcheck -- --all` | parity check across all 630 |
+| `PAYLOAD_MCP=1 npm run dev` | same, plus Payload's MCP server at `/api/mcp` |
+| `npm run probe:rest` / `:local` / `:mcp` / `:mcp-gate` | the criterion-4 agent-operability probes |
+| `npm run probe:restore -- --check` | assert the `plates` gallery is at its pre-probe order |
 
 ## Things that will bite you
 
