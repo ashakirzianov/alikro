@@ -16,6 +16,7 @@
     "migrate:series": "tsx payload/migration/migrate.ts --series-only",
     "migrate": "tsx payload/migration/migrate.ts",
     "migrate:spotcheck": "tsx payload/migration/spotcheck.ts",
+    "migrate:dump-modelling": "tsx payload/migration/dump-modelling.ts",
     "probe:rest": "tsx payload/probe/rest.ts",
     "probe:local": "tsx payload/probe/local-api.ts",
     "probe:mcp": "tsx payload/probe/mcp.ts",

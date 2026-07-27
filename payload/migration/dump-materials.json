@@ -1,0 +1,246 @@
+{
+  "dumpedAt": "2026-07-27T21:49:54.938Z",
+  "count": 30,
+  "docs": [
+    {
+      "id": 30,
+      "slug": "wrinkled-paper",
+      "name": "wrinkled paper",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:50.507Z",
+      "createdAt": "2026-07-26T23:20:50.507Z"
+    },
+    {
+      "id": 29,
+      "slug": "wrinkled-foil",
+      "name": "wrinkled foil",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:49.544Z",
+      "createdAt": "2026-07-26T23:20:49.544Z"
+    },
+    {
+      "id": 28,
+      "slug": "watercolor",
+      "name": "watercolor",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:48.599Z",
+      "createdAt": "2026-07-26T23:20:48.599Z"
+    },
+    {
+      "id": 27,
+      "slug": "underglaze",
+      "name": "underglaze",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:47.625Z",
+      "createdAt": "2026-07-26T23:20:47.625Z"
+    },
+    {
+      "id": 26,
+      "slug": "soldate-clay",
+      "name": "soldate clay",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:46.681Z",
+      "createdAt": "2026-07-26T23:20:46.680Z"
+    },
+    {
+      "id": 25,
+      "slug": "recycle-clay",
+      "name": "recycle clay",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:45.746Z",
+      "createdAt": "2026-07-26T23:20:45.746Z"
+    },
+    {
+      "id": 24,
+      "slug": "raku-glaze",
+      "name": "raku glaze",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:44.811Z",
+      "createdAt": "2026-07-26T23:20:44.811Z"
+    },
+    {
+      "id": 23,
+      "slug": "porcelain-clay",
+      "name": "porcelain clay",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:43.853Z",
+      "createdAt": "2026-07-26T23:20:43.853Z"
+    },
+    {
+      "id": 22,
+      "slug": "porcelain",
+      "name": "porcelain",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:42.894Z",
+      "createdAt": "2026-07-26T23:20:42.894Z"
+    },
+    {
+      "id": 21,
+      "slug": "pencil",
+      "name": "pencil",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:41.915Z",
+      "createdAt": "2026-07-26T23:20:41.915Z"
+    },
+    {
+      "id": 20,
+      "slug": "pastel",
+      "name": "pastel",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:40.965Z",
+      "createdAt": "2026-07-26T23:20:40.964Z"
+    },
+    {
+      "id": 19,
+      "slug": "paper-clay",
+      "name": "paper clay",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:40.019Z",
+      "createdAt": "2026-07-26T23:20:40.019Z"
+    },
+    {
+      "id": 18,
+      "slug": "paper",
+      "name": "paper",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:39.087Z",
+      "createdAt": "2026-07-26T23:20:39.087Z"
+    },
+    {
+      "id": 17,
+      "slug": "murietta-clay",
+      "name": "murietta clay",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:38.172Z",
+      "createdAt": "2026-07-26T23:20:38.172Z"
+    },
+    {
+      "id": 16,
+      "slug": "markers",
+      "name": "markers",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:37.260Z",
+      "createdAt": "2026-07-26T23:20:37.260Z"
+    },
+    {
+      "id": 15,
+      "slug": "marker",
+      "name": "marker",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:36.330Z",
+      "createdAt": "2026-07-26T23:20:36.329Z"
+    },
+    {
+      "id": 14,
+      "slug": "ink",
+      "name": "ink",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:35.373Z",
+      "createdAt": "2026-07-26T23:20:35.373Z"
+    },
+    {
+      "id": 13,
+      "slug": "handpoke",
+      "name": "handpoke",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:34.452Z",
+      "createdAt": "2026-07-26T23:20:34.452Z"
+    },
+    {
+      "id": 12,
+      "slug": "gouache",
+      "name": "gouache",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:33.534Z",
+      "createdAt": "2026-07-26T23:20:33.534Z"
+    },
+    {
+      "id": 11,
+      "slug": "glaze",
+      "name": "glaze",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:32.610Z",
+      "createdAt": "2026-07-26T23:20:32.610Z"
+    },
+    {
+      "id": 10,
+      "slug": "digital",
+      "name": "digital",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:31.692Z",
+      "createdAt": "2026-07-26T23:20:31.692Z"
+    },
+    {
+      "id": 9,
+      "slug": "cut-magazine",
+      "name": "cut magazine",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:30.738Z",
+      "createdAt": "2026-07-26T23:20:30.738Z"
+    },
+    {
+      "id": 8,
+      "slug": "color-slip",
+      "name": "color slip",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:29.822Z",
+      "createdAt": "2026-07-26T23:20:29.822Z"
+    },
+    {
+      "id": 7,
+      "slug": "color-pencils",
+      "name": "color pencils",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:28.547Z",
+      "createdAt": "2026-07-26T23:20:28.547Z"
+    },
+    {
+      "id": 6,
+      "slug": "clay",
+      "name": "clay",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:27.597Z",
+      "createdAt": "2026-07-26T23:20:27.597Z"
+    },
+    {
+      "id": 5,
+      "slug": "charcoal",
+      "name": "charcoal",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:26.681Z",
+      "createdAt": "2026-07-26T23:20:26.681Z"
+    },
+    {
+      "id": 4,
+      "slug": "cardboard",
+      "name": "cardboard",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:25.757Z",
+      "createdAt": "2026-07-26T23:20:25.757Z"
+    },
+    {
+      "id": 3,
+      "slug": "canvas",
+      "name": "canvas",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:24.843Z",
+      "createdAt": "2026-07-26T23:20:24.843Z"
+    },
+    {
+      "id": 2,
+      "slug": "black-mountain-clay",
+      "name": "black mountain clay",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:23.908Z",
+      "createdAt": "2026-07-26T23:20:23.908Z"
+    },
+    {
+      "id": 1,
+      "slug": "acrylic",
+      "name": "acrylic",
+      "broader": null,
+      "updatedAt": "2026-07-26T23:20:22.983Z",
+      "createdAt": "2026-07-26T23:20:22.983Z"
+    }
+  ]
+}

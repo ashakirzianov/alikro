@@ -1,0 +1,970 @@
+{
+  "dumpedAt": "2026-07-27T21:49:54.938Z",
+  "count": 30,
+  "membership": {
+    "self-portraits": [
+      "after-illness-selfportrait-colorpng",
+      "after-illness-selfportrait-dark",
+      "arizona",
+      "cat-sitting",
+      "compliment-about-the-cheeks",
+      "covid-selfportrait",
+      "feel-sexy",
+      "first-working-day-selfportrait",
+      "goodbye-portrait",
+      "home-pot",
+      "i-live-in-berlin",
+      "insomnia",
+      "la-selfportrait",
+      "long-selfportrait",
+      "morning",
+      "my-fertility",
+      "nervous-self-portrait",
+      "on-the-grass",
+      "on-the-mountain",
+      "sad-selfportrait",
+      "self-portrait-2026",
+      "self-portrait-in-color",
+      "self-portrait-on-a-chair",
+      "sunscreen-selfportrait",
+      "tan",
+      "turquoise-selfportrait",
+      "vacation",
+      "worried"
+    ],
+    "friends": [
+      "alex-2",
+      "brennan",
+      "daryn",
+      "jeff",
+      "kamil",
+      "lucas",
+      "marco",
+      "marshall-2",
+      "maya",
+      "portia",
+      "yasemin"
+    ],
+    "black-list": [
+      "affection-of-a-tiger",
+      "afflicted",
+      "bill-on-earth",
+      "churned",
+      "crickets",
+      "eight-limbs-website-poster",
+      "good-sisters",
+      "hags",
+      "leviathan-website-poster",
+      "mesa",
+      "muses",
+      "old-man-porn-star",
+      "the-chair",
+      "the-king-of-phrygia",
+      "the-othering-of-abigail-han-website-poster"
+    ],
+    "nai": [
+      "raw-gray-vase-in-two-parts",
+      "raw-grey-vase-with-two-legs",
+      "terracotta-vase-with-two-legs",
+      "two-piece-vase",
+      "vase-in-three-sections",
+      "vase-with-tiny-handles",
+      "white-vase",
+      "white-vase-in-two-parts-with-handles",
+      "white-vase-with-waves",
+      "winocur-yellow-vase-in-two-parts",
+      "winocur-yellow-vase-in-two-parts-fragment"
+    ],
+    "sketches-from-museums": [
+      "1q3a5612",
+      "1q3a5613",
+      "1q3a5614",
+      "1q3a5615",
+      "1q3a5616",
+      "1q3a5617",
+      "1q3a5618",
+      "1q3a5619",
+      "berlin-museum",
+      "c4-probe-2",
+      "c4-probe-3",
+      "c4-probe-mcp",
+      "gogen-girl",
+      "head",
+      "room-16",
+      "sketching-in-the-museum",
+      "sketching-in-the-museum-durer",
+      "sketching-in-the-museum-mary-tudor",
+      "sketching-in-the-museum-pablo-de-valladolid",
+      "sketching-in-the-museum-raphael",
+      "sketching-in-the-museum-tiepolo",
+      "spam-cane",
+      "vietnamese-woman"
+    ],
+    "green-theatre": [
+      "aleksievich",
+      "big-childrens-day",
+      "bob-dylan-night",
+      "bukov-sticker",
+      "childrens-days",
+      "dakh-dauters",
+      "dakha-brakha",
+      "evening-of-dmytro-bykov-2",
+      "evening-of-dmytro-bykov-3",
+      "filmsection-of-the-green-theater",
+      "food-festival",
+      "green-theatre-hiring-1",
+      "green-theatre-hiring-2",
+      "green-theatre-opening",
+      "jarmusch",
+      "kisff",
+      "michael-shur",
+      "movie-classics-on-mondays-1",
+      "movie-classics-on-mondays-3",
+      "movie-concert",
+      "muratova-cinema",
+      "own-garden-in-green-theatre",
+      "smirnov",
+      "the-botanical-garden-at-green-theatre",
+      "what-will-happen-to-museums",
+      "workshop"
+    ],
+    "vietnam": [
+      "20250414134324611-0001",
+      "20250414134339594-0001",
+      "20250414134514753-0001",
+      "20250414134524645-0001-2",
+      "head",
+      "tempimage1dtnfg",
+      "tempimage3dz2rf",
+      "tempimagedsrihj",
+      "tempimagefyzam2",
+      "tempimagegeml1o",
+      "tempimagejvke3d",
+      "tempimagekjik6x",
+      "tempimagelqkptf",
+      "tempimagemv17mw",
+      "tempimageokshlk",
+      "tempimageowurm3",
+      "tempimagepxmbbm",
+      "tempimagerwnd3v",
+      "tempimaget158vd",
+      "tempimagexof0ey",
+      "tempimageyk7a7n",
+      "vietnamese-woman"
+    ],
+    "ukrainian-history": [
+      "cinema-2",
+      "cinema-3",
+      "cinema-4",
+      "history",
+      "music-1",
+      "music-2",
+      "music-3",
+      "music-4",
+      "ukrainian-history-1",
+      "ukrainian-history-2",
+      "ukrainian-history-3",
+      "ukrainian-history-4",
+      "ukrainian-history-5",
+      "ukrainian-history-6"
+    ],
+    "anton": [
+      "1q3a5639-1",
+      "1q3a5641",
+      "anton-with-nails",
+      "anton-with-the-vessel",
+      "anton-working",
+      "antons-birthday",
+      "gonchara",
+      "look-through",
+      "summer-anton",
+      "tempimagegeml1o",
+      "the-hour",
+      "you"
+    ],
+    "war": [
+      "1q3a5591",
+      "1q3a5595",
+      "1q3a5600",
+      "1q3a5602",
+      "1q3a5644",
+      "bucha",
+      "premonition-of-war",
+      "sad-evening",
+      "war-1",
+      "war-2",
+      "war-3",
+      "war-4"
+    ],
+    "venice-beach": [
+      "1q3a5581",
+      "1q3a5583",
+      "1q3a5584",
+      "1q3a5585",
+      "1q3a5586",
+      "1q3a5587",
+      "1q3a5588",
+      "1q3a5589",
+      "1q3a5590"
+    ],
+    "it": [
+      "app",
+      "heroes-engineers-1",
+      "heroes-engineers-3",
+      "heroes-engineers-4",
+      "hiring",
+      "how-much",
+      "it-guy-2",
+      "it-guy-3",
+      "looking-for-it"
+    ],
+    "plates": [
+      "crown-plate-side",
+      "crown-plate-top",
+      "plate-with-the--dog",
+      "plate-with-the-dog-other-side",
+      "swan-plate-top"
+    ],
+    "kunsht": [
+      "3d98d661119887",
+      "451a5f61119887",
+      "9ad29261119887",
+      "ad50be61119887"
+    ],
+    "vsi-svoi": [
+      "vsi-svoi-1",
+      "vsi-svoi-2",
+      "vsi-svoi-3"
+    ],
+    "cat-hotel": [
+      "c4-probe-2",
+      "c4-probe-3",
+      "c4-probe-mcp",
+      "cat-hotel-1",
+      "cat-hotel-2",
+      "cat-hotel-3"
+    ],
+    "vika-temnova": [
+      "charity-flea-market",
+      "flea-market-of-vika"
+    ],
+    "porteno": [
+      "anton-with-the-vessel"
+    ],
+    "eating-disorders": [
+      "eating-disorders-1",
+      "eating-disorders-2",
+      "eating-disorders-3",
+      "eating-disorders-4"
+    ],
+    "illness-anxiety-disorder": [
+      "illness-anxiety-disorder-1",
+      "illness-anxiety-disorder-2",
+      "illness-anxiety-disorder-3",
+      "illness-anxiety-disorder-4"
+    ],
+    "menstruation": [
+      "menstruation-1",
+      "menstruation-2",
+      "menstruation-3",
+      "menstruation-4"
+    ],
+    "abuse": [
+      "abuse-1",
+      "abuse-2",
+      "abuse-3",
+      "abuse-4"
+    ],
+    "cat-calling": [
+      "cat-calling-1",
+      "cat-calling-2",
+      "cat-calling-3"
+    ],
+    "parenthood": [
+      "parenthood-1",
+      "parenthood-2",
+      "parenthood-3"
+    ],
+    "children-watch-porn": [
+      "what-to-do-if-children-watch-porn-1",
+      "what-to-do-if-children-watch-porn-2",
+      "what-to-do-if-children-watch-porn-3"
+    ],
+    "sperm-donation": [
+      "sperm-donation-1",
+      "sperm-donation-2",
+      "sperm-donation-3"
+    ],
+    "school-bullying": [
+      "school-bullying-1",
+      "school-bullying-2"
+    ],
+    "toxic-masculinity": [
+      "toxic-masculinity-1",
+      "toxic-masculinity-2"
+    ],
+    "organ-donation": [
+      "organ-donation-1",
+      "organ-donation-2"
+    ],
+    "sirens": [
+      "sirena-plate-3"
+    ]
+  },
+  "docs": [
+    {
+      "id": 30,
+      "slug": "sirens",
+      "title": "Sirens",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          60
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:22.016Z",
+      "createdAt": "2026-07-26T23:20:22.016Z"
+    },
+    {
+      "id": 29,
+      "slug": "organ-donation",
+      "title": "Organ Donation",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          457,
+          458
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:21.094Z",
+      "createdAt": "2026-07-26T23:20:21.093Z"
+    },
+    {
+      "id": 28,
+      "slug": "toxic-masculinity",
+      "title": "Toxic Masculinity",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          238,
+          242
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:20.175Z",
+      "createdAt": "2026-07-26T23:20:20.175Z"
+    },
+    {
+      "id": 27,
+      "slug": "school-bullying",
+      "title": "School Bullying",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          207,
+          278
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:19.238Z",
+      "createdAt": "2026-07-26T23:20:19.238Z"
+    },
+    {
+      "id": 26,
+      "slug": "sperm-donation",
+      "title": "Sperm Donation",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          270,
+          271,
+          437
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:18.282Z",
+      "createdAt": "2026-07-26T23:20:18.282Z"
+    },
+    {
+      "id": 25,
+      "slug": "children-watch-porn",
+      "title": "Children Watch Porn",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          224,
+          232,
+          233
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:17.345Z",
+      "createdAt": "2026-07-26T23:20:17.345Z"
+    },
+    {
+      "id": 24,
+      "slug": "parenthood",
+      "title": "Parenthood",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          197,
+          198,
+          209
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:16.425Z",
+      "createdAt": "2026-07-26T23:20:16.425Z"
+    },
+    {
+      "id": 23,
+      "slug": "cat-calling",
+      "title": "Cat Calling",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          169,
+          357,
+          537
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:15.501Z",
+      "createdAt": "2026-07-26T23:20:15.501Z"
+    },
+    {
+      "id": 22,
+      "slug": "abuse",
+      "title": "Abuse",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          561,
+          563,
+          565,
+          567
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:14.558Z",
+      "createdAt": "2026-07-26T23:20:14.558Z"
+    },
+    {
+      "id": 21,
+      "slug": "menstruation",
+      "title": "Menstruation",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          188,
+          307,
+          486,
+          487
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:13.624Z",
+      "createdAt": "2026-07-26T23:20:13.624Z"
+    },
+    {
+      "id": 20,
+      "slug": "illness-anxiety-disorder",
+      "title": "Illness Anxiety Disorder",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          168,
+          318,
+          319,
+          493
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:12.706Z",
+      "createdAt": "2026-07-26T23:20:12.706Z"
+    },
+    {
+      "id": 19,
+      "slug": "eating-disorders",
+      "title": "Eating Disorders",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          165,
+          341,
+          342,
+          402
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:11.774Z",
+      "createdAt": "2026-07-26T23:20:11.774Z"
+    },
+    {
+      "id": 18,
+      "slug": "porteno",
+      "title": "Porteño",
+      "description": "Buenos Aires.",
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          98
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:10.852Z",
+      "createdAt": "2026-07-26T23:20:10.852Z"
+    },
+    {
+      "id": 17,
+      "slug": "vika-temnova",
+      "title": "Vika Temnova",
+      "description": "Posters made for Vika Temnova.",
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          127,
+          146
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:09.930Z",
+      "createdAt": "2026-07-26T23:20:09.930Z"
+    },
+    {
+      "id": 16,
+      "slug": "cat-hotel",
+      "title": "Cat Hotel",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          356,
+          407,
+          471,
+          635,
+          634,
+          636
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:08.992Z",
+      "createdAt": "2026-07-26T23:20:08.991Z"
+    },
+    {
+      "id": 15,
+      "slug": "vsi-svoi",
+      "title": "Vsi.Svoi",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          120,
+          239,
+          418
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:08.066Z",
+      "createdAt": "2026-07-26T23:20:08.066Z"
+    },
+    {
+      "id": 14,
+      "slug": "kunsht",
+      "title": "Kunsht",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          592,
+          596,
+          628,
+          19
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:07.148Z",
+      "createdAt": "2026-07-26T23:20:07.148Z"
+    },
+    {
+      "id": 13,
+      "slug": "plates",
+      "title": "Plates",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          71,
+          79,
+          101,
+          116,
+          153
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:06.227Z",
+      "createdAt": "2026-07-26T23:20:06.227Z"
+    },
+    {
+      "id": 12,
+      "slug": "it",
+      "title": "IT",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          177,
+          310,
+          316,
+          323,
+          324,
+          325,
+          368,
+          372,
+          496
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:05.305Z",
+      "createdAt": "2026-07-26T23:20:05.305Z"
+    },
+    {
+      "id": 11,
+      "slug": "venice-beach",
+      "title": "Venice Beach",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          17,
+          18
+        ],
+        "hasNextPage": false
+      },
+      "updatedAt": "2026-07-26T23:20:04.383Z",
+      "createdAt": "2026-07-26T23:20:04.383Z"
+    },
+    {
+      "id": 10,
+      "slug": "war",
+      "title": "War",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          43,
+          44,
+          45,
+          46,
+          159,
+          183,
+          204,
+          237,
+          415,
+          454
+        ],
+        "hasNextPage": true
+      },
+      "updatedAt": "2026-07-26T23:20:03.437Z",
+      "createdAt": "2026-07-26T23:20:03.437Z"
+    },
+    {
+      "id": 9,
+      "slug": "anton",
+      "title": "Anton",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          30,
+          40,
+          42,
+          70,
+          98,
+          102,
+          192,
+          196,
+          260,
+          330
+        ],
+        "hasNextPage": true
+      },
+      "updatedAt": "2026-07-26T23:20:02.519Z",
+      "createdAt": "2026-07-26T23:20:02.518Z"
+    },
+    {
+      "id": 8,
+      "slug": "ukrainian-history",
+      "title": "Ukrainian History",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          229,
+          247,
+          248,
+          249,
+          250,
+          251,
+          297,
+          298,
+          322,
+          352
+        ],
+        "hasNextPage": true
+      },
+      "updatedAt": "2026-07-26T23:20:01.586Z",
+      "createdAt": "2026-07-26T23:20:01.585Z"
+    },
+    {
+      "id": 7,
+      "slug": "vietnam",
+      "title": "Vietnam",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          5,
+          24,
+          25,
+          26,
+          12,
+          27,
+          28,
+          13,
+          29,
+          30
+        ],
+        "hasNextPage": true
+      },
+      "updatedAt": "2026-07-26T23:20:00.665Z",
+      "createdAt": "2026-07-26T23:20:00.665Z"
+    },
+    {
+      "id": 6,
+      "slug": "green-theatre",
+      "title": "Green Theatre",
+      "description": null,
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          261,
+          272,
+          300,
+          301,
+          302,
+          303,
+          315,
+          339,
+          345,
+          365
+        ],
+        "hasNextPage": true
+      },
+      "updatedAt": "2026-07-26T23:19:59.691Z",
+      "createdAt": "2026-07-26T23:19:59.690Z"
+    },
+    {
+      "id": 5,
+      "slug": "sketches-from-museums",
+      "title": "sketches from museums",
+      "description": "Alikro's sketches from museums.",
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          47,
+          48,
+          49,
+          50,
+          16,
+          86,
+          87,
+          108,
+          170,
+          220
+        ],
+        "hasNextPage": true
+      },
+      "updatedAt": "2026-07-26T23:19:58.773Z",
+      "createdAt": "2026-07-26T23:19:58.773Z"
+    },
+    {
+      "id": 4,
+      "slug": "nai",
+      "title": "nai",
+      "description": "Alikro's NAI works.",
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          69,
+          103,
+          105,
+          112,
+          115,
+          118,
+          125,
+          137,
+          171,
+          194
+        ],
+        "hasNextPage": true
+      },
+      "updatedAt": "2026-07-26T23:19:57.856Z",
+      "createdAt": "2026-07-26T23:19:57.856Z"
+    },
+    {
+      "id": 3,
+      "slug": "black-list",
+      "title": "black list",
+      "description": "Alikro's Black List series.",
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          67,
+          68,
+          76,
+          94,
+          95,
+          96,
+          97,
+          99,
+          100,
+          104
+        ],
+        "hasNextPage": true
+      },
+      "updatedAt": "2026-07-26T23:19:56.938Z",
+      "createdAt": "2026-07-26T23:19:56.938Z"
+    },
+    {
+      "id": 2,
+      "slug": "friends",
+      "title": "friends",
+      "description": "Alikro's friend portraits.",
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          88,
+          89,
+          90,
+          91,
+          92,
+          114,
+          132,
+          133,
+          142,
+          173
+        ],
+        "hasNextPage": true
+      },
+      "updatedAt": "2026-07-26T23:19:55.998Z",
+      "createdAt": "2026-07-26T23:19:55.997Z"
+    },
+    {
+      "id": 1,
+      "slug": "self-portraits",
+      "title": "self portraits",
+      "description": "Alikro's self portraits.",
+      "cover": null,
+      "featured": false,
+      "order": null,
+      "artworks": {
+        "docs": [
+          106,
+          126,
+          199,
+          201,
+          205,
+          206,
+          208,
+          210,
+          212,
+          214
+        ],
+        "hasNextPage": true
+      },
+      "updatedAt": "2026-07-26T23:19:55.034Z",
+      "createdAt": "2026-07-26T23:19:55.033Z"
+    }
+  ]
+}

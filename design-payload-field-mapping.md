@@ -330,6 +330,37 @@ published works deliberately kept out of galleries), `series`, variants,
 
 ---
 
+## 4b. Pre-reversion snapshot — 2026-07-27
+
+Anton and Alina rejected the modelling split; a reversion to flat `tags` and a
+single free-text `material` is proposed but **not yet authorised** (awaiting
+Anton's direct confirmation). Nothing has been dropped. What has been done is the
+safety work, because it is read-only and it answers a question:
+
+`npm run migrate:dump-modelling` writes `dump-series.json` and
+`dump-materials.json` and diffs both against the seed tables.
+
+**Result: 0 divergences.** All 30 series match their seeds on `title` and
+`description`; none has `featured`, `cover` or `order` set. No material has
+`broader` set — the field that existed specifically for Alina to confirm the
+six-clays/two-glazes hierarchy. So the drop loses nothing the seeds cannot
+regenerate.
+
+**State the limit precisely: this shows no edits *persisted*, not that the
+screens were never opened.** Those two support different conclusions — "the model
+was rejected" versus "the screens didn't invite the work" — and only Anton can
+say which. Do not let the diff harden into the stronger claim.
+
+**Membership is dumped from the artwork side, not the join view.** The series'
+`artworks` join paginates at 10 and reports `hasNextPage` rather than a total, so
+dumping it captures 10 of Vietnam's 22 members and looks complete. The dump reads
+`artworks.series` instead: **248 links across 30 series**, cross-checked against
+the export and reconciling exactly — 243 from export tags, **+6** for the
+criterion-4 probe records (not in Crow), **−1** for `broken-vessel`, one of the
+two tiffs that never migrated.
+
+---
+
 ## 5. Still open
 
 1. **Which tags are series?** This is the one question left, and it is yours —
