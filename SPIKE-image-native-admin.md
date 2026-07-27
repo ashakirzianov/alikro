@@ -187,13 +187,26 @@ was a check that passed — both were coincidences that looked like passing chec
 
 ## State
 
-- **Two draft records remain, and they are load-bearing — do not tidy them
-  away.** id 631 (mine, "PLAYTEST upload check", `showOnSite: false`) and id 632
-  (a screenshot uploaded during the playtest, **`showOnSite: true`**). Both are
-  invisible to the site. 632 is the only record in the entire archive that can
-  express the draft-leak failure: all 630 migrated records are published, so
-  without it the guard below has nothing to test against and would pass
-  vacuously. It is a fixture now, not litter.
+- **Nine draft records remain, and one is load-bearing — do not tidy it away.**
+  *(Updated 2026-07-27: was two. The criterion-4 probe added seven, ids 633–639.)*
+  All nine are drafts with `showOnSite: false` except one, all invisible to the
+  site — `/all` is still 575 and byte-identical to the pre-playtest baseline,
+  which is the draft-leak guard holding under exactly the load it was written
+  for: an agent creating drafts.
+
+  **Record 632** (a screenshot uploaded during the playtest, **`showOnSite:
+  true`**) is the one that matters. It is the only record in the archive that can
+  express the draft-leak failure — all 630 migrated records are published — so
+  without it the guard has nothing to test against and passes vacuously. Fixture,
+  not litter. 631 ("PLAYTEST upload check") is mine and is inert.
+
+- **The rule for records with no Crow counterpart is a rule, not a list.**
+  `migrate:spotcheck` decides by the export's own join key — a record matching
+  neither `slug` nor `fileName` never came from the migration, so parity checks
+  are skipped and announced rather than failed. That is why seven new probe
+  records appeared without anyone editing the check, and why the spot-check did
+  not go permanently red on another agent's work. Any future backfill must treat
+  "no export match" the same way: **normal, not an error.**
 - An empty folder, "SPIKE probe (folder-view test)", left from testing option 1.
   The real artwork filed into it was put back; only my own test draft is still in
   it. Mine to remove on request.
