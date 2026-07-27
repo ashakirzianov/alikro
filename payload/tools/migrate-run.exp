@@ -1,0 +1,30 @@
+#!/usr/bin/expect -f
+# Run `payload migrate` under a pty so its prompts are visible and answerable.
+# Piping stdout hides them and the process simply hangs.
+set timeout 900
+log_user 1
+
+spawn npx --no-install payload migrate
+
+expect {
+    -re {\(Y/n\)} {
+        send "y\r"
+        exp_continue
+    }
+    -re {\(y/N\)} {
+        send "y\r"
+        exp_continue
+    }
+    -re {Accept warning|continue\?|Are you sure} {
+        send "y\r"
+        exp_continue
+    }
+    timeout {
+        puts "\nTIMEOUT waiting for migrate"
+        exit 2
+    }
+    eof
+}
+
+catch wait result
+exit [lindex $result 3]

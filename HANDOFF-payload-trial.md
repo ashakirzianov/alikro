@@ -143,6 +143,10 @@ documents them. Load with `set -a && . ./.env.local && set +a`.
   migrations idempotently: `IF NOT EXISTS` / `IF EXISTS`, drop-then-add for
   foreign keys, and a `DO $$ … EXCEPTION WHEN duplicate_object` block for
   `CREATE TYPE`, which Postgres has no `IF NOT EXISTS` for.
+- **The scripts for all of the above are in `payload/tools/`** — screenshot
+  capture over CDP, and `expect` wrappers for both migration commands. They were
+  rebuilt from scratch more than once because they lived in `/tmp`. Read
+  `payload/tools/README.md` before writing your own.
 - The migration is **resumable** — resume state is the database, not the log. It
   was killed mid-run once and recovered by simply restarting.
 

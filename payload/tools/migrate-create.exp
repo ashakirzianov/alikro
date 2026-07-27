@@ -1,0 +1,36 @@
+#!/usr/bin/expect -f
+# Drive `payload migrate:create` past drizzle-kit's create-vs-rename prompts.
+#
+# Every prompt is answered with the DEFAULT (the first, highlighted option),
+# which is always "create table" / "create column". That is the correct answer
+# here: `artworks_texts` is a genuinely new table for the flat `tags` list, and
+# `series` / `materials` are being DROPPED, not renamed into it. Choosing a
+# rename would silently convert a drop into a data-carrying rename and produce a
+# migration that looks similar and does something entirely different.
+set timeout 600
+log_user 1
+
+spawn npx --no-install payload migrate:create revert-modelling-to-flat-tags
+
+expect {
+    -re {created or renamed from another table} {
+        send "\r"
+        exp_continue
+    }
+    -re {created or renamed from another column} {
+        send "\r"
+        exp_continue
+    }
+    -re {\(Y/n\)|\(y/N\)} {
+        send "\r"
+        exp_continue
+    }
+    timeout {
+        puts "\nTIMEOUT waiting for migrate:create"
+        exit 2
+    }
+    eof
+}
+
+catch wait result
+exit [lindex $result 3]
