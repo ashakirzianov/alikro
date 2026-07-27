@@ -126,6 +126,31 @@ real person made a draft in the admin during the playtest — that draft was
 live on the site. Fixed; `/all` is back to 575 and byte-identical to the
 pre-playtest baseline.
 
+**Now enforced, not remembered.** `npm run migrate:spotcheck` asserts that no
+draft appears in what the site actually renders. It calls the real
+`fetchAllAssetMetadataFromPayload()` rather than reconstructing its query — a
+reconstruction would drift from the thing it guards, which is exactly how the
+bug survived. Proven to fire: with the `_status` clause removed the check
+reports
+
+```
+Draft-leak guard: 2 draft(s) in the archive, 1 of them with showOnSite=true.
+1 PROBLEM(S):
+  screenshot-2026-04-29-at-11-09-48-am: DRAFT IS PUBLICLY VISIBLE — it is in what the site renders
+```
+
+and with it restored, `OK — the site layer returned 575 asset(s) and none of the
+2 draft(s) is among them`. When no draft carries `showOnSite: true` it prints
+**NOT EXERCISED** rather than passing quietly, because a guard that silently
+no-ops is the failure mode it exists to prevent.
+
+*Side effect worth knowing:* the two fixture drafts have no Crow counterpart, so
+the existing parity check called them slug-carry failures and made the whole
+spot-check permanently red. Parity checks now skip records that were never in
+the migration, told apart by the export's own join key (`fileName`) — so genuine
+slug drift is still caught, while a native upload is not a false alarm. A
+permanently red check is one nobody reads.
+
 **It is worth naming what this one means for the trial.** Draft/publish was the
 single feature the playtest rated a win, and in the consumer it was broken. The
 win is real, but it was not actually being exercised end-to-end until now.
@@ -145,9 +170,13 @@ was a check that passed — both were coincidences that looked like passing chec
 
 ## State
 
-- Two junk records remain, both drafts, both invisible to the site: id 631
-  (mine, "PLAYTEST upload check") and id 632 (a screenshot uploaded during the
-  playtest). Neither deleted — that is theirs to do.
+- **Two draft records remain, and they are load-bearing — do not tidy them
+  away.** id 631 (mine, "PLAYTEST upload check", `showOnSite: false`) and id 632
+  (a screenshot uploaded during the playtest, **`showOnSite: true`**). Both are
+  invisible to the site. 632 is the only record in the entire archive that can
+  express the draft-leak failure: all 630 migrated records are published, so
+  without it the guard below has nothing to test against and would pass
+  vacuously. It is a fixture now, not litter.
 - An empty folder, "SPIKE probe (folder-view test)", left from testing option 1.
   The real artwork filed into it was put back; only my own test draft is still in
   it. Mine to remove on request.

@@ -80,9 +80,21 @@ async function main() {
         // Cross-check against the source record. These are the fields where a
         // silent mismatch would only surface as broken links or a mis-sorted
         // gallery long after the archive pass.
+        //
+        // Records created *after* the migration — anything uploaded through the
+        // admin — have no Crow counterpart and are not parity failures. They are
+        // told apart by the export's own join key, `fileName`: a migrated record
+        // whose slug drifted still matches on filename, so genuine drift is
+        // still caught, while a native upload matches on neither and is skipped.
+        // Without this the two playtest drafts fail forever, and a permanently
+        // red check is one nobody reads.
         const crow = crowExport.assets.find(asset => asset.id === doc.slug)
-        if (!crow) {
-            failures.push({ slug, problem: 'no matching Crow record — slug was not carried' })
+        const crowByFile = crow
+            ?? crowExport.assets.find(asset => asset.fileName === doc.filename)
+        if (!crow && !crowByFile) {
+            console.log(`  ${slug}: not from the migration — Crow parity checks skipped`)
+        } else if (!crow) {
+            failures.push({ slug, problem: `slug was not carried: Crow has "${crowByFile!.id}" for ${doc.filename}` })
         } else {
             if (doc.filename !== crow.fileName) {
                 failures.push({ slug, problem: `filename drifted: ${doc.filename} vs Crow ${crow.fileName}` })
@@ -117,6 +129,9 @@ async function main() {
     }
 
     console.log(`\n${urlsChecked} URL(s) fetched.`)
+
+    failures.push(...await checkNoDraftReachesTheSite(payload))
+
     if (failures.length === 0) {
         console.log('Spot-check clean.')
         process.exit(0)
@@ -126,6 +141,65 @@ async function main() {
         console.log(`  ${failure.slug}: ${failure.problem}`)
     }
     process.exit(1)
+}
+
+// Drafts must never reach the site. `access.read` on the collection already
+// scopes anonymous reads to published — but the site reads through the Local
+// API, which bypasses access control entirely, so that predicate never runs for
+// it. The `_status` filter therefore has to live in the query itself, and this
+// is the guard that it still does.
+//
+// It calls the real `fetchAllAssetMetadataFromPayload()` rather than
+// reconstructing its query. Reconstructing it would let the guard and the thing
+// it guards drift apart, which is precisely how the bug survived: every
+// component along that path was individually correct.
+//
+// Written after the bug shipped. All 630 migrated records are published, so the
+// archive alone **cannot express this failure** — the guard is only meaningful
+// while at least one draft with `showOnSite: true` exists. It therefore reports
+// loudly when it had nothing to test against, rather than passing silently.
+async function checkNoDraftReachesTheSite(
+    payload: Awaited<ReturnType<typeof getPayload>>,
+): Promise<Failure[]> {
+    const { fetchAllAssetMetadataFromPayload } = await import('../../shared/payloadContent')
+
+    const drafts = await payload.find({
+        collection: 'artworks',
+        limit: 0,
+        pagination: false,
+        overrideAccess: true,
+        draft: true,
+        where: { _status: { equals: 'draft' } },
+    })
+    const fixtures = drafts.docs.filter(doc => doc.showOnSite === true)
+
+    console.log(
+        `\nDraft-leak guard: ${drafts.totalDocs} draft(s) in the archive, `
+        + `${fixtures.length} of them with showOnSite=true.`,
+    )
+
+    if (fixtures.length === 0) {
+        console.log(
+            '  NOT EXERCISED — no draft carries showOnSite=true, so nothing here '
+            + 'can express the failure. Treat this check as unproven, not as passing.',
+        )
+    }
+
+    const published = await fetchAllAssetMetadataFromPayload()
+    const visible = new Set(published.map(asset => asset.id))
+    const leaked = drafts.docs.filter(doc => doc.slug && visible.has(doc.slug))
+
+    if (leaked.length === 0 && fixtures.length > 0) {
+        console.log(
+            `  OK — the site layer returned ${published.length} asset(s) and none `
+            + `of the ${drafts.totalDocs} draft(s) is among them.`,
+        )
+    }
+
+    return leaked.map(doc => ({
+        slug: doc.slug ?? `(id ${doc.id})`,
+        problem: 'DRAFT IS PUBLICLY VISIBLE — it is in what the site renders',
+    }))
 }
 
 if (process.argv[1] && import.meta.url.endsWith(path.basename(process.argv[1]))) {
