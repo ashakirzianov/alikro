@@ -36,6 +36,15 @@ const MAX_EXPORT_AGE_HOURS = 24
 // pass proves I/O-bound.
 const CONCURRENCY = Number(process.env.MIGRATION_CONCURRENCY ?? 1)
 
+// Progress is reported every this many records, with elapsed-vs-remaining, so a
+// stall is distinguishable from slow progress in an unattended run.
+const CHECKPOINT_EVERY = 50
+
+// Three bad originals scattered through the archive is expected. Five in a row
+// is not — that is a systematic failure (credentials expired, bucket policy
+// changed, disk full), and continuing would burn an hour producing nothing.
+const MAX_CONSECUTIVE_FAILURES = 5
+
 type LogEntry = {
     at: string,
     slug: string,
@@ -85,17 +94,47 @@ export async function migrate({ limit, seriesOnly }: { limit?: number, seriesOnl
     console.log(`Migrating ${work.length} artwork(s) with concurrency ${CONCURRENCY}`)
 
     const counts = { created: 0, missing: 0, failed: 0 }
+    const startedAt = Date.now()
+    let processed = 0
+    let consecutiveFailures = 0
+    let abandoned = false
+
     await forEachWithConcurrency(work, CONCURRENCY, async artwork => {
+        if (abandoned) {
+            return
+        }
         const outcome = await migrateArtwork({ payload, artwork, seriesIds, materialIds, stagingDir: stagingDir! })
         if (outcome.outcome === 'created') counts.created++
         if (outcome.outcome === 'skipped-missing-file') counts.missing++
         if (outcome.outcome === 'failed') counts.failed++
         await log(outcome)
+
+        consecutiveFailures = outcome.outcome === 'failed' ? consecutiveFailures + 1 : 0
+        if (consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
+            abandoned = true
+            console.error(`\nSTOPPING: ${consecutiveFailures} consecutive failures — this looks systematic, not a few bad files.`)
+            console.error('Nothing already migrated is lost; fix the cause and re-run to resume.')
+            return
+        }
+
+        processed++
+        if (processed % CHECKPOINT_EVERY === 0) {
+            checkpoint({ processed, total: work.length, startedAt, counts })
+        }
     })
 
-    console.log(`Done. created=${counts.created} missing=${counts.missing} failed=${counts.failed}`)
-    if (counts.failed > 0 || counts.missing > 0) {
-        console.log(`Re-run to retry; already-created documents are skipped. Log: ${path.relative(process.cwd(), LOG_PATH)}`)
+    const elapsedMin = (Date.now() - startedAt) / 60_000
+    console.log(`\n=== reconciliation ===`)
+    console.log(`  attempted:      ${processed} of ${work.length}`)
+    console.log(`  created:        ${counts.created}`)
+    console.log(`  missing file:   ${counts.missing}`)
+    console.log(`  failed:         ${counts.failed}`)
+    console.log(`  elapsed:        ${elapsedMin.toFixed(1)} min`)
+    if (abandoned) {
+        console.log('  STOPPED EARLY on a cluster of consecutive failures — see above.')
+    }
+    if (counts.failed > 0 || counts.missing > 0 || abandoned) {
+        console.log(`  Re-run to retry; already-created documents are skipped. Log: ${path.relative(process.cwd(), LOG_PATH)}`)
     }
 }
 
@@ -213,6 +252,22 @@ async function migrateArtwork({ payload, artwork, seriesIds, materialIds, stagin
             detail: error instanceof Error ? error.message : String(error),
         }
     }
+}
+
+function checkpoint({ processed, total, startedAt, counts }: {
+    processed: number,
+    total: number,
+    startedAt: number,
+    counts: { created: number, missing: number, failed: number },
+}) {
+    const elapsedMs = Date.now() - startedAt
+    const perRecord = elapsedMs / processed
+    const remainingMin = ((total - processed) * perRecord) / 60_000
+    console.log(
+        `  [${processed}/${total}] created=${counts.created} missing=${counts.missing} failed=${counts.failed}`
+        + ` — ${(elapsedMs / 60_000).toFixed(1)} min elapsed, ~${remainingMin.toFixed(0)} min remaining`
+        + ` (${(perRecord / 1000).toFixed(1)}s/record)`,
+    )
 }
 
 async function loadExport(): Promise<CrowExport> {
