@@ -75,6 +75,24 @@ export function hrefForConsole({
     return `${process.env.NEXT_PUBLIC_CROW_CMS}/projects${path}`
 }
 
+// The "edit" affordance on a work. Under the A/B this has to follow whichever
+// CMS actually served the record: `hrefForConsole` always points at Crow via
+// NEXT_PUBLIC_CROW_CMS, so on the Payload path it sent you to the wrong CMS —
+// and to a console that does not have the record you were looking at.
+//
+// The record itself carries the answer (`cmsEditPath`, set only by the embedded
+// CMS), so no client-visible copy of CONTENT_SOURCE is needed and the two
+// switches cannot drift apart.
+export function hrefForEdit({ asset, pathname }: {
+    asset: { id: string, cmsEditPath?: string },
+    pathname?: string,
+}): string {
+    return asset.cmsEditPath ?? hrefForConsole({
+        assetId: asset.id,
+        filter: filterForPathname(pathname),
+    })
+}
+
 export function filterForPathname(pathname: string | undefined) {
     if (pathname === undefined) {
         return undefined

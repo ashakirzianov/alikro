@@ -51,10 +51,21 @@ export const Artworks: CollectionConfig = {
     versions: {
         drafts: true,
     },
+    // Spike (2026-07-27): the playtest judged the stock admin "not image-native".
+    // This is the cheapest thing that puts pictures on screen — Payload's folder
+    // browser renders thumbnail cards rather than table rows.
+    folders: true,
     admin: {
         useAsTitle: 'title',
         defaultColumns: ['title', 'medium', 'year', 'order'],
         description: 'One record per artwork — the image and its catalogue data.',
+        components: {
+            // Draws the list as a gallery instead of rows of titles. Mounted as
+            // `beforeListTable` rather than replacing the list view, so the
+            // whole query layer — search, filters, sort, pagination — keeps
+            // working with no code of ours. See the component for the cost note.
+            beforeListTable: ['/payload/components/ArtworkGrid#ArtworkGrid'],
+        },
     },
     upload: {
         staticDir: 'media',

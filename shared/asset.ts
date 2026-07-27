@@ -22,6 +22,14 @@ export type AssetMetadata = {
     // — its variant filenames carry actual output dimensions, so a name built
     // from a requested width can point at nothing. Ascending by width.
     variants?: AssetVariant[],
+    // Where this record is edited, in whichever CMS produced it. Present only
+    // when the CMS is the embedded one — Crow's console lives on another origin
+    // and is built from an env var instead. Carrying the path here rather than
+    // branching on the content source in the client is deliberate: the flag is
+    // server-only (`CONTENT_SOURCE`, no `NEXT_PUBLIC_` prefix), so a client
+    // component cannot read it, and adding a second public copy of the flag
+    // would give the A/B two switches that can disagree.
+    cmsEditPath?: string,
 }
 export type AssetMetadataUpdate = Omit<
     AssetMetadata,

@@ -1,0 +1,96 @@
+// Spike (2026-07-27): image-native artworks list. See
+// payload/components/ArtworkGrid.tsx for what this styles and why.
+//
+// The grid is mounted as `beforeListTable`, so the default table still renders
+// underneath it. Hiding the table is what turns "gallery plus a redundant list"
+// into a gallery — and it is also the honest cost of this approach: Payload has
+// no supported way to *replace* the table from `beforeListTable`, so this leans
+// on a Payload-owned class name. That selector is exactly the kind of thing a
+// weekly release can rename out from under us.
+
+.collection-list--artworks {
+    .table {
+        display: none;
+    }
+}
+
+.artwork-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--base);
+    margin-block: var(--base);
+
+    &__card {
+        display: flex;
+        flex-direction: column;
+        gap: calc(var(--base) / 4);
+        text-decoration: none;
+        color: inherit;
+
+        &:hover .artwork-grid__frame {
+            border-color: var(--theme-elevation-400);
+        }
+    }
+
+    &__frame {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 1;
+        overflow: hidden;
+        background: var(--theme-elevation-50);
+        border: 1px solid var(--theme-elevation-150);
+        border-radius: 3px;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    &__missing {
+        font-size: 0.7rem;
+        color: var(--theme-elevation-400);
+    }
+
+    &__badge {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        padding: 1px 6px;
+        border-radius: 2px;
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        background: var(--theme-warning-500);
+        color: var(--theme-base-800);
+
+        &--muted {
+            left: auto;
+            right: 6px;
+            background: var(--theme-elevation-300);
+            color: var(--theme-elevation-800);
+        }
+    }
+
+    &__meta {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.25;
+        min-width: 0;
+    }
+
+    &__title {
+        font-size: 0.8rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__sub {
+        font-size: 0.72rem;
+        color: var(--theme-elevation-500);
+    }
+}

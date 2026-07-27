@@ -26,7 +26,20 @@ export async function fetchAllAssetMetadataFromPayload(): Promise<AssetMetadata[
         // The site shows published work that is meant to be shown. Replaces
         // Crow's `kind !== 'unpublished'` filter and the hardcoded tattoo
         // exclusion in shared/preprocess.ts.
-        where: { showOnSite: { equals: true } },
+        //
+        // `_status` has to be filtered here explicitly. The collection's
+        // `access.read` already scopes anonymous reads to published, but the
+        // site reads through the Local API, which bypasses access control
+        // entirely — so that predicate never runs for us. Without this clause a
+        // draft with `showOnSite` left at its default is served to the public
+        // site, which is exactly what drafts are supposed to prevent. Found
+        // when a real person made a draft in the admin during the playtest: all
+        // 630 migrated records are published, so nothing in the archive could
+        // have surfaced it.
+        where: {
+            showOnSite: { equals: true },
+            _status: { equals: 'published' },
+        },
     })
     return result.docs.filter(hasSlug).map(toAssetMetadata)
 }
@@ -54,6 +67,7 @@ function hasSlug<T extends { slug?: string | null }>(doc: T): doc is T & { slug:
 // structurally rather than imported so the Crow path stays free of any
 // dependency on the trial.
 type ArtworkDoc = {
+    id: number | string,
     slug?: string | null,
     filename?: string | null,
     width?: number | null,
@@ -76,6 +90,9 @@ function toAssetMetadata(doc: ArtworkWithSlug): AssetMetadata {
         // Crow's asset id, carried through the migration — this is what keeps
         // /all/<id> URLs alive.
         id: doc.slug,
+        // Payload's own serial id, which is what its admin routes on. The
+        // public id above is the Crow slug and will not resolve there.
+        cmsEditPath: `/admin/collections/artworks/${doc.id}`,
         fileName: doc.filename ?? '',
         width: doc.width ?? 300,
         height: doc.height ?? 300,
