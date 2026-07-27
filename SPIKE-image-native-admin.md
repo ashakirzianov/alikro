@@ -207,6 +207,17 @@ was a check that passed — both were coincidences that looked like passing chec
   records appeared without anyone editing the check, and why the spot-check did
   not go permanently red on another agent's work. Any future backfill must treat
   "no export match" the same way: **normal, not an error.**
+
+  *The evidence that it is genuinely a rule and not a workaround dressed up as
+  one:* the criterion-4 agent, which did not write it, reused the same
+  `fromMigration` predicate for a case nobody had anticipated — a draft created
+  with **no file at all**, which Payload permits because it skips upload
+  validation for drafts. It scoped the excuse tightly (a published record, or any
+  migrated record, still fails with no file) and announced the skip rather than
+  passing over it quietly. **A rule reused correctly by someone who did not write
+  it is the only real test of whether it was a rule.** An enumeration could not
+  have been reused that way — it would have needed editing first, and the seven
+  probe records would have arrived as seven false failures.
 - An empty folder, "SPIKE probe (folder-view test)", left from testing option 1.
   The real artwork filed into it was put back; only my own test draft is still in
   it. Mine to remove on request.
