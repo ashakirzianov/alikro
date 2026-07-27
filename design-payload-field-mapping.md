@@ -224,8 +224,8 @@ bites here, and the OG route must snap to the eight widths during Phase-2 rewiri
 **Storage.** `@payloadcms/storage-s3` engages only when `S3_BUCKET` is set;
 otherwise uploads go to `media/` on local disk, which is how this branch runs
 without credentials. `disablePayloadAccessControl: true` on `artworks` — verified
-present in 3.86.0 — points file URLs straight at the bucket. Two consequences for
-Phase 2:
+present in 3.86.0 — points file URLs straight at the bucket. Three consequences
+for Phase 2:
 
 - **The bucket needs an `s3:GetObject` policy** on `<prefix>/*`. Disabling
   Payload's access control also removes its serving route, so the bucket is the
@@ -235,6 +235,43 @@ Phase 2:
   `config.endpoint`, unset for plain AWS — it would have written the literal string
   `undefined/…` into every `url` and `sizes.*.url` column at write time, i.e. an
   entire archive pass redone.
+- **It silently breaks every thumbnail in the admin** — see below. This is the
+  one that would have cost the playtest.
+
+### `adminThumbnail` and `disablePayloadAccessControl` interact, with no warning
+
+Naming a size — `adminThumbnail: 'w480'`, the documented form — makes Payload
+build the thumbnail URL as `/api/artworks/file/<name>`: **its own serving route,
+which `disablePayloadAccessControl: true` removes.** Measured on the live trial
+instance, 2026-07-27:
+
+```
+GET /api/artworks/file/<…>-480x720.webp                        -> 500
+GET https://<bucket>.s3.<region>.amazonaws.com/alikro/<…>.webp -> 200
+```
+
+So every thumbnail in the admin 500s and renders as a grey file icon — **all 630
+artworks**, in an admin whose entire subject is pictures. Nothing warns: no build
+error, no console message, no type complaint. `thumbnailURL` is still populated,
+just with a URL to a route that no longer exists.
+
+The fix is one line — `adminThumbnail: ({ doc }) => doc.sizes?.w480?.url` —
+pointing at the same bucket the site reads from.
+
+**Why this one was fixed and the tiffs were not.** The tiff failure is a genuine
+capability gap in Payload, and patching it would delete the datapoint the trial
+exists to collect. This is the opposite: a config artifact of *our* Crow-parity
+choice, which would have made Payload look far worse than it is and contaminated
+criterion 1 — the very thing the playtest measures. **Fix the artifact, surface
+the gap.** It remains a finding in its own right: two settings that interact
+destructively, where one of them is *required* to match Crow's read path.
+
+**Second-order note for criterion 5 (maintenance weight).** A stale
+`app/(payload)/admin/importMap.js` — it was missing the S3 upload handler — makes
+the *entire admin render blank*, reporting only a `getFromImportMap:
+PayloadComponent not found` line in the dev server log. A generated file that
+must be regenerated after config changes, whose staleness mode is a white screen,
+is real ongoing upkeep against Crow's ~zero.
 
 ---
 
@@ -409,9 +446,18 @@ live side by side, which is what makes the playtest an A/B rather than a rewrite
 - **The consumer's image layer is not portable, in either direction** — the largest
   single migration cost found so far (§3). It is symmetric: it would also be the
   cost of ever moving back.
-- **Two undocumented media traps**: `image-size` vs sharp `.rotate()` dimensions,
-  and eight configured sizes yielding fewer than eight files. Mine are patched or
-  accounted for; neither is documented on Payload's side.
+- **Three undocumented media traps**: `image-size` vs sharp `.rotate()`
+  dimensions; eight configured sizes yielding fewer than eight files; and
+  `adminThumbnail` breaking under `disablePayloadAccessControl` (§3). Mine are
+  patched or accounted for; none is documented on Payload's side. The third is
+  the sharpest, because the setting that breaks it is the one Crow parity
+  requires — and its failure mode is silent.
+- **Two records marked `hidden` in Crow are publicly visible on alikro.art
+  today.** `love-for-app` and `love-and-kindness-for-app`: Crow stores the flag,
+  but alikro's `preprocess.ts` only ever filtered `tattoo`, so nothing consumed
+  it. Payload's `showOnSite: false` actually hides them, which is why the A/B
+  diff is four records and not two. **This is a live production finding, true
+  regardless of the verdict** — surfaced to Anton separately from the trial.
 - **Drafts are now genuinely exercised** — a baseline dimension Crow scores 1/5 on,
   and one of the strongest reasons Payload might win. Leaving `kind` overloaded
   would have rigged the playtest against it.
