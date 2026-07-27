@@ -15,7 +15,7 @@
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js'
 
-import { RETAG_SERIES_IDS, readOrderBaseline, restorePlan, reversedOrderPlan, verifyRestored } from './shared'
+import { RETAG_TAGS, readOrderBaseline, restorePlan, reversedOrderPlan, verifyRestored } from './shared'
 
 const BASE = process.env.PROBE_BASE ?? 'http://localhost:5733'
 const KEY = process.env.PROBE_MCP_KEY ?? ''
@@ -243,18 +243,16 @@ async function main() {
     if (createdId !== undefined) {
         await call(client, 'updateArtworks', {
             id: String(createdId),
-            series: RETAG_SERIES_IDS,
+            tags: RETAG_TAGS,
             materials: [10, 1],
-            favorite: false,
             draft: true,
         })
         const doc = await readBack(client, createdId)
-        const seriesIds = ((doc?.series ?? []) as Array<number | { id: number }>).map(v => typeof v === 'object' ? v.id : v)
-        const materialIds = ((doc?.materials ?? []) as Array<number | { id: number }>).map(v => typeof v === 'object' ? v.id : v)
+        const tags = (doc?.tags ?? []) as string[]
         record(
             'T2 retag',
-            seriesIds.length === RETAG_SERIES_IDS.length && RETAG_SERIES_IDS.every(id => seriesIds.includes(id)) && materialIds.length === 2,
-            `series=[${seriesIds}] materials=[${materialIds}]`,
+            tags.length === RETAG_TAGS.length && RETAG_TAGS.every(tag => tags.includes(tag)),
+            `tags=[${tags}]`,
         )
     }
 

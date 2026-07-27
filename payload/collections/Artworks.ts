@@ -132,32 +132,15 @@ export const Artworks: CollectionConfig = {
             index: true,
         },
         {
-            // Kept verbatim alongside the modelled relations below. It is what
-            // the site still parses for its material filter, and it makes the
-            // whole modelling step fully reversible: if the taxonomy is wrong,
-            // the prose it came from is still on every record.
+            // Free text, exactly as Crow stored it. The `materials`/`support`
+            // taxonomy derived from this string was built, shown to Alina, and
+            // rejected (2026-07-27) — see design-payload-field-mapping.md §2b.
+            // Keeping the prose verbatim through the modelling step is what made
+            // that reversal a script rather than a re-migration.
             name: 'material',
             type: 'text',
             admin: {
-                description: 'The original free-text description, e.g. "acrylic on paper". Source of truth; the relations below are derived from it.',
-            },
-        },
-        {
-            name: 'materials',
-            type: 'relationship',
-            relationTo: 'materials',
-            hasMany: true,
-            admin: {
-                description: 'What the work is made of.',
-            },
-        },
-        {
-            name: 'support',
-            type: 'relationship',
-            relationTo: 'materials',
-            hasMany: true,
-            admin: {
-                description: 'What it is made on — the "on paper" half of the description.',
+                description: 'Free-text description, e.g. "acrylic on paper". The site parses it for the material filter.',
             },
         },
         {
@@ -186,15 +169,6 @@ export const Artworks: CollectionConfig = {
             },
         },
         {
-            // Crow stored this as the magic string "Favorite" inside a tags
-            // array. Every other tag became a series, so what was left was a
-            // boolean wearing a string costume.
-            name: 'favorite',
-            type: 'checkbox',
-            defaultValue: false,
-            index: true,
-        },
-        {
             name: 'order',
             type: 'number',
             index: true,
@@ -203,10 +177,22 @@ export const Artworks: CollectionConfig = {
             },
         },
         {
-            name: 'series',
-            type: 'relationship',
-            relationTo: 'series',
+            // Back to Crow's flat vocabulary. This replaced a `series`
+            // relationship and a `favorite` checkbox, both dropped 2026-07-27
+            // after Anton and Alina judged the modelled shape and preferred this
+            // one — "I have opened both, but didn't edit it."
+            //
+            // The cost is recorded rather than hidden: `Favorite` is a boolean
+            // wearing a string costume, and folding it back in here deletes the
+            // one place the split was genuinely better than Crow. That is the
+            // price of parity with the incumbent, knowingly paid.
+            name: 'tags',
+            type: 'text',
             hasMany: true,
+            index: true,
+            admin: {
+                description: 'Free-text tags, as Crow stores them. "Favorite" is one of these rather than its own field.',
+            },
         },
     ],
 }

@@ -13,7 +13,7 @@
 
 import { readFileSync } from 'fs'
 
-import { RETAG_SERIES_IDS, readOrderBaseline, restorePlan, reversedOrderPlan, verifyRestored } from './shared'
+import { RETAG_TAGS, readOrderBaseline, restorePlan, reversedOrderPlan, verifyRestored } from './shared'
 
 const BASE = process.env.PROBE_BASE ?? 'http://localhost:5733'
 const API_KEY = process.env.PROBE_API_KEY ?? ''
@@ -40,7 +40,7 @@ async function main() {
         material: 'gouache on paper',
         medium: 'drawing',
         materials: [10],
-        series: [RETAG_SERIES_IDS[0]!],
+        tags: [RETAG_TAGS[0]!],
         order: 9999,
         favorite: true,
         showOnSite: false,
@@ -97,18 +97,17 @@ async function main() {
     const retagResponse = await fetch(`${BASE}/api/artworks/${doc.id}`, {
         method: 'PATCH',
         headers: { ...auth, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ series: RETAG_SERIES_IDS, materials: [10, 1], favorite: false }),
+        body: JSON.stringify({ tags: RETAG_TAGS }),
     })
     if (!retagResponse.ok) {
         throw new Error(`retag failed ${retagResponse.status}`)
     }
     const retagged = await findBySlug(PROBE_SLUG)
-    const seriesIds = ((retagged?.series ?? []) as Array<number | { id: number }>).map(v => typeof v === 'object' ? v.id : v)
-    const materialIds = ((retagged?.materials ?? []) as Array<number | { id: number }>).map(v => typeof v === 'object' ? v.id : v)
+    const tags = (retagged?.tags ?? []) as string[]
     record(
         'T2 retag',
-        seriesIds.length === RETAG_SERIES_IDS.length && RETAG_SERIES_IDS.every(id => seriesIds.includes(id)) && materialIds.length === 2,
-        `series=[${seriesIds}] materials=[${materialIds}] favorite=${retagged?.favorite}`,
+        tags.length === RETAG_TAGS.length && RETAG_TAGS.every(tag => tags.includes(tag)),
+        `tags=[${tags}]`,
     )
 
     // ---- T3: reorder a gallery --------------------------------------------

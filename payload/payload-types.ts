@@ -69,8 +69,6 @@ export interface Config {
   blocks: {};
   collections: {
     artworks: Artwork;
-    series: Series;
-    materials: Material;
     users: User;
     'payload-mcp-api-keys': PayloadMcpApiKey;
     'payload-kv': PayloadKv;
@@ -80,17 +78,12 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
-    series: {
-      artworks: 'artworks';
-    };
     'payload-folders': {
       documentsAndFolders: 'payload-folders' | 'artworks';
     };
   };
   collectionsSelect: {
     artworks: ArtworksSelect<false> | ArtworksSelect<true>;
-    series: SeriesSelect<false> | SeriesSelect<true>;
-    materials: MaterialsSelect<false> | MaterialsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-mcp-api-keys': PayloadMcpApiKeysSelect<false> | PayloadMcpApiKeysSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -166,17 +159,9 @@ export interface Artwork {
   title?: string | null;
   year?: number | null;
   /**
-   * The original free-text description, e.g. "acrylic on paper". Source of truth; the relations below are derived from it.
+   * Free-text description, e.g. "acrylic on paper". The site parses it for the material filter.
    */
   material?: string | null;
-  /**
-   * What the work is made of.
-   */
-  materials?: (number | Material)[] | null;
-  /**
-   * What it is made on — the "on paper" half of the description.
-   */
-  support?: (number | Material)[] | null;
   /**
    * Adding a new medium currently requires a code change — flagged as a trial finding.
    */
@@ -185,12 +170,14 @@ export interface Artwork {
    * Uncheck to keep a published work out of the public galleries. Migration unchecks it for tattoos, matching what the site does today.
    */
   showOnSite?: boolean | null;
-  favorite?: boolean | null;
   /**
    * Sort position across the whole archive, ascending. The single ordering — series pages sort by it too, exactly as they do today.
    */
   order?: number | null;
-  series?: (number | Series)[] | null;
+  /**
+   * Free-text tags, as Crow stores them. "Favorite" is one of these rather than its own field.
+   */
+  tags?: string[] | null;
   prefix?: string | null;
   folder?: (number | null) | FolderInterface;
   updatedAt: string;
@@ -271,54 +258,6 @@ export interface Artwork {
       filename?: string | null;
     };
   };
-}
-/**
- * Media and supports. Merge duplicates here rather than editing 600 artworks.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "materials".
- */
-export interface Material {
-  id: number;
-  slug: string;
-  name: string;
-  /**
-   * A more general material, if this is a specific kind of one (e.g. soldate clay → clay).
-   */
-  broader?: (number | null) | Material;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * A named body of work. Replaces alikro's hardcoded tag-query collections.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "series".
- */
-export interface Series {
-  id: number;
-  /**
-   * URL segment — carry over the ids in shared/collection.ts (e.g. `self-portraits`) so existing links keep working.
-   */
-  slug: string;
-  title: string;
-  description?: string | null;
-  cover?: (number | null) | Artwork;
-  /**
-   * Show in the site navigation.
-   */
-  featured?: boolean | null;
-  /**
-   * Position among series in the navigation.
-   */
-  order?: number | null;
-  artworks?: {
-    docs?: (number | Artwork)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -409,34 +348,6 @@ export interface PayloadMcpApiKey {
      */
     update?: boolean | null;
   };
-  series?: {
-    /**
-     * Allow clients to find series.
-     */
-    find?: boolean | null;
-    /**
-     * Allow clients to create series.
-     */
-    create?: boolean | null;
-    /**
-     * Allow clients to update series.
-     */
-    update?: boolean | null;
-  };
-  materials?: {
-    /**
-     * Allow clients to find materials.
-     */
-    find?: boolean | null;
-    /**
-     * Allow clients to create materials.
-     */
-    create?: boolean | null;
-    /**
-     * Allow clients to update materials.
-     */
-    update?: boolean | null;
-  };
   updatedAt: string;
   createdAt: string;
   enableAPIKey?: boolean | null;
@@ -471,14 +382,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'artworks';
         value: number | Artwork;
-      } | null)
-    | ({
-        relationTo: 'series';
-        value: number | Series;
-      } | null)
-    | ({
-        relationTo: 'materials';
-        value: number | Material;
       } | null)
     | ({
         relationTo: 'users';
@@ -553,13 +456,10 @@ export interface ArtworksSelect<T extends boolean = true> {
   title?: T;
   year?: T;
   material?: T;
-  materials?: T;
-  support?: T;
   medium?: T;
   showOnSite?: T;
-  favorite?: T;
   order?: T;
-  series?: T;
+  tags?: T;
   prefix?: T;
   folder?: T;
   updatedAt?: T;
@@ -661,32 +561,6 @@ export interface ArtworksSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "series_select".
- */
-export interface SeriesSelect<T extends boolean = true> {
-  slug?: T;
-  title?: T;
-  description?: T;
-  cover?: T;
-  featured?: T;
-  order?: T;
-  artworks?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "materials_select".
- */
-export interface MaterialsSelect<T extends boolean = true> {
-  slug?: T;
-  name?: T;
-  broader?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
@@ -720,20 +594,6 @@ export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
   label?: T;
   description?: T;
   artworks?:
-    | T
-    | {
-        find?: T;
-        create?: T;
-        update?: T;
-      };
-  series?:
-    | T
-    | {
-        find?: T;
-        create?: T;
-        update?: T;
-      };
-  materials?:
     | T
     | {
         find?: T;

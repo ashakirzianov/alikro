@@ -17,7 +17,7 @@
 import { getPayload } from 'payload'
 
 import config from '../../payload.config'
-import { PLATES_SERIES_ID, RETAG_SERIES_IDS, readOrderBaseline, restorePlan, reversedOrderPlan, verifyRestored } from './shared'
+import { PLATES_TAG, RETAG_TAGS, readOrderBaseline, restorePlan, reversedOrderPlan, verifyRestored } from './shared'
 
 const FIXTURE = '/tmp/mcpprobe/fixtures/c4-probe-3.png'
 const PROBE_SLUG = 'c4-probe-3'
@@ -56,10 +56,8 @@ async function main() {
             year: 2026,
             material: 'gouache on paper',
             medium: 'drawing',
-            materials: [10],
-            series: [RETAG_SERIES_IDS[0]!],
+            tags: [RETAG_TAGS[0]!],
             order: 9998,
-            favorite: true,
             // Kept out of the public galleries and left as a draft: this is a
             // probe artefact, not content.
             showOnSite: false,
@@ -127,12 +125,13 @@ async function main() {
 
     // ---- T2: retag ---------------------------------------------------------
     // Confined to the record this script created. "Retag" in this model is
-    // relationship membership: series and materials.
-    const seriesTargets = RETAG_SERIES_IDS
+    // tag membership. Retag was a relationship write until 2026-07-27; the
+    // modelling was reverted, so it is now a write to the flat `tags` list. The
+    // capability being probed is unchanged — can an agent re-catalogue a record.
     await payload.update({
         collection: 'artworks',
         id: created.id,
-        data: { series: seriesTargets, materials: [10, 1], favorite: false },
+        data: { tags: RETAG_TAGS },
         overrideAccess: true,
     })
     const retagged = await payload.findByID({
@@ -142,30 +141,18 @@ async function main() {
         overrideAccess: true,
         draft: true,
     })
-    const seriesIds = (retagged.series ?? []).map(value => typeof value === 'object' ? value.id : value)
-    const materialIds = (retagged.materials ?? []).map(value => typeof value === 'object' ? value.id : value)
+    const tags = retagged.tags ?? []
     record(
         'T2 retag',
-        seriesIds.length === RETAG_SERIES_IDS.length && RETAG_SERIES_IDS.every(id => seriesIds.includes(id))
-        && materialIds.length === 2 && retagged.favorite === false,
-        `series=[${seriesIds}] materials=[${materialIds}] favorite=${retagged.favorite}`,
+        tags.length === RETAG_TAGS.length && RETAG_TAGS.every(tag => tags.includes(tag)),
+        `tags=[${tags}]`,
     )
 
-    // Does the reverse `join` view on the series see the new member? That is
-    // the read side an agent would use to check its own work.
-    const seriesDoc = await payload.findByID({
-        collection: 'series',
-        id: RETAG_SERIES_IDS[0]!,
-        depth: 0,
-        overrideAccess: true,
-        draft: true,
-    })
-    const joinDocs = (seriesDoc.artworks?.docs ?? []).map(value => typeof value === 'object' ? (value as { id: number }).id : value)
-    record(
-        'T2b join view reflects it',
-        joinDocs.includes(created.id),
-        `series ${RETAG_SERIES_IDS[0]} join now lists ${joinDocs.length} artwork(s); contains ${created.id}: ${joinDocs.includes(created.id)}`,
-    )
+    // A 'T2b join view reflects it' sub-test lived here: it read the series'
+    // reverse `join` view to confirm an agent could verify its own write. Flat
+    // tags have no reverse view to read — the tag list on the record IS the
+    // membership, and T2 above already asserts it. Removed with the modelling
+    // (2026-07-27) rather than left asserting nothing.
 
     // ---- T3: reorder a gallery --------------------------------------------
     // Real records. Baseline was dumped before any write; the permutation only
@@ -185,7 +172,7 @@ async function main() {
 
     const afterReorder = await payload.find({
         collection: 'artworks',
-        where: { and: [{ series: { in: [PLATES_SERIES_ID] } }, { id: { in: baseline.map(row => row.id) } }] },
+        where: { and: [{ series: { in: [PLATES_TAG] } }, { id: { in: baseline.map(row => row.id) } }] },
         sort: 'order',
         depth: 0,
         limit: 0,

@@ -19,8 +19,6 @@ import { getPayload } from 'payload'
 
 import config from '../../payload.config'
 import { createDataFor, mapExport, type CrowExport, type MappedArtwork } from './mapping'
-import { deriveMaterialTaxonomy } from './materials'
-import { SERIES_SEEDS } from './series'
 
 const EXPORT_PATH = path.resolve(process.cwd(), 'payload/migration/crow-export.json')
 const LOG_PATH = path.resolve(process.cwd(), 'payload/migration/.migration-log.jsonl')
@@ -76,11 +74,7 @@ export async function migrate({ limit, seriesOnly }: { limit?: number, seriesOnl
 
     const payload = await getPayload({ config })
 
-    const seriesIds = await ensureSeries(payload)
-    console.log(`Series ready: ${seriesIds.size}`)
 
-    const materialIds = await ensureMaterials(payload, crowExport.assets.map(asset => asset.material))
-    console.log(`Materials ready: ${materialIds.size}`)
 
     if (seriesOnly) {
         return
@@ -103,7 +97,7 @@ export async function migrate({ limit, seriesOnly }: { limit?: number, seriesOnl
         if (abandoned) {
             return
         }
-        const outcome = await migrateArtwork({ payload, artwork, seriesIds, materialIds, stagingDir: stagingDir! })
+        const outcome = await migrateArtwork({ payload, artwork, stagingDir: stagingDir! })
         if (outcome.outcome === 'created') counts.created++
         if (outcome.outcome === 'skipped-missing-file') counts.missing++
         if (outcome.outcome === 'failed') counts.failed++
@@ -138,70 +132,9 @@ export async function migrate({ limit, seriesOnly }: { limit?: number, seriesOnl
     }
 }
 
-// Idempotent by slug: the series table is the source of truth, and re-running
-// updates titles/descriptions rather than duplicating documents.
-export async function ensureSeries(payload: Awaited<ReturnType<typeof getPayload>>) {
-    const ids = new Map<string, number>()
-    for (const seed of SERIES_SEEDS) {
-        const found = await payload.find({
-            collection: 'series',
-            where: { slug: { equals: seed.slug } },
-            limit: 1,
-            depth: 0,
-        })
-        const existing = found.docs[0]
-        if (existing) {
-            ids.set(seed.slug, existing.id)
-            continue
-        }
-        const created = await payload.create({
-            collection: 'series',
-            data: {
-                slug: seed.slug,
-                title: seed.title,
-                description: seed.description,
-            },
-        })
-        ids.set(seed.slug, created.id)
-    }
-    return ids
-}
-
-// Seeded from the archive rather than a hand-written table: the terms are
-// derived by the site's own parser, so they are exactly what the work is made
-// of. Idempotent by slug.
-export async function ensureMaterials(
-    payload: Awaited<ReturnType<typeof getPayload>>,
-    materials: (string | undefined)[],
-) {
-    const { terms } = deriveMaterialTaxonomy(materials)
-    const ids = new Map<string, number>()
-    for (const term of terms) {
-        const found = await payload.find({
-            collection: 'materials',
-            where: { slug: { equals: term.slug } },
-            limit: 1,
-            depth: 0,
-        })
-        const existing = found.docs[0]
-        if (existing) {
-            ids.set(term.slug, existing.id)
-            continue
-        }
-        const created = await payload.create({
-            collection: 'materials',
-            data: { slug: term.slug, name: term.name },
-        })
-        ids.set(term.slug, created.id)
-    }
-    return ids
-}
-
-async function migrateArtwork({ payload, artwork, seriesIds, materialIds, stagingDir }: {
+async function migrateArtwork({ payload, artwork, stagingDir }: {
     payload: Awaited<ReturnType<typeof getPayload>>,
     artwork: MappedArtwork,
-    seriesIds: Map<string, number>,
-    materialIds: Map<string, number>,
     stagingDir: string,
 }): Promise<LogEntry> {
     const at = new Date().toISOString()
@@ -212,16 +145,6 @@ async function migrateArtwork({ payload, artwork, seriesIds, materialIds, stagin
         return { at, slug: artwork.slug, outcome: 'skipped-missing-file', detail: filePath }
     }
 
-    const series = artwork.seriesSlugs
-        .map(slug => seriesIds.get(slug))
-        .filter((id): id is number => id !== undefined)
-    const materials = artwork.materialSlugs
-        .map(slug => materialIds.get(slug))
-        .filter((id): id is number => id !== undefined)
-    const support = artwork.supportSlugs
-        .map(slug => materialIds.get(slug))
-        .filter((id): id is number => id !== undefined)
-
     try {
         // Passing filePath rather than a buffer lets Payload handle the formats
         // that need a file on disk — the two .tiff originals cannot be measured
@@ -229,12 +152,7 @@ async function migrateArtwork({ payload, artwork, seriesIds, materialIds, stagin
         await payload.create({
             collection: 'artworks',
             filePath,
-            data: {
-                ...createDataFor(artwork),
-                series,
-                materials,
-                support,
-            },
+            data: createDataFor(artwork),
             // The archive is the source of truth here; access control and the
             // draft/publish workflow are for humans in the admin.
             overrideAccess: true,

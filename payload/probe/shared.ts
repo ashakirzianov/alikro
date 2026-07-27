@@ -4,9 +4,10 @@
 import { readFileSync } from 'fs'
 import path from 'path'
 
-// `plates` — five members, a real gallery on the site, small enough that a
-// permutation is legible in a log. This is the **reorder** target.
-export const PLATES_SERIES_ID = 13
+// `Plates` — five members, a real gallery on the site, small enough that a
+// permutation is legible in a log. This is the **reorder** target. It was a
+// series id until 2026-07-27; the modelling was reverted, so it is a tag again.
+export const PLATES_TAG = 'Plates'
 
 // Where the retag task files its probe record — deliberately NOT `plates`.
 // An earlier run put the probe records in the same gallery it was reordering,
@@ -14,9 +15,9 @@ export const PLATES_SERIES_ID = 13
 // carried sentinel orders (9998, 9999, null) and sorted after every real plate.
 // A blind driver reading the archive cold hit exactly that and had to ask which
 // record was really last. Two ids, because the point of the task is `hasMany`.
-export const RETAG_SERIES_IDS = [16, 5]
+export const RETAG_TAGS = ['Cat Hotel', 'Sketch from Museum']
 
-export type OrderBaselineRow = { id: number, slug: string, title: string | null, order: number | null, series: number[] }
+export type OrderBaselineRow = { id: number, slug: string, title: string | null, order: number | null, tags: string[] }
 
 export function readOrderBaseline(): OrderBaselineRow[] {
     const file = path.resolve(process.cwd(), 'payload/probe/order-baseline-plates.json')

@@ -2,8 +2,6 @@
 // can be exercised over the whole archive without a database. `validate.ts` runs
 // it across all 632 records; `migrate.ts` is the only thing that writes.
 
-import { materialComponents } from './materials'
-import { isFavoriteTag, seriesSlugForTag } from './series'
 
 // Crow's AssetMetadata, as it comes out of the export.
 export type CrowAsset = {
@@ -33,10 +31,6 @@ export type MappedArtwork = {
     title?: string,
     year?: number,
     material?: string,
-    // Derived from `material` by the site's own parser. The raw string above
-    // stays authoritative, so this is additive and fully reversible.
-    materialSlugs: string[],
-    supportSlugs: string[],
     medium?: Medium,
     showOnSite: boolean,
     status: 'draft' | 'published',
@@ -45,8 +39,11 @@ export type MappedArtwork = {
     // defaults createdAt when one is not supplied, so no second date field is
     // needed to preserve it.
     createdAt: string,
-    favorite: boolean,
-    seriesSlugs: string[],
+    // Crow's tags, carried verbatim — including the "Favorite" flag, which lives
+    // in here rather than in a field of its own. The modelled shape (a `series`
+    // relation plus a `favorite` boolean) was built, judged and rejected on
+    // 2026-07-27; see design-payload-field-mapping.md §2.
+    tags: string[],
 }
 
 export type MappingIssue = {
@@ -92,39 +89,14 @@ export function mapAsset(asset: CrowAsset): { artwork: MappedArtwork, issues: Ma
         issues.push({ slug, field: 'medium', message: `unknown kind "${asset.kind}" — add it to MEDIUMS or map it`, blocking: true })
     }
 
-    const components = materialComponents(asset.material)
-    if (asset.material && asset.material.trim().length > 0 && components.length === 0) {
-        // The prose says the work is made of something and the parser found
-        // nothing. Silently migrating an artwork with no materials would be a
-        // hole nobody notices until Alina filters for it.
-        issues.push({
-            slug,
-            field: 'materials',
-            message: `material "${asset.material}" yields no components — check shared/material.ts before migrating`,
-            blocking: true,
-        })
-    }
-
-    let favorite = false
-    const seriesSlugs: string[] = []
-    for (const tag of asset.tags ?? []) {
-        const seriesSlug = seriesSlugForTag(tag)
-        if (seriesSlug) {
-            seriesSlugs.push(seriesSlug)
-        } else if (isFavoriteTag(tag)) {
-            favorite = true
-        } else {
-            // A tag added to Crow after the series table was written. There is
-            // no flat-tag field to hide it in any more, and quietly dropping it
-            // would mis-model the work — so this stops the run.
-            issues.push({
-                slug,
-                field: 'series',
-                message: `tag "${tag}" is neither a known series nor the favorite flag — classify it in series.ts before migrating`,
-                blocking: true,
-            })
-        }
-    }
+    // Two blocking guards used to live here and are gone with the modelling:
+    // one rejected a `material` string the parser could not decompose, the other
+    // an unclassified tag. Neither has anything to check any more — a flat tag
+    // list accepts every string, which is the point of it and also its cost.
+    // Recorded as a finding rather than mourned: the modelled shape could catch
+    // a typo'd tag and a material the site would fail to filter, and the flat
+    // shape structurally cannot. Anton and Alina chose the flat shape knowing
+    // what the parser-as-schema bought.
 
     return {
         artwork: {
@@ -133,15 +105,12 @@ export function mapAsset(asset: CrowAsset): { artwork: MappedArtwork, issues: Ma
             title: asset.title,
             year: asset.year,
             material: asset.material,
-            materialSlugs: components.filter(c => c.role === 'medium').map(c => c.slug),
-            supportSlugs: components.filter(c => c.role === 'support').map(c => c.slug),
             medium,
             showOnSite: showOnSiteForKind(asset.kind),
             status: asset.kind === KIND_UNPUBLISHED ? 'draft' : 'published',
             order: asset.order,
             createdAt,
-            favorite,
-            seriesSlugs,
+            tags: [...(asset.tags ?? [])],
         },
         issues,
     }
@@ -171,7 +140,7 @@ export function createDataFor(artwork: MappedArtwork) {
         showOnSite: artwork.showOnSite,
         order: artwork.order,
         createdAt: artwork.createdAt,
-        favorite: artwork.favorite,
+        tags: artwork.tags,
         _status: artwork.status,
     }
 }

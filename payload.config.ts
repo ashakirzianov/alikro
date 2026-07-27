@@ -9,8 +9,6 @@ import { buildConfig } from 'payload'
 import sharp from 'sharp'
 
 import { Artworks } from './payload/collections/Artworks'
-import { Materials } from './payload/collections/Materials'
-import { Series } from './payload/collections/Series'
 import { Users } from './payload/collections/Users'
 
 const filename = fileURLToPath(import.meta.url)
@@ -26,7 +24,10 @@ export default buildConfig({
             baseDir: path.resolve(dirname),
         },
     },
-    collections: [Artworks, Series, Materials, Users],
+    // `series` and `materials` were dropped 2026-07-27 — the modelling layer was
+    // built, shown to Anton and Alina, and rejected in favour of Crow's flat
+    // shape. Their contents are preserved in payload/migration/dump-*.json.
+    collections: [Artworks, Users],
     editor: lexicalEditor(),
     secret: process.env.PAYLOAD_SECRET || '',
     typescript: {
@@ -69,15 +70,7 @@ function agentSurface() {
         disabled: !isEnabled(process.env.PAYLOAD_MCP),
         collections: {
             artworks: {
-                description: 'One record per artwork — the image and its catalogue data (title, year, medium, material, series membership, and `order`, the single archive-wide sort position).',
-                enabled: readAndWriteNoDelete,
-            },
-            series: {
-                description: 'A named body of work. Membership is written on the artwork (`artworks.series`), not here.',
-                enabled: readAndWriteNoDelete,
-            },
-            materials: {
-                description: 'The material vocabulary — what works are made of and made on.',
+                description: 'One record per artwork — the image and its catalogue data (title, year, medium, free-text `material`, flat `tags`, and `order`, the single archive-wide sort position).',
                 enabled: readAndWriteNoDelete,
             },
         },

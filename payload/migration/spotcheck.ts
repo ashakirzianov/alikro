@@ -128,10 +128,10 @@ async function main() {
             }
         }
 
-        // The prose must survive the modelling.
-        if (doc.material && (!doc.materials || (Array.isArray(doc.materials) && doc.materials.length === 0))) {
-            failures.push({ slug, problem: `material "${doc.material}" produced no relations` })
-        }
+        // The "material produced no relations" assertion lived here. It went
+        // with the taxonomy on 2026-07-27 — there are no relations to check any
+        // more, and the raw string is now checked verbatim against Crow above,
+        // which is the whole of what the flat shape promises.
 
         // Every URL must actually serve. This is what catches a wrong bucket
         // policy or a malformed host, which otherwise looks like success.
