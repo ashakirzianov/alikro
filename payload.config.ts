@@ -33,10 +33,17 @@ export default buildConfig({
     typescript: {
         outputFile: path.resolve(dirname, 'payload/payload-types.ts'),
     },
-    // Neon in the trial; any Postgres connection string works. `push` stays on
-    // its default (dev-only) so schema changes apply without a migration step
-    // while the model is still moving.
+    // Neon in the trial; any Postgres connection string works.
+    //
+    // `push` is OFF. It defaults to on in dev, which was right while the model
+    // was moving, but the model has stopped and there are committed migrations
+    // now. Leaving it on is actively harmful: every script that boots Payload
+    // re-diffs the schema and stops on an interactive "DATA LOSS WARNING —
+    // accept and push? (y/N)" prompt. Piped, that prompt is invisible and the
+    // script simply hangs forever; unattended, it takes the default and exits 0,
+    // which reads as success. Both failure modes were hit here on 2026-07-27.
     db: postgresAdapter({
+        push: false,
         pool: {
             connectionString: process.env.DATABASE_URL || '',
         },

@@ -72,7 +72,10 @@ pipeline's sharp constructor, so the resumable script has to catch, log, continu
 
 ---
 
-## 2. `series` — the "beyond parity" layer
+## 2. `series` — the "beyond parity" layer  ⚠️ REVERSED, see §4a
+
+> **Built, judged and removed on 2026-07-27.** Kept below as the record of what
+> was built and why. The live schema has flat `tags` again.
 
 Today a "series" is a hardcoded query in `shared/collection.ts`, matched against
 free-text tags at request time. Payload makes it a document: `slug`, `title`,
@@ -95,7 +98,11 @@ a UX question for Alina, not a schema decision to take now.
 
 ---
 
-## 2b. `materials` — modelling the prose
+## 2b. `materials` — modelling the prose  ⚠️ REVERSED, see §4a
+
+> **Built, judged and removed on 2026-07-27.** Kept below as the record. The raw
+> `material` string — which this section argued for keeping verbatim — is the
+> only part still live, and it is what made the reversal cost minutes.
 
 Crow stores "gouache on paper + digital" as a string. alikro depends on its
 structure anyway, re-deriving it on every request with a bespoke parser — which
@@ -327,6 +334,74 @@ Swept and genuinely fine: `slug` (no native equivalent, and carrying Crow's id
 verbatim is the point), `showOnSite` (drafts are the wrong primitive — these are
 published works deliberately kept out of galleries), `series`, variants,
 `_status`, access.
+
+---
+
+## 4a. REVERSED — the modelling layer was built, judged, and rejected (2026-07-27)
+
+**This is the most interesting result of the trial, and it is a finding, not a
+rollback.** §2 and §2b below describe a `series` relation and a `materials`
+taxonomy. Both were built, migrated across the full archive, put in front of the
+people they were for, and **removed the same week at their request.** They are
+left in place below as the record of what was built; this section is what
+happened to it.
+
+**Layer (b) — the modelling layer — was Payload's headline advantage in the trial
+plan.** The plan says so explicitly: "a parity-only trial can only make Payload
+look like *Crow plus overhead* — it would lose by construction." So the trial was
+deliberately built to give Payload its best case. It got its best case, and the
+users chose the flat shape anyway.
+
+**Anton, verbatim, on whether it was ever engaged with:**
+
+> "I have opened both, but didn't edit it. I confirm requested schema change,
+> yes."
+
+and on the contents:
+
+> "Alina did not make any changes worth preserving. Treat it all as discardable."
+
+**Why the first quote matters more than it looks.** The dump-vs-seeds diff showed
+0 divergences, which alone is ambiguous: *unopened* and *opened-and-declined* look
+identical in the data and point at opposite conclusions. An unopened feature might
+have failed on discoverability. One that was opened and left untouched **was
+actually judged**. Anton's answer settles it as the second, which is the weaker
+headline and the stronger evidence.
+
+### What reverted, and what it cost
+
+| | |
+|---|---|
+| `series` relation + collection | dropped — flat `tags` again |
+| `materials` + `support` relations + collection | dropped — `material` free text only |
+| `favorite` checkbox | folded back into `tags` as the string `Favorite` |
+| `material` raw string | **unchanged, and this is why the reversal was cheap** |
+
+**The `favorite` fold-back is a real cost, recorded rather than hidden.** Crow
+stored it as a magic string inside a tag array; it is a boolean, and Payload has
+booleans. It was the one place the split was genuinely better than the incumbent,
+and parity with the incumbent is what deleted it.
+
+**Two blocking guards died with the taxonomy**, and that is the sharper cost. The
+migration used to refuse a `material` string its parser could not decompose, and
+refuse a tag that matched no known series. **A flat tag list accepts every string
+— that is the point of it, and it means neither class of error can be detected any
+more.** A typo'd tag and a material the site will silently fail to filter are both
+now invisible. The modelled shape could catch them; the chosen shape structurally
+cannot.
+
+**The reversal cost minutes, not a re-migration, and that was designed in.**
+Keeping the raw `material` string verbatim on every record was justified at the
+blessing gate as making the modelling "fully reversible." It was then actually
+reversed, four days later, and the justification paid out exactly as written — no
+bytes moved, no re-upload, all 5,131 S3 objects untouched. A design decision made
+against a hypothetical, tested by the real event.
+
+**What this says for the verdict.** Not "Payload's modelling is bad" — it worked,
+and the migration into it was clean. It says the modelling layer **is not what
+this archive needs**, which is a fact about alikro rather than about Payload. The
+honest form of the criterion-2 result is: *the effort to model alikro's content
+was low, and the modelled result was declined by the people who use it.*
 
 ---
 

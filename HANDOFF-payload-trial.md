@@ -80,11 +80,14 @@ documents them. Load with `set -a && . ./.env.local && set +a`.
 
 ## Do not "fix" these
 
-- **The legacy tag vocabulary is reconstructed, not stored**
-  (`shared/payloadContent.ts`). Adding a `tags` column looks simpler and would
-  leave the database holding both the native relation and the Crow-ism it
-  replaced — and would make the A/B compare two data models instead of two
-  presentations of one. The rationale is at the call site; read it before touching.
+- ~~**The legacy tag vocabulary is reconstructed, not stored.**~~ **Struck
+  2026-07-27 — this warning is dead, and leaving it standing would be worse than
+  deleting it.** There is no reconstruction any more: `tags` is a real column
+  again, because Anton and Alina judged the modelled shape (`series` relation +
+  `favorite` boolean) and preferred Crow's flat one. The warning was correct
+  while two data models coexisted; the reversion removed the second model, so
+  there is nothing left to keep apart. See §2/§2b of
+  `design-payload-field-mapping.md`.
 - **The two tiffs are a finding, not a bug to fix.** Payload cannot ingest them
   because it probes dimensions with `image-size` while resizing with sharp, and
   the stricter library gates the more capable one. A `beforeOperation` hook would

@@ -21,7 +21,7 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
-   CREATE TYPE "public"."enum_payload_folders_folder_type" AS ENUM('artworks');
+   DO $$ BEGIN CREATE TYPE "public"."enum_payload_folders_folder_type" AS ENUM('artworks'); EXCEPTION WHEN duplicate_object THEN null; END $$;
   CREATE TABLE IF NOT EXISTS "artworks_texts" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"order" integer NOT NULL,
@@ -76,14 +76,14 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   DROP TABLE IF EXISTS "_artworks_v_rels" CASCADE;
   DROP TABLE IF EXISTS "series" CASCADE;
   DROP TABLE IF EXISTS "materials" CASCADE;
-  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_series_fk";
+  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT IF EXISTS "payload_locked_documents_rels_series_fk";
   
-  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_materials_fk";
+  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT IF EXISTS "payload_locked_documents_rels_materials_fk";
   
-  DROP INDEX "artworks_favorite_idx";
-  DROP INDEX "_artworks_v_version_version_favorite_idx";
-  DROP INDEX "payload_locked_documents_rels_series_id_idx";
-  DROP INDEX "payload_locked_documents_rels_materials_id_idx";
+  DROP INDEX IF EXISTS "artworks_favorite_idx";
+  DROP INDEX IF EXISTS "_artworks_v_version_version_favorite_idx";
+  DROP INDEX IF EXISTS "payload_locked_documents_rels_series_id_idx";
+  DROP INDEX IF EXISTS "payload_locked_documents_rels_materials_id_idx";
   ALTER TABLE "artworks" ADD COLUMN IF NOT EXISTS "prefix" varchar DEFAULT 'alikro';
   ALTER TABLE "artworks" ADD COLUMN IF NOT EXISTS "folder_id" integer;
   ALTER TABLE "_artworks_v" ADD COLUMN IF NOT EXISTS "version_prefix" varchar DEFAULT 'alikro';
@@ -185,21 +185,21 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE IF EXISTS "payload_mcp_api_keys" CASCADE;
   DROP TABLE IF EXISTS "payload_folders_folder_type" CASCADE;
   DROP TABLE IF EXISTS "payload_folders" CASCADE;
-  ALTER TABLE "artworks" DROP CONSTRAINT "artworks_folder_id_payload_folders_id_fk";
+  ALTER TABLE "artworks" DROP CONSTRAINT IF EXISTS "artworks_folder_id_payload_folders_id_fk";
   
-  ALTER TABLE "_artworks_v" DROP CONSTRAINT "_artworks_v_version_folder_id_payload_folders_id_fk";
+  ALTER TABLE "_artworks_v" DROP CONSTRAINT IF EXISTS "_artworks_v_version_folder_id_payload_folders_id_fk";
   
-  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_payload_mcp_api_keys_fk";
+  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT IF EXISTS "payload_locked_documents_rels_payload_mcp_api_keys_fk";
   
-  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_payload_folders_fk";
+  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT IF EXISTS "payload_locked_documents_rels_payload_folders_fk";
   
-  ALTER TABLE "payload_preferences_rels" DROP CONSTRAINT "payload_preferences_rels_payload_mcp_api_keys_fk";
+  ALTER TABLE "payload_preferences_rels" DROP CONSTRAINT IF EXISTS "payload_preferences_rels_payload_mcp_api_keys_fk";
   
-  DROP INDEX "artworks_folder_idx";
-  DROP INDEX "_artworks_v_version_version_folder_idx";
-  DROP INDEX "payload_locked_documents_rels_payload_mcp_api_keys_id_idx";
-  DROP INDEX "payload_locked_documents_rels_payload_folders_id_idx";
-  DROP INDEX "payload_preferences_rels_payload_mcp_api_keys_id_idx";
+  DROP INDEX IF EXISTS "artworks_folder_idx";
+  DROP INDEX IF EXISTS "_artworks_v_version_version_folder_idx";
+  DROP INDEX IF EXISTS "payload_locked_documents_rels_payload_mcp_api_keys_id_idx";
+  DROP INDEX IF EXISTS "payload_locked_documents_rels_payload_folders_id_idx";
+  DROP INDEX IF EXISTS "payload_preferences_rels_payload_mcp_api_keys_id_idx";
   ALTER TABLE "artworks" ADD COLUMN IF NOT EXISTS "favorite" boolean DEFAULT false;
   ALTER TABLE "_artworks_v" ADD COLUMN IF NOT EXISTS "version_favorite" boolean DEFAULT false;
   ALTER TABLE "payload_locked_documents_rels" ADD COLUMN IF NOT EXISTS "series_id" integer;
