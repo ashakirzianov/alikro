@@ -36,6 +36,14 @@ Payload-internal CSS selectors that a release can rename with no error.**
 The tier-D list went from **1 selector to 3** in one afternoon of ordinary
 requests, which is the fact worth carrying.
 
+**Anton ruled on it 2026-07-28: *"Fair enough — stop, hand to Alina."*** Styling
+is closed; the tier-D selector series is closed at 3. The three judgement calls
+offered to him (header size, no tags in the filter row, Payload's chrome staying)
+were all accepted as they stand — see §5 of the re-skin doc, and do not re-open
+them as if still live. `PLAYTEST-payload.md` was revised for Alina's session:
+it had been telling her to edit the `series` collection, which no longer exists,
+and to react to the missing pictures, which are no longer missing.
+
 **The scouted route was only half right.** `admin.dashboard.widgets` and
 field-level `position: 'sidebar'` worked exactly as advertised, and `admin.theme`
 was a bonus. But **~30 `--theme-*` variables did not cover colour**: Payload
@@ -51,6 +59,16 @@ true`) is the only record in the archive that can express the draft-leak
 failure, because all 630 migrated records are published. Delete it and
 `migrate:spotcheck`'s draft guard degrades to a vacuous pass — it prints
 `NOT EXERCISED` rather than lying, but it stops testing anything.
+
+**It now carries its own warning label.** Until 2026-07-28 record 632 had **no
+title**, so in the admin it read as an untitled stray screenshot — sitting beside
+631, which is literally titled "(delete me)", in a brief that told the artist
+deleting the junk draft was a fine first task. It is now titled *"KEEP —
+draft-leak guard fixture (do not delete)"*. The retitle went through the Local
+API with `draft: true` (a plain update would have **published** it and destroyed
+the fixture), and the guard was re-verified afterwards both ways — still
+`9 draft(s), 1 of them with showOnSite=true`, still fires on a broken filter.
+`npx tsx payload/tools/list-drafts.mts` prints all nine with admin titles.
 
 ## Rules that still apply
 

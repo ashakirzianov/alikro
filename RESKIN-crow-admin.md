@@ -186,6 +186,7 @@ decision-relevant output here, and a snapshot actively misleads:
 |---|---|---|
 | image-native spike | 2026-07-27 | **1** |
 | Crow re-skin (this) | 2026-07-27 | **3** |
+| *(Anton closed styling 2026-07-28 — no further pass)* | | |
 
 A snapshot says *"300 lines — cheap."* The series says *the fragile surface grows
 whenever anyone actually styles this*, and it grew from 1 to 3 in a single
@@ -194,15 +195,35 @@ only the second one is load-bearing. Add a row; do not overwrite one.
 
 ---
 
-## 5. Open, for Anton and Alina
+## 5. Anton's ruling — 2026-07-28
+
+Asked directly: *"Does the re-skinned admin now look enough like Crow to judge
+Payload fairly, or does it need another pass?"*
+
+> **"Fair enough — stop, hand to Alina."**
+
+**Settled by that answer**, and recorded here so they are not re-opened as though
+still live. All three were offered to him explicitly and accepted as they stand:
+
+| decision | outcome |
+|---|---|
+| Filter row at 1.75rem rather than Crow's `text-5xl` | **stands** |
+| Header lists the seven mediums, `drafts` and `hidden` — but **not** tags | **stands** |
+| Payload's own chrome (heading, Create New, search, Columns, Filters) remains | **stands** |
+
+**The tier-D series is therefore closed at 3** unless someone reopens the styling.
+No further pass; no new row in the table in §3.
+
+### Still open — for Alina
+
+Anton judged whether it *looks* like Crow. That is a different question from
+whether it *works*, and only Alina can answer the second one.
 
 | question | who |
 |---|---|
-| Filter row at 1.75rem — or Crow's full `text-5xl`? | **Anton** |
-| Should the header list tags too, given they would need a separate fetch? | **Anton** |
-| Is losing Payload's `Artworks` heading + Create New row worth a custom list view? | **Anton** |
 | Is the edit view's field split right — Title/Year/Material/Medium/Tags in the main column, Slug/Show On Site/Order in the sidebar? | **Alina** |
 | Dashboard: the last dozen touched works, or something else? | **Alina** |
+| Does she miss tags in the filter row enough to justify the extra fetch? | **Alina** |
 
 **Before Alina looks:** tell her two ceramics are absent ("a cup", "broken
 vessel"). It is a known finding, not a mistake — if she meets it cold she will
