@@ -62,7 +62,7 @@ fields Payload actually has.
 | the dashboard replacement is first-party | `admin.dashboard.defaultLayout` displaces the stock cards; the import map still lists `@payloadcms/next/rsc#CollectionCards`, so the stock widget stays available in the picker |
 | no schema change | `generate:types` produced only doc-comment and widget-slug edits. `admin.position` / `admin.hidden` are admin-only. **No migration needed** |
 | the draft-leak guard still fires | broke it deliberately (removed the `_status` clause from `shared/payloadContent.ts`), got `exit=1` and `screenshot-2026-04-29-at-11-09-48-am: DRAFT IS PUBLICLY VISIBLE`; restored, `Spot-check clean` with the guard **exercised** — `9 draft(s), 1 of them with showOnSite=true` |
-| build | `next build --debug-prerender` exits 0 |
+| build | `next build --debug-prerender` exits 0 — **re-done properly 2026-07-28**: plain `NODE_ENV=production npx next build` exits 0 with no flag. The flag had been masking an inherited `NODE_ENV=development`, not working around a repo defect (see `CLAUDE.md`) |
 
 **Two things that were dark until they were looked at:**
 

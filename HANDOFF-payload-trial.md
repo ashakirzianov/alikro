@@ -123,9 +123,23 @@ documents them. Load with `set -a && . ./.env.local && set +a`.
   directory (`git -C`, `npm --prefix`).
 - **The committed `crow-export.json` will be refused as stale** after 24h. That
   is the guard working. Re-export; do not set `ALLOW_STALE_EXPORT`.
-- **`npm run build` fails prerendering `/_global-error`**, and `eslint` crashes on
-  its config. Both **reproduce on pristine `main`** — pre-existing, not yours.
-  Use `next build --debug-prerender`, which is green.
+- ~~**`npm run build` fails prerendering `/_global-error`**, and `eslint` crashes
+  on its config. Both **reproduce on pristine `main`** — pre-existing, not yours.
+  Use `next build --debug-prerender`, which is green.~~ **Half wrong, corrected
+  2026-07-28 — and the wrong half was the expensive kind.**
+  - **The build failure was never pre-existing.** It is `NODE_ENV=development`,
+    which agent shells inherit and Anton's does not — which is exactly why it
+    looked like it "reproduced on pristine `main`" (every agent reproducing it
+    shared the same broken environment). Verified both directions in this repo:
+    plain `npx next build` exits **1** inherited, **0** under
+    `NODE_ENV=production`. See the ⚠️ section in `CLAUDE.md`.
+  - **`--debug-prerender` was not a fix**, it was a mask. That is the worse
+    failure: it turned a false red green and made an environment bug look like a
+    known, characterised, worked-around defect that nobody needed to look at
+    again. Every "build green" on this branch before 2026-07-28 was obtained
+    through it and is therefore weaker evidence than it reads as.
+  - **The `eslint` half is genuine.** It crashes identically under both
+    environments. Still pre-existing, still not yours.
 - Long runs are **block-buffered** through a pipe, so progress appears in batches.
   The S3 object count is a better live progress signal.
 - **The preview tool's screenshot path is broken on this machine.**

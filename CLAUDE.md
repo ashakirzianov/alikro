@@ -52,6 +52,50 @@ The project is small, so the workflow here is lighter than in the more structure
 - `npm run start` — Start production server
 - `npm run lint` — Run ESLint
 
+### ⚠️ If `npm run build` fails and Anton's build is fine — check the environment first
+
+**Agent shells inherit `NODE_ENV=development`.** Run this *before* investigating a
+red build:
+
+```
+env | grep -iE '^(NODE_ENV|NEXT_|VITE_)'
+```
+
+If `NODE_ENV=development` is set, pin it at the invocation and re-run:
+
+```
+NODE_ENV=production npm run build
+```
+
+`NODE_ENV=development` **breaks `next build`**: development React resolves against
+production chunks, the hook dispatcher is null, and every client page fails to
+prerender. The symptom names a page, not the cause:
+
+```
+Error occurred prerendering page "/_global-error"
+TypeError: Cannot read properties of null (reading 'useContext')
+```
+
+Verified in this repo on 2026-07-28, both directions: plain `npx next build`
+exits **1** under the inherited environment and **0** under
+`NODE_ENV=production`. Independent of Next/React/Node version (seen across next
+16.1.6–16.2.12, react 19.0–19.2, Node 22–25).
+
+**Name the class, because it costs whole sessions:** a build failure Anton cannot
+reproduce is a **false red**, and the environment is the first suspect — not the
+last. This one was already written up in the tooling's own notes and *still* cost
+another track a session three days later, because it was filed where the cause
+lives rather than where the symptom appears. It is in this file for that reason.
+
+Two corollaries worth knowing:
+
+- **A workaround that makes a false red go green is worse than the red.** This
+  repo spent days believing `next build` was pre-existing-broken and that
+  `--debug-prerender` was the fix. It was not a fix; it happened to mask the
+  environment bug, which made a false red look like a characterised defect.
+- **`npx eslint .` really does crash on its config**, under both environments.
+  That one is genuinely pre-existing and is not this.
+
 ## Coding preferences
 
 ### General
