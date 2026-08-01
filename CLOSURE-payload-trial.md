@@ -16,6 +16,13 @@ itself does not have to be re-run by anyone curious about it later.
 Crow-style re-skin are all intact and are meant to stay that way. §4 is the
 instructions for bringing it back up.
 
+**And "saved" means saved.** The trial's data originally lived only in a
+free-tier hosted database that suspends on inactivity and fails silently, which
+would have made this document a description of something perishable. All 639
+records are therefore committed to this branch as readable JSON —
+`payload/archive/artworks.json`. §4 says exactly what that covers and what it
+does not.
+
 **Read this before re-opening the question.** A rejected option that is not
 written down gets restored later as though its absence were an oversight. Payload
 was not overlooked here — it was installed, loaded with the real 630-work
@@ -331,18 +338,68 @@ fails loudly.**
 
 - **The Neon Postgres database.** Free-tier projects suspend on inactivity and can
   be removed entirely after long enough. If it is gone, the app still builds and
-  `/admin` fails on first request. **All 639 records live only there** — there is
-  no committed dump. Reviving from scratch means a new Postgres, `payload migrate`
-  to build the schema from the committed migrations, and re-running the archive
-  migration, which needs a staged copy of Crow's originals (`CROW_STAGING_DIR`).
+  `/admin` fails on first request. **The records are committed to this branch**
+  (see below), so the archive survives it — but the live database does not.
+  Standing it up again means a new Postgres and `payload migrate` to build the
+  schema from the committed migrations.
 - **The S3 bucket `alikro-payload-trial`** (us-east-2, 5,131 objects). It costs
   money to keep, so it may have been cleaned up. If it is gone the admin loads
   normally and **every image is broken** — the records still carry URLs pointing
   at a bucket that no longer answers.
 
 **If both are gone, the branch is still a complete working example** of the
-config, schema, migration tooling and re-skin. It is the *data* that is
-perishable, not the trial.
+config, schema, migration tooling and re-skin, *plus* the full catalogue as text.
+
+### What is actually saved, and what is not
+
+`payload/archive/artworks.json` — **all 639 records, committed.** Regenerate with
+`npx tsx payload/tools/dump-archive.mts`. Plain pretty-printed JSON on purpose,
+not a `pg_dump`: the point is that someone can open it and read what the trial
+held whether or not they ever restore it.
+
+**It covers:** every artwork's `slug`, `title`, `year`, `material`, `medium`,
+`tags`, `order`, `showOnSite`, `_status`, timestamps, dimensions, filename, and
+all eight variant URLs — 630 published works plus the nine drafts, with the 31
+distinct tags intact. That is the catalogue: everything the artist typed and
+everything the migration derived.
+
+**It does not cover:**
+
+- **The image bytes.** This is metadata only. See below for why that is the right
+  call rather than an omission.
+- **The `users` collection**, deliberately — it holds password hashes and salts
+  and this branch is on a public remote. A revived instance has **no login**;
+  create one with `npx payload create-first-user`, or point `.env.local` at a
+  database and use the admin's own first-run screen.
+- **Version history.** Each record's *current* state is dumped, including drafts.
+  The `_artworks_v` version rows behind Payload's drafts feature are not.
+- **The one empty folder** left from testing Payload's folder view.
+- It is a **record dump, not a database restore.** Re-creating records from it
+  means a create loop, not a SQL import.
+
+**One non-obvious thing that makes the fixtures survivable.** Record 632 is
+load-bearing because of its *state* — a draft with `showOnSite: true` — not
+because of its pixels, which are a screenshot. And Payload skips upload
+validation for drafts (the same behaviour that let the criterion-4 probe create
+record 637 with no file at all). So the draft-leak guard's fixture **can be
+rebuilt from this dump without its image**, even if the bucket is long gone.
+
+### Why the media is deliberately not committed
+
+**None of it is the only copy, and that was checked rather than assumed.**
+
+- The **630 migrated originals** were staged from Crow's own `alikro/originals/`
+  (`CROW_STAGING_DIR` in the migration). They live in Crow's production bucket,
+  which is the live system. The trial bucket was always a second copy.
+- The only files that exist **solely** in the trial bucket are the eight draft
+  uploads: one playtest check JPEG, one screenshot of the admin, and six
+  synthetic probe PNGs. **Not one is an artwork.** Losing them costs nothing that
+  the records themselves do not already document.
+
+So committing ~5 GB of media would preserve nothing that is not already
+preserved, at real cost to the repo. If that ever changes — if some trial upload
+becomes the only copy of something that matters — that is a different decision
+and worth revisiting.
 
 Other things that will bite:
 
@@ -370,6 +427,7 @@ Other things that will bite:
 | `payload.config.ts`, `payload/collections/` | schema, storage, MCP plugin |
 | `payload/components/` | the re-skin's React — `ArtworkGrid`, `CrowDashboard` |
 | `app/(payload)/custom.scss` | the theme, **split into marked tiers** — read the tier banners before editing |
+| `payload/archive/artworks.json` | **the committed record dump — all 639 records** |
 | `payload/migration/` | export, validate, migrate, spotcheck, tag backfill |
 | `payload/probe/` | the criterion-4 agent-operability probes |
 | `payload/tools/` + its `README.md` | CDP screenshots, `expect` wrappers for Payload's prompting CLI, draft lister |
