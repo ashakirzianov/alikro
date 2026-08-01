@@ -1,5 +1,15 @@
 # Payload trial — handoff
 
+> **⛔ THE TRIAL IS CLOSED. Payload was evaluated and NOT adopted (2026-08-01).**
+> There is no outstanding work here and nothing below is a live task.
+> Read [`CLOSURE-payload-trial.md`](./CLOSURE-payload-trial.md) first — it holds
+> the verdict, the criteria answers, what the trial taught, and how to bring the
+> whole thing back up if you want to poke at it.
+>
+> **Delete nothing.** The branch, the data, the bucket, the tooling and the
+> re-skin are preserved on purpose, at Anton's request. This file remains useful
+> as the operational detail for anyone actually working *on* the branch.
+
 For the agent picking this up **rooted in `alikro-art/`** rather than in `axis`.
 The design record is `design-payload-field-mapping.md` — read it first; this file
 only covers what that document does not.

@@ -45,6 +45,19 @@ The project is small, so the workflow here is lighter than in the more structure
 - When a new convention emerges from discussion (naming rules, architectural patterns), add it to `CLAUDE.md` immediately.
 - `CLAUDE.md` should be the authoritative source of truth for conventions — future conversations should be able to derive them from this file alone.
 
+## The `payload-trial` branch — closed, preserved, not live work
+
+If you are on `payload-trial`, note that the Payload CMS trial it exists for is
+**closed: Payload was evaluated and not adopted (2026-08-01).** `main` is
+unaffected and production alikro.art has always run on Crow.
+
+Nothing on that branch is outstanding work, and **nothing on it should be
+deleted, reverted or tidied** — it is preserved deliberately, at Anton's request,
+so the experiment can be revisited. Read `CLOSURE-payload-trial.md` there before
+touching anything: it holds the verdict, what the trial taught about mainstream
+CMSes, and the revival instructions. Several drafts in the trial database are
+load-bearing test fixtures rather than litter.
+
 ## Development Commands
 
 - `npm run dev` — Start development server

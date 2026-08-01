@@ -1,5 +1,10 @@
 # Re-skinning the Payload admin toward Crow
 
+> **The trial is CLOSED — Payload was not adopted (2026-08-01).** This document
+> is preserved as part of the record. The verdict, the criteria answers and the
+> instructions for bringing it back up are in
+> [`CLOSURE-payload-trial.md`](./CLOSURE-payload-trial.md).
+
 **2026-07-27, after the playtest.** Anton and Alina judged the stock admin a
 downgrade — "boring", "not image-native". `SPIKE-image-native-admin.md` fixed
 the list view with ~140 lines. This is the rest of that job: colour, typography,

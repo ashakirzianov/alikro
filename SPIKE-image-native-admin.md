@@ -1,5 +1,10 @@
 # Spike: making the Payload admin image-native
 
+> **The trial is CLOSED — Payload was not adopted (2026-08-01).** This document
+> is preserved as part of the record. The verdict, the criteria answers and the
+> instructions for bringing it back up are in
+> [`CLOSURE-payload-trial.md`](./CLOSURE-payload-trial.md).
+
 **2026-07-27, after the playtest.** Anton and Alina judged the admin a downgrade —
 "boring", "not image-native", artworks as rows of titles. They were judging
 Payload's stock defaults, which no real deployment would ship. This spike builds

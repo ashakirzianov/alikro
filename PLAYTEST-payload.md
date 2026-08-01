@@ -1,5 +1,10 @@
 # Payload playtest — brief for Anton & Alina
 
+> **The trial is CLOSED — Payload was not adopted (2026-08-01).** This document
+> is preserved as part of the record. The verdict, the criteria answers and the
+> instructions for bringing it back up are in
+> [`CLOSURE-payload-trial.md`](./CLOSURE-payload-trial.md).
+
 The archive is migrated and the site runs on Payload. This is a **comparison, not
 a launch**: production alikro.art is untouched and still runs on Crow.
 

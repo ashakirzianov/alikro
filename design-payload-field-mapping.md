@@ -1,5 +1,10 @@
 # Crow → Payload field mapping (trial)
 
+> **The trial is CLOSED — Payload was not adopted (2026-08-01).** This document
+> is preserved as part of the record. The verdict, the criteria answers and the
+> instructions for bringing it back up are in
+> [`CLOSURE-payload-trial.md`](./CLOSURE-payload-trial.md).
+
 Branch-only document. Belongs to the Payload kill-test described in
 `../axis/docs/crow-payload-trial.md`; production alikro.art still reads from Crow
 and is untouched by this branch.

@@ -1,5 +1,10 @@
 # Probe: criterion 4 — how well can agents drive Payload?
 
+> **The trial is CLOSED — Payload was not adopted (2026-08-01).** This document
+> is preserved as part of the record. The verdict, the criteria answers and the
+> instructions for bringing it back up are in
+> [`CLOSURE-payload-trial.md`](./CLOSURE-payload-trial.md).
+
 **2026-07-27.** The last untested evaluation criterion of the Crow → Payload
 trial, and the only one that needed nothing from Anton.
 
