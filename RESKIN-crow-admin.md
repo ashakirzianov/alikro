@@ -63,7 +63,7 @@ fields Payload actually has.
 |---|---|
 | the filter row actually refines the list | navigated to `where[medium][equals]=ceramic`: `ceramic` renders inverted **and** the grid shows only ceramics. REST reports `totalDocs = 48` for the same query, and the site shows 48 ceramics too |
 | the theme variables reach the browser | the served bundle contains the `:root` block unlayered, so it beats Payload's `@layer payload-default` |
-| Inter is actually fetched | the `@import` is at **byte 0** of the served stylesheet — a CSS `@import` anywhere else is dropped by the parser, which is the failure mode this was checked for |
+| Inter is actually fetched | the `@import` is at **byte 0** of the served stylesheet — a CSS `@import` anywhere else is dropped by the parser, which is the failure mode this was checked for. ⚠️ **True when measured, but it is luck of bundling order, not a maintained property** — add any stylesheet ahead of `custom.scss` and the font silently stops loading. See the latent-defects list in `CLOSURE-payload-trial.md` |
 | the dashboard replacement is first-party | `admin.dashboard.defaultLayout` displaces the stock cards; the import map still lists `@payloadcms/next/rsc#CollectionCards`, so the stock widget stays available in the picker |
 | no schema change | `generate:types` produced only doc-comment and widget-slug edits. `admin.position` / `admin.hidden` are admin-only. **No migration needed** |
 | the draft-leak guard still fires | broke it deliberately (removed the `_status` clause from `shared/payloadContent.ts`), got `exit=1` and `screenshot-2026-04-29-at-11-09-48-am: DRAFT IS PUBLICLY VISIBLE`; restored, `Spot-check clean` with the guard **exercised** — `9 draft(s), 1 of them with showOnSite=true` |

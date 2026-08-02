@@ -218,6 +218,14 @@ approximately a description of Crow, with a database and a draft system attached
 Against Crow's ~zero maintenance weight, that is what did not repay the
 migration.
 
+**The honest boundary on this criterion: the tripwires are predicted, not
+observed.** No tier-D selector was ever *watched* going stale — no older or
+newer Payload was pinned to see one of the three break — and `npm outdated` was
+never run to measure how far 3.86.0 had already drifted. The "near-weekly
+releases" figure is from Payload's docs, not from this repo. The argument is
+structural and sound; it is not evidential, and making it evidential was
+affordable at the time.
+
 ### 6. Substrate for a future vision-native fork — *no longer clear-cut, and left open*
 
 The pre-trial framing had Payload bringing a maintained admin and an AI-plugin
@@ -295,6 +303,25 @@ distinction that actually matters is **capability versus discoverability** —
 Payload could do all three tasks, and an agent could not find the upload path
 alone.
 
+**The normalise step is the real specification, not the docs.** Twenty minutes in
+`node_modules/payload/dist/config/sanitize.js` answered more than the
+documentation did: it is where defaults are injected into *your own* config
+object at boot (it literally `push`es the stock `collections` dashboard widget
+into your `widgets` array), and where you learn that saved user preferences beat
+`defaultLayout`. **For any config-driven product, read its sanitize/normalise
+pass before its docs.**
+
+**One question decides whether custom admin views are cheap: does the list view
+expose its query state as a React context?** Payload's `useListQuery()` returns
+both the already-fetched docs *and* `refineListData` — the same entry point its
+own Filters control uses, which is why 88 lines bought working search, sort,
+filter and pagination. **Ask this first when evaluating any headless CMS**; it
+separates "custom presentation" from "reimplement the list." Relatedly, check
+whether the vendor wraps its CSS in a cascade layer before fighting it — Payload
+uses `@layer payload-default` / `@layer payload`, so any *unlayered* custom CSS
+beats all of it regardless of specificity, with no `!important` and no
+specificity war.
+
 **Embedding couples your version floor to theirs.** A CMS installed *into* the
 app is not a dependency you upgrade on your schedule. Weekly-release projects
 make this a standing tax rather than an occasional one. Worth knowing before you
@@ -349,6 +376,36 @@ fails loudly.**
 
 **If both are gone, the branch is still a complete working example** of the
 config, schema, migration tooling and re-skin, *plus* the full catalogue as text.
+
+### Latent defects shipped into the branch — never fixed
+
+Recovered from the implementing agent before it was retired; these are in the
+branch now and are not recorded anywhere else. None of them affected the
+verdict, and all of them would bite a reviver.
+
+- **Three hardcoded `#fff` in `custom.scss`** (~lines 135, 194, 224 — filter
+  highlight, badge, dashboard link hover). They should be theme variables. This
+  is invisible **only because `admin.theme` is pinned to `'light'`**; set it back
+  to `'all'` and dark mode gets white-on-light. The mode that would have shown
+  the bug was disabled in the same session the bug was introduced.
+- **The Inter webfont loads by luck of bundling order, and RESKIN overstates
+  it.** That doc records "`@import` is at byte 0 of the served stylesheet" as a
+  verified property — it was true when measured, but **nothing maintains it.**
+  Add any stylesheet ahead of `custom.scss` and the font silently stops loading
+  with no error. **Self-host via `next/font` in the payload layout instead**, and
+  accept editing the file Payload marks as generated.
+- **The filter row's active-state detection is `JSON.stringify` equality**
+  (`ArtworkGrid.tsx:51`) against `query.where`, so key order matters. The URL
+  round-trip was proven for one filter; building the *same* query through
+  Payload's own Filters control probably does **not** highlight the row. Cosmetic
+  — but it is an assumption that reads like a verified behaviour.
+- **Only ever viewed at 1400px wide.** Every screenshot and every judgement. The
+  `--gutter-h` and `--base-px` overrides are unlayered, so they beat Payload's
+  `mid-break`/`small-break` media queries at *all* widths: mobile and tablet get
+  desktop spacing. Never opened in a narrow viewport, so if Alina ever used an
+  iPad, nobody has seen what she saw.
+- **The grid was never tested beyond 24 records on screen.** Flagged by the
+  spike, inherited, and not closed.
 
 ### What is actually saved, and what is not
 
@@ -536,3 +593,14 @@ questions that would need different answers:
 
 If the answer to all four is still no, this document is the answer, and the work
 does not need repeating.
+
+**Two cheap things to do differently if a trial like this runs again:**
+
+- **Classify the escape hatches into tiers *before* writing any CSS, not after.**
+  This trial wrote the stylesheet and then sorted it into tiers. Sorting first
+  would have surfaced the headline finding — that colour is not reachable through
+  variables — on day one instead of at the write-up.
+- **Take one screenshot of the stock product before touching anything.** This
+  trial never captured the untouched admin itself and leaned on the spike's. A
+  before/after pair at the same viewport is the artifact a human actually judges,
+  and it costs one command.
