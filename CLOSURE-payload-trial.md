@@ -383,6 +383,14 @@ Recovered from the implementing agent before it was retired; these are in the
 branch now and are not recorded anywhere else. None of them affected the
 verdict, and all of them would bite a reviver.
 
+**Worth naming, because it is the uncomfortable half of an otherwise clean
+closure:** this document was written, reviewed and acted on while five real
+defects existed only in one agent's head. **A good closure document is not
+automatically a complete one** — this one captured the *decision* thoroughly and
+said nothing about the *state of the code that produced it*. When closing an
+effort, write down what you shipped that you are not proud of, not only what you
+concluded.
+
 - **Three hardcoded `#fff` in `custom.scss`** (~lines 135, 194, 224 — filter
   highlight, badge, dashboard link hover). They should be theme variables. This
   is invisible **only because `admin.theme` is pinned to `'light'`**; set it back
