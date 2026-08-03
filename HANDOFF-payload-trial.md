@@ -28,7 +28,13 @@ Write-ups, each self-contained:
 - `PROBE-agent-operability.md` — criterion 4, closed. Payload ships a
   **first-party** MCP server, which the landscape research predates.
 
-- Branch `payload-trial`, ~20 commits, **local only — never pushed, never merged.**
+- Branch `payload-trial`, **38 commits ahead of `main`, pushed to `origin`, never
+  merged.** *(Corrected 2026-08-03. This line previously read "~20 commits, local
+  only — never pushed, never merged", which was true when written and is now
+  false on two of three counts. MEASURED just now: `git rev-list --count
+  main..payload-trial` = 38, and `origin/payload-trial` exists. "Never merged" is
+  still true and `main` is still untouched. The stale version mattered because a
+  successor reading "local only" would think the trial was not backed up.)*
 - `main` is untouched. Production alikro.art still reads from Crow.
 - `../crow-cms` is **read-only** and was never modified.
 - Live: Neon Postgres with **639 artworks** (630 migrated + 9 drafts), flat
